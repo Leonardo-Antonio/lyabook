@@ -1,7 +1,15 @@
 <template>
-  <Tutorial/>
+  <div>
+    <el-input placeholder="Please input" v-model="input" clearable> </el-input>
+  </div>
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      input: ''
+    }
+  }
+}
 </script>
