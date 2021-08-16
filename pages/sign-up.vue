@@ -1,12 +1,6 @@
 <template>
   <div class="relative">
     <img
-      class="absolute bottom-8 -left-24 z-20"
-      src="/images/person_reading.png"
-      alt="circle_quadrate"
-      width="550"
-    />
-    <img
       class="absolute bottom-0 right-0"
       src="/shapes/circle_lines.png"
       alt="circle_lines"
@@ -25,26 +19,35 @@
             src="/shapes/circleofcircleminor.png"
             alt="circleofcircleminor"
           />
+
+          <img
+            class="absolute bottom-10 -left-24"
+            src="/images/person_book.svg"
+            alt="circle_quadrate"
+            width="380"
+          />
           <div>
             <div class="flex justify-center mt-28 mb-20">
               <img src="/logos/main.svg" alt="" />
             </div>
 
-            <div>
+            <div class="z-20 absolute left-0 right-0 mx-auto">
               <div class="flex flex-col">
                 <div class="flex justify-center">
-                  <button class="w-16 text-left link_mutex">Email</button>
+                  <button class="w-16 text-left link_mutex" @click="showEmail">
+                    Email
+                  </button>
                 </div>
 
                 <div class="flex justify-center">
-                  <button class="w-16 text-left link_mutex">Dni</button>
+                  <button class="w-16 text-left link_mutex" @click="showDni">
+                    Dni
+                  </button>
                 </div>
               </div>
             </div>
 
-            <footer
-              class="absolute bottom-0 w-full flex justify-center"
-            >
+            <footer class="absolute bottom-0 w-full flex justify-center">
               <span class="text-opacity pt-2 pb-2">
                 Powered by
                 <a href="https://github.com/Leonardo-Antonio" target="_blank">
@@ -59,84 +62,44 @@
           </div>
         </div>
 
-        <div class="w-4/5 h-screen flex items-center relative">
-          <img
-            class="absolute bottom-0 -left-12 z-0"
-            src="/shapes/quadrate_circleminor.png"
-            alt="quadrate_circleminor"
-          />
-          <div class="w-4/5 mx-auto">
-            <div>
-              <div>
-                <div>
-                  <h2 class="title-roboto mt-4 mb-1">
-                    Enamórate de la lectura
-                  </h2>
-                  <strong class="strong"
-                    >Crea una cuenta en menos de 2 min</strong
-                  >
-                </div>
-                <div class="mt-4 mb-8">
-                  <p class="text-opacity">
-                    Llene este sencillo formulario <br />
-                    para registrar tus datos de usuario y crear tu cuenta en
-                    LyaBook
-                  </p>
-                </div>
-              </div>
-
-              <div class="w-1/2">
-                <div class="flex">
-                  <el-input
-                    class="mr-1"
-                    placeholder="Nombres"
-                    v-model="input"
-                    clearable
-                  />
-                  <el-input
-                    class="ml-1"
-                    placeholder="Apellidos"
-                    v-model="input"
-                    clearable
-                  />
-                </div>
-                <div>
-                  <el-input
-                    class="mt-2"
-                    placeholder="Email"
-                    v-model="input"
-                    clearable
-                  />
-                  <el-input
-                    class="mt-2"
-                    placeholder="Password"
-                    v-model="input"
-                    show-password
-                  />
-                </div>
-                <div>
-                  <el-checkbox class="mt-2 mb-2" v-model="checked">
-                    Acepto los Términos y condiciones y las Políticas de
-                    privacidad.
-                  </el-checkbox>
-                </div>
-
-                <div>
-                  <button>
-                    <btn-semirounded name="Empezar" />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <SignUpEmail v-show="email" />
+        <SignUpDni v-show="dni" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+import SignUpEmail from '../components/sign-up/email'
+import SignUpDni from '../components/sign-up/dni'
+export default {
+  components: {
+    SignUpEmail,
+    SignUpDni,
+  },
+  data() {
+    return {
+      email: true,
+      dni: false,
+    }
+  },
+  methods: {
+    showEmail() {
+      if (this.email === true) {
+        return
+      }
+      this.email = !this.email
+      this.dni = !this.dni
+    },
+    showDni() {
+      if (this.dni === true) {
+        return
+      }
+      this.dni = !this.dni
+      this.email = !this.email
+    },
+  },
+}
 </script>
 
 <style scoped>
