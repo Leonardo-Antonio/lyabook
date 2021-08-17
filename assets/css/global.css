@@ -39,3 +39,29 @@
   line-height: 32px;
   color: #828282;
 }
+
+.container__login .el-input__inner {
+  border-radius: 50px;
+}
+
+.btn_rounded_primary {
+  background-color: var(--primary);
+  border-radius: 50px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 26px;
+  color: #ffffff;
+}
+.btn_border_line {
+  border: 1px solid #5e20e4;
+  box-sizing: border-box;
+  border-radius: 50px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 26px;
+  color: #333333;
+}

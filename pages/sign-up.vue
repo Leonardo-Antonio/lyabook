@@ -72,6 +72,7 @@
 <script>
 import SignUpEmail from '../components/sign-up/email'
 import SignUpDni from '../components/sign-up/dni'
+
 export default {
   components: {
     SignUpEmail,
