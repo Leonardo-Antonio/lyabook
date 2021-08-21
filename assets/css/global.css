@@ -2,7 +2,16 @@
 
 :root {
   --primary: #5e20e4;
+  --opacity2: #C4C4C4;
 }
+
+.bg_primary {
+  background-color: var(--primary);
+}
+.bg_opacity2 {
+  background-color: var(--opacity2);
+}
+
 
 .title-roboto {
   font-family: Roboto;

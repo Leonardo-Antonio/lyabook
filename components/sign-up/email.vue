@@ -45,8 +45,8 @@
           </div>
 
           <div>
-            <button>
-              <ButtonSemiRounded name="Empezemos" />
+            <button disabled :class='{"cursor-not-allowed": !checked}'>
+              <ButtonSemiRounded :valid=checked name="Empezemos" />
             </button>
           </div>
         </div>
@@ -72,7 +72,8 @@ export default {
         lastname: '',
         email: '',
         password: '',
-      }
+      },
+      checked: false
     }
   }
 }

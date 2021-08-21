@@ -1,5 +1,5 @@
 <template>
-  <div class="btn-semiroudend">
+  <div class="btn-semiroudend" :class="{'bg_primary': valid, 'bg_opacity2': !valid}">
     <span class="text-btn">{{ name }}</span>
   </div>
 </template>
@@ -11,13 +11,17 @@ export default {
       type: String,
       required: true,
     },
+    valid: {
+      type: Boolean,
+      required: true,
+      default: false
+    }
   },
 }
 </script>
 
 <style scoped>
 .btn-semiroudend {
-  background: #5e20e4;
   border-radius: 8px;
   width: 10rem;
   height: 2.8rem;
@@ -26,6 +30,7 @@ export default {
   justify-content: center;
   color: #fff;
 }
+
 
 .text-btn {
   font-family: Roboto;
