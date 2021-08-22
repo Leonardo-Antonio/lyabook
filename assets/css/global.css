@@ -3,6 +3,19 @@
 :root {
   --primary: #5e20e4;
   --opacity2: #C4C4C4;
+  --secundary: #F9F9FF;
+}
+
+.color_primary {
+  color: #5e20e4;
+}
+
+.color_white {
+  color: #fff;
+}
+
+.color_black {
+  color: #000;
 }
 
 .bg_primary {
@@ -12,6 +25,17 @@
   background-color: var(--opacity2);
 }
 
+.bg_secundary {
+  background-color: var(--secundary);
+}
+
+.bg_white {
+  background-color: #fff;
+}
+
+.shadow_card {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
 
 .title-roboto {
   font-family: Roboto;
