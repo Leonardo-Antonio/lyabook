@@ -1,14 +1,14 @@
 <template>
-  <Home />
+  <Categories />
 </template>
 
 <script>
-  import Home from '../../../components/dashboard/admin/home'
+  import Categories from '../../../components/dashboard/admin/categories'
 
   export default {
     layout: 'admin',
     components: {
-      Home
+      Categories
     }
   }
 </script>

@@ -1,14 +1,14 @@
 <template>
-  <Home />
+  <Promotions />
 </template>
 
 <script>
-  import Home from '../../../components/dashboard/admin/home'
+  import Promotions from '../../../components/dashboard/admin/promotions'
 
   export default {
     layout: 'admin',
     components: {
-      Home
+      Promotions
     }
   }
 </script>

@@ -1,14 +1,14 @@
 <template>
-  <Home />
+  <Claims />
 </template>
 
 <script>
-  import Home from '../../../components/dashboard/admin/home'
+  import Claims from '../../../components/dashboard/admin/claims'
 
   export default {
     layout: 'admin',
     components: {
-      Home
+      Claims
     }
   }
 </script>

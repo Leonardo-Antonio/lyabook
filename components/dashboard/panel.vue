@@ -9,7 +9,7 @@
         <div class="pt-8 px-8">
           <div>
             <div class="flex flex-col" v-for="btn of btns" :key="btn.icon">
-              <button class="py-1">
+              <button class="py-1" @click="hello">
                 <BtnDashBoard :icon="btn.icon" :text="btn.text" />
               </button>
             </div>
@@ -26,6 +26,11 @@ import BtnDashBoard from '../buttons/btn-dashboard'
 export default {
   components: {
     BtnDashBoard,
+  },
+  methods: {
+    hello() {
+      alert("dasd")
+    }
   },
   data() {
     return {
