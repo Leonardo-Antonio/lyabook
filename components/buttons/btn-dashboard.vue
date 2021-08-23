@@ -37,19 +37,13 @@ export default {
 .text_dashboard {
   font-family: Roboto;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 1rem;
   line-height: 21px;
+  color: #000;
 }
 .btn_dashboard {
   background-color: rgba(0, 0, 0, 0);
   transition: all 0.3s;
-}
-
-.btn_dashboard:hover {
-  background-color: var(--primary);
-  transition: all 0.3s;
-  color: #fff;
-  font-weight: bold;
-}
+} 
 </style>

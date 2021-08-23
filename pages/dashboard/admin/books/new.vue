@@ -48,7 +48,7 @@
                   </div>
 
                   <div class="w-full flex flex-row pb-4">
-                    <div class="flex flex-col px-8 w-full">
+                    <div class="flex flex-col px-8 w-full dropdown_custom">
                       <span class="title_input">Categorias*</span>
                       <el-select
                         v-model="value"
@@ -69,7 +69,7 @@
                   </div>
 
                   <div class="w-full flex flex-row pb-4 px-8">
-                    <div class="flex flex-col w-full text_area_new_admin">
+                    <div class="flex flex-col w-full text_area_new_admin input">
                       <span class="title_input">Resumen*</span>
                       <el-input
                         type="textarea"
@@ -82,7 +82,7 @@
                   </div>
 
                   <div class="w-full flex flex-row pb-4">
-                    <h5 class="px-8">Imágenes</h5>
+                    <h5 class="px-8 title_input">Imágenes*</h5>
                   </div>
 
                   <div class="w-full flex flex-row px-8">
@@ -119,9 +119,168 @@
           <div class="spacer"></div>
 
           <div class="card">
-            <p>
-              dadasdasdsdsd Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum assumenda perspiciatis in ex rerum quidem dolores error asperiores voluptatibus. Et vitae eligendi itaque necessitatibus amet, officia perferendis adipisci aspernatur tempora. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores harum repellendus consectetur tempora quia necessitatibus nam aspernatur suscipit quidem dolorum. Voluptates, consequatur veniam exercitationem nostrum obcaecati maiores corrupti fugiat deserunt?
-            </p>
+            <div class="w-11/12 mx-auto py-10 px-10">
+              <div>
+                <div>
+                  <div class="pb-4">
+                    <h5 class="title_input">Tipo de libro*</h5>
+                  </div>
+                  <div class="flex flex-row">
+                    <div class="flex flex-col mr-4">
+                      <span class="title_switch">Digital</span>
+                      <el-switch
+                        v-model="typeBook.digital"
+                        active-color="#5E20E4"
+                        inactive-color="#C4C4C4"
+                      >
+                      </el-switch>
+                    </div>
+
+                    <div class="flex flex-col">
+                      <span class="title_switch">Fisico</span>
+                      <el-switch
+                        v-model="typeBook.fisico"
+                        active-color="#5E20E4"
+                        inactive-color="#C4C4C4"
+                      >
+                      </el-switch>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div v-show="typeBook.digital">
+                <div class="pt-4">
+                  <div class="pb-4">
+                    <h5 class="title_input">Subir libro*</h5>
+                  </div>
+
+                  <div class="upload_pdf">
+                    <el-upload
+                      class="upload-demo"
+                      drag
+                      action="https://jsonplaceholder.typicode.com/posts/"
+                      :on-preview="handlePreview"
+                      :on-remove="handleRemove"
+                      :file-list="fileList"
+                      multiple
+                    >
+                      <i class="el-icon-upload"></i>
+                      <div class="el-upload__text">
+                        Suelta tu archivo aquí o <em>haz clic para cargar</em>
+                      </div>
+                      <div slot="tip" class="el-upload__tip">
+                        Solo archivos pdf/ebug con un tamaño menor de 500kb
+                      </div>
+                    </el-upload>
+                  </div>
+                </div>
+              </div>
+
+              <div v-show="typeBook.fisico">
+                <div class="pt-4 w-full flex flex-row">
+                  <div class="w-1/2">
+                    <div class="flex flex-row">
+                      <div class="pr-8">
+                        <div class="pb-4">
+                          <h5 class="title_input">Precio</h5>
+                        </div>
+
+                        <div class="input price_input_prefix">
+                          <el-input placeholder="Type something">
+                            <h1 slot="prefix">S/</h1>
+                          </el-input>
+                        </div>
+                      </div>
+
+                      <div class="pl-8">
+                        <div class="pb-4">
+                          <h5 class="title_input">Stock</h5>
+                        </div>
+
+                        <div class="input input_number">
+                          <el-input-number v-model="price"></el-input-number>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="w-1/2 pl-8">
+                    <div class="flex flex-row">
+                      <div class="pb-4">
+                        <div class="pb-4">
+                          <h5 class="title_input">Estable ubicación</h5>
+                        </div>
+
+                        <div>
+                          <div>
+                            <button class="pr-8">
+                              <div
+                                class="
+                                  btn_rounded_primary btn_add_size
+                                  h-10
+                                  flex
+                                  justify-center
+                                  items-center
+                                  w-52
+                                "
+                              >
+                                <span>Buscar tienda</span>
+                              </div>
+                            </button>
+                            <button>
+                              <div
+                                class="
+                                  btn_rounded_second btn_add_size
+                                  h-10
+                                  flex
+                                  justify-center
+                                  items-center
+                                  w-52
+                                "
+                              >
+                                <span>Ubicación actual</span>
+                              </div>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex flex-row">
+                  <div class="pt-4 w-1/2 pr-8">
+                    <div class="pb-4">
+                      <h5 class="title_input">Detalle del Libro*</h5>
+                    </div>
+
+                    <div class="select_details input">
+                      <el-select
+                        v-model="details"
+                        multiple
+                        filterable
+                        allow-create
+                        placeholder="Choose tags for your article"
+                      >
+                      </el-select>
+                    </div>
+                  </div>
+
+                  <div class="pt-4 w-1/2 pl-8">
+                    <div class="pb-4">
+                      <h5 class="title_input">Precio</h5>
+                    </div>
+
+                    <div class="input_number">
+                      <el-input-number v-model="price"></el-input-number>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -134,6 +293,10 @@ export default {
   layout: 'admin',
   data() {
     return {
+      typeBook: {
+        digital: true,
+        fisico: false,
+      },
       imagesList: [],
       dialogImageUrl: '',
       dialogVisible: false,
@@ -156,6 +319,9 @@ export default {
       dialogImageUrl: '',
       dialogVisible: false,
       disabled: false,
+      details: [],
+
+      price: 0,
     }
   },
   methods: {
@@ -194,3 +360,15 @@ export default {
   },
 }
 </script>
+
+<style>
+.title_switch {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 0.7rem;
+  line-height: 11px;
+  color: var(--resaltado);
+  padding-bottom: 0.5rem;
+}
+</style>

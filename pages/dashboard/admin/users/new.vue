@@ -7,7 +7,7 @@
         </div>
         <div>
           <div>
-            <nuxt-link to="/dashboard/admin/users/new" no-prefetch>
+            <button>
               <div
                 class="
                   bg_primary
@@ -15,14 +15,18 @@
                   flex
                   justify-center
                   items-center
-                  btn_plus
+                  btn_rounded_primary
+                  rounded-full
+                  w-60
+                  h-10
+                  btn_add_size
                 "
               >
                 <span class="flex justify-center items-center">
                   Guardar cambios
                 </span>
               </div>
-            </nuxt-link>
+            </button>
           </div>
         </div>
       </div>

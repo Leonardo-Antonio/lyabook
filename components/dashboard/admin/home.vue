@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div>
+  <div class="overflow-y-auto overflow-x-hidden" style="height: 83vh">
+    <div class="p-4">
       <div>
         <h1 class="title">Bienvenido Leonardo Antonio</h1>
         <p class="subtitle pt-4">
@@ -9,56 +9,36 @@
       </div>
 
       <div class="pt-20">
-        <div class="w-3/5 mx-auto flex flex-row justify-between">
-          <div style="width: 30%;">
-            <div class="card_home flex justify-center items-center">
-              <div>
-                <div class="flex flex-col">
-                  <div class="flex justify-center">
-                    <strong class="number_card">20</strong>
-                  </div>
-                  <div class="flex justify-center">
-                    <p class="text_card">Ventas</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div class="w-3/5 mx-auto">
+          <div class="flex flex-row justify-between">
+            <CardInfo count="20" text="Ventas" />
+            <CardInfo count="50" text="Usuarios" />
+            <CardInfo count="100" text="Reglamos" />
           </div>
+        </div>
 
-          <div style="width: 30%;">
-            <div class="card_home flex justify-center items-center">
-              <div>
-                <div class="flex flex-col">
-                  <div class="flex justify-center">
-                    <strong class="number_card">20</strong>
-                  </div>
-                  <div class="flex justify-center">
-                    <p class="text_card">Ventas</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div style="width: 30%;">
-            <div class="card_home flex justify-center items-center">
-              <div>
-                <div class="flex flex-col">
-                  <div class="flex justify-center">
-                    <strong class="number_card">20</strong>
-                  </div>
-                  <div class="flex justify-center">
-                    <p class="text_card">Ventas</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div class="w-3/5 mx-auto pt-8">
+          <div class="flex flex-row justify-between">
+            <CardLink to="admin/promotions" src="/images/promotions_admin.svg" text="Nueva promoción" />
+            <CardLink to="admin/books/new" src="/images/books_admin.svg" text="Nuevo libro" />
+            <CardLink to="admin/claims" src="/images/categories_admin.svg" text="Ver reglamos" />
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+import CardInfo from '../../cards/info'
+import CardLink from '../../cards/link'
+export default {
+  components: {
+    CardInfo,
+    CardLink
+  },
+}
+</script>
 
 <style scoped>
 .title {
@@ -78,31 +58,5 @@
   font-size: 1rem;
   line-height: 21px;
   color: #8d8d8d;
-}
-
-.card_home {
-  background: #ffffff;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  height: 15rem;
-}
-
-.number_card {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 48px;
-  line-height: 21px;
-  color: #5e20e4;
-}
-
-.text_card {
-  padding-top: 1rem;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 21px;
-  color: #000000;
 }
 </style>

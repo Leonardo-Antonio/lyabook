@@ -1,5 +1,7 @@
 <template>
-  <div class="h-screen w-full bg_secundary flex flex-row-reverse overflow-hidden">
+  <div
+    class="h-screen w-full bg_secundary flex flex-row-reverse overflow-hidden"
+  >
     <div class="w-full">
       <Header />
       <div class="p-10">
@@ -8,13 +10,21 @@
         </div>
 
         <div class="fixed right-4 bottom-2 z-10">
-          <div class="rounded-full">
-            <div class="text-6xl">
-              <a href="#">
-                <i class="el-icon-info"></i>
-              </a>
+          <el-popover
+            placement="bottom"
+            title="Info"
+            width="200"
+            trigger="click"
+            content="Recuerdo que cualquier dato que ingrese se establecera por defecto en camelcase"
+          >
+            <div class="rounded-full" slot="reference">
+              <div class="text-6xl">
+                <a href="#">
+                  <i class="el-icon-info"></i>
+                </a>
+              </div>
             </div>
-          </div>
+          </el-popover>
         </div>
       </div>
     </div>
@@ -27,12 +37,16 @@
 
           <div class="pt-8 px-8">
             <div>
-              <div class="flex flex-col">
-                <nuxt-link to="/dashboard/admin" no-prefetch class="py-1">
+              <div class="flex flex-col links__panel">
+                <nuxt-link
+                  to="/dashboard/admin"
+                  no-prefetch
+                  class="py-1 panel_link home__inactive"
+                >
                   <BtnDashBoard :icon="btns.home.icon" :text="btns.home.text" />
                 </nuxt-link>
 
-                <nuxt-link to="/dashboard/admin/users" no-prefetch class="py-1">
+                <nuxt-link to="/dashboard/admin/users" no-prefetch class="py-1 panel_link">
                   <BtnDashBoard
                     :icon="btns.users.icon"
                     :text="btns.users.text"
@@ -42,7 +56,7 @@
                 <nuxt-link
                   to="/dashboard/admin/categories"
                   no-prefetch
-                  class="py-1"
+                  class="py-1 panel_link"
                 >
                   <BtnDashBoard
                     :icon="btns.categories.icon"
@@ -50,7 +64,7 @@
                   />
                 </nuxt-link>
 
-                <nuxt-link to="/dashboard/admin/books" no-prefetch class="py-1">
+                <nuxt-link to="/dashboard/admin/books" no-prefetch class="py-1 panel_link">
                   <BtnDashBoard
                     :icon="btns.books.icon"
                     :text="btns.books.text"
@@ -60,7 +74,7 @@
                 <nuxt-link
                   to="/dashboard/admin/promotions"
                   no-prefetch
-                  class="py-1"
+                  class="py-1 panel_link"
                 >
                   <BtnDashBoard
                     :icon="btns.promotions.icon"
@@ -71,7 +85,7 @@
                 <nuxt-link
                   to="/dashboard/admin/claims"
                   no-prefetch
-                  class="py-1"
+                  class="py-1 panel_link"
                 >
                   <BtnDashBoard
                     :icon="btns.claims.icon"
@@ -104,9 +118,9 @@ export default {
     Header,
   },
   methods: {
-      signOut() {
-          alert("adios")
-      }
+    signOut() {
+      alert('adios')
+    },
   },
   data() {
     return {
@@ -146,3 +160,64 @@ export default {
   },
 }
 </script>
+
+<style>
+.panel_link.home__inactive.nuxt-link-active div span {
+  color: #000;
+  font-weight: 400;
+}
+
+.home__inactive.nuxt-link-active {
+  background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.home__inactive.nuxt-link-active i {
+  color: var(--primary) !important;
+}
+
+.panel_link.nuxt-link-active {
+  height: 3rem;
+  background-color: var(--primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  border-radius: 0.78rem;
+}
+/* exact link will show the primary color for only the exact matching link */
+.panel_link.nuxt-link-exact-active,
+.panel_link.home__inactive.nuxt-link-exact-active {
+  height: 3rem;
+  background-color: var(--primary) !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  border-radius: 0.78rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.panel_link.nuxt-link-exact-active div > span,
+.panel_link.nuxt-link-exact-active div > i,
+.home__inactive.nuxt-link-exact-active div > span,
+.home__inactive.nuxt-link-exact-active div > i {
+  color: #fff !important;
+  font-weight: bold !important;
+}
+
+.panel_link.nuxt-link-active div > span,
+.panel_link.nuxt-link-active div > i {
+  color: #fff;
+  font-weight: bold;
+}
+
+.links__panel .py-1 {
+  padding: 0;
+  margin: 0;
+}
+</style>

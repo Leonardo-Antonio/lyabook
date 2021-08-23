@@ -35,27 +35,39 @@
     </div>
 
     <div class="pt-20">
-      <div class="bg_white rounded-3xl table__custom">
-        <el-table :data="tableData" style="width: 100%">
-          <el-table-column prop="name" label="Nombre" width="120">
-          </el-table-column>
-          <el-table-column prop="state" label="Estado" width="120">
-          </el-table-column>
-          <el-table-column prop="city" label="Ciudad" width="120">
-          </el-table-column>
-          <el-table-column prop="address" label="Dirección" width="300">
-          </el-table-column>
-          <el-table-column prop="zip" label="Código postal" width="120">
-          </el-table-column>
-          <el-table-column fixed="right" label="Operaciones" width="120">
-            <template >
-              <el-button @click="handleClick" type="text" size="small"
-                >Detalle</el-button
-              >
-              <el-button type="text" size="small">Editar</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
+      <div class="card">
+        <div class="py-10 w-11/12 mx-auto px-10">
+          <div class="bg_white rounded-3xl table__custom">
+            <el-table :data="tableData" style="width: 100%">
+              <el-table-column prop="name" label="Nombre" width="120">
+              </el-table-column>
+              <el-table-column prop="state" label="Estado" width="120">
+              </el-table-column>
+              <el-table-column prop="city" label="Ciudad" width="120">
+              </el-table-column>
+              <el-table-column prop="address" label="Dirección" width="300">
+              </el-table-column>
+              <el-table-column prop="zip" label="Código postal" width="120">
+              </el-table-column>
+              <el-table-column fixed="right" label="Operaciones" width="120">
+                <template>
+                  <div>
+                    <button class="btn_add_size">
+                      <box-icon
+                        name="pencil"
+                        type="solid"
+                        color="#5e20e4"
+                      ></box-icon>
+                    </button>
+                    <button class="btn_add_size">
+                      <box-icon name="trash" color="#C4C4C4"></box-icon>
+                    </button>
+                  </div>
+                </template>
+              </el-table-column>
+            </el-table>
+          </div>
+        </div>
       </div>
     </div>
   </div>
