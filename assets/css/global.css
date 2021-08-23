@@ -98,3 +98,26 @@
   line-height: 26px;
   color: #333333;
 }
+
+.input-search-autocomplete .el-input input.el-input__inner {
+  border-radius: 1rem !important;
+  border-color: #021639 !important;
+  background: none !important;
+}
+
+.el-icon-star-on{
+  color: #5E20E4 !important;
+}
+
+.el-rate__icon{
+  color: #5E20E4 !important;
+  font-size: 30px;
+}
+
+.container-select-format .el-select .el-input .el-input__inner{
+  border-color: #5E20E4;
+}
+
+.el-select .el-input .el-select__caret{
+  color: #5E20E4;
+}
