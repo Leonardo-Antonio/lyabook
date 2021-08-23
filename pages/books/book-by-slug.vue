@@ -6,9 +6,9 @@
                 <div class="flex items-center justify-center">
                     <div class="image-logo">
                         <img
-                        src="/images/LyaBook.svg"
-                        width="40%"
-                    />
+                            src="/images/LyaBook.svg"
+                            width="40%"
+                        />
                     </div>
                     <div class="search-autocomplete">
                         <el-autocomplete
@@ -97,15 +97,17 @@
                 </div>
 
                 <!-- container tabs -->
-                <div class="conatiner-tabs">
+                <div class="conatiner-tabs px-8 py-12">
                     <el-tabs v-model="activeName" @tab-click="handleClick">
-                        <el-tab-pane label="User" name="first">User</el-tab-pane>
-                        <el-tab-pane label="Config" name="second">Config</el-tab-pane>
-                        <el-tab-pane label="Role" name="third">Role</el-tab-pane>
-                        <el-tab-pane label="Task" name="fourth">Task</el-tab-pane>
+                        <el-tab-pane label="Descripción" name="first">Descripción</el-tab-pane>
+                        <el-tab-pane label="Comentarios" name="second">Comentarios</el-tab-pane>
+                        <el-tab-pane label="Detalle" name="third">Detalle</el-tab-pane>
                     </el-tabs>
                 </div>
             </div>
+        </div>
+        <div class="footer">
+
         </div>
     </div>
 </template>
