@@ -1,113 +1,219 @@
 <template>
-    <div class="flex justify-center container mx-auto">
-        <div class="flex justify-center w-3/4">
-            <div class="pt-8 w-full">
-                <!-- header -->
-                <div class="flex items-center justify-center">
-                    <div class="image-logo">
-                        <img
-                            src="/images/LyaBook.svg"
-                            width="40%"
-                        />
-                    </div>
-                    <div class="search-autocomplete">
-                        <el-autocomplete
-                            v-model="state"
-                            :fetch-suggestions="querySearchAsync"
-                            placeholder="Please input"
-                            @select="handleSelect"
-                            class="input-search-autocomplete"
-                            style="border-color: #021639 !important;"
-                        ></el-autocomplete>
-                    </div>
-                    <div class="enlaces-header">
-                        <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><h1>Libros</h1></a>
+    <div>
+        <div class="flex justify-center container mx-auto">
+            <div class="flex justify-center w-3/4">
+                <div class="pt-8 w-full">
+                    <!-- header -->
+                    <div class="flex items-center justify-center">
+                        <div class="image-logo">
+                            <img
+                                src="/images/LyaBook.svg"
+                                width="40%"
+                            />
+                        </div>
+                        <div class="search-autocomplete">
+                            <el-autocomplete
+                                v-model="state"
+                                :fetch-suggestions="querySearchAsync"
+                                placeholder="Please input"
+                                @select="handleSelect"
+                                class="input-search-autocomplete"
+                                style="border-color: #021639 !important;"
+                            ></el-autocomplete>
+                        </div>
+                        <div class="enlaces-header">
+                            <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><h1>Libros</h1></a>
 
-                    </div>
-                    <div class="enlaces-header">
-                        <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><h1>Promociones</h1></a>
+                        </div>
+                        <div class="enlaces-header">
+                            <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><h1>Promociones</h1></a>
 
+                        </div>
+                        <div class="icon-login">
+                            <box-icon name='user' ></box-icon>
+                        </div>
+                        <div class="icon-shopping-cart">
+                            <box-icon name='cart' animation='tada' ></box-icon>
+                        </div>
                     </div>
-                    <div class="icon-login">
-                        <box-icon name='user' ></box-icon>
-                    </div>
-                    <div class="icon-shopping-cart">
-                        <box-icon name='cart' animation='tada' ></box-icon>
-                    </div>
-                </div>
 
-                <!-- container product  -->
-                <div class="flex flex-row pt-20">
-                    <div class="w-2/4 flex items-center justify-center">
-                        <img
-                            src="/images/portada-la-corona.jpg"
-                            width="500px"
-                            height="800px"
-                        />
-            
-                    </div>
-                    <div class="w-2/4 flex justify-center">
-                        <div class="conatiner-detail-product">
-                            <p class="editorial">HarperCollins</p>
-                            <p class="title">LA SELECCIÓN - LA CORONA</p>
-                            <p class="author pt-4">Autor: Kiera Cass</p>
-                            <div class="star pt-4">
-                                <div class="block">
-                                    <el-rate v-model="value1"></el-rate>
+                    <!-- container product  -->
+                    <div class="flex flex-row pt-20">
+                        <div class="w-2/4 flex items-center justify-center">
+                            <img
+                                src="/images/portada-la-corona.jpg"
+                                width="500px"
+                                height="800px"
+                            />
+                
+                        </div>
+                        <div class="w-2/4 flex justify-center">
+                            <div class="conatiner-detail-product">
+                                <p class="editorial">HarperCollins</p>
+                                <p class="title">LA SELECCIÓN - LA CORONA</p>
+                                <p class="author pt-4">Autor: Kiera Cass</p>
+                                <div class="star pt-4">
+                                    <div class="block">
+                                        <el-rate v-model="value1"></el-rate>
+                                    </div>
+                                </div>
+                                <div class="container-price flex flex-row pt-4">
+                                    <div class="container-price-current w-1/2">
+                                        <p class="price-current">s/.30.00</p>
+                                    </div>
+                                    <div class="container-price-before flex items-center w-1/2">
+                                        <p class="price-before">s/.100.00</p>
+                                    </div>
+                                </div>
+                                <div class="container-select-format pt-4">
+                                    <el-select v-model="value" clearable placeholder="Select">
+                                        <el-option
+                                            v-for="item in options"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value">
+                                        </el-option>
+                                    </el-select>
+                                </div>
+                                <div class="container-maps flex flex-row items-center pt-4">
+                                    <div class="conatiner-text w-1/2">
+                                        <p class="text">Recoger en:</p>
+                                    </div>
+                                    <div class="conatiner-enlace-maps w-1/2 flex justify-end">
+                                        <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p class="enlace-maps">Ver en Google Maps</p></a>
+                                    </div>
+                                </div>
+                                <div class="container-direction pt-2">
+                                    <p class="direction">Calle 8, Cercado de Lima 15828</p>
+                                </div>
+                                <div class="container-button-to-buy pt-8">
+                                    <el-row>
+                                        <el-button class="btn_add_size button-to-by" type="primary" round>COMPRAR</el-button>
+                                    </el-row>
                                 </div>
                             </div>
-                            <div class="container-price flex flex-row pt-4">
-                                <div class="container-price-current w-1/2">
-                                    <p class="price-current">s/.30.00</p>
-                                </div>
-                                <div class="container-price-before flex items-center w-1/2">
-                                    <p class="price-before">s/.100.00</p>
-                                </div>
-                            </div>
-                            <div class="container-select-format pt-4">
-                                <el-select v-model="value" clearable placeholder="Select">
-                                    <el-option
-                                        v-for="item in options"
-                                        :key="item.value"
-                                        :label="item.label"
-                                        :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </div>
-                            <div class="container-maps flex flex-row items-center pt-4">
-                                <div class="conatiner-text w-1/2">
-                                    <p class="text">Recoger en:</p>
-                                </div>
-                                <div class="conatiner-enlace-maps w-1/2 flex justify-end">
-                                    <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p class="enlace-maps">Ver en Google Maps</p></a>
-                                </div>
-                            </div>
-                            <div class="container-direction pt-2">
-                                <p class="direction">Calle 8, Cercado de Lima 15828</p>
-                            </div>
-                            <div class="container-button-to-buy pt-8">
-                                <el-row>
-                                    <el-button class="btn_add_size button-to-by" type="primary" round>COMPRAR</el-button>
-                                </el-row>
-                            </div>
+
                         </div>
 
                     </div>
 
-                </div>
-
-                <!-- container tabs -->
-                <div class="conatiner-tabs px-8 py-12">
-                    <el-tabs v-model="activeName" @tab-click="handleClick">
-                        <el-tab-pane label="Descripción" name="first">Descripción</el-tab-pane>
-                        <el-tab-pane label="Comentarios" name="second">Comentarios</el-tab-pane>
-                        <el-tab-pane label="Detalle" name="third">Detalle</el-tab-pane>
-                    </el-tabs>
+                    <!-- container tabs -->
+                    <div class="conatiner-tabs px-8 py-12">
+                        <el-tabs v-model="activeName" @tab-click="handleClick">
+                            <el-tab-pane label="Descripción" name="first">Descripción</el-tab-pane>
+                            <el-tab-pane label="Comentarios" name="second">Comentarios</el-tab-pane>
+                            <el-tab-pane label="Detalle" name="third">Detalle</el-tab-pane>
+                        </el-tabs>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="footer">
+            <div class="conatiner-footer flex flex-row">
+                <div class="container-column-1">
+                    <div class="container-contact-us">
+                        <p class="title-footer title-contact-us">Contacto</p>
+                        <div class="conatiner-telephone flex flex-row">
+                            <box-icon name='phone' color='#ffffff' ></box-icon>
+                            <p class="subtitle-footer  number-phone">+51 993 583 805</p>
+                        </div>
+                        <div class="container-mail flex flex-row">
+                            <box-icon name='mail-send' color='#ffffff' ></box-icon>
+                            <p class="subtitle-footer direction-mail">atenciónalcliente@lyabook.com</p>
+                        </div>
+                        <div class="conatiner-location flex flex-row">
+                            <box-icon name='location-plus' color='#ffffff' ></box-icon>
+                            <p class="subtitle-footer  location">Paseo de la República 5613- Miraflores. Lima, Perú</p>
+                        </div>
+                    </div>
 
+                    <div class="container-follow-us"> 
+                        <p class="title-footer title-follow-us">Síguenos</p>
+                        <div class="flex flex-row">
+                            <box-icon name='facebook-circle' type='logo' color='#ffffff' ></box-icon>
+                            <box-icon name='youtube' type='logo' color='#ffffff' ></box-icon>
+                            <box-icon name='instagram-alt' type='logo' color='#ffffff' ></box-icon>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="container-column-2">
+                    <p class="title-footer title-my-account">Contacto</p>
+                    <div class="my-profile flex flex-row">
+                        <box-icon name='right-arrow' color='#ffffff'></box-icon>
+                        <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p class="subtitle-footer profile">Mi Perfil</p></a>
+                    </div>
+                    <div class="favorite flex flex-row">
+                        <box-icon name='right-arrow' color='#ffffff'></box-icon>
+                        <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p class="subtitle-footer favorite">Mis favoritos</p></a>
+                    </div>
+                    <div class="orders flex flex-row">
+                        <box-icon name='right-arrow' color='#ffffff'></box-icon>
+                        <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p class="subtitle-footer order">Mis órdenes</p></a>
+                    </div>
+                    <div class="us flex flex-row">
+                        <box-icon name='right-arrow' color='#ffffff'></box-icon>
+                        <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p class="subtitle-footer us">Nosotros</p></a>
+                    </div>
+                    <div class="contact-us flex flex-row">
+                        <box-icon name='right-arrow' color='#ffffff'></box-icon>
+                        <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p class="subtitle-footer contact-us">Contáctanos</p></a>
+                    </div>
+                </div>
+                <div class="container-column-3">
+                    <p class="title-footer title-category">Categorías</p>
+                    <div class="romance flex flex-row">
+                        <box-icon name='right-arrow' color='#ffffff'></box-icon>
+                        <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p class="subtitle-footer romance">Romance</p></a>
+                    </div>
+                    <div class="comedy flex flex-row">
+                        <box-icon name='right-arrow' color='#ffffff'></box-icon>
+                        <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p class="subtitle-footer comedy">Comedia</p></a>
+                    </div>
+                    <div class="mystery flex flex-row">
+                        <box-icon name='right-arrow' color='#ffffff'></box-icon>
+                        <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p class="subtitle-footer mystery">Misterio</p></a>
+                    </div>
+                    <div class="terror flex flex-row">
+                        <box-icon name='right-arrow' color='#ffffff'></box-icon>
+                        <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p class="subtitle-footer terror">Terror</p></a>
+                    </div>
+                    <div class="adventure flex flex-row">
+                        <box-icon name='right-arrow' color='#ffffff'></box-icon>
+                        <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p class="subtitle-footer adventure">Aventura</p></a>
+                    </div>
+                </div>
+                <div class="container-column-4">
+                    <div class="container-medium">
+                        <p class="title-footer title-medium">Soporte</p>
+                        <div class="frequent-questions flex flex-row">
+                            <box-icon name='right-arrow' color='#ffffff'></box-icon>
+                            <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p class="subtitle-footer frequent-questions">Preguntas frecuentes</p></a>
+                        </div>
+                        <div class="complaints-book flex flex-row">
+                            <box-icon name='right-arrow' color='#ffffff'></box-icon>
+                            <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p class="subtitle-footer complaints-book">Libro de reclamaciones</p></a>
+                        </div>
+                        <div class="terms-and-conditions flex flex-row">
+                            <box-icon name='right-arrow' color='#ffffff'></box-icon>
+                            <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p class="subtitle-footer terms-and-conditions">Términos y condiciones</p></a>
+                        </div>
+                        <div class="privacy-policies flex flex-row">
+                            <box-icon name='right-arrow' color='#ffffff'></box-icon>
+                            <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p class="subtitle-footer privacy-policies">Políticas de privacidad</p></a>
+                        </div>
+                    </div>
+                    <div class="container-payment-methods">
+                        <p class="title-footer title-payment-methods">Métodos de pago</p>
+                        <div class="flex flex-row">
+                            <img class="payment-card" src="/images/metodo-de-pago-express.png"/>
+                            <img class="payment-card" src="/images/metodo-de-pago-express.png"/>
+                            <img class="payment-card" src="/images/metodo-de-pago-express.png"/>
+                            <img class="payment-card" src="/images/metodo-de-pago-express.png"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -276,6 +382,10 @@ export default {
         font-size: 24px;
         line-height: 35px;
         color: #5E20E4;
+    }
+
+    .footer{
+        background: #011E51;
     }
     
 </style>
