@@ -86,7 +86,7 @@
                                 <div class="container-direction pt-2">
                                     <p class="direction">Calle 8, Cercado de Lima 15828</p>
                                 </div>
-                                <div class="container-button-to-buy pt-8">
+                                <div class="container-button-to-buy pt-8 flex justify-center">
                                     <el-row>
                                         <el-button class="btn_add_size button-to-by" type="primary" round>COMPRAR</el-button>
                                     </el-row>
@@ -115,11 +115,11 @@
                         <p class="title-footer title-contact-us">Contacto</p>
                         <div class="footer-data conatiner-telephone flex flex-row">
                             <box-icon name='phone' color='#ffffff' ></box-icon>
-                            <p class="subtitle-footer  number-phone">+51 993 583 805</p>
+                            <a href="tel:+51 993 583 805"><p class="subtitle-footer  number-phone">+51 993 583 805</p></a>
                         </div>
                         <div class="footer-data container-mail flex flex-row">
                             <box-icon name='mail-send' color='#ffffff' ></box-icon>
-                            <p class="subtitle-footer direction-mail">atenciónalcliente@lyabook.com</p>
+                            <a href="mailto:atenciónalcliente@lyabook.com"><p class="subtitle-footer direction-mail">atenciónalcliente@lyabook.com</p></a>
                         </div>
                         <div class="footer-data conatiner-location flex flex-row">
                             <box-icon name='location-plus' color='#ffffff' ></box-icon>
@@ -130,9 +130,9 @@
                     <div class="container-follow-us pt-16"> 
                         <p class="title-footer title-follow-us">Síguenos</p>
                         <div class="footer-data flex flex-row">
-                            <box-icon name='facebook-circle' type='logo' color='#ffffff' ></box-icon>
-                            <box-icon name='youtube' type='logo' color='#ffffff' ></box-icon>
-                            <box-icon name='instagram-alt' type='logo' color='#ffffff' ></box-icon>
+                            <div class=""><box-icon size="md" name='facebook-circle' type='logo' color='#ffffff' ></box-icon></div>
+                            <div class="px-2"><box-icon size="md" name='youtube' type='logo' color='#ffffff' ></box-icon></div>
+                            <div class=""><box-icon size="md" name='instagram-alt' type='logo' color='#ffffff' ></box-icon></div>
                         </div>
                     </div>
                     
@@ -145,7 +145,7 @@
                     </div>
                     <div class="footer-data favorite flex flex-row">
                         <box-icon name='right-arrow' color='#ffffff'></box-icon>
-                        <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p class="subtitle-footer favorite">Mis favoritos</p></a>
+                        <NuxtLink to="/"><p class="subtitle-footer favorite">Mis favoritos</p></NuxtLink>
                     </div>
                     <div class="footer-data orders flex flex-row">
                         <box-icon name='right-arrow' color='#ffffff'></box-icon>
@@ -214,6 +214,15 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="footer-author py-4">
+            <p class="text-footer">Powered by</p>
+            <div class="flex justify-center">
+                <a href="https://github.com/AlexaJNavarro" target="_blank"><h1 class="text-footer">@AlexaJNavarro</h1></a>
+                <h1 class="text-footer px-2"> and </h1>
+                <a href="https://github.com/Leonardo-Antonio" target="_blank"><h1 class="text-footer">@Leonardo-Antonio</h1></a>
+            </div>
+            
         </div>
     </div>
 </template>
@@ -355,8 +364,8 @@ export default {
         background: #5E20E4;
         border-color: #5E20E4;
         border-radius: 50px !important;
-        width: 444px;
-        height: 79.51px;
+        width: 25rem;
+        height: 4.5rem;
     }
     .text{
         font-family: "Baloo Chettan 2";
@@ -404,10 +413,29 @@ export default {
         font-size: 14px;
         line-height: 172%;
         color: #FFFFFF;
+        padding-left: .5rem;
     }
 
     .footer-data{
         padding-top: 2rem;
     }
+
+    .footer-author{
+        background: #011E51;
+    }
     
+    .text-footer{
+        font-family: Saira;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 31px;
+        text-align: center;
+
+        color: #FFFFFF;
+    }
+
+    .location {
+        width: 80%;
+    }
 </style>
