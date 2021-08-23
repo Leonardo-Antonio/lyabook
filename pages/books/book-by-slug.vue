@@ -1,102 +1,112 @@
 <template>
     <div class="flex justify-center container mx-auto">
         <div class="flex justify-center w-3/4">
-        <div class="pt-8 w-full">
-            <div class="flex items-center justify-center">
-                <div class="image-logo">
-                    <img
-                    src="../../static/images/LyaBook.svg"
-                    width="40%"
-                />
-                </div>
-                <div class="search-autocomplete">
-                    <el-autocomplete
-                        v-model="state"
-                        :fetch-suggestions="querySearchAsync"
-                        placeholder="Please input"
-                        @select="handleSelect"
-                        class="input-search-autocomplete"
-                        style="border-color: #021639 !important;"
-                    ></el-autocomplete>
-                </div>
-                <div class="enlaces-header">
-                    <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><h1>Libros</h1></a>
-
-                </div>
-                <div class="enlaces-header">
-                    <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><h1>Promociones</h1></a>
-
-                </div>
-                <div class="icon-login">
-                    <i class="el-icon-user"></i>
-                </div>
-                <div class="icon-shopping-cart">
-                    <i class="el-icon-shopping-cart-2"></i>
-                </div>
-
-                
-                
-            </div>
-            <div class="flex flex-row pt-20">
-                <div class="w-2/4 flex items-center justify-center">
-                    <img
-                        src="../../static/images/portada-la-corona.jpg"
-                        width="500px"
-                        height="800px"
+            <div class="pt-8 w-full">
+                <!-- header -->
+                <div class="flex items-center justify-center">
+                    <div class="image-logo">
+                        <img
+                        src="/images/LyaBook.svg"
+                        width="40%"
                     />
-         
+                    </div>
+                    <div class="search-autocomplete">
+                        <el-autocomplete
+                            v-model="state"
+                            :fetch-suggestions="querySearchAsync"
+                            placeholder="Please input"
+                            @select="handleSelect"
+                            class="input-search-autocomplete"
+                            style="border-color: #021639 !important;"
+                        ></el-autocomplete>
+                    </div>
+                    <div class="enlaces-header">
+                        <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><h1>Libros</h1></a>
+
+                    </div>
+                    <div class="enlaces-header">
+                        <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><h1>Promociones</h1></a>
+
+                    </div>
+                    <div class="icon-login">
+                        <box-icon name='user' ></box-icon>
+                    </div>
+                    <div class="icon-shopping-cart">
+                        <box-icon name='cart' animation='tada' ></box-icon>
+                    </div>
                 </div>
-                <div class="w-2/4">
-                    <div class="conatiner-detail-product">
-                        <p class="editorial">HarperCollins</p>
-                        <p class="title">LA SELECCIÓN - LA CORONA</p>
-                        <p class="author">Autor: Kiera Cass</p>
-                        <div class="star">
-                            <div class="block">
-                                <el-rate v-model="value1"></el-rate>
+
+                <!-- container product  -->
+                <div class="flex flex-row pt-20">
+                    <div class="w-2/4 flex items-center justify-center">
+                        <img
+                            src="/images/portada-la-corona.jpg"
+                            width="500px"
+                            height="800px"
+                        />
+            
+                    </div>
+                    <div class="w-2/4 flex justify-center">
+                        <div class="conatiner-detail-product">
+                            <p class="editorial">HarperCollins</p>
+                            <p class="title">LA SELECCIÓN - LA CORONA</p>
+                            <p class="author pt-4">Autor: Kiera Cass</p>
+                            <div class="star pt-4">
+                                <div class="block">
+                                    <el-rate v-model="value1"></el-rate>
+                                </div>
+                            </div>
+                            <div class="container-price flex flex-row pt-4">
+                                <div class="container-price-current w-1/2">
+                                    <p class="price-current">s/.30.00</p>
+                                </div>
+                                <div class="container-price-before flex items-center w-1/2">
+                                    <p class="price-before">s/.100.00</p>
+                                </div>
+                            </div>
+                            <div class="container-select-format pt-4">
+                                <el-select v-model="value" clearable placeholder="Select">
+                                    <el-option
+                                        v-for="item in options"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </div>
+                            <div class="container-maps flex flex-row items-center pt-4">
+                                <div class="conatiner-text w-1/2">
+                                    <p class="text">Recoger en:</p>
+                                </div>
+                                <div class="conatiner-enlace-maps w-1/2 flex justify-end">
+                                    <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p class="enlace-maps">Ver en Google Maps</p></a>
+                                </div>
+                            </div>
+                            <div class="container-direction pt-2">
+                                <p class="direction">Calle 8, Cercado de Lima 15828</p>
+                            </div>
+                            <div class="container-button-to-buy pt-8">
+                                <el-row>
+                                    <el-button class="btn_add_size button-to-by" type="primary" round>COMPRAR</el-button>
+                                </el-row>
                             </div>
                         </div>
-                        <div class="container-price flex flex-row">
-                            <div class="container-price-current">
-                                <p class="price-current">s/.30.00</p>
-                            </div>
-                            <div class="container-price-before flex items-center ">
-                                <p class="price-before">s/.100.00</p>
-                            </div>
-                        </div>
-                        <div class="container-select-format">
-                            <el-select v-model="value" clearable placeholder="Select">
-                                <el-option
-                                    v-for="item in options"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
-                                </el-option>
-                            </el-select>
-                        </div>
-                        <div class="container-maps flex flex-row">
-                            <div class="conatiner-text">
-                                <p>Recoger en:</p>
-                            </div>
-                            <div class="conatiner-enlace-maps">
-                                <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p>Ver en Google Maps</p></a>
-                            </div>
-                        </div>
-                        <div class="container-direction">
-                            <p>Calle 8, Cercado de Lima 15828</p>
-                        </div>
-                        <div class="btn_add_size">
-                            <el-row>
-                                <el-button class="btn_add_size" type="primary" round>Primary</el-button>
-                            </el-row>
-                        </div>
+
                     </div>
 
                 </div>
 
+                <!-- container tabs -->
+                <div class="conatiner-tabs">
+                    <el-tabs v-model="activeName" @tab-click="handleClick">
+                        <el-tab-pane label="User" name="first">User</el-tab-pane>
+                        <el-tab-pane label="Config" name="second">Config</el-tab-pane>
+                        <el-tab-pane label="Role" name="third">Role</el-tab-pane>
+                        <el-tab-pane label="Task" name="fourth">Task</el-tab-pane>
+                    </el-tabs>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 </template>
 <script>
@@ -106,23 +116,28 @@ export default {
     },
     data(){
         return{
+            // search autocomplete
             links: [],
             state: '',
             timeout:  null,
-
+            // star
             value1: null,
-
+            //select
             options: [{
-            value: 'Libro Fisico',
+            value: 'Libro Digital',
             label: 'Libro Digital'
             }, {
-            value: 'Option2',
-            label: 'Option2'
+            value: 'Libro Fisico',
+            label: 'Libro Fisico'
             }],
-            value: ''
+            value: '',
+            //tabs
+            activeName: 'first'
         }
     },
     methods: {
+
+    // search autocomplete
       loadAll() {
         return [
           { "value": "vue", "link": "https://github.com/vuejs/vue" },
@@ -150,8 +165,14 @@ export default {
       },
       handleSelect(item) {
         console.log(item);
+      },
+
+    //   tabs
+      handleClick(tab, event) {
+        console.log(tab, event);
       }
     },
+    // search autocomplete
     mounted() {
       this.links = this.loadAll();
     }
@@ -193,7 +214,7 @@ export default {
         line-height: 21px;
     }
     .title{
-        font-family: Baloo Chettan 2;
+        font-family: "Baloo Chettan 2";
         font-style: normal;
         font-weight: bold;
         font-size: 36px;
@@ -222,6 +243,37 @@ export default {
         color: #7F7F7F;
         text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     }
+    .button-to-by {
+        background: #5E20E4;
+        border-color: #5E20E4;
+        border-radius: 50px !important;
+        width: 444px;
+        height: 79.51px;
+    }
+    .text{
+        font-family: "Baloo Chettan 2";
+        font-style: normal;
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 35px;
+    }
+    .enlace-maps{
+        font-family: "Baloo Chettan 2";
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 26px;
+        text-decoration-line: underline;
+        text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
 
+    .direction{
+        font-family: "Baloo Chettan 2";
+        font-style: normal;
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 35px;
+        color: #5E20E4;
+    }
     
 </style>

@@ -1,9 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Chettan+2:wght@400;500;600;700;800&display=swap');
+
 :root {
   --primary: #5e20e4;
-  --opacity2: #C4C4C4;
-  --secundary: #F9F9FF;
+  --opacity2: #c4c4c4;
+  --secundary: #f9f9ff;
+  --info: #a8a8a8;
 }
 
 .color_primary {
@@ -107,6 +112,7 @@
 
 .el-icon-star-on{
   color: #5E20E4 !important;
+  font-size: 30px;
 }
 
 .el-rate__icon{
@@ -116,8 +122,125 @@
 
 .container-select-format .el-select .el-input .el-input__inner{
   border-color: #5E20E4;
+  width: 442px;
+  height: 66.96px;
+  border-width: 2px;
+  border-radius: 10px;
 }
 
 .el-select .el-input .el-select__caret{
   color: #5E20E4;
+}
+.title_admin {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 2rem;
+  line-height: 21px;
+  color: #000000;
+}
+
+.input__search .el-input__inner {
+  border-radius: 50px;
+  height: 3rem;
+  width: 40rem;
+}
+
+.table__custom .cell {
+  text-align: center;
+}
+
+.card {
+  width: 100%;
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+}
+
+.input_semiroundend .el-input__inner {
+  border: 1px solid var(--primary);
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.dropdown_custom .el-input__inner {
+  border: 1px solid var(--primary);
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.dropdown_custom .el-input__inner:hover {
+  border: 1px solid var(--primary);
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.dropdown_custom .el-select .el-input .el-select__caret {
+  color: var(--primary);
+}
+
+.btn_save_change {
+  transition: all 0.3s;
+  width: 15rem;
+  height: 2.5rem;
+  color: #fff;
+  font-family: Roboto;
+  font-weight: bold;
+}
+
+.btn_save_change:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+}
+
+.name_item_card {
+  font-family: Source Sans Pro;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 21px;
+  color: var(--primary);
+  padding: 1rem 0;
+}
+
+.btn_add_size {
+  transition: all 0.3s;
+}
+
+.btn_add_size:hover {
+  transform: scale(1.1);
+  transition: all 0.3s;
+}
+
+.text_area_new_admin .el-textarea__inner {
+  min-height: 8rem !important;
+  border: 1px solid var(--primary);
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.info_text_md {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: .7rem;
+  line-height: 14px;
+  display: flex;
+  align-items: center;
+  color: #a8a8a8;
+}
+
+.spacer {
+  height: 3rem;
+  width: 100%;
+}
+
+.button-to-by > span {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+  color: #FFFFFF;
 }
