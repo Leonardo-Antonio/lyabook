@@ -108,28 +108,28 @@
                 </div>
             </div>
         </div>
-        <div class="footer">
-            <div class="conatiner-footer flex flex-row">
-                <div class="container-column-1">
+        <div class="footer flex justify-center px-8">
+            <div class="conatiner-footer flex flex-row justify-center w-3/4 py-8">
+                <div class="container-column-1 w-1/5">
                     <div class="container-contact-us">
                         <p class="title-footer title-contact-us">Contacto</p>
-                        <div class="conatiner-telephone flex flex-row">
+                        <div class="footer-data conatiner-telephone flex flex-row">
                             <box-icon name='phone' color='#ffffff' ></box-icon>
                             <p class="subtitle-footer  number-phone">+51 993 583 805</p>
                         </div>
-                        <div class="container-mail flex flex-row">
+                        <div class="footer-data container-mail flex flex-row">
                             <box-icon name='mail-send' color='#ffffff' ></box-icon>
                             <p class="subtitle-footer direction-mail">atenciónalcliente@lyabook.com</p>
                         </div>
-                        <div class="conatiner-location flex flex-row">
+                        <div class="footer-data conatiner-location flex flex-row">
                             <box-icon name='location-plus' color='#ffffff' ></box-icon>
                             <p class="subtitle-footer  location">Paseo de la República 5613- Miraflores. Lima, Perú</p>
                         </div>
                     </div>
 
-                    <div class="container-follow-us"> 
+                    <div class="container-follow-us pt-16"> 
                         <p class="title-footer title-follow-us">Síguenos</p>
-                        <div class="flex flex-row">
+                        <div class="footer-data flex flex-row">
                             <box-icon name='facebook-circle' type='logo' color='#ffffff' ></box-icon>
                             <box-icon name='youtube' type='logo' color='#ffffff' ></box-icon>
                             <box-icon name='instagram-alt' type='logo' color='#ffffff' ></box-icon>
@@ -137,75 +137,75 @@
                     </div>
                     
                 </div>
-                <div class="container-column-2">
+                <div class="container-column-2 w-1/5">
                     <p class="title-footer title-my-account">Contacto</p>
-                    <div class="my-profile flex flex-row">
+                    <div class="footer-data my-profile flex flex-row">
                         <box-icon name='right-arrow' color='#ffffff'></box-icon>
                         <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p class="subtitle-footer profile">Mi Perfil</p></a>
                     </div>
-                    <div class="favorite flex flex-row">
+                    <div class="footer-data favorite flex flex-row">
                         <box-icon name='right-arrow' color='#ffffff'></box-icon>
                         <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p class="subtitle-footer favorite">Mis favoritos</p></a>
                     </div>
-                    <div class="orders flex flex-row">
+                    <div class="footer-data orders flex flex-row">
                         <box-icon name='right-arrow' color='#ffffff'></box-icon>
                         <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p class="subtitle-footer order">Mis órdenes</p></a>
                     </div>
-                    <div class="us flex flex-row">
+                    <div class="footer-data us flex flex-row">
                         <box-icon name='right-arrow' color='#ffffff'></box-icon>
                         <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p class="subtitle-footer us">Nosotros</p></a>
                     </div>
-                    <div class="contact-us flex flex-row">
+                    <div class="footer-data contact-us flex flex-row">
                         <box-icon name='right-arrow' color='#ffffff'></box-icon>
                         <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p class="subtitle-footer contact-us">Contáctanos</p></a>
                     </div>
                 </div>
-                <div class="container-column-3">
+                <div class="container-column-3 w-1/5">
                     <p class="title-footer title-category">Categorías</p>
-                    <div class="romance flex flex-row">
+                    <div class="footer-data romance flex flex-row">
                         <box-icon name='right-arrow' color='#ffffff'></box-icon>
                         <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p class="subtitle-footer romance">Romance</p></a>
                     </div>
-                    <div class="comedy flex flex-row">
+                    <div class="footer-data comedy flex flex-row">
                         <box-icon name='right-arrow' color='#ffffff'></box-icon>
                         <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p class="subtitle-footer comedy">Comedia</p></a>
                     </div>
-                    <div class="mystery flex flex-row">
+                    <div class="footer-data mystery flex flex-row">
                         <box-icon name='right-arrow' color='#ffffff'></box-icon>
                         <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p class="subtitle-footer mystery">Misterio</p></a>
                     </div>
-                    <div class="terror flex flex-row">
+                    <div class="footer-data footer-data terror flex flex-row">
                         <box-icon name='right-arrow' color='#ffffff'></box-icon>
                         <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p class="subtitle-footer terror">Terror</p></a>
                     </div>
-                    <div class="adventure flex flex-row">
+                    <div class="footer-data adventure flex flex-row">
                         <box-icon name='right-arrow' color='#ffffff'></box-icon>
                         <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p class="subtitle-footer adventure">Aventura</p></a>
                     </div>
                 </div>
-                <div class="container-column-4">
+                <div class="container-column-4 w-1/5">
                     <div class="container-medium">
                         <p class="title-footer title-medium">Soporte</p>
-                        <div class="frequent-questions flex flex-row">
+                        <div class="footer-data frequent-questions flex flex-row">
                             <box-icon name='right-arrow' color='#ffffff'></box-icon>
                             <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p class="subtitle-footer frequent-questions">Preguntas frecuentes</p></a>
                         </div>
-                        <div class="complaints-book flex flex-row">
+                        <div class="footer-data complaints-book flex flex-row">
                             <box-icon name='right-arrow' color='#ffffff'></box-icon>
                             <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p class="subtitle-footer complaints-book">Libro de reclamaciones</p></a>
                         </div>
-                        <div class="terms-and-conditions flex flex-row">
+                        <div class="footer-data terms-and-conditions flex flex-row">
                             <box-icon name='right-arrow' color='#ffffff'></box-icon>
                             <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p class="subtitle-footer terms-and-conditions">Términos y condiciones</p></a>
                         </div>
-                        <div class="privacy-policies flex flex-row">
+                        <div class="footer-data privacy-policies flex flex-row">
                             <box-icon name='right-arrow' color='#ffffff'></box-icon>
                             <a href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"><p class="subtitle-footer privacy-policies">Políticas de privacidad</p></a>
                         </div>
                     </div>
-                    <div class="container-payment-methods">
+                    <div class="container-payment-methods pt-8">
                         <p class="title-footer title-payment-methods">Métodos de pago</p>
-                        <div class="flex flex-row">
+                        <div class="footer-data flex flex-row">
                             <img class="payment-card" src="/images/metodo-de-pago-express.png"/>
                             <img class="payment-card" src="/images/metodo-de-pago-express.png"/>
                             <img class="payment-card" src="/images/metodo-de-pago-express.png"/>
@@ -385,7 +385,29 @@ export default {
     }
 
     .footer{
-        background: #011E51;
+        background: #021639;
+    }
+
+    .title-footer{
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 172%;
+        color: #F9F9FF;
+    }
+
+    .subtitle-footer{
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 172%;
+        color: #FFFFFF;
+    }
+
+    .footer-data{
+        padding-top: 2rem;
     }
     
 </style>
