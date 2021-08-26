@@ -2,6 +2,10 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Chettan+2:wght@400;500;600;700;800&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Saira:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 :root {
   --primary: #5e20e4;
   --opacity2: #c4c4c4;
@@ -120,6 +124,33 @@
   color: #333333;
 }
 
+.input-search-autocomplete .el-input input.el-input__inner {
+  border-radius: 1rem !important;
+  border-color: #021639 !important;
+  background: none !important;
+}
+
+.el-icon-star-on{
+  color: #5E20E4 !important;
+  font-size: 30px;
+}
+
+.el-rate__icon{
+  color: #5E20E4 !important;
+  font-size: 30px;
+}
+
+.container-select-format .el-select .el-input .el-input__inner{
+  border-color: #5E20E4;
+  width: 442px;
+  height: 66.96px;
+  border-width: 2px;
+  border-radius: 10px;
+}
+
+.el-select .el-input .el-select__caret{
+  color: #5E20E4;
+}
 .title_admin {
   font-family: Roboto;
   font-style: normal;
@@ -339,4 +370,36 @@
   from {
     transform: scale(1.1);
   }
+}
+.button-to-by > span {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+  color: #FFFFFF;
+}
+
+.el-tabs__item.is-active {
+  color: #5E20E4;
+}
+
+.el-tabs__item:hover{
+  color: #5E20E4;
+}
+
+.el-tabs__active-bar{
+  background-color: #5E20E4;
+}
+
+.el-tabs__nav-wrap::after{
+  background-color: unset;
+}
+
+.el-tabs__item {
+  font-family: "Baloo Chettan 2";
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 35px;
 }
