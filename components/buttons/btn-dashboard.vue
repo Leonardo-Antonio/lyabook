@@ -11,7 +11,7 @@
       color_primary
     "
   >
-    <div>
+    <div class="w-3/5">
       <i :class="icon"></i>
       <span class="pl-4 text_dashboard">{{ text }}</span>
     </div>

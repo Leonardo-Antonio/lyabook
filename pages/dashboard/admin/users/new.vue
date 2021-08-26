@@ -36,8 +36,8 @@
       <div class="card">
         <div class="py-10">
           <div class="w-11/12 mx-auto">
-            <div class="w-full pb-10 dropdown_custom">
-              <div class="flex flex-col px-8 w-1/2">
+            <div class="w-full pb-10">
+              <div class="flex flex-col px-8 w-1/2 select">
                 <span class="title_input">Tipo de registros*</span>
                 <el-select v-model="typeEmail" placeholder="Ingrese una opción">
                   <el-option
@@ -53,7 +53,7 @@
 
             <div class="input_semiroundend" v-show="account.email">
               <div class="w-full flex flex-row pb-4">
-                <div class="flex flex-col px-8 w-1/2">
+                <div class="flex flex-col px-8 w-1/2 input">
                   <span class="title_input">Nombres</span>
                   <el-input
                     v-model="dataEmail.name"
@@ -62,7 +62,7 @@
                   />
                 </div>
 
-                <div class="flex flex-col px-8 w-1/2">
+                <div class="flex flex-col px-8 w-1/2 input">
                   <span class="title_input">Apellidos</span>
                   <el-input
                     v-model="dataEmail.last_name"
@@ -73,7 +73,7 @@
               </div>
 
               <div class="w-full flex flex-row">
-                <div class="flex flex-col px-8 w-1/2">
+                <div class="flex flex-col px-8 w-1/2 input">
                   <span class="title_input">Password*</span>
                   <el-input
                     v-model="dataEmail.password"
@@ -82,7 +82,7 @@
                   />
                 </div>
 
-                <div class="flex flex-col px-8 w-1/2">
+                <div class="flex flex-col px-8 w-1/2 input">
                   <span class="title_input">Email*</span>
                   <el-input
                     v-model="dataEmail.email"

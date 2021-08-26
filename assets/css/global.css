@@ -217,7 +217,7 @@
 
 .text_area_new_admin .el-textarea__inner {
   min-height: 8rem !important;
-  border: 1px solid var(--primary);
+  border: 2px solid var(--primary);
   box-sizing: border-box;
   border-radius: 5px;
 }
@@ -253,7 +253,6 @@
   border-radius: 5px;
 }
 
-
 .select_details .el-input__inner:hover {
   border: 1px solid var(--primary);
   box-sizing: border-box;
@@ -264,38 +263,80 @@
 }
 
 .select_details .el-select:hover .el-input__inner {
-  border: 1px solid var(--primary);
+  border: 2px solid var(--primary);
 }
 
-.input_number .el-input-number__decrease, 
-  .input_number .el-input-number__increase {
-    background-color: var(--primary);
+.input_number .el-input-number__decrease,
+.input_number .el-input-number__increase {
+  background-color: var(--primary);
+  height: 95%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.input_number .el-input-number__decrease > i, 
-  .input_number .el-input-number__increase > i {
-    color: #fff;
-    font-weight: bold;
+.input_number .el-input-number__decrease > i,
+.input_number .el-input-number__increase > i {
+  color: #fff;
+  font-weight: bold;
 }
 
 .input .el-input__inner {
   border: 1px solid var(--primary);
+  height: 3rem;
   box-sizing: border-box;
   border-radius: 5px;
 }
 
 .input .el-input__inner:hover {
-  border: 1px solid var(--primary);
-  box-sizing: border-box;
-  border-radius: 5px;
+  transition: all .1s;
+  border: 2px solid var(--primary);
 }
 
+.input .el-input__inner:focus {
+  transition: all .1s;
+  border: 2px solid var(--primary);
+}
+
+.select .el-input__suffix {
+  color: var(--primary);
+}
 
 .price_input_prefix .el-input__prefix {
   display: flex;
   align-items: center;
-  justify-content: center ;
+  justify-content: center;
   font-size: 1.1rem;
-  padding-left: .2rem;
+  padding-left: 0.2rem;
   color: var(--primary);
+}
+
+
+.rotate {
+  animation: rotate 12s normal linear infinite;
+}
+
+.scale {
+  animation: scale 2s infinite linear alternate backwards;
+}
+
+
+@keyframes rotate {
+  to {
+    transform: rotate(1deg);
+  }
+
+  from {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scale {
+  to {
+    transform: scale(1);
+  }
+
+  from {
+    transform: scale(1.1);
+  }
 }

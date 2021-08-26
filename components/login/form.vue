@@ -7,7 +7,7 @@
           <div>
             <div>
               <div class="flex justify-center">
-                <img class="mb-8" src="/logos/main.svg" alt="logo_morsac" />
+                <img class="mb-8 scale" src="/logos/main.svg" alt="logo_morsac" />
               </div>
             </div>
 
@@ -28,14 +28,14 @@
                 <div>
                   <div>
                     <button
-                      class="btn_rounded_primary h-10 w-full mt-4"
+                      class="btn_rounded_primary h-10 w-full mt-4 btn_add_size"
                       @click="logIn"
                     >
                       Ingresar
                     </button>
                   </div>
                   <div>
-                    <button class="btn_border_line h-10 w-full mt-4" @click="signUp">
+                    <button class="btn_border_line h-10 w-full mt-4 btn_add_size" @click="signUp">
                       Crear cuenta
                     </button>
                   </div>

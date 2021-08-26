@@ -10,31 +10,31 @@
         <HeaderSignUp />
 
         <div class="w-1/2">
-          <div class="flex">
+          <div class="flex input">
             <el-input
               class="mr-1"
               placeholder="Nombres"
-              v-model="signup.name"
+              v-model="data.name"
               clearable
             />
             <el-input
               class="ml-1"
               placeholder="Apellidos"
-              v-model="signup.lastname"
+              v-model="data.lastname"
               clearable
             />
           </div>
-          <div>
+          <div class="input">
             <el-input
               class="mt-2"
               placeholder="Email"
-              v-model="signup.email"
+              v-model="data.email"
               clearable
             />
             <el-input
               class="mt-2"
               placeholder="Password"
-              v-model="signup.password"
+              v-model="data.password"
               show-password
             />
           </div>
@@ -45,8 +45,12 @@
           </div>
 
           <div>
-            <button disabled :class='{"cursor-not-allowed": !checked}'>
-              <ButtonSemiRounded :valid=checked name="Empezemos" />
+            <button
+              @click="signUp"
+              :disabled="!checked"
+              :class="{ 'cursor-not-allowed': !checked, btn_add_size: checked }"
+            >
+              <ButtonSemiRounded :valid="checked" name="Empezemos" />
             </button>
           </div>
         </div>
@@ -58,23 +62,43 @@
 <script>
 import HeaderSignUp from './header'
 import ButtonSemiRounded from '../buttons/btn-semirounded'
+import { mapMutations } from 'vuex'
 
 export default {
   components: {
     ButtonSemiRounded,
-    HeaderSignUp
+    HeaderSignUp,
   },
 
   data() {
     return {
-      signup: {
+      data: {
         name: '',
         lastname: '',
         email: '',
         password: '',
+        rol: 'client',
       },
-      checked: false
+      checked: false,
     }
-  }
+  },
+  methods: {
+    async signUp() {
+      let data
+      try {
+        data = await this.$admin({
+          method: 'post',
+          url: '/users/sign-up/email',
+          data: this.data,
+        })
+        console.log(data)
+        this.verify(this.data.email)
+        this.$router.push('verify')
+      } catch (error) {
+        console.log(error.response.data)
+      }
+    },
+    ...mapMutations(['verify']),
+  },
 }
 </script>

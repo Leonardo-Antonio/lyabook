@@ -31,7 +31,7 @@
           <div class="card">
             <div class="py-10">
               <div class="w-11/12 mx-auto">
-                <div class="input_semiroundend">
+                <div class="input">
                   <div class="w-full flex flex-row pb-4">
                     <div class="flex flex-col px-8 w-1/2">
                       <span class="title_input">Titulo*</span>
@@ -40,15 +40,17 @@
 
                     <div class="flex flex-col px-8 w-1/2">
                       <span class="title_input">Editorial*</span>
-                      <el-input
-                        placeholder="Ingrese la nombre de la editorial"
-                        show-password
-                      />
+                      <div class="input">
+                        <el-input
+                          placeholder="Ingrese la nombre de la editorial"
+                          show-password
+                        />
+                      </div>
                     </div>
                   </div>
 
                   <div class="w-full flex flex-row pb-4">
-                    <div class="flex flex-col px-8 w-full dropdown_custom">
+                    <div class="flex flex-col px-8 w-full input select_details">
                       <span class="title_input">Categorias*</span>
                       <el-select
                         v-model="value"
@@ -181,19 +183,8 @@
                 <div class="pt-4 w-full flex flex-row">
                   <div class="w-1/2">
                     <div class="flex flex-row">
+
                       <div class="pr-8">
-                        <div class="pb-4">
-                          <h5 class="title_input">Precio</h5>
-                        </div>
-
-                        <div class="input price_input_prefix">
-                          <el-input placeholder="Type something">
-                            <h1 slot="prefix">S/</h1>
-                          </el-input>
-                        </div>
-                      </div>
-
-                      <div class="pl-8">
                         <div class="pb-4">
                           <h5 class="title_input">Stock</h5>
                         </div>
@@ -274,8 +265,10 @@
                       <h5 class="title_input">Precio</h5>
                     </div>
 
-                    <div class="input_number">
-                      <el-input-number v-model="price"></el-input-number>
+                    <div class="input price_input_prefix">
+                      <el-input placeholder="Type something">
+                        <h1 slot="prefix">S/</h1>
+                      </el-input>
                     </div>
                   </div>
                 </div>

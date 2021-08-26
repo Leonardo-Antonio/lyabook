@@ -24,9 +24,10 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '@/plugins/axios.js',
     '@/plugins/boxicons.js',
     '@/plugins/notify',
-    '@/plugins/element-ui'
+    '@/plugins/element-ui',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -47,7 +48,9 @@ export default {
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    //baseURL: 'http://localhost:8080/api/v1'
+  },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {

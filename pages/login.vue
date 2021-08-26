@@ -3,7 +3,7 @@
     class="h-screen flex justify-center items-center relative overflow-hidden"
   >
     <img
-      class="absolute"
+      class="absolute rotate"
       style="left: -150px; bottom: -150px"
       src="/shapes/circle_lines_points.png"
       alt=""
@@ -17,7 +17,7 @@
     />
 
     <img
-      class="absolute"
+      class="absolute rotate"
       style="left: 20rem; top: 0; width: 15%"
       src="/shapes/circle_big_circle_small.png"
       alt=""
@@ -38,7 +38,7 @@
     />
 
     <img
-      class="absolute"
+      class="absolute rotate"
       style="right: -150px; top: -180px; width: 30%; transform: rotate(250deg)"
       src="/shapes/circle_lines_points.png"
       alt=""

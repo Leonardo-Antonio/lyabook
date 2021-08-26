@@ -7,36 +7,25 @@
     />
     <div class="w-4/5 mx-auto">
       <div>
-        <HeaderSignUp />
+        <HeaderSignUp :verify="true" />
 
         <div class="w-1/2">
           <div class="input">
             <el-input
               class="mt-2"
-              placeholder="Dni"
-              v-model="data.dni"
+              placeholder="Ingrese el codigo de verificación"
+              v-model="verification_code"
               clearable
             />
-            <el-input
-              class="mt-2"
-              placeholder="Password"
-              v-model="data.password"
-              show-password
-            />
           </div>
-          <div>
-            <el-checkbox class="mt-4 mb-8" v-model="checked">
-              Acepto los Términos y condiciones y las Políticas de privacidad.
-            </el-checkbox>
-          </div>
-
-          <div>
+          <div class="py-4">
             <button
               @click="signUp"
               :disabled="!checked"
-              :class="{ 'cursor-not-allowed': !checked, 'btn_add_size': checked }"
+              :class="{ 'cursor-not-allowed': !checked, btn_add_size: checked }"
             >
-              <ButtonSemiRounded :valid="checked" name="Empezemos" />
+              <ButtonSemiRounded :valid="checked" name="Validar" />
+              {{$store.state.email }}
             </button>
           </div>
         </div>
@@ -55,14 +44,18 @@ export default {
     HeaderSignUp,
   },
 
+  watch: {
+    verification_code: function (val) {
+      if (this.verification_code.length === 8){
+        this.checked = true
+      }
+    }
+  },
+
   data() {
     return {
       checked: false,
-      data: {
-        dni: '',
-        password: '',
-        rol: 'client',
-      },
+      verification_code: '',
     }
   },
 
@@ -71,9 +64,12 @@ export default {
       let data
       try {
         data = await this.$admin({
-          url: '/users/sign-up/dni',
+          url: '/users/verify',
           method: 'post',
-          data: this.data,
+          data: {
+            verification_code: verification_code,
+            email: ''
+          },
         })
         console.log(data)
       } catch (error) {
@@ -82,6 +78,7 @@ export default {
         }
       }
     },
+    
   },
 }
 </script>
