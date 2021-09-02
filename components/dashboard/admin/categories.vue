@@ -17,42 +17,25 @@
                 </el-input>
               </div>
               <div>
-                <button class="btn_add_size">
+                <nuxt-link to="/dashboard/admin/categories/new" no-prefetch>
                   <div
                     class="
                       bg_primary
                       rounded-full
-                      w-60
-                      h-10
+                      w-12
+                      h-12
                       flex
                       justify-center
                       items-center
-                      btn_rounded_primary
+                      btn_plus
+                      btn_add_size
                     "
                   >
                     <span class="flex justify-center items-center">
-                      Guardar cambios
+                      <box-icon name="plus" color="#fff"></box-icon>
                     </span>
                   </div>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="spacer"></div>
-
-        <div>
-          <div>
-            <h5 class="name_item_card">Crea</h5>
-          </div>
-          <div class="card">
-            <div class="py-10 w-11/12 mx-auto px-10">
-              <div class="w-1/2 pr-8">
-                <span class="title_input">Nombre</span>
-                <div class="input">
-                  <el-input placeholder="Ingrese el titulo" clearable />
-                </div>
+                </nuxt-link>
               </div>
             </div>
           </div>

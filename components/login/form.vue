@@ -7,7 +7,11 @@
           <div>
             <div>
               <div class="flex justify-center">
-                <img class="mb-8 scale" src="/logos/main.svg" alt="logo_morsac" />
+                <img
+                  class="mb-8 scale"
+                  src="/logos/main.svg"
+                  alt="logo_morsac"
+                />
               </div>
             </div>
 
@@ -35,9 +39,13 @@
                     </button>
                   </div>
                   <div>
-                    <button class="btn_border_line h-10 w-full mt-4 btn_add_size" @click="signUp">
+                    <button
+                      class="btn_border_line h-10 w-full mt-4 btn_add_size"
+                    >
                       Crear cuenta
                     </button>
+                    {{ email_dni }}
+                    {{ password }}
                   </div>
                 </div>
               </div>
@@ -53,23 +61,31 @@
 export default {
   data() {
     return {
-      email_dni: '',
+      email: '',
+      dni: '',
+      email_dni: 'asdsad',
       password: '',
     }
   },
-
   methods: {
     logIn() {
-      this.$notify({
-        title: 'Error!',
-        message: 'El usuario y/o contraseña no son validos',
-        type: 'error',
-        position: 'top-right'
-      })
+      let emailRegex =
+        /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i
+      if (emailRegex.test(this.email_dni)) {
+        try {
+          this.$credentials({
+            url: '/users/log-in/email',
+            method: 'post',
+            data: {
+              password: this.password,
+              email: this.email
+            },
+          })
+        } catch (error) {console.log(error)}
+      } else {
+        alert('hi!')
+      }
     },
-    signUp() {
-      this.$router.push({ path: '/sign-up' })
-    }
   },
 }
 </script>

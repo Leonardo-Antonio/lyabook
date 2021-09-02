@@ -23,6 +23,10 @@
   color: #fff;
 }
 
+.color_secundary {
+  color: var(--secundary);
+}
+
 .color_black {
   color: #000;
 }
@@ -100,6 +104,8 @@
   line-height: 26px;
   color: #ffffff;
 }
+
+
 
 .btn_rounded_second {
   background-color: var(--second);
