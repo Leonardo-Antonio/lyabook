@@ -1,18 +1,19 @@
 import { Notification } from 'element-ui'
 
 export default function ({ $axios }, inject) {
-  const admin = $axios.create({ baseURL: 'http://localhost:8000/api/v1' })
-
-  admin.onRequest((config) => {
+  const credentials = $axios.create({ baseURL: 'http://localhost:8000/api/v1' })
+  let urlRequest
+  credentials.onRequest((config) => {
+    urlRequest = config.url
     console.log('Making request to ' + config.url)
   })
 
-  admin.onResponse((response) => {
+  credentials.onResponse((response) => {
     const route = new String(response.config.url).toString()
-    if(route == "/users/log-in/dni" || route == "/users/log-in/email"){
-      localStorage.setItem("user", JSON.stringify(response.data.data))
+    if (route == '/users/log-in/dni' || route == '/users/log-in/email') {
+      localStorage.setItem('user', JSON.stringify(response.data.data))
       console.log('GUARDADO EN EL LOCALSTORAGE')
-    } 
+    }
 
     const data = response.data
     const message_type = data.message_type.toUpperCase()
@@ -21,18 +22,19 @@ export default function ({ $axios }, inject) {
       message: `${data.message}`,
     })
   })
-  admin.onError((error) => {
-    console.log(error.response.data)
+
+  credentials.onError((error) => {
     const code = parseInt(error.response && error.response.status)
-    console.log(code)
-    if (code === 400) {
-      const response = error.response.data
-      const message_type = response.message_type.toUpperCase()
-      Notification.warning({
-        title: `${message_type} - ${code}`,
-        message: `${response.message.join()}`,
-      })
+    console.log('Error http code: ', code)
+    if (code == 400) {
+      if (urlRequest == '/users/sign-up/email') {
+        const data = error.response.data
+        Notification.success({
+          title: `${data.message_type.toUpperCase()} - ${code}`,
+          message: `${data.message}`,
+        })
+      }
     }
   })
-  inject('credentials', admin)
+  inject('credentials', credentials)
 }

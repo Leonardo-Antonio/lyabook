@@ -84,19 +84,15 @@ export default {
   },
   methods: {
     async signUp() {
-      let data
       try {
-        data = await this.$admin({
+        const response = await this.$credentials({
           method: 'post',
           url: '/users/sign-up/email',
           data: this.data,
         })
-        console.log(data)
         this.verify(this.data.email)
         this.$router.push('verify')
-      } catch (error) {
-        console.log(error.response.data)
-      }
+      } catch (error) {}
     },
     ...mapMutations(['verify']),
   },

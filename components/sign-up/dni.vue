@@ -70,12 +70,11 @@ export default {
     async signUp() {
       let data
       try {
-        data = await this.$admin({
+        data = await this.$credentials({
           url: '/users/sign-up/dni',
           method: 'post',
           data: this.data,
         })
-        console.log(data)
       } catch (error) {
         if (error.response) {
           console.log(error.response.data)

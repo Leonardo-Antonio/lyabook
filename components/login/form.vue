@@ -44,8 +44,6 @@
                     >
                       Crear cuenta
                     </button>
-                    {{ email_dni }}
-                    {{ password }}
                   </div>
                 </div>
               </div>

@@ -25,7 +25,6 @@
               :class="{ 'cursor-not-allowed': !checked, btn_add_size: checked }"
             >
               <ButtonSemiRounded :valid="checked" name="Validar" />
-              {{$store.state.email }}
             </button>
           </div>
         </div>
@@ -46,10 +45,10 @@ export default {
 
   watch: {
     verification_code: function (val) {
-      if (this.verification_code.length === 8){
+      if (this.verification_code.length === 8) {
         this.checked = true
       }
-    }
+    },
   },
 
   data() {
@@ -61,24 +60,24 @@ export default {
 
   methods: {
     async signUp() {
-      let data
       try {
-        data = await this.$admin({
+        const response = await this.$credentials({
           url: '/users/verify',
           method: 'post',
           data: {
-            verification_code: verification_code,
-            email: ''
+            verification_code: this.verification_code,
+            email: 'leo2001.nl08@gmail.com',
           },
         })
-        console.log(data)
+        if(response.status == 201) {
+          this.$router.push('/login')
+        }
       } catch (error) {
         if (error.response) {
           console.log(error.response.data)
         }
       }
     },
-    
   },
 }
 </script>
