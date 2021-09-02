@@ -61,29 +61,46 @@
 export default {
   data() {
     return {
-      email: '',
-      dni: '',
-      email_dni: 'asdsad',
+      email_dni: '',
       password: '',
     }
   },
   methods: {
-    logIn() {
+    async logIn() {
       let emailRegex =
         /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i
       if (emailRegex.test(this.email_dni)) {
+        const data = {
+          email: this.email_dni,
+          password: this.password,
+        }
         try {
-          this.$credentials({
+          const response = await this.$credentials({
             url: '/users/log-in/email',
             method: 'post',
-            data: {
-              password: this.password,
-              email: this.email
-            },
+            data: data,
           })
-        } catch (error) {console.log(error)}
+        } catch (error) {
+          console.log(error)
+        }
       } else {
-        alert('hi!')
+        if (this.email_dni.length === 8) {
+          const data = {
+            dni: this.email_dni,
+            password: this.password,
+          }
+          try {
+            const response = await this.$credentials({
+              url: '/users/log-in/dni',
+              method: 'post',
+              data: data,
+            })
+          } catch (error) {
+            console.log(error)
+          }
+        } else {
+          this.$message.error('Ingrese un email o dni valido')
+        }
       }
     },
   },
