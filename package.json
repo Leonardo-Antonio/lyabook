@@ -16,6 +16,7 @@
     "element-ui": "^2.15.5",
     "nuxt": "^2.15.7",
     "vue-notification": "^1.3.20",
+    "vue2-google-maps": "^0.10.7",
     "xlsx": "^0.17.1"
   },
   "devDependencies": {

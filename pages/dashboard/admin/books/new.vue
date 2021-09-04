@@ -6,7 +6,7 @@
           <div class="flex flex-row justify-between">
             <h2 class="title_admin">Nuevo libro</h2>
             <div>
-              <nuxt-link to="/dashboard/admin/users/new" no-prefetch>
+              <button @click="save">
                 <div
                   class="
                     bg_primary
@@ -21,7 +21,7 @@
                     Guardar cambios
                   </span>
                 </div>
-              </nuxt-link>
+              </button>
             </div>
           </div>
           <h4 class="name_item_card">Información</h4>
@@ -35,25 +35,41 @@
                   <div class="w-full flex flex-row pb-4">
                     <div class="flex flex-col px-8 w-1/2">
                       <span class="title_input">Titulo*</span>
-                      <el-input placeholder="Ingrese el titulo" clearable />
+                      <el-input
+                        placeholder="Ingrese el titulo"
+                        v-model="data.name"
+                        clearable
+                      />
                     </div>
 
                     <div class="flex flex-col px-8 w-1/2">
                       <span class="title_input">Editorial*</span>
                       <div class="input">
                         <el-input
+                          v-model="data.editorial"
                           placeholder="Ingrese la nombre de la editorial"
-                          show-password
+                          clearable
                         />
                       </div>
                     </div>
                   </div>
 
                   <div class="w-full flex flex-row pb-4">
-                    <div class="flex flex-col px-8 w-full input select_details">
+                    <div class="flex flex-col px-8 w-1/2">
+                      <span class="title_input">Autor*</span>
+                      <div class="input">
+                        <el-input
+                          placeholder="Ingrese el nombre del autor"
+                          clearable
+                          v-model="data.author"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="flex flex-col px-8 w-1/2 input select_details">
                       <span class="title_input">Categorias*</span>
                       <el-select
-                        v-model="value"
+                        v-model="data.categories"
                         multiple
                         filterable
                         allow-create
@@ -78,6 +94,7 @@
                         placeholder="Ingrese un breve resumen"
                         maxlength="500"
                         show-word-limit
+                        v-model="data.description"
                       >
                       </el-input>
                     </div>
@@ -89,13 +106,13 @@
 
                   <div class="w-full flex flex-row px-8">
                     <el-upload
-                      action="https://api-url-images.herokuapp.com/api/v1/images"
+                      action="http://localhost:8001/api/v1/images?key=LyA1308_MORSAC25TQMor25_NNLiviN_SAkur4"
                       list-type="picture-card"
-                      accept="image/jpeg"
+                      accept="image/png"
                       :before-upload="beforeUpload"
                       :on-preview="handlePictureCardPreview"
                       :on-remove="handleRemove"
-                      :on-success="success"
+                      :on-success="successImages"
                     >
                       <i class="el-icon-plus"></i>
                     </el-upload>
@@ -159,12 +176,11 @@
 
                   <div class="upload_pdf">
                     <el-upload
-                      class="upload-demo"
                       drag
-                      action="https://jsonplaceholder.typicode.com/posts/"
-                      :on-preview="handlePreview"
-                      :on-remove="handleRemove"
-                      :file-list="fileList"
+                      action="http://192.168.1.6:8001/api/v1/pdfs?key=LyA1308_MORSAC25TQMor25_NNLiviN_SAkur4"
+                      accept="application/pdf"
+                      :before-upload="beforeUploadPdf"
+                      :on-success="successPdf"
                       multiple
                     >
                       <i class="el-icon-upload"></i>
@@ -183,14 +199,15 @@
                 <div class="pt-4 w-full flex flex-row">
                   <div class="w-1/2">
                     <div class="flex flex-row">
-
                       <div class="pr-8">
                         <div class="pb-4">
                           <h5 class="title_input">Stock</h5>
                         </div>
 
                         <div class="input input_number">
-                          <el-input-number v-model="price"></el-input-number>
+                          <el-input-number
+                            v-model="data.type.fisico.stock"
+                          ></el-input-number>
                         </div>
                       </div>
                     </div>
@@ -205,7 +222,10 @@
 
                         <div>
                           <div>
-                            <button class="pr-8">
+                            <button
+                              @click="dialogSetUbication = true"
+                              class="pr-8"
+                            >
                               <div
                                 class="
                                   btn_rounded_primary btn_add_size
@@ -219,7 +239,7 @@
                                 <span>Buscar tienda</span>
                               </div>
                             </button>
-                            <button>
+                            <button @click="getCurrentLocation">
                               <div
                                 class="
                                   btn_rounded_second btn_add_size
@@ -250,7 +270,7 @@
 
                     <div class="select_details input">
                       <el-select
-                        v-model="details"
+                        v-model="data.details"
                         multiple
                         filterable
                         allow-create
@@ -262,11 +282,15 @@
 
                   <div class="pt-4 w-1/2 pl-8">
                     <div class="pb-4">
-                      <h5 class="title_input">Precio</h5>
+                      <h5 class="title_input">Precio*</h5>
                     </div>
 
                     <div class="input price_input_prefix">
-                      <el-input placeholder="Type something">
+                      <el-input
+                        placeholder="Type something"
+                        v-model.number="data.price_current"
+                        type="number"
+                      >
                         <h1 slot="prefix">S/</h1>
                       </el-input>
                     </div>
@@ -278,19 +302,117 @@
         </div>
       </div>
     </div>
+    <el-dialog :visible.sync="dialogSetUbication" width="60" center>
+      <div>
+        <div class="w-full flex flex-row">
+          <div class="w-1/2 pr-2">
+            <div>
+              <el-input
+                placeholder="Please input"
+                v-model="place"
+                class="input-with-select"
+              >
+                <el-button
+                  @click="searchPlace"
+                  slot="append"
+                  icon="el-icon-search"
+                ></el-button>
+              </el-input>
+            </div>
+
+            <div>
+              <div class="pt-4">
+                <div>
+                  <div
+                    class="overflow-y-auto overflow-x-hidden"
+                    style="height: 500px"
+                  >
+                    <div>
+                      <div v-for="place of places" :key="place">
+                        <div class="pt-2 pb-2 pr-2">
+                          <button class="w-full" @click="setLocation(place)">
+                            <div
+                              class="
+                                bg_secundary
+                                rounded-xl
+                                delay-150
+                                hover:shadow-lg
+                                text-left
+                                p-4
+                              "
+                            >
+                              <div class="flex flex-col">
+                                <div>
+                                  <strong>Dirección: </strong>
+                                  <span>{{ place.display_name }}</span>
+                                </div>
+                                <div>
+                                  <strong>Region: </strong>
+                                  <span>{{ place.display_region }}</span>
+                                </div>
+                                <div>
+                                  <strong>Pais: </strong>
+                                  <span>{{ place.country }}</span>
+                                </div>
+                                <div>
+                                  <strong>Continente: </strong>
+                                  <span>{{ place.continent }}</span>
+                                </div>
+                              </div>
+                            </div>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="w-1/2 pl-2">
+            <MapMarket />
+          </div>
+        </div>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import MapMarket from '../../../../components/maps/market'
+
 export default {
   layout: 'admin',
+  components: {
+    MapMarket,
+  },
   data() {
     return {
+      data: {
+        name: '',
+        author: '',
+        editorial: '',
+        price_current: 0.0,
+        description: '',
+        type: {
+          digital: {
+            src: '',
+          },
+          fisico: {
+            log: '',
+            lat: '',
+            stock: '',
+          },
+        },
+        categories: [],
+        images_src: [],
+        details: [],
+      },
       typeBook: {
         digital: true,
         fisico: false,
       },
-      imagesList: [],
       dialogImageUrl: '',
       dialogVisible: false,
       images: null,
@@ -311,16 +433,29 @@ export default {
       value: [],
       dialogImageUrl: '',
       dialogVisible: false,
-      disabled: false,
-      details: [],
 
-      price: 0,
+      dialogSetUbication: false,
+
+      place: '',
+      places: [],
+
+      markers: [
+        {
+          position: { lat: 62, lng: 10.0 },
+        },
+        {
+          position: { lat: 10.0, lng: 10.0 },
+        },
+      ],
     }
   },
   methods: {
+    save() {
+      console.log('Data: ', this.data)
+    },
     beforeUpload(file) {
       if (file.size / 1000 > 150) {
-        const isJPG = file.type === 'image/jpeg'
+        const isJPG = file.type === 'image/png'
         const isLt2M = file.size / 1024 / 1024 < 2
 
         if (!isJPG) {
@@ -332,6 +467,20 @@ export default {
         return isJPG && isLt2M
       }
     },
+    beforeUploadPdf(file) {
+      if (file.size / 1000 > 150) {
+        const isPdf = file.type === 'application/pdf'
+        const isLt2M = file.size / 1024 / 1024 < 2
+
+        if (!isPdf) {
+          this.$message.error('Ingrese un pdf')
+        }
+        if (!isLt2M) {
+          this.$message.error('La imagen excede los 2MB!')
+        }
+        return isPdf && isLt2M
+      }
+    },
     handleRemove(file, fileList) {
       console.log(file, fileList)
     },
@@ -339,16 +488,49 @@ export default {
       this.dialogImageUrl = file.url
       this.dialogVisible = true
     }, //recordar que falta la logica para eliminar el array de las urls de respuesta de la api de subida de images, creo q debe preguntar a mi amorcito porq creo q sabe sobre eso
-    success(response, file, fileList) {
-      console.log('response: ', response)
-      console.log('file: ', file)
-      console.log('fileList: ', fileList)
+
+    successImages(response, file, fileList) {
       const urls = []
       for (const img of fileList) {
-        urls.push(img.response.data)
+        urls.push(img.response.data.url)
       }
+      this.data.images_src = urls
+    },
+    successPdf(response, file, fileList) {
+      this.data.type.digital.src = response.data.url
+    },
 
-      console.log(urls)
+    getCurrentLocation() {
+      if (!navigator.geolocation) {
+        return
+      }
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          this.$message({
+            message: 'Se establecio la dirreción actual correctamente',
+            type: 'success',
+          })
+          this.data.type.fisico.log = position.coords.longitude
+          this.data.type.fisico.lat = position.coords.latitude
+        },
+        () => {
+          alert(':C')
+        }
+      )
+    },
+
+    async searchPlace() {
+      const response = await this.$axios({
+        url: `https://api.mymappi.com/v2/geocoding/direct?apikey=0876a809-8921-4bb7-bd2d-f2069c9951e0&q=${this.place}`,
+        method: 'get',
+      })
+      this.places = response.data.data
+    },
+
+    setLocation(place) {
+      this.data.type.fisico.log = place.lat
+      this.data.type.fisico.lat = place.lon
+      console.log(this.data.type.fisico.lat)
     },
   },
 }

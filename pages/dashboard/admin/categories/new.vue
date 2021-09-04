@@ -4,7 +4,7 @@
       <div class="p-4">
         <div>
           <div class="flex flex-row justify-between">
-            <h2 class="title_admin">Nuevo libro</h2>
+            <h2 class="title_admin">Nueva categoria</h2>
             <div>
               <button @click="save">
                 <div
@@ -54,6 +54,7 @@
                           <span class="title_input">Nombre*</span>
                           <div class="input">
                             <el-input
+                              v-model="dataOneCategory.name"
                               placeholder="Ingrese la nombre de la categoria"
                             />
                           </div>
@@ -133,6 +134,9 @@ export default {
     return {
       typeInsert: false,
       categories: [],
+      dataOneCategory: {
+        name: '',
+      },
     }
   },
   methods: {
@@ -158,13 +162,23 @@ export default {
     async save() {
       if (!this.typeInsert) {
         try {
-          data = await this.$admin({
+          const response = await this.$admin({
             url: '/categories',
             method: 'post',
             data: this.categories,
           })
-          console.log(data)
-          console.log(this.categories)
+        } catch (error) {
+          if (error.response) {
+            console.log(error.response.data)
+          }
+        }
+      } else {
+        try {
+          const response = await this.$admin({
+            url: '/categories/one',
+            method: 'post',
+            data: this.dataOneCategory,
+          })
         } catch (error) {
           if (error.response) {
             console.log(error.response.data)

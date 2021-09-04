@@ -29,7 +29,13 @@ export default function ({ $axios }, inject) {
     if (code == 400) {
       if (urlRequest == '/users/sign-up/email') {
         const data = error.response.data
-        Notification.success({
+        Notification.error({
+          title: `${data.message_type.toUpperCase()} - ${code}`,
+          message: `${data.message}`,
+        })
+      } else {
+        const data = error.response.data
+        Notification.error({
           title: `${data.message_type.toUpperCase()} - ${code}`,
           message: `${data.message}`,
         })

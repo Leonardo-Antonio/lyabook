@@ -7,7 +7,7 @@
         </div>
         <div>
           <div>
-            <button>
+            <button @click="save">
               <div
                 class="
                   bg_primary
@@ -31,7 +31,6 @@
         </div>
       </div>
     </div>
-
     <div class="pt-10">
       <div class="card">
         <div class="py-10">
@@ -39,15 +38,20 @@
             <div class="w-full pb-10">
               <div class="flex flex-col px-8 w-1/2 select">
                 <span class="title_input">Tipo de registros*</span>
-                <el-select v-model="typeEmail" placeholder="Ingrese una opción">
-                  <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
+                <div class="input select_details">
+                  <el-select
+                    v-model="typeEmail"
+                    placeholder="Ingrese una opción"
                   >
-                  </el-option>
-                </el-select>
+                    <el-option
+                      v-for="item in options"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                    >
+                    </el-option>
+                  </el-select>
+                </div>
               </div>
             </div>
 
@@ -72,7 +76,7 @@
                 </div>
               </div>
 
-              <div class="w-full flex flex-row">
+              <div class="w-full flex flex-row input">
                 <div class="flex flex-col px-8 w-1/2 input">
                   <span class="title_input">Password*</span>
                   <el-input
@@ -95,7 +99,7 @@
 
             <div class="input_semiroundend" v-show="account.dni">
               <div class="w-full flex flex-row">
-                <div class="flex flex-col px-8 w-1/2">
+                <div class="flex flex-col px-8 w-1/2 input">
                   <span class="title_input">Password*</span>
                   <el-input
                     v-model="dataDni.password"
@@ -104,7 +108,7 @@
                   />
                 </div>
 
-                <div class="flex flex-col px-8 w-1/2">
+                <div class="flex flex-col px-8 w-1/2 input">
                   <span class="title_input">Dni*</span>
                   <el-input
                     v-model="dataDni.dni"
@@ -147,11 +151,13 @@ export default {
         last_name: '',
         password: '',
         email: '',
+        rol: 'admin'
       },
 
       dataDni: {
         dni: '',
         password: '',
+        rol: 'admin'
       },
     }
   },
@@ -165,6 +171,37 @@ export default {
       }
       this.account.email = true
       this.account.dni = false
+    },
+  },
+  methods: {
+    async save() {
+      if (this.typeEmail == 'dni') {
+        try {
+          const response = await this.$admin({
+            url: '/users/sign-up/dni',
+            method: 'post',
+            data: this.dataDni,
+          })
+          console.log(response)
+        } catch (error) {
+          if (error.response) {
+            console.log(error.response.data)
+          }
+        }
+      } else {
+        try {
+          const response = await this.$admin({
+            url: '/users/sign-up/email',
+            method: 'post',
+            data: this.dataEmail,
+          })
+          console.log(response)
+        } catch (error) {
+          if (error.response) {
+            console.log(error.response.data)
+          }
+        }
+      }
     },
   },
 }

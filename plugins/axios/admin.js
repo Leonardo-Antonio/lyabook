@@ -1,7 +1,12 @@
 import { Notification } from 'element-ui'
 
-export default function ({ $axios }, inject) {
-  const admin = $axios.create({ baseURL: 'http://localhost:8080/api/v1' })
+export default function ({ $axios, redirect }, inject) {
+  const admin = $axios.create({ baseURL: 'http://localhost:8000/api/v1' })
+  try {
+    admin.setToken(JSON.parse(localStorage.getItem('user')).token)
+  }catch {
+    redirect('/errors/403')
+  }
 
   admin.onRequest((config) => {
     console.log('Making request to ' + config.url)
@@ -17,14 +22,29 @@ export default function ({ $axios }, inject) {
   })
   admin.onError((error) => {
     const code = parseInt(error.response && error.response.status)
-    console.log(code)
-    if (code === 400) {
-      const response = error.response.data
-      const message_type = response.message_type.toUpperCase()
-      Notification.warning({
-        title: `${message_type} - ${code}`,
-        message: `${response.message.join()}`,
-      })
+    console.log('Error http code: ' + code)
+
+    const response = error.response.data
+    const message_type = response.message_type.toUpperCase()
+
+    switch (code) {
+      case 400:
+        Notification.warning({
+          title: `${message_type} - ${code}`,
+          message: `${response.message}`,
+        })
+        break
+      case 403:
+        redirect('/errors/403')
+        break
+
+      case 404:
+        redirect('/errors/404')
+        break
+
+      case 401:
+        redirect('/errors/401')
+        break
     }
   })
   inject('admin', admin)
