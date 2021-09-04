@@ -1,8 +1,13 @@
 <template>
-    <div>
-        <h1>
-            404
-            <h2>Not Fount</h2>
-        </h1>
-    </div>
+  <ErrNotFount src="/images/404.png" />
 </template>
+
+<script>
+import ErrNotFount from '../../components/errors/403'
+
+export default {
+  components: {
+    ErrNotFount
+  }
+}
+</script>

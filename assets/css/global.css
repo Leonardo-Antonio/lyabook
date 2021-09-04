@@ -365,6 +365,22 @@
   animation: scale 2s infinite linear alternate backwards;
 }
 
+.disappear-3 {
+  animation: disappear 3s infinite linear alternate backwards;
+}
+
+.disappear-3 {
+  animation: disappear 3s infinite linear alternate backwards;
+}
+
+.disappear-4 {
+  animation: disappear 4s infinite linear alternate backwards;
+}
+
+.disappear-5 {
+  animation: disappear 5s infinite linear alternate backwards;
+}
+
 @keyframes rotate {
   to {
     transform: rotate(1deg);
@@ -384,6 +400,17 @@
     transform: scale(1.1);
   }
 }
+
+@keyframes disappear {
+  to {
+    opacity: .5;
+  }
+
+  from {
+    background-color: #fff;
+  }
+}
+
 .button-to-by > span {
   font-family: Roboto;
   font-style: normal;

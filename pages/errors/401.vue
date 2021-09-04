@@ -1,8 +1,13 @@
 <template>
-    <div>
-        <h1>
-            401
-            <h2>No Autorizado</h2>
-        </h1>
-    </div>
+  <ErrForbidden src="/images/401.png" />
 </template>
+
+<script>
+import ErrForbidden from '../../components/errors/403'
+
+export default {
+  components: {
+    ErrForbidden
+  }
+}
+</script>
