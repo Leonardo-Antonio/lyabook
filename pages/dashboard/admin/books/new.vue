@@ -306,8 +306,9 @@
       <div>
         <div class="w-full flex flex-row">
           <div class="w-1/2 pr-2">
-            <div>
+            <div class="input_search_place">
               <el-input
+                @keypress.native.enter="searchPlace"
                 placeholder="Please input"
                 v-model="place"
                 class="input-with-select"
@@ -405,7 +406,7 @@ export default {
             stock: '',
           },
         },
-        categories: [],
+        categories: ['61101d22b88c55b02dbc5f2c'],
         images_src: [],
         details: [],
       },
@@ -451,7 +452,32 @@ export default {
   },
   methods: {
     save() {
-      console.log('Data: ', this.data)
+      let url = '/books/'
+      if (this.typeBook.digital && this.typeBook.fisico) {
+        url = url + 'df'
+      } else {
+        if (this.typeBook.digital) {
+          url = url + 'd'
+        } else if (this.typeBook.fisico) {
+          url = url + 'f'
+        } else {
+          this.$message({
+            message: 'Debe estar activado por lo menos un tipo de libro',
+            type: 'warning',
+          })
+          return
+        }
+      }
+
+      try {
+        this.$admin({
+          url: url,
+          method: 'post',
+          data: this.data,
+        })
+      } catch {
+        console.log('error.....')
+      }
     },
     beforeUpload(file) {
       if (file.size / 1000 > 150) {
@@ -510,8 +536,12 @@ export default {
             message: 'Se establecio la dirreción actual correctamente',
             type: 'success',
           })
-          this.data.type.fisico.log = position.coords.longitude
-          this.data.type.fisico.lat = position.coords.latitude
+          this.data.type.fisico.log = new String(
+            position.coords.longitude
+          ).toString()
+          this.data.type.fisico.lat = new String(
+            position.coords.latitude
+          ).toString()
         },
         () => {
           alert(':C')
@@ -528,8 +558,12 @@ export default {
     },
 
     setLocation(place) {
-      this.data.type.fisico.log = place.lat
-      this.data.type.fisico.lat = place.lon
+      this.data.type.fisico.log = new String(place.lat).toString()
+      this.data.type.fisico.lat = new String(place.lon).toString()
+      this.$message({
+        message: 'Se establecio correctamente la dirección de la tienda',
+        type: 'success',
+      })
       console.log(this.data.type.fisico.lat)
     },
   },

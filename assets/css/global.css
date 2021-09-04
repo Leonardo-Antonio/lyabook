@@ -105,8 +105,6 @@
   color: #ffffff;
 }
 
-
-
 .btn_rounded_second {
   background-color: var(--second);
   border-radius: 50px;
@@ -136,26 +134,26 @@
   background: none !important;
 }
 
-.el-icon-star-on{
-  color: #5E20E4 !important;
+.el-icon-star-on {
+  color: #5e20e4 !important;
   font-size: 30px;
 }
 
-.el-rate__icon{
-  color: #5E20E4 !important;
+.el-rate__icon {
+  color: #5e20e4 !important;
   font-size: 30px;
 }
 
-.container-select-format .el-select .el-input .el-input__inner{
-  border-color: #5E20E4;
+.container-select-format .el-select .el-input .el-input__inner {
+  border-color: #5e20e4;
   width: 442px;
   height: 66.96px;
   border-width: 2px;
   border-radius: 10px;
 }
 
-.el-select .el-input .el-select__caret{
-  color: #5E20E4;
+.el-select .el-input .el-select__caret {
+  color: #5e20e4;
 }
 .title_admin {
   font-family: Roboto;
@@ -252,8 +250,6 @@
   transition: all 0.3s;
 }
 
-
-
 .info_text_md {
   font-family: Roboto;
   font-style: normal;
@@ -321,12 +317,12 @@
 }
 
 .input .el-input__inner:hover {
-  transition: all .1s;
+  transition: all 0.1s;
   border: 2px solid var(--primary);
 }
 
 .input .el-input__inner:focus {
-  transition: all .1s;
+  transition: all 0.1s;
   border: 2px solid var(--primary);
 }
 
@@ -339,12 +335,12 @@
 }
 
 .text_area_new_admin .el-textarea__inner:focus {
-  transition: all .1s;
+  transition: all 0.1s;
   border: 2px solid var(--primary);
 }
 
 .text_area_new_admin .el-textarea__inner:hover {
-  transition: all .1s;
+  transition: all 0.1s;
   border: 2px solid var(--primary);
 }
 
@@ -361,7 +357,6 @@
   color: var(--primary);
 }
 
-
 .rotate {
   animation: rotate 12s normal linear infinite;
 }
@@ -369,7 +364,6 @@
 .scale {
   animation: scale 2s infinite linear alternate backwards;
 }
-
 
 @keyframes rotate {
   to {
@@ -396,30 +390,39 @@
   font-weight: bold;
   font-size: 24px;
   line-height: 28px;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .el-tabs__item.is-active {
-  color: #5E20E4;
+  color: #5e20e4;
 }
 
-.el-tabs__item:hover{
-  color: #5E20E4;
+.el-tabs__item:hover {
+  color: #5e20e4;
 }
 
-.el-tabs__active-bar{
-  background-color: #5E20E4;
+.el-tabs__active-bar {
+  background-color: #5e20e4;
 }
 
-.el-tabs__nav-wrap::after{
+.el-tabs__nav-wrap::after {
   background-color: unset;
 }
 
 .el-tabs__item {
-  font-family: "Baloo Chettan 2";
+  font-family: 'Baloo Chettan 2';
   font-style: normal;
   font-weight: bold;
   font-size: 24px;
   line-height: 35px;
 }
 
+.input_search_place .el-input-group__append {
+  border-radius: 0px 50px 50px 0px;
+  background: var(--primary);
+  color: #fff;
+}
+
+.input_search_place .el-input__inner {
+  border-radius: 50px 0 0 50px;
+}
