@@ -49,7 +49,17 @@
           <div class="card">
             <div class="py-10 w-11/12 mx-auto px-10">
               <div class="bg_white rounded-3xl table__custom">
-                <el-table :data="categories.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))" height="500" style="width: 100%">
+                <el-table
+                  :data="
+                    categories.filter(
+                      (data) =>
+                        !search ||
+                        data.name.toLowerCase().includes(search.toLowerCase())
+                    )
+                  "
+                  height="500"
+                  style="width: 100%"
+                >
                   <el-table-column prop="name" label="Nombre" width="180" />
                   <el-table-column prop="slug" label="Slug" width="180" />
                   <el-table-column label="Fecha de creación">
@@ -77,16 +87,21 @@
                   <el-table-column label="Acciones">
                     <template slot-scope="scope">
                       <div>
-                        <button @click="edit(scope.row)" class="btn_add_size">
-                          <box-icon
-                            name="pencil"
-                            type="solid"
-                            color="#5e20e4"
-                          ></box-icon>
-                        </button>
-                        <button @click="remove(scope.row)" class="btn_add_size">
-                          <box-icon name="trash" color="#E85F5F"></box-icon>
-                        </button>
+                        <div>
+                          <button @click="edit(scope.row)" class="btn_add_size">
+                            <box-icon
+                              name="pencil"
+                              type="solid"
+                              color="#5e20e4"
+                            ></box-icon>
+                          </button>
+                          <button
+                            @click="remove(scope.row)"
+                            class="btn_add_size"
+                          >
+                            <box-icon name="trash" color="#E85F5F"></box-icon>
+                          </button>
+                        </div>
                       </div>
                     </template>
                   </el-table-column>
@@ -105,7 +120,7 @@ export default {
   data() {
     return {
       categories: [],
-      search: ''
+      search: '',
     }
   },
 
@@ -121,8 +136,33 @@ export default {
     edit(row) {
       console.log(row)
     },
-    remove(row) {
-      console.log(row)
+    async remove(row) {
+      this.$confirm(
+        `Èstas segur@ de querer eliminar la categoria ${row.name}?`,
+        'Advertencia',
+        {
+          confirmButtonText: 'Si',
+          cancelButtonText: 'Cancel',
+          type: 'warning',
+        }
+      )
+        .then(async () => {
+          try {
+            const response = await this.$admin({
+              url: `/categories?id=${row._id}`,
+              method: 'delete',
+            })
+            if (response.status == 200) {
+              row.active = false
+            }
+          } catch (error) {}
+        })
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: 'Se cancelo la operación',
+          })
+        })
     },
   },
 }
