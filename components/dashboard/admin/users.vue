@@ -17,7 +17,7 @@
                 </el-input>
               </div>
               <div>
-                <nuxt-link to="/dashboard/admin/categories/new" no-prefetch>
+                <nuxt-link to="/dashboard/admin/users/new" no-prefetch>
                   <div
                     class="
                       bg_primary
