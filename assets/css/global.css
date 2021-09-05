@@ -50,6 +50,14 @@
   background-color: #fff;
 }
 
+.bg_error {
+  background-color: red;
+}
+
+.bg_success {
+  background-color: #28a745;
+}
+
 .shadow_card {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }

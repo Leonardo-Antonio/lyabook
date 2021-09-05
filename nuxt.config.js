@@ -20,6 +20,7 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '@/plugins/maps.js',
+    '@/plugins/axios/data.js',
     '@/plugins/axios/admin.js',
     '@/plugins/axios/credentials.js',
     '@/plugins/boxicons.js',
