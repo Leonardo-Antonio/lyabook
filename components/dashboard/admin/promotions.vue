@@ -5,7 +5,7 @@
         <div>
           <div class="flex flex-row justify-between">
             <div class="flex items-end">
-              <h3 class="title_admin">Libros</h3>
+              <h3 class="title_admin">Promociones</h3>
             </div>
             <div class="flex flex-row">
               <div class="input__search mr-8">
@@ -67,13 +67,10 @@
                     width="180"
                   />
 
-                  <el-table-column
-                    label="Precio actual"
-                    width="180"
-                  >
+                  <el-table-column label="Precio actual" width="180">
                     <template slot-scope="scope">
                       <div class="flex justify-center">
-                        S/{{scope.row.price_current}}
+                        S/{{ scope.row.price_current }}
                       </div>
                     </template>
                   </el-table-column>
@@ -126,11 +123,38 @@
 
                   <el-table-column label="Acciones">
                     <template slot-scope="scope">
-                      <div>
-                        <button @click="addPromotion(scope.row)">
-                          <img class="w-6 z10 " src="/icons/promotion.svg" alt="descuento.icon">
+                      <el-popover
+                        placement="right"
+                        width="auto"
+                        trigger="click"
+                      >
+                        <div class="input_number flex flex-col">
+                          <el-input-number
+                            v-model.number="scope.row.price_current"
+                          />
+                          <div class="pt-2">
+                            <button
+                              @click="addPromotion(scope.row)"
+                              class="
+                                bg_primary
+                                w-full
+                                p-1
+                                rounded-md
+                                color_white
+                              "
+                            >
+                              Guardar
+                            </button>
+                          </div>
+                        </div>
+                        <button slot="reference">
+                          <img
+                            class="w-6 z10"
+                            src="/icons/promotion.svg"
+                            alt="descuento.icon"
+                          />
                         </button>
-                      </div>
+                      </el-popover>
                     </template>
                   </el-table-column>
                 </el-table>
@@ -157,13 +181,21 @@ export default {
       url: '/books',
       method: 'get',
     })
-    this.books = response.data.data
-    console.log(response.data.data)
+    this.books = response.data.data.filter((book) => book.active)
   },
 
   methods: {
-    addPromotion(row) {
-      console.log(row)
+    async addPromotion(row) {
+      try {
+        const response = await this.$admin({
+          url: `/books/promotions/${row._id}`,
+          method: 'patch',
+          data: {
+            price_current: row.price_current,
+          },
+        })
+        console.log(response)
+      } catch (error) {console.log(error)}
     },
   },
 }

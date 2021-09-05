@@ -17,7 +17,7 @@
                 </el-input>
               </div>
               <div>
-                <nuxt-link to="/dashboard/admin/categories/new" no-prefetch>
+                <nuxt-link to="/dashboard/admin/books/new" no-prefetch>
                   <div
                     class="
                       bg_primary
@@ -61,7 +61,11 @@
                   style="width: 100%"
                 >
                   <el-table-column prop="name" label="Nombre" width="180" />
-                  <el-table-column prop="editorial" label="Editorial" width="180" />
+                  <el-table-column
+                    prop="editorial"
+                    label="Editorial"
+                    width="180"
+                  />
                   <el-table-column label="Tipo" width="180">
                     <template slot-scope="scope">
                       <div class="flex justify-center">
@@ -157,8 +161,33 @@ export default {
     edit(row) {
       console.log(row)
     },
-    remove(row) {
-      console.log(row)
+    async remove(row) {
+      this.$confirm(
+        `Èstas segur@ de querer eliminar el libro <${row.name}?>`,
+        'Advertencia',
+        {
+          confirmButtonText: 'Si',
+          cancelButtonText: 'Cancel',
+          type: 'warning',
+        }
+      )
+        .then(async () => {
+          try {
+            const response = await this.$admin({
+              url: `/books?id=${row._id}`,
+              method: 'delete',
+            })
+            if (response.status == 200) {
+              row.active = false
+            }
+          } catch (error) {}
+        })
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: 'Delete canceled',
+          })
+        })
     },
   },
 }
