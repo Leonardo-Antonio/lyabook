@@ -10,7 +10,7 @@
             <div class="flex flex-row">
               <div class="input__search mr-8">
                 <el-input
-                  placeholder="Busca categorias"
+                  placeholder="Busca por nombre de categoria"
                   v-model="search"
                   clearable
                 >
@@ -57,6 +57,8 @@
                         data.name.toLowerCase().includes(search.toLowerCase())
                     )
                   "
+                  class="center-loading"
+                  v-loading="loading"
                   height="500"
                   style="width: 100%"
                 >
@@ -121,6 +123,7 @@ export default {
     return {
       categories: [],
       search: '',
+      loading: true
     }
   },
 
@@ -130,6 +133,7 @@ export default {
       method: 'get',
     })
     this.categories = response.data.data
+    this.loading = false
   },
 
   methods: {

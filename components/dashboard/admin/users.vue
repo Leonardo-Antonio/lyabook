@@ -56,6 +56,8 @@
                         data.name.toLowerCase().includes(search.toLowerCase())
                     )
                   "
+                  class="center-loading"
+                  v-loading="loading"
                   height="500"
                   style="width: 100%"
                 >
@@ -120,6 +122,7 @@ export default {
     return {
       users: [],
       search: '',
+      loading: true,
     }
   },
 
@@ -130,6 +133,7 @@ export default {
     })
 
     this.users = response.data.data
+    this.loading = false
   },
 
   methods: {
@@ -138,7 +142,7 @@ export default {
     },
     async remove(row) {
       this.$confirm(
-        `Èstas segur@ de querer eliminar la categoria ${row.name}?`,
+        `Èstas segur@ de querer eliminar al administrador ${row.name}?`,
         'Advertencia',
         {
           confirmButtonText: 'Si',
@@ -149,7 +153,7 @@ export default {
         .then(async () => {
           try {
             const response = await this.$admin({
-              url: `/categories?id=${row._id}`,
+              url: `/users/admin?id=${row._id}`,
               method: 'delete',
             })
             if (response.status == 200) {

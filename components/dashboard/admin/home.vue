@@ -2,7 +2,7 @@
   <div class="overflow-y-auto overflow-x-hidden" style="height: 83vh">
     <div class="p-4">
       <div>
-        <h1 class="title">Bienvenido Leonardo Antonio</h1>
+        <h1 class="title">Bienvenid@ {{ data.name }}</h1>
         <p class="subtitle pt-4">
           Aquí un resumen de lo más importante de esta semana
         </p>
@@ -19,9 +19,21 @@
 
         <div class="w-3/5 mx-auto pt-8">
           <div class="flex flex-row justify-between">
-            <CardLink to="admin/promotions" src="/images/promotions_admin.svg" text="Nueva promoción" />
-            <CardLink to="admin/books/new" src="/images/books_admin.svg" text="Nuevo libro" />
-            <CardLink to="admin/claims" src="/images/categories_admin.svg" text="Ver reglamos" />
+            <CardLink
+              to="admin/promotions"
+              src="/images/promotions_admin.svg"
+              text="Nueva promoción"
+            />
+            <CardLink
+              to="admin/books/new"
+              src="/images/books_admin.svg"
+              text="Nuevo libro"
+            />
+            <CardLink
+              to="admin/claims"
+              src="/images/categories_admin.svg"
+              text="Ver reglamos"
+            />
           </div>
         </div>
       </div>
@@ -35,7 +47,26 @@ import CardLink from '../../cards/link'
 export default {
   components: {
     CardInfo,
-    CardLink
+    CardLink,
+  },
+  data() {
+    return {
+      data: {
+        name: 'example',
+        auth: 'example',
+        rol: 'example',
+      },
+    }
+  },
+  mounted() {
+    const admin = JSON.parse(localStorage.getItem('user').toString())
+    this.data.name = admin.user.name
+    this.data.rol = admin.user.rol
+    if (admin.user.email != undefined) {
+      this.data.auth = admin.user.email
+    } else {
+      this.data.auth = admin.user.dni
+    }
   },
 }
 </script>
