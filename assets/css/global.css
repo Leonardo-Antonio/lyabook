@@ -489,3 +489,6 @@
   display: flex;
   justify-content: center;
 }
+.el-submenu__title .el-menu{
+  border-right: unset;
+}
