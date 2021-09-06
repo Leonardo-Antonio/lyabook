@@ -138,16 +138,27 @@
         </div>
       </div>
     </div>
+
+    <el-dialog title="Actializa el libro: " :visible.sync="showEdit">
+      <Edit :data="user" />
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import Edit from './book/edit'
+
 export default {
+  components: {
+    Edit
+  },
   data() {
     return {
       books: [],
       search: '',
       loading: true,
+      showEdit: false,
+      user: {}
     }
   },
 
@@ -163,6 +174,8 @@ export default {
   methods: {
     edit(row) {
       console.log(row)
+      this.showEdit = true
+      this.user = row
     },
     async remove(row) {
       this.$confirm(

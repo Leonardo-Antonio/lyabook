@@ -62,7 +62,11 @@
                   style="width: 100%"
                 >
                   <el-table-column prop="name" label="Nombres" width="180" />
-                  <el-table-column prop="last_name" label="Apellidos" width="180" />
+                  <el-table-column
+                    prop="last_name"
+                    label="Apellidos"
+                    width="180"
+                  />
                   <el-table-column label="Fecha de contratación">
                     <template slot-scope="scope">
                       <div class="flex justify-center">
@@ -113,16 +117,27 @@
         </div>
       </div>
     </div>
+
+    <el-dialog title="Shipping address" :visible.sync="showEdit">
+      <Edit :data=data />
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import Edit from './user/edit'
+
 export default {
+  components: {
+    Edit
+  },
   data() {
     return {
       users: [],
       search: '',
       loading: true,
+      showEdit: false,
+      data: null
     }
   },
 
@@ -138,7 +153,8 @@ export default {
 
   methods: {
     edit(row) {
-      console.log(row)
+      this.showEdit = true
+      this.data = row
     },
     async remove(row) {
       this.$confirm(

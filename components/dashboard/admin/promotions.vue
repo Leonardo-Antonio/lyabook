@@ -76,6 +76,14 @@
                     </template>
                   </el-table-column>
 
+                  <el-table-column label="Precio antiguo" width="180">
+                    <template slot-scope="scope">
+                      <div class="flex justify-center">
+                        S/{{ scope.row.price_before }}
+                      </div>
+                    </template>
+                  </el-table-column>
+
                   <el-table-column label="Tipo" width="180">
                     <template slot-scope="scope">
                       <div class="flex justify-center">
@@ -96,14 +104,6 @@
                             {{ scope.row.type.digital.format }}
                           </div>
                         </div>
-                      </div>
-                    </template>
-                  </el-table-column>
-
-                  <el-table-column label="Fecha de creación">
-                    <template slot-scope="scope">
-                      <div class="flex justify-center">
-                        {{ new Date(scope.row.created_at).toLocaleString() }}
                       </div>
                     </template>
                   </el-table-column>

@@ -114,16 +114,27 @@
         </div>
       </div>
     </div>
+
+    <el-dialog title='Actializa la categoria: ' :visible.sync="showEdit">
+      <Edit :data="category" />
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import Edit from './category/edit'
+
 export default {
+  components: {
+    Edit,
+  },
   data() {
     return {
       categories: [],
       search: '',
-      loading: true
+      loading: true,
+      category: null,
+      showEdit: false,
     }
   },
 
@@ -139,6 +150,8 @@ export default {
   methods: {
     edit(row) {
       console.log(row)
+      this.category = row
+      this.showEdit = true
     },
     async remove(row) {
       this.$confirm(

@@ -177,7 +177,7 @@
                   <div class="upload_pdf">
                     <el-upload
                       drag
-                      action="http://192.168.1.6:8001/api/v1/pdfs?key=LyA1308_MORSAC25TQMor25_NNLiviN_SAkur4"
+                      action="http://192.168.1.7:8001/api/v1/pdfs?key=LyA1308_MORSAC25TQMor25_NNLiviN_SAkur4"
                       accept="application/pdf"
                       :before-upload="beforeUploadPdf"
                       :on-success="successPdf"
@@ -425,7 +425,7 @@ export default {
       place: '',
       places: [],
 
-      categories: null
+      categories: null,
     }
   },
   methods: {
@@ -501,6 +501,7 @@ export default {
       this.data.images_src = urls
     },
     successPdf(response, file, fileList) {
+      console.log(response)
       this.data.type.digital.src = response.data.url
     },
 
@@ -551,7 +552,7 @@ export default {
       url: '/categories',
       method: 'get',
     })
-    this.categories = response.data.data
+    this.categories = response.data.data.filter((category) => category.active)
   },
 }
 </script>
