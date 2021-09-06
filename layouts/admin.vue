@@ -46,7 +46,11 @@
                   <BtnDashBoard :icon="btns.home.icon" :text="btns.home.text" />
                 </nuxt-link>
 
-                <nuxt-link to="/dashboard/admin/users" no-prefetch class="py-1 panel_link">
+                <nuxt-link
+                  to="/dashboard/admin/users"
+                  no-prefetch
+                  class="py-1 panel_link"
+                >
                   <BtnDashBoard
                     :icon="btns.users.icon"
                     :text="btns.users.text"
@@ -64,7 +68,11 @@
                   />
                 </nuxt-link>
 
-                <nuxt-link to="/dashboard/admin/books" no-prefetch class="py-1 panel_link">
+                <nuxt-link
+                  to="/dashboard/admin/books"
+                  no-prefetch
+                  class="py-1 panel_link"
+                >
                   <BtnDashBoard
                     :icon="btns.books.icon"
                     :text="btns.books.text"
@@ -93,7 +101,7 @@
                   />
                 </nuxt-link>
 
-                <button @click="signOut">
+                <button @click="showDialog = true">
                   <BtnDashBoard
                     :icon="btns.signOut.icon"
                     :text="btns.signOut.text"
@@ -105,6 +113,25 @@
         </div>
       </div>
     </div>
+
+    <el-dialog
+      title="Cerrar sesión"
+      :visible.sync="showDialog"
+      width="30%"
+      center
+    >
+      <span
+        >Hola, <strong>{{ data.name }} {{ data.last_name }}</strong></span
+      ><br />
+      <span
+        >estas seguro que deseas cancela la sesión y salir de la
+        platadorma?</span
+      >
+      <span slot="footer" class="dialog-footer">
+        <button @click="showDialog = false" class="bg_second rounded-md h-10 color_white" style="width: 6.5rem;">Cancelar</button>
+        <button @click="signOut" class="bg_primary rounded-md h-10 color_white" style="width: 6.5rem;">Salir</button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -119,11 +146,13 @@ export default {
   },
   methods: {
     signOut() {
-      alert('adios')
+      this.$router.push('/login')
     },
   },
   data() {
     return {
+      data: {},
+      showDialog: false,
       btns: {
         home: {
           text: 'Inicio',
@@ -157,6 +186,10 @@ export default {
         },
       },
     }
+  },
+  mounted() {
+    const data = localStorage.getItem('user').toString()
+    this.data = JSON.parse(data).user
   },
 }
 </script>

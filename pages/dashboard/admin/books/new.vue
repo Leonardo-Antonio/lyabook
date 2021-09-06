@@ -76,10 +76,10 @@
                         placeholder="Ingrese las catergorias que correspondan"
                       >
                         <el-option
-                          v-for="item in options"
-                          :key="item.value"
-                          :label="item.label"
-                          :value="item.value"
+                          v-for="category in categories"
+                          :key="category._id"
+                          :label="category.name"
+                          :value="category._id"
                         >
                         </el-option>
                       </el-select>
@@ -177,7 +177,7 @@
                   <div class="upload_pdf">
                     <el-upload
                       drag
-                      action="http://192.168.1.6:8001/api/v1/pdfs?key=LyA1308_MORSAC25TQMor25_NNLiviN_SAkur4"
+                      action="http://192.168.1.7:8001/api/v1/pdfs?key=LyA1308_MORSAC25TQMor25_NNLiviN_SAkur4"
                       accept="application/pdf"
                       :before-upload="beforeUploadPdf"
                       :on-success="successPdf"
@@ -406,7 +406,7 @@ export default {
             stock: '',
           },
         },
-        categories: ['61101d22b88c55b02dbc5f2c'],
+        categories: [],
         images_src: [],
         details: [],
       },
@@ -417,21 +417,6 @@ export default {
       dialogImageUrl: '',
       dialogVisible: false,
       images: null,
-      options: [
-        {
-          value: 'HTML',
-          label: 'HTML',
-        },
-        {
-          value: 'CSS',
-          label: 'CSS',
-        },
-        {
-          value: 'JavaScript',
-          label: 'JavaScript',
-        },
-      ],
-      value: [],
       dialogImageUrl: '',
       dialogVisible: false,
 
@@ -440,14 +425,7 @@ export default {
       place: '',
       places: [],
 
-      markers: [
-        {
-          position: { lat: 62, lng: 10.0 },
-        },
-        {
-          position: { lat: 10.0, lng: 10.0 },
-        },
-      ],
+      categories: null,
     }
   },
   methods: {
@@ -523,6 +501,7 @@ export default {
       this.data.images_src = urls
     },
     successPdf(response, file, fileList) {
+      console.log(response)
       this.data.type.digital.src = response.data.url
     },
 
@@ -566,6 +545,14 @@ export default {
       })
       console.log(this.data.type.fisico.lat)
     },
+  },
+
+  async mounted() {
+    const response = await this.$apidata({
+      url: '/categories',
+      method: 'get',
+    })
+    this.categories = response.data.data.filter((category) => category.active)
   },
 }
 </script>

@@ -4,7 +4,7 @@ export default function ({ $axios, redirect }, inject) {
   const admin = $axios.create({ baseURL: 'http://localhost:8000/api/v1' })
   try {
     admin.setToken(JSON.parse(localStorage.getItem('user')).token)
-  }catch {
+  } catch {
     redirect('/errors/403')
   }
 
@@ -13,6 +13,10 @@ export default function ({ $axios, redirect }, inject) {
   })
 
   admin.onResponse((response) => {
+    if (response.config.url == '/users/roles/admin') {
+      return
+    }
+
     const data = response.data
     const message_type = data.message_type.toUpperCase()
     Notification.success({
@@ -21,6 +25,7 @@ export default function ({ $axios, redirect }, inject) {
     })
   })
   admin.onError((error) => {
+    console.log(error)
     const code = parseInt(error.response && error.response.status)
     console.log('Error http code: ' + code)
 

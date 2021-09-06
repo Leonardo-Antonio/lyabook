@@ -10,8 +10,8 @@
             <div class="flex flex-row">
               <div class="input__search mr-8">
                 <el-input
-                  placeholder="Busca categorias"
-                  v-model="input"
+                  placeholder="Busca por nombre de categoria"
+                  v-model="search"
                   clearable
                 >
                 </el-input>
@@ -27,8 +27,7 @@
                       flex
                       justify-center
                       items-center
-                      btn_plus
-                      btn_add_size
+                      btn_plus btn_add_size
                     "
                   >
                     <span class="flex justify-center items-center">
@@ -50,34 +49,61 @@
           <div class="card">
             <div class="py-10 w-11/12 mx-auto px-10">
               <div class="bg_white rounded-3xl table__custom">
-                <el-table :data="tableData" style="width: 100%">
-                  <el-table-column prop="name" label="Nombre" width="120">
+                <el-table
+                  :data="
+                    categories.filter(
+                      (data) =>
+                        !search ||
+                        data.name.toLowerCase().includes(search.toLowerCase())
+                    )
+                  "
+                  class="center-loading"
+                  v-loading="loading"
+                  height="500"
+                  style="width: 100%"
+                >
+                  <el-table-column prop="name" label="Nombre" width="180" />
+                  <el-table-column prop="slug" label="Slug" width="180" />
+                  <el-table-column label="Fecha de creación">
+                    <template slot-scope="scope">
+                      <div class="flex justify-center">
+                        {{ new Date(scope.row.created_at).toLocaleString() }}
+                      </div>
+                    </template>
                   </el-table-column>
-                  <el-table-column prop="state" label="Estado" width="120">
+
+                  <el-table-column label="Estado">
+                    <template slot-scope="scope">
+                      <div class="flex justify-center">
+                        <div
+                          class="rounded-full w-4 h-4"
+                          :class="{
+                            bg_error: !scope.row.active,
+                            bg_success: scope.row.active,
+                          }"
+                        ></div>
+                      </div>
+                    </template>
                   </el-table-column>
-                  <el-table-column prop="city" label="Ciudad" width="120">
-                  </el-table-column>
-                  <el-table-column prop="address" label="Dirección" width="300">
-                  </el-table-column>
-                  <el-table-column prop="zip" label="Código postal" width="120">
-                  </el-table-column>
-                  <el-table-column
-                    fixed="right"
-                    label="Operaciones"
-                    width="120"
-                  >
-                    <template>
+
+                  <el-table-column label="Acciones">
+                    <template slot-scope="scope">
                       <div>
-                        <button class="btn_add_size">
-                          <box-icon
-                            name="pencil"
-                            type="solid"
-                            color="#5e20e4"
-                          ></box-icon>
-                        </button>
-                        <button class="btn_add_size">
-                          <box-icon name="trash" color="#C4C4C4"></box-icon>
-                        </button>
+                        <div>
+                          <button @click="edit(scope.row)" class="btn_add_size">
+                            <box-icon
+                              name="pencil"
+                              type="solid"
+                              color="#5e20e4"
+                            ></box-icon>
+                          </button>
+                          <button
+                            @click="remove(scope.row)"
+                            class="btn_add_size"
+                          >
+                            <box-icon name="trash" color="#E85F5F"></box-icon>
+                          </button>
+                        </div>
                       </div>
                     </template>
                   </el-table-column>
@@ -88,72 +114,73 @@
         </div>
       </div>
     </div>
+
+    <el-dialog title='Actializa la categoria: ' :visible.sync="showEdit">
+      <Edit :data="category" />
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import Edit from './category/edit'
+
 export default {
+  components: {
+    Edit,
+  },
   data() {
     return {
-      tableData: [
-        {
-          date: '2016-05-03',
-          name: 'Tom',
-          state: 'California',
-          city: 'Los Angeles',
-          address: 'No. 189, Grove St, Los Angeles',
-          zip: 'CA 90036',
-        },
-        {
-          date: '2016-05-02',
-          name: 'Tom',
-          state: 'California',
-          city: 'Los Angeles',
-          address: 'No. 189, Grove St, Los Angeles',
-          zip: 'CA 90036',
-        },
-        {
-          date: '2016-05-04',
-          name: 'Tom',
-          state: 'California',
-          city: 'Los Angeles',
-          address: 'No. 189, Grove St, Los Angeles',
-          zip: 'CA 90036',
-        },
-        {
-          date: '2016-05-01',
-          name: 'Tom',
-          state: 'California',
-          city: 'Los Angeles',
-          address: 'No. 189, Grove St, Los Angeles',
-          zip: 'CA 90036',
-        },
-        {
-          date: '2016-05-08',
-          name: 'Tom',
-          state: 'California',
-          city: 'Los Angeles',
-          address: 'No. 189, Grove St, Los Angeles',
-          zip: 'CA 90036',
-        },
-        {
-          date: '2016-05-06',
-          name: 'Tom',
-          state: 'California',
-          city: 'Los Angeles',
-          address: 'No. 189, Grove St, Los Angeles',
-          zip: 'CA 90036',
-        },
-        {
-          date: '2016-05-07',
-          name: 'Tom',
-          state: 'California',
-          city: 'Los Angeles',
-          address: 'No. 189, Grove St, Los Angeles',
-          zip: 'CA 90036',
-        },
-      ],
+      categories: [],
+      search: '',
+      loading: true,
+      category: null,
+      showEdit: false,
     }
+  },
+
+  async mounted() {
+    const response = await this.$apidata({
+      url: '/categories',
+      method: 'get',
+    })
+    this.categories = response.data.data
+    this.loading = false
+  },
+
+  methods: {
+    edit(row) {
+      console.log(row)
+      this.category = row
+      this.showEdit = true
+    },
+    async remove(row) {
+      this.$confirm(
+        `Èstas segur@ de querer eliminar la categoria ${row.name}?`,
+        'Advertencia',
+        {
+          confirmButtonText: 'Si',
+          cancelButtonText: 'Cancel',
+          type: 'warning',
+        }
+      )
+        .then(async () => {
+          try {
+            const response = await this.$admin({
+              url: `/categories?id=${row._id}`,
+              method: 'delete',
+            })
+            if (response.status == 200) {
+              row.active = false
+            }
+          } catch (error) {}
+        })
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: 'Se cancelo la operación',
+          })
+        })
+    },
   },
 }
 </script>
