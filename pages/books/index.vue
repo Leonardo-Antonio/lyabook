@@ -2,7 +2,7 @@
   <div>
     <div class="mt-20">
       <el-container class="flex justify-center w-7/12 mx-auto">
-        <div class="w-3/12 container-filter">
+        <div class="container-filter">
           <div class="header-filter px-6 py-4 rounded-t-2xl">
             <p>Filtar por</p>
           </div>
@@ -125,15 +125,15 @@
         </div>
 
         <!-- 2da barra -->
-        <el-container>
-          <el-header>
+        <el-container class="container-list-books pt-2">
+          <el-header class="header-list-book">
             <div class="flex relative items-center">
               <div class="container-title">
                 <p>Libros</p>
               </div>
               <div class="flex absolute right-0">
                 <div>
-                  <el-select v-model="value" clearable placeholder="Select">
+                  <el-select v-model="value" clearable placeholder="Ordenar por">
                     <el-option
                       v-for="item in options"
                       :key="item.value"
@@ -151,28 +151,28 @@
               <div class="w-full">
                 <div>
                   <div class="flex flex-wrap">
-                    <div v-for="item of [2, 3, 4, 5, 6, 7, 8]" :key="item">
+                    <div v-for="item of [2, 3, 4, 5, 6, 7, 8]" :key="item" class="pl-4 pb-4">
                       <img
                         class="payment-card"
                         src="/images/example-product.png"
                       />
-                      <p>Memory - Lyabook</p>
-                      <div class="flex">
-                        <p>S/ 249.9</p>
-                        <p>S/ 149.9</p>
+                      <p class="title-product ">Memory - Lyabook</p>
+                      <div class="flex flex justify-center items-center pt-2">
+                        <p class="w-3/6	price-before">S/ 249.9</p>
+                        <p class="w-3/6	price-current">S/ 149.9</p>
                       </div>
                       <div class="star pt-4">
                         <div class="block">
                           <el-rate v-model="value1"></el-rate>
                         </div>
                       </div>
-                      <div class="container-button-to-buy pt-8">
+                      <div class="container-button-to-buy pt-4 flex justify-center items-center">
                         <el-row>
                           <el-button
                             class="btn_add_size button-to-by"
                             type="primary"
                             round
-                            >COMPRAR</el-button
+                            >Comprar</el-button
                           >
                         </el-row>
                       </div>
@@ -233,6 +233,11 @@ export default {
 .header-filter {
   background: #021639;
   color: #fff;
+  font-family: Quicksand;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 22px;
 }
 .column-menu {
   width: 100% !important;
@@ -245,19 +250,49 @@ export default {
   font-family: Qucksand;
   font-style: normal;
   font-weight: bold;
-  font-size: 24px;
+  font-size: 30px;
   line-height: 30px;
 }
 .subtitle-filter {
   font-family: Inter;
   font-style: normal;
   font-weight: 500;
-  font-size: 17px;
+  font-size: 16px;
   line-height: 17px;
   color: #000000;
 }
 .container-barra-price {
   padding-left: 1.2rem;
   padding-right: 1.2rem;
+}
+.container-filter{
+    width: 37%;
+}
+.header-list-book{
+    padding-left: 2.5rem !important;
+    padding-right: 4rem !important;
+}
+.price-before{
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    text-decoration-line: line-through;
+    color: #7F7F7F;
+}
+.price-current{
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    color: #5E20E4;
+}
+.container-barra-price .el-slider__button{
+    border: 2px solid #021639;
+}
+.container-barra-price .el-slider__bar{
+    background-color: #021639;
 }
 </style>
