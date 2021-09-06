@@ -453,3 +453,7 @@
 .input_search_place .el-input__inner {
   border-radius: 50px 0 0 50px;
 }
+
+.el-submenu__title .el-menu{
+  border-right: unset;
+}

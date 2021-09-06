@@ -1,10 +1,18 @@
 <template>
   <div>
     <div class="flex justify-center container mx-auto">
+      
+      <img
+        class="absolute"
+        style="right: 0px; top: 0px"
+        src="/shapes/doble-cuadrado-esquina-derecha.png"
+        alt=""
+      />
+     
       <div class="flex justify-center w-3/4">
         <div class="pt-8 w-full">
           <!-- header -->
-          <div class="flex items-center justify-center">
+          <div class="flex items-center justify-center px-2">
             <div class="image-logo">
               <img src="/images/LyaBook.svg" width="40%" />
             </div>
@@ -37,12 +45,14 @@
               <box-icon name="cart" animation="tada"></box-icon>
             </div>
           </div>
-
-          <nuxt />
-          
         </div>
       </div>
+
+
     </div>
+          <nuxt />
+          
+    
     <div class="footer flex justify-center px-8">
       <div class="conatiner-footer flex flex-row justify-center w-3/4 py-8">
         <div class="container-column-1 w-1/5">
