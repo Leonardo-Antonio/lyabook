@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="mt-20"> 
-            <el-container class="flex justify-center w-7/12  mx-auto">
+            <el-container class="flex justify-center  mx-auto w-2/3	">
            
                 <div class="w-3/12 container-filter">
                     <div class="header-filter px-6 py-4 rounded-t-2xl"> 
@@ -75,7 +75,7 @@
         
 
                 <!-- 2da barra -->
-                <el-container>
+                <el-container class="w-9/12">
                     <el-header>
                         <div class="flex relative items-center">
                             <div class="container-title">
@@ -96,7 +96,7 @@
                         </div>
                     </el-header>
                     <el-main>
-                        <div class="container-product flex flex-row justify-center">
+                        <div class="container-product flex flex-row justify-center w-9/12">
                             <div v-for="item of [2, 3, 4, 5, 6, 7, 8]" :key="item">
                                 <img
                                 class="payment-card"
