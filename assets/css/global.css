@@ -520,6 +520,8 @@
 
 .el-checkbox__input.is-checked+.el-checkbox__label{
   color: #000;
+  font-weight: 400;
+  font-family: Inter;
 }
 
 .el-checkbox__inner{
@@ -528,6 +530,8 @@
 
 span.el-checkbox__label {
   color: #000;
+  font-weight: 400;
+  font-family: Inter;
 }
 
 .container-product .el-rate__icon{
@@ -547,3 +551,25 @@ span.el-checkbox__label {
   font-weight: 400;
 
 }
+.el-menu-vertical-demo .el-menu--inline .el-menu-item{
+  padding-left: 20px !important;
+}
+.el-pager li:hover{
+  color: #5e20e4;
+}
+.el-pager li.active{
+  color: #5e20e4;
+}
+
+.el-select .el-input.is-focus .el-input__inner{
+  border-color: #5e20e4 !important;
+}
+.el-select-dropdown__item.hover, .el-select-dropdown__item:hover{
+  background-color: #5e20e417;
+}
+/* li.el-menu-item:hover {
+  background-color: #5e20e417 ;
+} */
+/* .el-submenu__title:hover{
+  background-color: #5e20e417 ;
+} */
