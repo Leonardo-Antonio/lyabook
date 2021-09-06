@@ -115,7 +115,7 @@
                                 <div class="block">
                                 <span class="demonstration subtitle-filter">Precio</span>
                                 <el-slider
-                                    class="pt-2 px-2"
+                                    class="pt-2"
                                     v-model="value_barra"
                                 ></el-slider>
                                 </div>
