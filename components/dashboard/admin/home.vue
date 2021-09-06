@@ -11,9 +11,9 @@
       <div class="pt-20">
         <div class="w-3/5 mx-auto">
           <div class="flex flex-row justify-between">
-            <CardInfo count="20" text="Ventas" />
-            <CardInfo count="50" text="Clientes" />
-            <CardInfo count="100" text="Reglamos" />
+            <CardInfo :count="20" text="Ventas" />
+            <CardInfo :count="cantClient" text="Clientes" />
+            <CardInfo :count="100" text="Reglamos" />
           </div>
         </div>
 
@@ -56,9 +56,10 @@ export default {
         auth: 'example',
         rol: 'example',
       },
+      cantClient: 0,
     }
   },
-  mounted() {
+  async mounted() {
     const admin = JSON.parse(localStorage.getItem('user').toString())
     this.data.name = admin.user.name
     this.data.rol = admin.user.rol
@@ -67,6 +68,22 @@ export default {
     } else {
       this.data.auth = admin.user.dni
     }
+
+    await this.getCountClient()
+  },
+
+  methods: {
+    async getCountClient() {
+      try {
+        const response = await this.$admin({
+          url: '/users/count/admin',
+          method: 'get',
+        })
+        if (response.status == 200) {
+          this.cantClient = response.data.data
+        }
+      } catch (error) {console.log(error)}
+    },
   },
 }
 </script>

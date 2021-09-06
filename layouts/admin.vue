@@ -1,11 +1,18 @@
 <template>
   <div
-    class="h-screen w-full bg_secundary flex flex-row-reverse overflow-hidden"
+    class="
+      h-screen
+      w-full
+      bg_secundary
+      flex flex-row-reverse
+      overflow-hidden
+      relative
+    "
   >
     <div class="w-full">
       <Header />
       <div class="p-10">
-        <div class="h-screen">
+        <div class="h-screen z-10">
           <nuxt />
         </div>
 
@@ -28,7 +35,7 @@
         </div>
       </div>
     </div>
-    <div class="w-1/5 pt-20 bg_white h-screen shadow_card">
+    <div class="w-1/5 pt-20 bg_white h-full shadow_card">
       <div>
         <div>
           <div class="flex justify-center">
@@ -128,8 +135,20 @@
         platadorma?</span
       >
       <span slot="footer" class="dialog-footer">
-        <button @click="showDialog = false" class="bg_second rounded-md h-10 color_white" style="width: 6.5rem;">Cancelar</button>
-        <button @click="signOut" class="bg_primary rounded-md h-10 color_white" style="width: 6.5rem;">Salir</button>
+        <button
+          @click="showDialog = false"
+          class="bg_second rounded-md h-10 color_white"
+          style="width: 6.5rem"
+        >
+          Cancelar
+        </button>
+        <button
+          @click="signOut"
+          class="bg_primary rounded-md h-10 color_white"
+          style="width: 6.5rem"
+        >
+          Salir
+        </button>
       </span>
     </el-dialog>
   </div>

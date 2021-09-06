@@ -7,7 +7,8 @@
             w-40
             h-10
             rounded-full
-            bg_secundary
+            bg_second
+            color_white
             flex
             justify-center
             items-center
