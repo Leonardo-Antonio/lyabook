@@ -12,7 +12,7 @@
         <div class="w-3/5 mx-auto">
           <div class="flex flex-row justify-between">
             <CardInfo count="20" text="Ventas" />
-            <CardInfo count="50" text="Usuarios" />
+            <CardInfo count="50" text="Clientes" />
             <CardInfo count="100" text="Reglamos" />
           </div>
         </div>

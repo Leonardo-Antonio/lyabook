@@ -62,7 +62,7 @@ export default {
 
   router: {
     middleware: [
-      'exitstoken'
+      'alert-console'
     ]
   }
 }
