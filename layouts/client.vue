@@ -24,6 +24,7 @@
                 @select="handleSelect"
                 class="input-search-autocomplete"
                 style="border-color: #021639 !important"
+                aria-placeholder="aaaaaaaa"
               ></el-autocomplete>
             </div>
             <div class="enlaces-header">
