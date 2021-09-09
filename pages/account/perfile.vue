@@ -75,11 +75,13 @@
                                 </div>
                             </div>
                         </el-tab-pane>
+
                         <el-tab-pane label="Mis Libros" class="tabOption">
                             <div class="ml-4">
                                 <p class="title-account pb-2">Mis Libros</p>
                             </div>
-                            <div class="flex"> 
+                                <div v-for="item of [2, 3, 4, 5, 6, 7, 8]" :key="item" class="pb-2">
+                                <div class="flex"> 
                                 <div class="container-my-books p-6 m-4 w-full">
                                     <div class="flex">
                                         <div class="w-1/5">
@@ -125,8 +127,146 @@
 
                                 
                             </div>
+                            </div>
                         </el-tab-pane>
-                        <el-tab-pane label="Publcar Libros" class="tabOption">Publcar Libros</el-tab-pane>
+
+                        <el-tab-pane label="Publcar Libros" class="tabOption">
+                            <div class="ml-4">
+                                <p class="title-account pb-2">Publcar Libros</p>
+                            </div> 
+                            <div class="container-tabs-public-book">
+                                <el-tabs type="card" @tab-click="handleClick">
+                                    <el-tab-pane class="tab1" label="Terminos y Condiciones">
+                                        Terminos y Condiciones
+                                    </el-tab-pane>
+
+                                    <el-tab-pane class="tab2" label="Nuevo Libro">
+                                        <div>
+                                            <div class="flex">
+                                                <div class="w-1/2">
+                                                    <div>
+                                                        <p>Nombre</p>
+                                                        <el-input
+                                                            placeholder="Nombre"
+                                                            v-model="name"
+                                                            clearable>
+                                                        </el-input>
+                                                    </div>
+                                                    <div>
+                                                        <p>Categoría</p>
+                                                        <el-select v-model="value_categoria" clearable placeholder="Selecciona una categoría">
+                                                            <el-option
+                                                            v-for="item in categoria"
+                                                            :key="item.value"
+                                                            :label="item.label"
+                                                            :value="item.value">
+                                                            </el-option>
+                                                        </el-select>
+                                                    </div>
+                                                </div>
+                                                <div class="w-1/2">
+                                                    <div>
+                                                        <p>Editorial</p>
+                                                        <el-input
+                                                            placeholder="Nombre"
+                                                            v-model="editorial"
+                                                            clearable>
+                                                        </el-input>
+                                                    </div>
+                                                    <div>
+                                                        <p>Subcategoría</p>
+                                                        <el-select v-model="value_subcategoria" clearable placeholder="Selecciona una categoría">
+                                                            <el-option
+                                                            v-for="item in subcategoria"
+                                                            :key="item.value"
+                                                            :label="item.label"
+                                                            :value="item.value">
+                                                            </el-option>
+                                                        </el-select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex flex-col w-full text_area_new_admin input">
+                                                    <!-- <span class="title_input">Resumen*</span> -->
+                                                    <p>Resumen</p>
+                                                    <el-input
+                                                        type="textarea"
+                                                        placeholder="Menos de 500 caracteristicas..."
+                                                        maxlength="500"
+                                                        show-word-limit
+                                                        v-model="resumen"
+                                                    >
+                                                    </el-input>
+                                            </div>
+
+                                            <div>
+                                                <h5 class="">Imágenes</h5>
+                                            </div>
+                                            <div>
+                                                <el-upload
+                                                action="http://localhost:8001/api/v1/images?key=LyA1308_MORSAC25TQMor25_NNLiviN_SAkur4"
+                                                list-type="picture-card"
+                                                accept="image/png"
+                                                :before-upload="beforeUpload"
+                                                :on-preview="handlePictureCardPreview"
+                                                :on-remove="handleRemove"
+                                                :on-success="successImages"
+                                                >
+                                                <i class="el-icon-plus"></i>
+                                                </el-upload>
+                                                <el-dialog :visible.sync="dialogVisible">
+                                                <img width="100%" :src="dialogImageUrl" alt="" />
+                                                </el-dialog>
+                                            </div>
+
+                                            <div class="flex flex-col pt-4">
+                                                <p class="info_text_md">
+                                                    El formato de las imágenes deben de ser en JPG con una
+                                                    resolución mínima de 1080x1080 px.
+                                                </p>
+                                                <span class="info_text_md">Peso max 500 KB</span>
+                                            </div>
+
+                                            <div class="upload_pdf">
+                                                <el-upload
+                                                drag
+                                                action="http://192.168.1.7:8001/api/v1/pdfs?key=LyA1308_MORSAC25TQMor25_NNLiviN_SAkur4"
+                                                accept="application/pdf"
+                                                :before-upload="beforeUploadPdf"
+                                                :on-success="successPdf"
+                                                multiple
+                                                >
+                                                <i class="el-icon-upload"></i>
+                                                <div class="el-upload__text">
+                                                    Suelta tu archivo aquí o <em>haz clic para cargar</em>
+                                                </div>
+                                                <!-- <div slot="tip" class="el-upload__tip">
+                                                    Solo archivos pdf/ebug con un tamaño menor de 500kb
+                                                </div> -->
+                                                </el-upload>
+                                            </div>
+
+                                            <div class="flex">
+                                                <div class="flex w-1/2">
+                                                    <p class="w-1/2">Precio normal</p>
+                                                    <el-input
+                                                            class="w-1/2"
+                                                            placeholder="Nombre"
+                                                            v-model="price_normal"
+                                                            clearable>
+                                                    </el-input>
+                                                </div>
+                                                <div class="w-1/2">
+                                                    <el-button class="btn_readBook" type="primary" >Leer Libro</el-button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </el-tab-pane>
+                                </el-tabs>
+                            </div>      
+                        </el-tab-pane>
+
                         <el-tab-pane label="Libros Publicados" class="tabOption">Libros Publicados</el-tab-pane>
                         <el-tab-pane label="Cerrar Sesión" class="tabOption">Cerrar Sesión</el-tab-pane>
                     </el-tabs>
@@ -143,7 +283,55 @@ export default {
         // image perfile
         circleUrl: "/images/icon_user.png",
         // tabs main position
-        tabPosition: 'left'
+        tabPosition: 'left',
+        //tabs publicar libro
+         activeName: 'first',
+        //form name
+         name:'',
+        //form categoria
+          categoria: [{
+          value: 'Option1',
+          label: 'Option1'
+        }, {
+          value: 'Option2',
+          label: 'Option2'
+        }, {
+          value: 'Option3',
+          label: 'Option3'
+        }, {
+          value: 'Option4',
+          label: 'Option4'
+        }, {
+          value: 'Option5',
+          label: 'Option5'
+        }],
+        value_categoria: '',
+        //form name
+         editorial:'',
+        //form categoria
+          subcategoria: [{
+          value: 'Option1',
+          label: 'Option1'
+        }, {
+          value: 'Option2',
+          label: 'Option2'
+        }, {
+          value: 'Option3',
+          label: 'Option3'
+        }, {
+          value: 'Option4',
+          label: 'Option4'
+        }, {
+          value: 'Option5',
+          label: 'Option5'
+        }],
+        value_subcategoria: ''
+      }
+    },
+    methods: {
+      //tabs publicar libro
+      handleClick(tab, event) {
+        console.log(tab, event);
       }
     }
 }
@@ -361,6 +549,48 @@ export default {
 }
 .container-star{
     width: 30%;
+}
+/* publcar libros */
+
+.container-tabs-public-book .el-tabs__header{
+    width: 100%;
+    padding-top: 0rem !important;
+}
+.container-tabs-public-book .el-tabs__header .el-tabs__nav{
+    display: flex;
+}
+
+.container-tabs-public-book  .el-tabs{
+    padding: 1rem;
+}
+.container-tabs-public-book .el-tabs__item{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 10px !important;
+    line-height: 16px;
+    color: #000000;
+    padding: .5rem 2rem .5rem 2rem !important;
+}
+.container-tabs-public-book .el-tabs__nav  .is-active{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 10px !important;
+    line-height: 16px;
+    color: #fff !important;
+    background: #5E20E4;
+}
+.container-tabs-public-book .el-tabs__nav  .is-active:hover{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 10px !important;
+    line-height: 16px;
+    color: #fff !important;
+}
+.container-tabs-public-book .el-tabs--card>.el-tabs__header .el-tabs__nav{
+    border: 1px solid #5E20E4;
 }
 
 </style>
