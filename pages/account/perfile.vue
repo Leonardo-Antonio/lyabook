@@ -75,7 +75,57 @@
                                 </div>
                             </div>
                         </el-tab-pane>
-                        <el-tab-pane label="Mis Libros" class="tabOption">Mis Libros</el-tab-pane>
+                        <el-tab-pane label="Mis Libros" class="tabOption">
+                            <div class="ml-4">
+                                <p class="title-account pb-2">Mis Libros</p>
+                            </div>
+                            <div class="flex"> 
+                                <div class="container-my-books p-6 m-4 w-full">
+                                    <div class="flex">
+                                        <div class="w-1/5">
+                                            <img class="portada-book"
+                                                src="/images/portada-la-corona.jpg"
+                                            />
+                                        </div>
+                                        <div class="container-star">
+                                            <div class="h-1/2">
+                                                <p class="title-primary">Autor: Kiera Cass</p>
+                                                <p class="title-book pt-4">Memory - Lyabook</p>
+                                            </div>
+                                            <div class="h-1/2 pt-4">
+                                                <p class="title-primary">Categoria</p>
+                                                <!-- <div v-for="item of [2, 3, 4, 5, 6, 7, 8]" :key="item" class="pl-4 pb-8"></div> -->
+                                                <div class="flex pt-4">
+                                                    <p class="name-category w-1/2">Romance</p>
+                                                    <p class="name-category w-1/2">Comedia</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="w-1/4">
+                                            <div>
+                                                <p class="title-primary">Estrellas:</p>
+                                            </div>
+                                            <div class="block pt-4 start-container">
+                                                <el-rate v-model="value1"></el-rate>
+                                            </div>
+                                        </div>
+                                        <div class="w-1/4 flex justify-end">
+                                            <div class="relative h-full">
+                                                <div class="">
+                                                    <p class="fecha p-2	px-6">6 de Agosto del 2020</p>
+                                                </div>
+                                                <div class="absolute -bottom-0 right-px">
+                                                    <a href="#" class="p-comentary">Ver comentarios</a>
+                                                    <el-button class="btn_readBook" type="primary" >Leer Libro</el-button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+                            </div>
+                        </el-tab-pane>
                         <el-tab-pane label="Publcar Libros" class="tabOption">Publcar Libros</el-tab-pane>
                         <el-tab-pane label="Libros Publicados" class="tabOption">Libros Publicados</el-tab-pane>
                         <el-tab-pane label="Cerrar Sesión" class="tabOption">Cerrar Sesión</el-tab-pane>
@@ -242,4 +292,75 @@ export default {
 .container-account  .el-tabs__header{
     padding-top: 3rem;
 }
+
+.el-button--primary.is-active, .el-button--primary:active{
+    background: unset;
+    border-color: unset;
+}
+.title-primary{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 14px;
+    color: #7F7F7F;
+}
+.title-book{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 19px;
+    color: #021639;
+}
+.name-category{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 16px;
+    color: #021639;
+}
+
+.fecha{
+    background: #F9F9FF;
+    font-size: 12px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    color: #021639;
+    border-radius: 7px;
+}
+.btn_readBook{
+    background: #5E20E4;
+    border-color: #5E20E4;
+    width: 10rem;
+    margin-top: 2rem !important;
+}
+.portada-book{
+    height: 10rem;
+    border-radius: 10px;
+}
+.start-container .el-rate__icon{
+    font-size: 25px;
+}
+.container-my-books{
+    border: solid 1px #194B9F;
+    border-radius: 7px;
+}
+.p-comentary{
+    margin-left: 3.5rem !important;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    text-decoration-line: underline;
+    color: #021639;
+}
+.container-star{
+    width: 30%;
+}
+
 </style>
