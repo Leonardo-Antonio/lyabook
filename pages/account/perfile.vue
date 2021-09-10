@@ -256,7 +256,48 @@
                             </div>      
                         </el-tab-pane>
 
-                        <el-tab-pane label="Libros Publicados" class="tabOption">Libros Publicados</el-tab-pane>
+                        <el-tab-pane label="Libros Publicados" class="tabOption">
+                            <div class="ml-4">
+                                <p class="title-account pb-2">Libros Publicados</p>
+                            </div>
+                            <div class="container-book-public">
+                                <div v-for="item of [2]" :key="item" class="pb-2">
+                                    <div class="container-bookPublic flex p-6 m-4">
+                                        <div class="w-1/5">
+                                            <img class="portada-book"
+                                                src="/images/portada-la-corona.jpg"
+                                            />
+                                        </div>
+                                        <div class="w-2/5 relative">
+                                            <div class="w-1/2">
+                                                <p class="title-primary">Autor: Pedro Lopez</p>
+                                                <p class="title-book pt-4">La Selección</p>
+                                            </div>
+                                            <div class="w-1/2 absolute -bottom-0">
+                                                <p class="title-primary">Categoria</p>
+                                                <div class="flex pt-4">
+                                                    <p class="name-category w-1/2">Romance</p>
+                                                    <p class="name-category w-1/2 ml-4">Comedia</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="w-1/5"></div>
+                                        <div class="w-2/5 flex flex-col justify-between items-end">
+                                            <div class="flex">
+                                                <p class="lb-fondo">50 kb</p>
+                                                <p class="lb-fondo ml-4">PDF</p>
+                                            </div>
+                                            <div class="">
+                                                <el-button class="btn_publicBook_Edit w-48 rounded-xl" type="primary">Editar</el-button>
+                                            </div>
+                                            <div class="">
+                                                <el-button class="btn_publicBook_Delete w-48 rounded-xl" type="primary">Eliminar</el-button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </el-tab-pane>
                         <el-tab-pane label="Cerrar Sesión" class="tabOption">Cerrar Sesión</el-tab-pane>
                     </el-tabs>
                 </div>
@@ -620,6 +661,57 @@ export default {
     font-size: 13px;
     line-height: 21px;
     color: #A6A6A6;
+}
+/* libros publicados */
+.container-bookPublic{
+    border: solid 1px #194B9F;
+    border-radius: 7px;
+}
+.lb-fondo{
+    background: #F9F9FF;
+    border-radius: 7px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #000000;
+    padding: .5rem;
+}
+.btn_publicBook_Edit{
+    background: #021639;
+    color: #F9F9FF;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+    text-align: center;
+    border-color: #021639;
+}
+
+.btn_publicBook_Edit:hover{
+    background: #5E20E4;
+    border-color: #5E20E4;
+}
+
+.btn_publicBook_Delete{
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+    text-align: center;
+    border-color: #021639;
+    color: #021639;
+    background: #fff;
+    border-width: 2px;
+}
+
+.btn_publicBook_Delete:hover{
+    border-color: #5E20E4;
+    color: #5E20E4;
+    background: #fff;
 }
 
 </style>
