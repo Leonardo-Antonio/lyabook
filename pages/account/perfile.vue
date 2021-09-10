@@ -141,20 +141,28 @@
                                     </el-tab-pane>
 
                                     <el-tab-pane class="tab2" label="Nuevo Libro">
-                                        <div>
+                                        <div class="p-12 container-new-book">
                                             <div class="flex">
-                                                <div class="w-1/2">
+                                                <div class="w-3/5">
                                                     <div>
-                                                        <p>Nombre</p>
-                                                        <el-input
+                                                        <p class="titulo-form-book">Nombre</p>
+                                                        <el-input class="input mt-2"
                                                             placeholder="Nombre"
                                                             v-model="name"
                                                             clearable>
                                                         </el-input>
                                                     </div>
+                                                </div>
+                                                <div class="w-2/5 pl-12">
                                                     <div>
-                                                        <p>Categoría</p>
-                                                        <el-select v-model="value_categoria" clearable placeholder="Selecciona una categoría">
+                                                        <p class="titulo-form-book">Categoría</p>
+                                                        <el-select
+                                                            class="input mt-2"
+                                                            v-model="value_categoria"
+                                                            multiple
+                                                            filterable
+                                                            allow-create
+                                                            placeholder="">
                                                             <el-option
                                                             v-for="item in categoria"
                                                             :key="item.value"
@@ -164,32 +172,12 @@
                                                         </el-select>
                                                     </div>
                                                 </div>
-                                                <div class="w-1/2">
-                                                    <div>
-                                                        <p>Editorial</p>
-                                                        <el-input
-                                                            placeholder="Nombre"
-                                                            v-model="editorial"
-                                                            clearable>
-                                                        </el-input>
-                                                    </div>
-                                                    <div>
-                                                        <p>Subcategoría</p>
-                                                        <el-select v-model="value_subcategoria" clearable placeholder="Selecciona una categoría">
-                                                            <el-option
-                                                            v-for="item in subcategoria"
-                                                            :key="item.value"
-                                                            :label="item.label"
-                                                            :value="item.value">
-                                                            </el-option>
-                                                        </el-select>
-                                                    </div>
-                                                </div>
                                             </div>
-                                            <div class="flex flex-col w-full text_area_new_admin input">
+                                            <div class="flex flex-col w-full text_area_new_admin input mt-4	">
                                                     <!-- <span class="title_input">Resumen*</span> -->
-                                                    <p>Resumen</p>
+                                                    <p class="titulo-form-book">Resumen</p>
                                                     <el-input
+                                                        class="mt-2 inp-resumen"
                                                         type="textarea"
                                                         placeholder="Menos de 500 caracteristicas..."
                                                         maxlength="500"
@@ -199,11 +187,12 @@
                                                     </el-input>
                                             </div>
 
-                                            <div>
-                                                <h5 class="">Imágenes</h5>
+                                            <div class="mt-4">
+                                                <p class="titulo-form-book">Imágenes</p>
                                             </div>
                                             <div>
                                                 <el-upload
+                                                class="mt-2"
                                                 action="http://localhost:8001/api/v1/images?key=LyA1308_MORSAC25TQMor25_NNLiviN_SAkur4"
                                                 list-type="picture-card"
                                                 accept="image/png"
@@ -227,7 +216,7 @@
                                                 <span class="info_text_md">Peso max 500 KB</span>
                                             </div>
 
-                                            <div class="upload_pdf">
+                                            <div class="upload_pdf mt-4	">
                                                 <el-upload
                                                 drag
                                                 action="http://192.168.1.7:8001/api/v1/pdfs?key=LyA1308_MORSAC25TQMor25_NNLiviN_SAkur4"
@@ -246,18 +235,18 @@
                                                 </el-upload>
                                             </div>
 
-                                            <div class="flex">
-                                                <div class="flex w-1/2">
-                                                    <p class="w-1/2">Precio normal</p>
+                                            <div class="flex mt-4">
+                                                <div class="flex w-1/2 justify-center items-center">
+                                                    <p class="w-1/2 titulo-form-book">Precio normal</p>
                                                     <el-input
-                                                            class="w-1/2"
-                                                            placeholder="Nombre"
+                                                            class="w-1/2 input"
+                                                            placeholder="Precio"
                                                             v-model="price_normal"
                                                             clearable>
                                                     </el-input>
                                                 </div>
-                                                <div class="w-1/2">
-                                                    <el-button class="btn_readBook" type="primary" >Leer Libro</el-button>
+                                                <div class="w-1/2 flex justify-end items-center">
+                                                    <el-button class="btn_readBook-public" type="primary">Publicar libro</el-button>
                                                 </div>
                                             </div>
 
@@ -306,26 +295,6 @@ export default {
           label: 'Option5'
         }],
         value_categoria: '',
-        //form name
-         editorial:'',
-        //form categoria
-          subcategoria: [{
-          value: 'Option1',
-          label: 'Option1'
-        }, {
-          value: 'Option2',
-          label: 'Option2'
-        }, {
-          value: 'Option3',
-          label: 'Option3'
-        }, {
-          value: 'Option4',
-          label: 'Option4'
-        }, {
-          value: 'Option5',
-          label: 'Option5'
-        }],
-        value_subcategoria: ''
       }
     },
     methods: {
@@ -591,6 +560,66 @@ export default {
 }
 .container-tabs-public-book .el-tabs--card>.el-tabs__header .el-tabs__nav{
     border: 1px solid #5E20E4;
+}
+
+.container-tabs-public-book .el-upload-dragger{
+    border-color: #5E20E4;
+    border-width: 1px;
+}
+.container-tabs-public-book .el-upload--picture-card{
+    border-color: #5E20E4;
+    border-width: 1px;
+}
+.container-tabs-public-book  .el-upload-dragger .el-icon-upload{
+    color: #5E20E4;
+}
+
+.container-tabs-public-book  .el-upload-dragger .el-upload__text > em{
+    color: #5E20E4;
+}
+
+.container-tabs-public-book .el-select .el-input__inner{
+    padding: 1.4rem 4rem;
+}
+
+.container-tabs-public-book .btn_readBook-public{   
+    width: 90%;
+    height: 100%;
+    background: #5E20E4;
+    border-color: #5E20E4;
+    border-radius: 50px;
+}
+
+.container-new-book{
+    border: solid 1px #5E20E4;
+    border-radius: 4px;
+}
+
+.titulo-form-book{
+    font-family: Source Sans Pro;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 21px;
+    color: #000000;
+}
+
+.container-new-book .input .el-input__inner::placeholder{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 21px;
+    color: #A6A6A6;
+}
+
+.container-new-book  .inp-resumen ::placeholder{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 21px;
+    color: #A6A6A6;
 }
 
 </style>
