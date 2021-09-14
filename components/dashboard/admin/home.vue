@@ -13,7 +13,7 @@
           <div class="flex flex-row justify-between">
             <CardInfo :count="20" text="Ventas" />
             <CardInfo :count="cantClient" text="Clientes" />
-            <CardInfo :count="100" text="Reglamos" />
+            <CardInfo :count="amountClaims" text="Reglamos" />
           </div>
         </div>
 
@@ -30,7 +30,7 @@
               text="Nuevo libro"
             />
             <CardLink
-              to="admin/claims"
+              to="admin/reglamos"
               src="/images/categories_admin.svg"
               text="Ver reglamos"
             />
@@ -57,6 +57,7 @@ export default {
         rol: 'example',
       },
       cantClient: 0,
+      amountClaims: 0,
     }
   },
   async mounted() {
@@ -70,6 +71,7 @@ export default {
     }
 
     await this.getCountClient()
+    await this.getCountClaims()
   },
 
   methods: {
@@ -82,7 +84,24 @@ export default {
         if (response.status == 200) {
           this.cantClient = response.data.data
         }
-      } catch (error) {console.log(error)}
+      } catch (error) {
+        console.log(error)
+      }
+    },
+
+    async getCountClaims() {
+      try {
+        const response = await this.$admin({
+          url: '/claims/amount',
+          method: 'get',
+        })
+
+        if (response.status == 200) {
+          this.amountClaims = response.data.data
+        }
+      } catch (error) {
+        console.log(error)
+      }
     },
   },
 }

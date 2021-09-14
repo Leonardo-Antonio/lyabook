@@ -8,33 +8,13 @@
               <h3 class="title_admin">Promociones</h3>
             </div>
             <div class="flex flex-row">
-              <div class="input__search mr-8">
+              <div class="input__search">
                 <el-input
                   placeholder="Busca por nombre de libro"
                   v-model="search"
                   clearable
                 >
                 </el-input>
-              </div>
-              <div>
-                <nuxt-link to="/dashboard/admin/categories/new" no-prefetch>
-                  <div
-                    class="
-                      bg_primary
-                      rounded-full
-                      w-12
-                      h-12
-                      flex
-                      justify-center
-                      items-center
-                      btn_plus btn_add_size
-                    "
-                  >
-                    <span class="flex justify-center items-center">
-                      <box-icon name="plus" color="#fff"></box-icon>
-                    </span>
-                  </div>
-                </nuxt-link>
               </div>
             </div>
           </div>

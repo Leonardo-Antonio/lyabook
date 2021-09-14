@@ -81,13 +81,13 @@
   background-color: var(--primary);
   transition: all .3s;
 }
-
+/* 
 .btn_primary:hover {
   background-color: rgba(0, 0, 0, 0);
   border: 2px solid var(--primary);
   transition: all .3s;
   color: var(--second);
-}
+} */
 
 .title-roboto {
   font-family: Roboto;
@@ -567,9 +567,7 @@ span.el-checkbox__label {
 .el-select-dropdown__item.hover, .el-select-dropdown__item:hover{
   background-color: #5e20e417;
 }
-/* li.el-menu-item:hover {
-  background-color: #5e20e417 ;
-} */
-/* .el-submenu__title:hover{
-  background-color: #5e20e417 ;
-} */
+
+.flex-important {
+  display: flex !important;
+}

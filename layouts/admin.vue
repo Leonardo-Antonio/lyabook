@@ -98,7 +98,7 @@
                 </nuxt-link>
 
                 <nuxt-link
-                  to="/dashboard/admin/claims"
+                  to="/dashboard/admin/reglamos"
                   no-prefetch
                   class="py-1 panel_link"
                 >
