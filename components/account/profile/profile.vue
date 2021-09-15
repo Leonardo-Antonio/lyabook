@@ -52,7 +52,7 @@
           </div>
         </div>
 
-        <div class="w-2/5">
+        <div class="w-2/5" v-show="showPassword">
           <div class="container-password p-12 m-4">
             <p class="text-title">Contraseña</p>
             <p class="text-p mt-2">
@@ -63,9 +63,16 @@
                 class="btn_add_size button-to-by btn-password"
                 type="primary"
                 round
+                @click="showPassword = false"
                 >Definir Contraseña</el-button
               >
             </div>
+          </div>
+        </div>
+
+        <div class="w-2/5" v-show="!showPassword">
+          <div class="container-password container-restore px-12 pt-20 m-4">
+            <RestorePassword/>
           </div>
         </div>
       </div>
@@ -93,21 +100,24 @@
         <p class="title-account pb-2">Editar Perfil</p>
       </div>
       <div>
-          <EditProfile/>
+        <EditProfile />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import EditProfile from '../account/edit-profile'
+import EditProfile from './edit-profile'
+import RestorePassword from './restore-password'
 export default {
   components: {
-    EditProfile
+    EditProfile,
+    RestorePassword
   },
   data() {
     return {
       showEdit: true,
+      showPassword: true,
     }
   },
 }
@@ -135,4 +145,9 @@ export default {
 .container-return .el-button:hover {
   background: unset;
 }
+
+.container-restore{
+  padding-bottom: 5.5rem;
+}
+
 </style>
