@@ -29,15 +29,78 @@
               <el-button
                 class="btn_publicBook_Edit w-48 rounded-xl"
                 type="primary"
+                @click="dialog_publicBook_Edit = true"
                 >Editar</el-button
               >
+            </div>
+
+            <div class="container_publicBook_Edit">
+              <el-dialog
+                title="Editar libro publicado"
+                :visible.sync="dialog_publicBook_Edit"
+              >
+                <el-form :model="form">
+                  <el-form-item
+                    label="Titulo del Libro"
+                    :label-width="formLabelWidth"
+                  >
+                    <el-input
+                      v-model="form.title_book"
+                      autocomplete="off"
+                    ></el-input>
+                  </el-form-item>
+                  <el-form-item label="Peso" :label-width="formLabelWidth">
+                    <el-input v-model="form.weight" autocomplete="off"></el-input>
+                  </el-form-item>
+                  <el-form-item label="Formato" :label-width="formLabelWidth">
+                    <el-input v-model="form.format" autocomplete="off"></el-input>
+                  </el-form-item>
+                  <el-form-item label="Categoría" :label-width="formLabelWidth">
+                    <el-select
+                      v-model="form.category"
+                      placeholder="Seleccionar las categorias"
+                    >
+                      <el-option label="Romance" value="Romance"></el-option>
+                      <el-option label="Comedia" value="Comedia"></el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-form>
+                <span slot="footer" class="dialog-footer">
+                  <el-button class="btn_cancel" @click="dialog_publicBook_Edit = false"
+                    >Cancelar</el-button
+                  >
+                  <el-button
+                    class="btn_confirm"
+                    type="primary"
+                    @click="dialog_publicBook_Edit = false"
+                    >Confirmar</el-button
+                  >
+                </span>
+              </el-dialog>
             </div>
             <div class="">
               <el-button
                 class="btn_publicBook_Delete w-48 rounded-xl"
                 type="primary"
+                @click="DialogVisible_publicBook_Delete = true"
                 >Eliminar</el-button
               >
+              <el-dialog
+                title="Eliminar"
+                :visible.sync="DialogVisible_publicBook_Delete"
+                width="30%"
+                center
+              >
+                <span>Desea eliminar el libro publicado "La Selección"</span>
+                <span slot="footer" class="dialog-footer">
+                  <el-button class="btn_cancel" @click="DialogVisible_publicBook_Delete = false"
+                    >Cancelar</el-button
+                  >
+                  <el-button class="btn_confirm" type="primary" @click="DialogVisible_publicBook_Delete = false"
+                    >Confirmar</el-button
+                  >
+                </span>
+              </el-dialog>
             </div>
           </div>
         </div>
@@ -48,7 +111,23 @@
 <script>
 export default {
   data() {
-    return {}
+    return {
+      dialog_publicBook_Edit: false,
+      form: {
+        title_book: '',
+        category: '',
+        weight: '',
+        format: '',
+      },
+      formLabelWidth: '120px',
+      DialogVisible_publicBook_Delete: false
+    }
   },
 }
 </script>
+<style scoped>
+.btn_confirm{
+  background-color: #021639;
+  border-color: #021639;
+}
+</style>

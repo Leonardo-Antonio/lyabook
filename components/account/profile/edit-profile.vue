@@ -102,8 +102,8 @@ export default {
     width: 100%;
     height: 4rem;
     border-radius: 5rem;
-    background: #021639;
-    border-color: #021639;
+    background: var(--primary);
+    border-color: var(--primary);
 }
 .btn_save_change:hover{
     transform: unset
