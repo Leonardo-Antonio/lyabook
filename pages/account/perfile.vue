@@ -17,67 +17,39 @@
                 <div class="mt-4">
                     <el-tabs :tab-position="tabPosition" style="height: 200px;">
                         <el-tab-pane label="Perfil" class="tabOption">
-                            <div class="ml-4">
-                                <p class="title-account pb-2">Perfil</p>
-                            </div>
-                            <div class="flex"> 
-                                <div class="container-perfile p-12 m-4 w-3/5">
-                                    <div class="flex">                                
-                                        <div class="cp-1">
-                                            <div>
-                                                <p class="text-title">Nombre</p>
-                                                <p class="text-p mt-2">Pedro</p>
-                                            </div>
-                                            <div class="mt-8">
-                                                <p class="text-title">Email</p>
-                                                <p class="text-p mt-2">pedrolopez@gmail.com</p>
-                                            </div>
-                                            <div class="mt-8">
-                                                <p class="text-title">DNI</p>
-                                                <p class="text-p mt-2">12345678</p>
-                                            </div>
-                                            <div class="mt-8">
-                                                <p class="text-title">Fecha de nacimiento</p>
-                                                <p class="text-p mt-2">12 de enero 1996</p>
-                                            </div>
-                                        </div>
-                                        <div class="cp-2">
-                                            <div>
-                                                <p class="text-title">Apellido</p>
-                                                <p class="text-p mt-2">Lopez</p>
-                                            </div>
-                                            <div class="space">
-
-                                            </div>
-                                            <div class="mt-8">
-                                                <p class="text-title">Género</p>
-                                                <p class="text-p mt-2">Masculino</p>
-                                            </div>
-                                            <div class="mt-8">
-                                                <p class="text-title">Celular</p>
-                                                <p class="text-p mt-2">999 999 999</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="container-button-edit">
-                                        <el-button class="btn_add_size button-to-by btn-edit" type="primary" round>Editar</el-button>
-                                    </div>
-                                </div>
-
-                                <div class="w-2/5">
-                                    <div class="container-password p-12 m-4 ">
-                                        <p class="text-title">Contraseña</p>
-                                        <p class="text-p mt-2">Usted todavía no tiene una contraseña definida</p>
-                                        <div class="container-btn-password flex justify-end">
-                                            <el-button class="btn_add_size button-to-by btn-password" type="primary" round>Definir Contraseña</el-button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <Profile/>
                         </el-tab-pane>
-                        <el-tab-pane label="Mis Libros" class="tabOption">Mis Libros</el-tab-pane>
-                        <el-tab-pane label="Publcar Libros" class="tabOption">Publcar Libros</el-tab-pane>
-                        <el-tab-pane label="Libros Publicados" class="tabOption">Libros Publicados</el-tab-pane>
+
+                        <el-tab-pane label="Mis Libros" class="tabOption">
+                            <div class="ml-4">
+                                <p class="title-account pb-2">Mis Libros</p>
+                            </div>
+                            <MyBook/>
+                        </el-tab-pane>
+
+                        <el-tab-pane label="Publcar Libros" class="tabOption">
+                            <div class="ml-4">
+                                <p class="title-account pb-2">Publcar Libros</p>
+                            </div> 
+                            <div class="container-tabs-public-book">
+                                <el-tabs type="card" @tab-click="handleClick">
+                                    <el-tab-pane class="tab1" label="Terminos y Condiciones">
+                                        Terminos y Condiciones
+                                    </el-tab-pane>
+
+                                    <el-tab-pane class="tab2" label="Nuevo Libro">
+                                        <NewBook/>
+                                    </el-tab-pane>
+                                </el-tabs>
+                            </div>      
+                        </el-tab-pane>
+
+                        <el-tab-pane label="Libros Publicados" class="tabOption">
+                            <div class="ml-4">
+                                <p class="title-account pb-2">Libros Publicados</p>
+                            </div>
+                            <BookPublic/>
+                        </el-tab-pane>
                         <el-tab-pane label="Cerrar Sesión" class="tabOption">Cerrar Sesión</el-tab-pane>
                     </el-tabs>
                 </div>
@@ -86,160 +58,53 @@
     </div>
 </template>
 <script>
+import Profile from '../../components/account/profile/profile'
+import NewBook from '../../components/account/public-book/new-book'
+import MyBook from '../../components/account/my-book/my-book'
+import BookPublic from '../../components/account/book-public/book-public'
 export default {
     layout: 'client',
+    components: {
+        Profile,
+        NewBook,
+        MyBook,
+        BookPublic
+    },
     data () {
       return {
         // image perfile
         circleUrl: "/images/icon_user.png",
         // tabs main position
-        tabPosition: 'left'
+        tabPosition: 'left',
+        //tabs publicar libro
+         activeName: 'first',
+        //form name
+         name:'',
+        //form categoria
+          categoria: [{
+          value: 'Option1',
+          label: 'Option1'
+        }, {
+          value: 'Option2',
+          label: 'Option2'
+        }, {
+          value: 'Option3',
+          label: 'Option3'
+        }, {
+          value: 'Option4',
+          label: 'Option4'
+        }, {
+          value: 'Option5',
+          label: 'Option5'
+        }],
+        value_categoria: '',
+      }
+    },
+    methods: {
+      //tabs publicar libro
+      handleClick(tab, event) {
+        console.log(tab, event);
       }
     }
 }
 </script>
-<style>
-.el-tabs--left{
-    height: auto !important;
-}
-.container-perfile{
-    border: solid 1px #194B9F;
-    border-radius: 10px;
-}
-.container-password{
-    border: solid 1px #194B9F;
-    border-radius: 10px;
-}
-.container-account .el-tabs--left .el-tabs__item.is-left{
-    text-align: left !important;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 300;
-    font-size: 16px;
-    line-height: 19px;
-    color: #000000;
-}
-.el-tabs--left .el-tabs__active-bar.is-left, .el-tabs--left .el-tabs__nav-wrap.is-left::after {
-    right: auto;
-    left: 0;
-    width: .4rem;
-}
-
-.container-account .el-tabs__active-bar{
-    background: #021639;
-}
-.btn-edit {
-    background: unset;
-    border: unset;
-    padding: 2rem 0 0 0 !important;
-}
-.btn-edit:hover {
-    background: unset;
-    border: unset;
-}
-.btn-edit > span{
-    font-family: Inter;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
-    text-align: right;
-    text-decoration-line: underline;
-    color: #021639;
-}
-.btn-password{
-    background: unset;
-    border: unset;
-    padding: 2rem 0 0 0 !important;
-}
-.btn-password:hover{
-    background: unset;
-    border: unset;
-}
-.btn-password > span{
-    font-family: Inter;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
-    text-align: right;
-    text-decoration-line: underline;
-    color: #021639;
-}
-.text-title{
-    font-family: Inter;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
-    color: #2E374A;
-}
-.text-p{
-    font-family: Inter;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 17px;
-    color: #696969;
-}
-.container-button-edit{
-    display: flex;
-    justify-content: flex-end;
-}
-.space{
-    margin-bottom: 6.6rem;
-}
-.cp-1{
-    width: 55%;
-}
-.cp-2{
-    width: 45%;
-}
-.title-account{
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 18px;
-    line-height: 21px;
-    color: #021639;
-}
-.container-account .el-tabs--left .el-tabs__nav-scroll .el-tabs__nav > div{
-    display: flex;
-    align-items: center;
-}
-.container-account .el-tabs--left .el-tabs__nav-scroll .el-tabs__nav .is-active{
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 19px;
-    color: #021639;
-}
-.container-account .el-tabs--left .el-tabs__nav-scroll .el-tabs__nav .el-tabs__item{
-    border-bottom: 1px solid #DEDEDE;
-    padding: 2rem;
-}
-.container-account .el-tabs__header{
-    width: 20%;
-}
-.welcome{
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 16px;
-    color: #7F7F7F;
-}
-.nameUser{
-    font-family: Quicksand;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 25px;
-
-    color: #000000;
-}
-.container-account  .el-tabs__header{
-    padding-top: 3rem;
-}
-</style>

@@ -583,3 +583,9 @@ span.el-checkbox__label {
 .flex-important {
   display: flex !important;
 }
+/* li.el-menu-item:hover {
+  background-color: #5e20e417 ;
+} */
+/* .el-submenu__title:hover{
+  background-color: #5e20e417 ;
+} */
