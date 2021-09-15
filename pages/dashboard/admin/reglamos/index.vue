@@ -221,6 +221,11 @@ export default {
       })
 
       if (response.status == 200) {
+        if (response.data.data == null || response.data.data == undefined) {
+          this.claims = []
+          this.loading = false
+          return
+        }
         this.claims = response.data.data
         this.loading = false
       }

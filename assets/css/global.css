@@ -81,6 +81,18 @@
   background-color: var(--primary);
   transition: all .3s;
 }
+
+.btn_second {
+  color: #fff;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 1rem;
+  line-height: 26px;
+  background-color: var(--second);
+  transition: all .3s;
+}
+
 /* 
 .btn_primary:hover {
   background-color: rgba(0, 0, 0, 0);
