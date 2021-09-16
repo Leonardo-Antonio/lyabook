@@ -574,11 +574,11 @@ span.el-checkbox__label {
 }
 
 .el-carousel__arrow{
-  background-color: #a580f6;
+  background-color: #5e20e4;
 }
 
 .el-carousel__arrow:hover{
-  background-color: #5e20e4;
+  background-color: #a580f6;
   transition: all .3s;
 }
 
