@@ -80,6 +80,19 @@
   line-height: 26px;
   background-color: var(--primary);
   transition: all .3s;
+  border-color: var(--primary);
+}
+
+.btn_secundary {
+  color: #fff;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 1rem;
+  line-height: 26px;
+  background-color: var(--second);
+  transition: all .3s;
+  border-color: var(--second);
 }
 
 .btn_primary:hover {
@@ -87,6 +100,13 @@
   border: 2px solid var(--primary);
   transition: all .3s;
   color: var(--second);
+}
+
+.btn_secundary:hover {
+  background-color: rgba(0, 0, 0, 0);
+  border: 2px solid var(--second);
+  transition: all .3s;
+  color: var(--primary);
 }
 
 .title-roboto {
