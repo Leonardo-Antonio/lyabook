@@ -2,7 +2,12 @@
   <div>
     <div>
       <div class="flex flex-row justify-between">
-        <h2 class="title_admin">Nuevos libros</h2>
+        <div class="flex flex-row">
+          <nuxt-link to="/dashboard/admin/books/new">
+            <box-icon name="left-arrow-alt" color="#021639"></box-icon>
+          </nuxt-link>
+          <h2 class="title_admin pl-4">Nuevos libros</h2>
+        </div>
         <div>
           <button @click="save">
             <div
@@ -91,7 +96,9 @@
                     </div>
 
                     <div>
-                      <nuxt-link class="underline color_primary" to="/"
+                      <nuxt-link
+                        class="underline color_primary"
+                        to="/dashboard/admin/books/archivos/imagenes"
                         >Subir archivos</nuxt-link
                       >
                     </div>

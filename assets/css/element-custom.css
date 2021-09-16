@@ -1,0 +1,5 @@
+/* upload drag drop */
+.upload_drag_drop-w-full .el-upload,
+.upload_drag_drop-w-full .el-upload-dragger {
+  width: 100%;
+}

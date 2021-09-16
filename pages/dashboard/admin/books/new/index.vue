@@ -4,7 +4,12 @@
       <div class="p-4">
         <div>
           <div class="flex flex-row justify-between">
-            <h2 class="title_admin">Nuevo libro</h2>
+            <div class="flex flex-row">
+              <nuxt-link to="/dashboard/admin/books">
+                <box-icon name="left-arrow-alt" color="#021639"></box-icon>
+              </nuxt-link>
+              <h2 class="title_admin pl-4">Nuevo libro</h2>
+            </div>
             <div>
               <nuxt-link to="new/many">
                 <div

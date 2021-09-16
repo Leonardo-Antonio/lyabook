@@ -32,6 +32,15 @@
   line-height: 26px;
 }
 
+.color_second {
+  color: var(--second);
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 1rem;
+  line-height: 26px;
+}
+
 .color_secundary {
   color: var(--secundary);
 }

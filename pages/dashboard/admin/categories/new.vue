@@ -4,7 +4,12 @@
       <div class="p-4">
         <div>
           <div class="flex flex-row justify-between">
-            <h2 class="title_admin">Nueva categoria</h2>
+            <div class="flex flex-row">
+              <nuxt-link to="/dashboard/admin/categories">
+                <box-icon name="left-arrow-alt" color="#021639"></box-icon>
+              </nuxt-link>
+              <h2 class="title_admin pl-4">Nueva categoria</h2>
+            </div>
             <div>
               <button @click="save">
                 <div
