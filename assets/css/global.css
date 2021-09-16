@@ -568,9 +568,20 @@ span.el-checkbox__label {
   background-color: #5e20e417;
 }
 
-/* li.el-menu-item:hover {
-  background-color: #5e20e417 ;
-} */
-/* .el-submenu__title:hover{
-  background-color: #5e20e417 ;
-} */
+.el-carousel .el-carousel__container{
+  height: 780px;
+  width: 500px;
+}
+
+.el-carousel__arrow{
+  background-color: #a580f6;
+}
+
+.el-carousel__arrow:hover{
+  background-color: #5e20e4;
+  transition: all .3s;
+}
+
+.el-carousel__indicators--outside button{
+  background-color: #5e20e4;
+}
