@@ -605,3 +605,17 @@ span.el-checkbox__label {
 .el-carousel__indicators--outside button{
   background-color: #5e20e4;
 }
+
+.container-banner-3 .el-carousel__container{
+  width: 800px !important;
+  height: 400px !important;
+}
+
+.btn-product-home .btn-comp > span {
+  font-family: 'Baloo Chettan 2';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 26px;
+  color: #fff !important;
+}

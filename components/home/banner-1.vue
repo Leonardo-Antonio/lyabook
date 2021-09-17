@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container-home flex justify-center relative overflow-x-hidden pb-36">
+    <div class="container-home flex justify-center relative overflow-x-hidden overflow-y-hidden pb-36">
       <div class="w-4/6 flex pt-28">
         <div class="w-2/3">
           <div class="">
@@ -41,7 +41,7 @@
       />
       <img
         src="/shapes/circle-double-aye.svg"
-        class="absolute z-10"
+        class="absolute z-10 rotate"
         style="width: 8rem; right: 20rem; top: 6rem"
       />
       <img
@@ -51,12 +51,12 @@
       />
       <img
         src="/shapes/circle-double-aye.svg"
-        class="absolute z-10"
+        class="absolute z-10 rotate"
         style="width: 8rem; left: 24rem; top: 29rem"
       />
       <img
         src="/shapes/circle-double-aye.svg"
-        class="absolute z-10"
+        class="absolute z-10 rotate"
         style="width: 15rem; right: -6rem; top: 30rem"
       />
     </div>
