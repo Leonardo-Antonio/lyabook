@@ -19,11 +19,12 @@ export default {
     'element-ui/lib/theme-chalk/index.css',
     '@/assets/css/global.css',
     '@/assets/css/my-account.css',
-    '@/assets/css/element-custom.css'
+    '@/assets/css/element-custom.css',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '@/plugins/charts.js',
     '@/plugins/maps.js',
     '@/plugins/axios/data.js',
     '@/plugins/axios/admin.js',
@@ -68,5 +69,9 @@ export default {
 
   router: {
     middleware: ['alert-console'],
+  },
+
+  publicRuntimeConfig: {
+    API_SERVER_FILES: process.env.API_SERVER_FILES, 
   },
 }

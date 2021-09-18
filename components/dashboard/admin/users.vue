@@ -119,7 +119,7 @@
     </div>
 
     <el-dialog title="Shipping address" :visible.sync="showEdit">
-      <Edit :data=data />
+      <Edit :data="data" />
     </el-dialog>
   </div>
 </template>
@@ -129,7 +129,7 @@ import Edit from './user/edit'
 
 export default {
   components: {
-    Edit
+    Edit,
   },
   data() {
     return {
@@ -137,18 +137,23 @@ export default {
       search: '',
       loading: true,
       showEdit: false,
-      data: null
+      data: null,
     }
   },
 
   async mounted() {
-    const response = await this.$admin({
-      url: '/users/roles/admin',
-      method: 'get',
-    })
-
-    this.users = response.data.data
-    this.loading = false
+    try {
+      const response = await this.$admin({
+        url: '/users/roles/admin',
+        method: 'get',
+      })
+      if (response.status == 200) {
+        this.users = response.data.data
+        this.loading = false
+      }
+    } catch (error) {
+      console.log('error: ', error)
+    }
   },
 
   methods: {

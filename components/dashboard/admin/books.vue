@@ -150,7 +150,7 @@ import Edit from './book/edit'
 
 export default {
   components: {
-    Edit
+    Edit,
   },
   data() {
     return {
@@ -158,17 +158,23 @@ export default {
       search: '',
       loading: true,
       showEdit: false,
-      user: {}
+      user: {},
     }
   },
 
   async mounted() {
-    const response = await this.$apidata({
-      url: '/books',
-      method: 'get',
-    })
-    this.books = response.data.data
-    this.loading = false
+    try {
+      const response = await this.$apidata({
+        url: '/books',
+        method: 'get',
+      })
+      if (response.status == 200) {
+        this.books = response.data.data
+        this.loading = false
+      }
+    } catch (error) {
+      console.log('error: ', error)
+    }
   },
 
   methods: {

@@ -45,5 +45,5 @@ export default {
 .btn_dashboard {
   background-color: rgba(0, 0, 0, 0);
   transition: all 0.3s;
-} 
+}
 </style>

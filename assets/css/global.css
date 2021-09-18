@@ -88,7 +88,7 @@
   font-size: 1rem;
   line-height: 26px;
   background-color: var(--primary);
-  transition: all .3s;
+  transition: all 0.3s;
 }
 
 .btn_second {
@@ -99,7 +99,7 @@
   font-size: 1rem;
   line-height: 26px;
   background-color: var(--second);
-  transition: all .3s;
+  transition: all 0.3s;
 }
 
 /* 
@@ -241,6 +241,12 @@
 
 .card {
   width: 100%;
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+}
+
+.card_custom {
   background: #ffffff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
@@ -514,38 +520,39 @@
   display: flex;
   justify-content: center;
 }
-.el-submenu__title .el-menu{
+.el-submenu__title .el-menu {
   border-right: unset;
 }
 
-.header-list-book .el-select .el-input__inner{
-  border: solid 1px #5E20E4;
+.header-list-book .el-select .el-input__inner {
+  border: solid 1px #5e20e4;
 }
-.header-list-book .el-select .el-input__inner::placeholder{
+.header-list-book .el-select .el-input__inner::placeholder {
   font-family: Inter;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
-  color: #31405F;
+  color: #31405f;
 }
 
-.el-submenu__title i{
+.el-submenu__title i {
   color: #021639 !important;
 }
 
-.el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner{
+.el-checkbox__input.is-checked .el-checkbox__inner,
+.el-checkbox__input.is-indeterminate .el-checkbox__inner {
   background-color: #021639;
   border-color: #021639;
 }
 
-.el-checkbox__input.is-checked+.el-checkbox__label{
+.el-checkbox__input.is-checked + .el-checkbox__label {
   color: #000;
   font-weight: 400;
   font-family: Inter;
 }
 
-.el-checkbox__inner{
+.el-checkbox__inner {
   border: 1px solid #021639 !important;
 }
 
@@ -555,37 +562,37 @@ span.el-checkbox__label {
   font-family: Inter;
 }
 
-.container-product .el-rate__icon{
+.container-product .el-rate__icon {
   color: #5e20e4 !important;
   font-size: 20px;
 }
 
-.container-product .container-button-to-buy .el-button--primary{
+.container-product .container-button-to-buy .el-button--primary {
   background-color: #5e20e4;
   border-color: #5e20e4;
   border-radius: 20px;
   padding: 3px 50px;
 }
 
-.container-product .container-button-to-buy .button-to-by > span{
+.container-product .container-button-to-buy .button-to-by > span {
   font-size: 15px;
   font-weight: 400;
-
 }
-.el-menu-vertical-demo .el-menu--inline .el-menu-item{
+.el-menu-vertical-demo .el-menu--inline .el-menu-item {
   padding-left: 20px !important;
 }
-.el-pager li:hover{
+.el-pager li:hover {
   color: #5e20e4;
 }
-.el-pager li.active{
+.el-pager li.active {
   color: #5e20e4;
 }
 
-.el-select .el-input.is-focus .el-input__inner{
+.el-select .el-input.is-focus .el-input__inner {
   border-color: #5e20e4 !important;
 }
-.el-select-dropdown__item.hover, .el-select-dropdown__item:hover{
+.el-select-dropdown__item.hover,
+.el-select-dropdown__item:hover {
   background-color: #5e20e417;
 }
 

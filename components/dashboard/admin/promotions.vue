@@ -159,12 +159,18 @@ export default {
   },
 
   async mounted() {
-    const response = await this.$apidata({
-      url: '/books',
-      method: 'get',
-    })
-    this.books = response.data.data.filter((book) => book.active)
-    this.loading = true
+    try {
+      const response = await this.$apidata({
+        url: '/books',
+        method: 'get',
+      })
+      if (response.status == 200) {
+        this.books = response.data.data.filter((book) => book.active)
+        this.loading = true
+      }
+    } catch (error) {
+      console.log('error', error)
+    }
   },
 
   methods: {

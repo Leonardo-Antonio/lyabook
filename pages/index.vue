@@ -2,6 +2,7 @@
   <div>
     <el-input placeholder="Please input" v-model="input" clearable> </el-input>
     <button @click="add">add</button>
+    {{$config}}
   </div>
 </template>
 

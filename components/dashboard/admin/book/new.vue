@@ -276,8 +276,11 @@
 
             <div class="pt-8">
               <div class="flex flex-row">
-                <button @click="save" class="w-full btn_primary h-10 rounded-full btn_add_size">
-                    Guardar
+                <button
+                  @click="save"
+                  class="w-full btn_primary h-10 rounded-full btn_add_size"
+                >
+                  Guardar
                 </button>
               </div>
             </div>
@@ -531,11 +534,19 @@ export default {
   },
 
   async mounted() {
-    const response = await this.$apidata({
-      url: '/categories',
-      method: 'get',
-    })
-    this.categories = response.data.data.filter((category) => category.active)
+    try {
+      const response = await this.$apidata({
+        url: '/categories',
+        method: 'get',
+      })
+      if (response.status == 200) {
+        this.categories = response.data.data.filter(
+          (category) => category.active
+        )
+      }
+    } catch (error) {
+      console.log('error: ', error)
+    }
   },
 }
 </script>

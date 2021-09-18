@@ -116,7 +116,7 @@
       </div>
     </div>
 
-    <el-dialog title='Actializa la categoria: ' :visible.sync="showEdit">
+    <el-dialog title="Actializa la categoria: " :visible.sync="showEdit">
       <Edit :data="category" />
     </el-dialog>
   </div>
@@ -140,12 +140,18 @@ export default {
   },
 
   async mounted() {
-    const response = await this.$apidata({
-      url: '/categories',
-      method: 'get',
-    })
-    this.categories = response.data.data
-    this.loading = false
+    try {
+      const response = await this.$apidata({
+        url: '/categories',
+        method: 'get',
+      })
+      if (response.status == 200) {
+        this.categories = response.data.data
+        this.loading = false
+      }
+    } catch (error) {
+      console.log('error: ', error)
+    }
   },
 
   methods: {

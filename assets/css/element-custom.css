@@ -3,3 +3,17 @@
 .upload_drag_drop-w-full .el-upload-dragger {
   width: 100%;
 }
+
+/* rounded select */
+.select_rounded-full .el-input__inner {
+  border-radius: 9999px;
+  height: 2.9rem;
+}
+.select_rounded-full .el-input__inner:hover {
+  border-radius: 9999px;
+  height: 2.9rem;
+}
+
+#line-chart {
+  height: 680px !important;
+}
