@@ -36,6 +36,7 @@
 </template>
 
 <script>
+
 import Banner1 from '../components/home/banner-1'
 import Banner2 from '../components/home/banner-2'
 import Banner3 from '../components/home/banner-3'
