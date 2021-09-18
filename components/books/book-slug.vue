@@ -1,15 +1,16 @@
 <template>
-  <div>   
+  <div>
     <div>
-    
       <!-- container product  -->
       <div class="flex flex-row pt-20">
         <div class="w-2/4 flex items-center justify-center">
-          <img
-            src="/images/portada-la-corona.jpg"
-            width="500px"
-            height="800px"
-          />
+          <el-carousel indicator-position="outside">
+            <el-carousel-item v-for="item in 4" :key="item">
+              <img
+                src="/images/portada-la-corona.jpg"
+              />
+            </el-carousel-item>
+          </el-carousel>
         </div>
         <div class="w-2/4 flex justify-center">
           <div class="conatiner-detail-product mx-12">
@@ -80,16 +81,13 @@
           <el-tab-pane label="Detalle" name="third">Detalle</el-tab-pane>
         </el-tabs>
       </div>
-    
     </div>
   </div>
 </template>
 <script>
-
 export default {
   layout: 'client',
-  components: {
-  },
+  components: {},
   data() {
     return {
       // search autocomplete
@@ -301,7 +299,5 @@ export default {
 .location {
   width: 80%;
 }
+
 </style>
-
-
-

@@ -34,7 +34,11 @@
                             <div class="container-tabs-public-book">
                                 <el-tabs type="card" @tab-click="handleClick">
                                     <el-tab-pane class="tab1" label="Terminos y Condiciones">
-                                        Terminos y Condiciones
+                                        <div>
+                                            si acepta los terminos y  condiciones se monetisara el libro registrado, pero el 50% de la ganancia
+                                            lo ganara la empresa y el 50% el usuario.
+                                            si no acepta los terminos y condiciones, no tendra la opción el usuario de agregar un precio y será gratis el libro.
+                                        </div>
                                     </el-tab-pane>
 
                                     <el-tab-pane class="tab2" label="Nuevo Libro">

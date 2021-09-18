@@ -14,7 +14,7 @@
             </el-input>
           </div>
         </div>
-        <div class="w-2/5 pl-12">
+        <div class="w-2/5 pl-6">
           <div>
             <p class="titulo-form-book">Categoría</p>
             <el-select
@@ -23,7 +23,7 @@
               multiple
               filterable
               allow-create
-              placeholder=""
+              placeholder="Seleccionar las categorías"
             >
               <el-option
                 v-for="item in categoria"

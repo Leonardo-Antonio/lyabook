@@ -92,6 +92,11 @@
 }
 
 .btn_second {
+  transition: all .3s;
+  border-color: var(--primary);
+}
+
+.btn_secundary {
   color: #fff;
   font-family: Roboto;
   font-style: normal;
@@ -100,6 +105,7 @@
   line-height: 26px;
   background-color: var(--second);
   transition: all 0.3s;
+  border-color: var(--second);
 }
 
 /* 
@@ -109,6 +115,13 @@
   transition: all .3s;
   color: var(--second);
 } */
+
+.btn_secundary:hover {
+  background-color: rgba(0, 0, 0, 0);
+  border: 2px solid var(--second);
+  transition: all .3s;
+  color: var(--primary);
+}
 
 .title-roboto {
   font-family: Roboto;
@@ -605,3 +618,34 @@ span.el-checkbox__label {
 /* .el-submenu__title:hover{
   background-color: #5e20e417 ;
 } */
+.el-carousel .el-carousel__container{
+  height: 780px;
+  width: 500px;
+}
+
+.el-carousel__arrow{
+  background-color: #5e20e4;
+}
+
+.el-carousel__arrow:hover{
+  background-color: #a580f6;
+  transition: all .3s;
+}
+
+.el-carousel__indicators--outside button{
+  background-color: #5e20e4;
+}
+
+.container-banner-3 .el-carousel__container{
+  width: 800px !important;
+  height: 400px !important;
+}
+
+.btn-product-home .btn-comp > span {
+  font-family: 'Baloo Chettan 2';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 26px;
+  color: #fff !important;
+}
