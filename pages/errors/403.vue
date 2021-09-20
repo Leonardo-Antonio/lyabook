@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import ErrForbidden from '../../components/errors/403'
+import ErrForbidden from '../../components/error'
 
 export default {
   components: {

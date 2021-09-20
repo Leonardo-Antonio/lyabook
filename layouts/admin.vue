@@ -54,6 +54,14 @@
                 </nuxt-link>
 
                 <nuxt-link
+                  to="/dashboard/admin/mi-cuenta"
+                  no-prefetch
+                  class="py-1 panel_link home__inactive"
+                >
+                  <BtnDashBoard :icon="btns.my_account.icon" :text="btns.my_account.text" />
+                </nuxt-link>
+
+                <nuxt-link
                   to="/dashboard/admin/users"
                   no-prefetch
                   class="py-1 panel_link"
@@ -165,6 +173,7 @@ export default {
   },
   methods: {
     signOut() {
+      localStorage.removeItem('user')
       this.$router.push('/login')
     },
   },
@@ -182,6 +191,10 @@ export default {
           text: 'Usuarios',
           icon: 'el-icon-user-solid',
           methods: this.users,
+        },
+        my_account: {
+          text: 'Mi cuenta',
+          icon: 'el-icon-user-solid',
         },
         categories: {
           text: 'Cateorias',

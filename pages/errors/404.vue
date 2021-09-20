@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import ErrNotFount from '../../components/errors/403'
+import ErrNotFount from '../../components/error'
 
 export default {
   components: {

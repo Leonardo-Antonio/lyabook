@@ -52,17 +52,31 @@
             ></line-chart>
           </div>
 
-          <div style="width: 30%">
+          <div class="flex flex-col justify-between" style="width: 30%">
             <div class="flex flex-col pl-10">
-              <button class="btn_primary rounded-full w-full h-14 pb">
-                Exportar data en cvs
-              </button>
-              <button class="btn_primary rounded-full w-full h-14 pb">
-                Exportar data en hoja de calculo
-              </button>
-              <button class="btn_primary rounded-full w-full h-14 pb">
-                Exportar data en texto plano
-              </button>
+              <div class="pb-4">
+                <button class="btn_primary hover:shadow-2xl rounded-full w-full h-14">
+                  Exportar data en cvs
+                </button>
+              </div>
+              <div class="pb-4">
+                <button class="btn_primary rounded-full w-full h-14">
+                  Exportar data en hoja de calculo
+                </button>
+              </div>
+              <div class="pb-4">
+                <button class="btn_primary rounded-full w-full h-14">
+                  Exportar data en texto plano
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <div class="pl-10">
+                <button class="bg_second color_white btn_add_size rounded-full w-full h-14">
+                  Generar reporte
+                </button>
+              </div>
             </div>
           </div>
         </div>
