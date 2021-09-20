@@ -73,6 +73,6 @@ export default {
   },
 
   publicRuntimeConfig: {
-    API_SERVER_FILES: process.env.API_SERVER_FILES,
+    API_IMAGES: process.env.API_IMAGES,
   },
 }
