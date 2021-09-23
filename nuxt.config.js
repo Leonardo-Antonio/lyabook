@@ -19,6 +19,7 @@ export default {
     'element-ui/lib/theme-chalk/index.css',
     '@/assets/css/global.css',
     '@/assets/css/my-account.css',
+    '@/assets/css/buttons.css',
     '@/assets/css/element-custom.css',
   ],
 
@@ -68,10 +69,10 @@ export default {
   build: {},
 
   router: {
-    middleware: ['alert-console'],
+    middleware: ['redirect/auth', 'redirect/redirect'],
   },
 
   publicRuntimeConfig: {
-    API_SERVER_FILES: process.env.API_SERVER_FILES, 
+    API_IMAGES: process.env.API_IMAGES,
   },
 }

@@ -2,6 +2,7 @@ import { Notification } from 'element-ui'
 
 export default function ({ $axios, redirect }, inject) {
   const data = $axios.create({ baseURL: 'http://localhost:8082/api/v1' })
+  
   data.onRequest((config) => {
     console.log('Making request to ' + config.url)
   })

@@ -61,7 +61,7 @@ export default {
       data: {
         dni: '',
         password: '',
-        rol: 'client',
+        rol: 'manager',
       },
     }
   },
