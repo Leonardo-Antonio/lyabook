@@ -20,8 +20,8 @@ export default function ({ $axios, redirect }, inject) {
       message: `${data.message}`,
     })
   })
+
   client.onError((error) => {
-    console.log(error)
     const code = parseInt(error.response && error.response.status)
     console.log('Error http code: ' + code)
 

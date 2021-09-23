@@ -42,7 +42,8 @@
                       <div class="pr-4">
                         <div
                           class="
-                            btn_second
+                            color_white
+                            bg_second
                             h-10
                             rounded-full
                             w-48
@@ -70,11 +71,11 @@
                       <div class="pl-4">
                         <el-upload
                           ref="upload"
-                          accept=".xls,.xlsx"
                           action=""
                           :auto-upload="false"
                           :on-change="change"
                           :show-file-list="false"
+                          accept=".xls,.xlsx"
                         >
                           <button
                             slot="trigger"

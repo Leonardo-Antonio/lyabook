@@ -39,11 +39,13 @@
                     </button>
                   </div>
                   <div>
-                    <button
-                      class="btn_border_line h-10 w-full mt-4 btn_add_size"
+                    <nuxt-link to="/sign-up/email">
+                      <button
+                        class="btn_border_line h-10 w-full mt-4 btn_add_size"
+                      >
+                        Crear cuenta
+                      </button></nuxt-link
                     >
-                      Crear cuenta
-                    </button>
                   </div>
                 </div>
               </div>

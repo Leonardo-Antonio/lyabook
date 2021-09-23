@@ -17,3 +17,8 @@
 #line-chart {
   height: 680px !important;
 }
+
+.el-loading-spinner {
+  display: flex;
+  justify-content: center;
+}

@@ -15,7 +15,7 @@
           </button>
         </nuxt-link>
         <nuxt-link to="/dashboard/admin/books/archivos/pdfs" class="pl-4">
-          <button class="btn_second btn_add_size rounded-full h-10 w-52">
+          <button class="color_white bg_second btn_add_size rounded-full h-10 w-52">
             Pdfs
           </button>
         </nuxt-link>

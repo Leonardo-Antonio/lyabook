@@ -5,7 +5,7 @@
         <div>
           <div class="flex flex-row justify-between">
             <div class="flex items-end">
-              <h3 class="title_admin">Categorias</h3>
+              <h3 class="title_admin">Reglamos</h3>
             </div>
             <div class="flex flex-row">
               <div class="input__search">
@@ -92,16 +92,6 @@
                               color="#5e20e4"
                             ></box-icon>
                           </button>
-                          <button
-                            @click="remove(scope.row)"
-                            class="btn_add_size"
-                          >
-                            <box-icon
-                              type="solid"
-                              name="user-check"
-                              color="#E85F5F"
-                            ></box-icon>
-                          </button>
                         </div>
                       </div>
                     </template>
@@ -117,71 +107,55 @@
     <el-dialog
       :title="`${data.data_person.name} ${data.data_person.last_name} - ${data.claim_data.type}`"
       :visible.sync="show"
-      width="30%"
+      width="45%"
       center
+      v-loading.fullscreen.lock="loadingfull"
     >
       <div>
-        <strong>{{ data.data_person.type_document }}: </strong>
-        <span> {{ data.data_person.number_document }} </span> <br />
-        <strong>Teléfono: </strong>
-        <span>
-          <a :href="`tel:${data.data_sending_reply.phone}`">{{
-            data.data_sending_reply.phone
-          }}</a>
+        <DetailsClaim :data="data" :show="show" />
+
+        <div class="py-4 text_area_new_admin input">
+          <el-input
+            type="textarea"
+            :rows="2"
+            placeholder="Respuesta"
+            v-model="response"
+          >
+          </el-input>
+        </div>
+
+        <span slot="footer" class="dialog-footer">
+          <button
+            class="bg_second rounded-md h-10 color_white"
+            style="width: 6.5rem"
+            @click="show = false"
+          >
+            Cancelar
+          </button>
+          <button
+            class="bg_primary rounded-md h-10 color_white"
+            style="width: 6.5rem"
+            @click="responseClaim"
+          >
+            Responder
+          </button>
         </span>
-        <br />
-
-        <strong>Teléfono adicional: </strong>
-        <span>
-          <span v-if="data.data_sending_reply.additional_telephone != undefined">
-            <a :href="`tel:${data.data_sending_reply.additional_telephone}`">{{
-              data.data_sending_reply.additional_telephone
-            }}</a>
-          </span>
-          <span v-else>--------</span>
-        </span>
-        <br />
-
-        <strong>Email: </strong>
-        <span>
-          <a :href="`mailto:${data.data_sending_reply.email}`">{{
-            data.data_sending_reply.email
-          }}</a>
-        </span>
-        <br />
-
-        <strong>Dirección: </strong>
-        <span> {{ data.data_sending_reply.address }} </span> <br />
-
-        <strong>Provincia: </strong>
-        <span> {{ data.data_sending_reply.province }} </span> <br />
-
-        <strong>Distrito: </strong>
-        <span> {{ data.data_sending_reply.district }} </span> <br />
-
-        <strong>Departamento: </strong>
-        <span> {{ data.data_sending_reply.department }} </span> <br />
-
-        <strong>Detalles: </strong>
-        <span> {{ data.claim_data.details }} </span> <br />
-
-        <strong>Orden: </strong>
-        <span> {{ data.claim_data.order }} </span> <br />
       </div>
-
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="show = false">Cancel</el-button>
-        <el-button type="primary" @click="show = false">Confirm</el-button>
-      </span>
     </el-dialog>
   </div>
 </template>
 
 <script>
+import DetailsClaim from '../../../../components/dashboard/admin/claims/see'
+
 export default {
   layout: 'admin',
+  components: {
+    DetailsClaim,
+  },
   data() {
     return {
+      loadingfull: false,
       show: false,
       claims: [],
       search: '',
@@ -210,6 +184,7 @@ export default {
           district: '',
         },
       },
+      response: '',
     }
   },
 
@@ -238,6 +213,28 @@ export default {
     showDetail(row) {
       this.data = row
       this.show = true
+    },
+
+    async responseClaim() {
+      this.loadingfull = true
+      try {
+        const response = await this.$admin({
+          url: `/claims/response/${this.data._id}`,
+          method: 'post',
+          data: {
+            name: this.data.data_person.name,
+            type: this.data.claim_data.type,
+            message: this.response,
+            email: this.data.data_sending_reply.email,
+          },
+        })
+
+        if (response.status == 200) {
+          this.loadingfull = false
+        }
+      } catch (error) {
+        console.log(error)
+      }
     },
   },
 }
