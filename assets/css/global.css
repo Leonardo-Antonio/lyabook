@@ -91,13 +91,10 @@
   line-height: 26px;
   background-color: var(--primary);
   transition: all 0.3s;
-<<<<<<< HEAD
 }
 
 .btn_second {
   transition: all .3s;
-=======
->>>>>>> 671b4a6fd1ddf573c7f8bf8069cf7a7bcc3dd371
   border-color: var(--primary);
 }
 
