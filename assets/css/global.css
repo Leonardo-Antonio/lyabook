@@ -10,6 +10,8 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Quicksand:wght@300;400;500;600;700&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 :root {
   --primary: #5e20e4;
   --opacity2: #c4c4c4;
@@ -79,7 +81,7 @@
   font-size: 1rem;
   line-height: 26px;
   background-color: var(--primary);
-  transition: all .3s;
+  transition: all 0.3s;
   border-color: var(--primary);
 }
 
@@ -91,21 +93,21 @@
   font-size: 1rem;
   line-height: 26px;
   background-color: var(--second);
-  transition: all .3s;
+  transition: all 0.3s;
   border-color: var(--second);
 }
 
 .btn_primary:hover {
   background-color: rgba(0, 0, 0, 0);
   border: 2px solid var(--primary);
-  transition: all .3s;
+  transition: all 0.3s;
   color: var(--second);
 }
 
 .btn_secundary:hover {
   background-color: rgba(0, 0, 0, 0);
   border: 2px solid var(--second);
-  transition: all .3s;
+  transition: all 0.3s;
   color: var(--primary);
 }
 
@@ -513,38 +515,39 @@
   display: flex;
   justify-content: center;
 }
-.el-submenu__title .el-menu{
+.el-submenu__title .el-menu {
   border-right: unset;
 }
 
-.header-list-book .el-select .el-input__inner{
-  border: solid 1px #5E20E4;
+.header-list-book .el-select .el-input__inner {
+  border: solid 1px #5e20e4;
 }
-.header-list-book .el-select .el-input__inner::placeholder{
+.header-list-book .el-select .el-input__inner::placeholder {
   font-family: Inter;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
-  color: #31405F;
+  color: #31405f;
 }
 
-.el-submenu__title i{
+.el-submenu__title i {
   color: #021639 !important;
 }
 
-.el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner{
+.el-checkbox__input.is-checked .el-checkbox__inner,
+.el-checkbox__input.is-indeterminate .el-checkbox__inner {
   background-color: #021639;
   border-color: #021639;
 }
 
-.el-checkbox__input.is-checked+.el-checkbox__label{
+.el-checkbox__input.is-checked + .el-checkbox__label {
   color: #000;
   font-weight: 400;
   font-family: Inter;
 }
 
-.el-checkbox__inner{
+.el-checkbox__inner {
   border: 1px solid #021639 !important;
 }
 
@@ -554,59 +557,59 @@ span.el-checkbox__label {
   font-family: Inter;
 }
 
-.container-product .el-rate__icon{
+.container-product .el-rate__icon {
   color: #5e20e4 !important;
   font-size: 20px;
 }
 
-.container-product .container-button-to-buy .el-button--primary{
+.container-product .container-button-to-buy .el-button--primary {
   background-color: #5e20e4;
   border-color: #5e20e4;
   border-radius: 20px;
   padding: 3px 50px;
 }
 
-.container-product .container-button-to-buy .button-to-by > span{
+.container-product .container-button-to-buy .button-to-by > span {
   font-size: 15px;
   font-weight: 400;
-
 }
-.el-menu-vertical-demo .el-menu--inline .el-menu-item{
+.el-menu-vertical-demo .el-menu--inline .el-menu-item {
   padding-left: 20px !important;
 }
-.el-pager li:hover{
+.el-pager li:hover {
   color: #5e20e4;
 }
-.el-pager li.active{
+.el-pager li.active {
   color: #5e20e4;
 }
 
-.el-select .el-input.is-focus .el-input__inner{
+.el-select .el-input.is-focus .el-input__inner {
   border-color: #5e20e4 !important;
 }
-.el-select-dropdown__item.hover, .el-select-dropdown__item:hover{
+.el-select-dropdown__item.hover,
+.el-select-dropdown__item:hover {
   background-color: #5e20e417;
 }
 
-.el-carousel .el-carousel__container{
+.el-carousel .el-carousel__container {
   height: 780px;
   width: 500px;
 }
 
-.el-carousel__arrow{
+.el-carousel__arrow {
   background-color: #5e20e4;
 }
 
-.el-carousel__arrow:hover{
+.el-carousel__arrow:hover {
   background-color: #a580f6;
-  transition: all .3s;
+  transition: all 0.3s;
 }
 
-.el-carousel__indicators--outside button{
+.el-carousel__indicators--outside button {
   background-color: #5e20e4;
 }
 
-.container-banner-3 .el-carousel__container{
+.container-banner-3 .el-carousel__container {
   width: 800px !important;
   height: 400px !important;
 }
@@ -618,4 +621,38 @@ span.el-checkbox__label {
   font-size: 18px;
   line-height: 26px;
   color: #fff !important;
+}
+
+.container-input .input-email {
+  border: solid 2px var(--second);
+  border-radius: 5rem;
+  padding: 1rem;
+}
+
+.container-input
+  .input-email
+  .el-input-group__append
+  .el-button
+  .el-icon-search {
+  color: var(--second);
+  font-size: 1.5rem;
+}
+
+.container-input .input-email .el-input__inner {
+  border: unset;
+  font-size: 18px;
+}
+
+.container-input .input-email .el-input__inner::placeholder {
+  color: var(--second);
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.container-input .input-email .el-input-group__append {
+  background: unset;
+  border: unset;
 }
