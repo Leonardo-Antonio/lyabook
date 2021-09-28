@@ -2,12 +2,19 @@
   <div>
     <div class="flex justify-center container mx-auto">
       
-      <img
+      <!-- <img
         class="absolute"
         style="right: 0px; top: 0px"
         src="/shapes/doble-cuadrado-esquina-derecha.png"
         alt=""
-      />
+      /> -->
+      <div>
+        <img
+          class="absolute"
+          style="right: 0px; top: 0px"
+          :src="src"
+        />
+      </div>
      
       <div class="flex justify-center w-3/4">
         <div class="pt-8 w-full">
@@ -53,7 +60,6 @@
     </div>
           <nuxt />
           
-    
     <div class="footer flex justify-center px-8">
       <div class="conatiner-footer flex flex-row justify-center w-3/4 py-8">
         <div class="container-column-1 w-1/5">
@@ -250,8 +256,8 @@
         </div>
       </div>
     </div>
-    <div class="footer-author py-4">
-      <p class="text-footer">Powered by</p>
+    <div class="footer-author py-4 flex justify-center">
+      <p class="text-footer pr-2">Powered by</p>
       <div class="flex justify-center">
         <a href="https://github.com/AlexaJNavarro" target="_blank"
           ><h1 class="text-footer">@AlexaJNavarro</h1></a
@@ -264,6 +270,21 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+        src: {
+            type: String,
+        }
+  },
+  data() {
+    return{
+
+    }
+  },
+}
+</script>
 
 
 <style scoped>
@@ -399,7 +420,7 @@
   font-family: Saira;
   font-style: normal;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 31px;
   text-align: center;
 

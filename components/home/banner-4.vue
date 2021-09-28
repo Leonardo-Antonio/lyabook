@@ -7,9 +7,9 @@
       <div class="w-4/6 flex">
         <div class="w-1/2 flex items-center">
           <div>
-            <p class="title-banner4">Publica tu libro</p>
+            <p class="title-banner4 pb-4">Publica tu libro</p>
             <div class="">
-              <p class="parrafos-banner4 mb-6">
+              <p class="parrafos-banner4 mb-8">
                 Sube tu libro, historia, etc en nuestro apartado que tenemos
                 para ti, para que puedas dar a concer tu talento además de tener
                 la opción de poder bonificar tu esfurzo.

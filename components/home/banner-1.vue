@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container-home flex justify-center relative overflow-x-hidden overflow-y-hidden pb-36">
-      <div class="w-4/6 flex pt-28">
+      <div class="w-4/6 flex pt-24">
         <div class="w-2/3">
           <div class="">
             <div class="flex">
@@ -93,7 +93,7 @@ export default {
   font-family: Roboto;
   font-style: normal;
   font-weight: 500;
-  font-size: 30px;
+  font-size: 25px;
   line-height: 29px;
   padding-right: 2rem;
 }

@@ -1,9 +1,34 @@
 <template>
   <div>
-    <div class="mt-20">
+    <div class="mt-20 relative overflow-x-hidden overflow-y-hidden">
+      <img
+        src="/shapes/circle-double-aye.svg"
+        class="absolute z-10 rotate"
+        style="width: 10rem; left: -5rem; top: 0rem"
+      />
+
+      <img
+        src="/shapes/circle-double-aye.svg"
+        class="absolute z-10 rotate"
+        style="width: 6rem; left: 40rem; top: 30rem"
+      />
+
+      <img
+        src="/shapes/circle-double-aye.svg"
+        class="absolute z-10 rotate"
+        style="width: 12rem; right: 43rem; top: 40rem"
+      />
+
+      <img
+        src="/shapes/doble-circle-claro.svg"
+        class="absolute z-10"
+        style="width: 5rem; right: -1rem; top: 42rem"
+      />
+
+
       <div class="flex justify-center w-7/12 mx-auto">
         <div class="container-filter-father">
-            <!-- ssss -->
+            <!-- filter -->
             <div class="container-filter">
                 <div class="header-filter px-6 py-4 rounded-t-2xl">
                     <p class="header-title">Filtar por</p>
@@ -125,7 +150,7 @@
                     </el-row>
                 </div>
             </div>
-            <!-- ssss -->
+            <!-- fin del filter -->
         </div>
 
         <!-- 2da barra -->

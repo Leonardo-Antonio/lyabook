@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex justify-center">
-      <div class="flex items-center w-4/6" style="height: 15rem">
+      <div class="flex items-center w-4/6" style="height: 10rem">
         <div class="w-1/2  title-banner5">
           Suscribete a nuestro boletin
         </div>

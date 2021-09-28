@@ -143,7 +143,7 @@ export default {
   font-family: 'Baloo Chettan 2';
   font-style: normal;
   font-weight: 600;
-  font-size: 30px;
+  font-size: 40px;
   line-height: 58px;
 }
 </style>

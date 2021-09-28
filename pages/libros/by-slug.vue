@@ -1,9 +1,20 @@
 <template>
   <div>
+    <img
+      src="/shapes/doble-cuadrado-button-right.png"
+      class="absolute z-10"
+      style="width: 20rem; left: 0rem; bottom: 0rem"
+    />
+
     <div class="flex justify-center">
-      <div class="" style="width: 57%;">
+      <img
+        src="/shapes/circle-double-aye.svg"
+        class="absolute z-10 rotate"
+        style="width: 7rem; left: -1rem; top: 8rem"
+      />
+      <div class="" style="width: 57%">
         <!-- container product  -->
-        <div class="flex flex-row pt-20">
+        <div class="flex flex-row pt-20 container-product-slug">
           <div class="w-2/4 flex items-center justify-center">
             <el-carousel indicator-position="outside">
               <el-carousel-item v-for="item in 4" :key="item">
@@ -80,14 +91,19 @@
             <el-tab-pane label="Detalle" name="third">Detalle</el-tab-pane>
           </el-tabs>
         </div>
+
+        <ImageHeader src="/shapes/doble-cuadrado-esquina-derecha.png" />
       </div>
     </div>
   </div>
 </template>
 <script>
+import ImageHeader from '../../layouts/client-image'
 export default {
   layout: 'client',
-  components: {},
+  components: {
+    ImageHeader,
+  },
   data() {
     return {
       // search autocomplete
@@ -289,7 +305,7 @@ export default {
   font-family: Saira;
   font-style: normal;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 31px;
   text-align: center;
 

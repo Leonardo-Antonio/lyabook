@@ -591,9 +591,8 @@ span.el-checkbox__label {
   background-color: #5e20e417;
 }
 
-.el-carousel .el-carousel__container {
+.container-product-slug .el-carousel .el-carousel__container {
   height: 780px;
-  width: 500px;
 }
 
 .el-carousel__arrow {
@@ -626,7 +625,7 @@ span.el-checkbox__label {
 .container-input .input-email {
   border: solid 2px var(--second);
   border-radius: 5rem;
-  padding: 1rem;
+  padding: .5rem;
 }
 
 .container-input
@@ -655,4 +654,13 @@ span.el-checkbox__label {
 .container-input .input-email .el-input-group__append {
   background: unset;
   border: unset;
+}
+
+.container-product-slug .el-carousel--horizontal{
+  width: 100%;
+}
+
+.container-product-slug .el-carousel__item{
+  display: flex !important;
+  justify-content: center;
 }
