@@ -46,26 +46,11 @@
                         <!-- <i class="el-icon-location"></i> -->
                         <span class="subtitle-filter">Categoria</span>
                       </template>
-                      <el-menu-item v-for="item in [1, 2, 3, 10]" :key="item">
-                        <el-checkbox v-model="checked"
-                          >Opción {{ item }}</el-checkbox
+                      <el-menu-item v-for="item of categories" :key="item">
+                        <el-checkbox @change="filter(item.name)"
+                          >{{ item.name }}</el-checkbox
                         >
                       </el-menu-item>
-                      <el-menu-item
-                        ><el-checkbox v-model="checked"
-                          >Opción</el-checkbox
-                        ></el-menu-item
-                      >
-                      <el-menu-item
-                        ><el-checkbox v-model="checked"
-                          >Opción</el-checkbox
-                        ></el-menu-item
-                      >
-                      <el-menu-item
-                        ><el-checkbox v-model="checked"
-                          >Opción</el-checkbox
-                        ></el-menu-item
-                      >
                     </el-submenu>
                   </el-menu>
                   <el-menu
@@ -155,7 +140,7 @@
         </div>
 
         <!-- 2da barra -->
-        <el-container class="container-list-books pt-2">
+        <el-container class="container-list-books pt-2" style="z-index: 20;">
           <el-header class="header-list-book">
             <div class="flex relative items-center">
               <div class="container-title">
@@ -186,18 +171,18 @@
                 <div>
                   <div class="flex flex-wrap">
                     <div
-                      v-for="item of [2, 3, 4, 5, 6, 7, 8]"
+                      v-for="item of books"
                       :key="item"
-                      class="pl-4 pb-8"
+                      class="pl-4 pb-8 w-1/4"
                     >
                       <img
                         class="payment-card"
                         src="/images/example-product.png"
                       />
-                      <p class="title-product pt-2">Memory - Lyabook</p>
+                      <p class="title-product pt-2">{{item.name}}</p>
                       <div class="flex justify-center items-center pt-2">
-                        <p class="w-3/6 price-before">S/ 249.9</p>
-                        <p class="w-3/6 price-current">S/ 149.9</p>
+                        <p class="w-3/6 price-before">{{item.price_before}}</p>
+                        <p class="w-3/6 price-current">{{item.price_current}}</p>
                       </div>
                       <div class="star pt-4">
                         <div class="block">
@@ -278,13 +263,36 @@ export default {
         },
       ],
       value: '',
+
+      //-------------------------------VALUE
+      books:[],
+      categories:[]
     }
   },
   methods: {
     hi(item) {
       console.log(item)
     },
+    filter(name){
+      console.log(name)
+    }
   },
+  async created(){
+    const list_book = await this.$apidata({
+      url: '/books',
+      methods: 'get',
+      data: this.data
+    })
+    this.books = list_book.data.data
+
+    const category = await this.$apidata({
+      url: '/categories',
+      methods: 'get',
+      data: this.data
+    })
+    this.categories = category.data.data
+    // console.log(category.data.data)
+  }
 }
 </script>
 <style>
