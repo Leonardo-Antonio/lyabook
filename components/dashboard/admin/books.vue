@@ -179,7 +179,6 @@ export default {
 
   methods: {
     edit(row) {
-      console.log(row)
       this.showEdit = true
       this.user = row
     },
