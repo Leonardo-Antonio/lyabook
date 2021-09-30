@@ -289,7 +289,7 @@ export default {
   font-family: Saira;
   font-style: normal;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 31px;
   text-align: center;
 
