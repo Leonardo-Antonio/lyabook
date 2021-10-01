@@ -47,9 +47,8 @@
                         <span class="subtitle-filter">Categoria</span>
                       </template>
                       <el-menu-item v-for="item of categories" :key="item">
-                        <el-checkbox @change="filter(item.name)"
-                          >{{ item.name }}</el-checkbox
-                        >
+                          <el-checkbox @change="filter(item._id)">{{item.name}}
+                          </el-checkbox>
                       </el-menu-item>
                     </el-submenu>
                   </el-menu>
@@ -64,26 +63,10 @@
                         <!-- <i class="el-icon-location"></i> -->
                         <span class="subtitle-filter">Editorial</span>
                       </template>
-                      <el-menu-item index="1-1"
-                        ><el-checkbox v-model="checked"
-                          >Opción</el-checkbox
-                        ></el-menu-item
-                      >
-                      <el-menu-item index="1-2"
-                        ><el-checkbox v-model="checked"
-                          >Opción</el-checkbox
-                        ></el-menu-item
-                      >
-                      <el-menu-item index="1-3"
-                        ><el-checkbox v-model="checked"
-                          >Opción</el-checkbox
-                        ></el-menu-item
-                      >
-                      <el-menu-item index="1-4"
-                        ><el-checkbox v-model="checked"
-                          >Opción</el-checkbox
-                        ></el-menu-item
-                      >
+                      <el-menu-item v-for="item of editorial" :key="item">
+                        <el-checkbox @change="filter">{{item}}
+                        </el-checkbox>
+                      </el-menu-item>
                     </el-submenu>
                   </el-menu>
                   <el-menu
@@ -97,26 +80,11 @@
                         <!-- <i class="el-icon-location"></i> -->
                         <span class="subtitle-filter">Autor</span>
                       </template>
-                      <el-menu-item index="1-1"
-                        ><el-checkbox v-model="checked"
-                          >Opción</el-checkbox
-                        ></el-menu-item
-                      >
-                      <el-menu-item index="1-2"
-                        ><el-checkbox v-model="checked"
-                          >Opción</el-checkbox
-                        ></el-menu-item
-                      >
-                      <el-menu-item index="1-3"
-                        ><el-checkbox v-model="checked"
-                          >Opción</el-checkbox
-                        ></el-menu-item
-                      >
-                      <el-menu-item index="1-4"
-                        ><el-checkbox v-model="checked"
-                          >Opción</el-checkbox
-                        ></el-menu-item
-                      >
+                      
+                      <el-menu-item v-for="item of autor" :key="item">
+                        <el-checkbox @change="filter">{{item}}
+                        </el-checkbox>
+                      </el-menu-item>
                     </el-submenu>
                   </el-menu>
                   <el-menu class="rounded-b-2xl">
@@ -140,7 +108,7 @@
         </div>
 
         <!-- 2da barra -->
-        <el-container class="container-list-books pt-2" style="z-index: 20;">
+        <el-container class="container-list-books pt-2" style="z-index: 20">
           <el-header class="header-list-book">
             <div class="flex relative items-center">
               <div class="container-title">
@@ -179,10 +147,14 @@
                         class="payment-card"
                         src="/images/example-product.png"
                       />
-                      <p class="title-product pt-2">{{item.name}}</p>
+                      <p class="title-product pt-2">{{ item.name }}</p>
                       <div class="flex justify-center items-center pt-2">
-                        <p class="w-3/6 price-before">{{item.price_before}}</p>
-                        <p class="w-3/6 price-current">{{item.price_current}}</p>
+                        <p class="w-3/6 price-before">
+                          {{ item.price_before }}
+                        </p>
+                        <p class="w-3/6 price-current">
+                          {{ item.price_current }}
+                        </p>
                       </div>
                       <div class="star pt-4">
                         <div class="block">
@@ -263,36 +235,73 @@ export default {
         },
       ],
       value: '',
-
-      //-------------------------------VALUE
-      books:[],
-      categories:[]
+      //-------------------------------VARIABLES
+      
+      //-------------------------------VARIABLES PARA APIS
+      books: [],
+      categories: [],
+      //-------------------------------VARIABLES HELP EDITORIAL
+      result_book_editorial: [],
+      editorial: [],
+      //-------------------------------VARIABLES HELP AUTOR
+      result_book_autor: [],
+      autor: []
     }
   },
   methods: {
     hi(item) {
       console.log(item)
     },
-    filter(name){
-      console.log(name)
-    }
+    //------------------------------------PROCESO DEL FILTRADO
+    filter(data) {
+      //  console.log("funcion del filtrado")
+      //  console.log(data)
+      // if(data){
+         console.log("data: " + data)
+      // }s
+
+      // this.books = this.books.filter(book => book.editorial == data || book.author == data);
+      // console.log(this.books)
+      
+    },
+    //-------------------------------------------------------
   },
-  async created(){
+  async created() {
     const list_book = await this.$apidata({
       url: '/books',
       methods: 'get',
-      data: this.data
+      data: this.data,
     })
     this.books = list_book.data.data
-
+    
+    // -------------------------------------------Filtro Category 
     const category = await this.$apidata({
       url: '/categories',
       methods: 'get',
-      data: this.data
+      data: this.data,
     })
     this.categories = category.data.data
-    // console.log(category.data.data)
-  }
+    // -------------------------------------------Filtro Editorial
+    this.books.forEach((book) => {
+      this.result_book_editorial.push(book.editorial)
+    })
+    this.result_book_editorial.forEach((r_editorial)=>{
+      const value = this.editorial.includes(r_editorial)
+      if(!value){
+        this.editorial.push(r_editorial)
+      }
+    })
+    // -------------------------------------------Filtro Autor
+    this.books.forEach((book) => {
+      this.result_book_autor.push(book.author)
+    })
+    this.result_book_autor.forEach((r_autor)=>{
+      const value = this.autor.includes(r_autor)
+      if(!value){
+        this.autor.push(r_autor)
+      }
+    })
+  },
 }
 </script>
 <style>
