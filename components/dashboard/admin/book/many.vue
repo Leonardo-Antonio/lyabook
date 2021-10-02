@@ -181,7 +181,11 @@ export default {
             },
           }
 
-          item.categories = String(item.categories).replace(' ', '').split(';')
+          const categories = String(item.categories).replace(' ', '').split(';')
+          item.categories = []
+          for (let category of categories) {
+            item.categories.push(category.replace(" ", ""))
+          }
           item.images_src = String(item.images_src).replace(' ', '').split(';')
           item.details = String(item.details).split(';')
         })
