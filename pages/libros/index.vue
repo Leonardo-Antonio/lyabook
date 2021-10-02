@@ -47,8 +47,10 @@
                         <span class="subtitle-filter">Categoria</span>
                       </template>
                       <el-menu-item v-for="item of categories" :key="item">
-                          <el-checkbox @change="filter(item._id)">{{item.name}}
+                        <nuxt-link :to="`/libros/${item.slug}`">
+                          <el-checkbox id="checkbox"  @change="filter">{{item.name}} 
                           </el-checkbox>
+                        </nuxt-link>
                       </el-menu-item>
                     </el-submenu>
                   </el-menu>
@@ -64,25 +66,7 @@
                         <span class="subtitle-filter">Editorial</span>
                       </template>
                       <el-menu-item v-for="item of editorial" :key="item">
-                        <el-checkbox @change="filter">{{item}}
-                        </el-checkbox>
-                      </el-menu-item>
-                    </el-submenu>
-                  </el-menu>
-                  <el-menu
-                    default-active="2"
-                    class="el-menu-vertical-demo header-option-filter"
-                    @open="handleOpen"
-                    @close="handleClose"
-                  >
-                    <el-submenu index="3">
-                      <template slot="title">
-                        <!-- <i class="el-icon-location"></i> -->
-                        <span class="subtitle-filter">Autor</span>
-                      </template>
-                      
-                      <el-menu-item v-for="item of autor" :key="item">
-                        <el-checkbox @change="filter">{{item}}
+                        <el-checkbox @change="filter(item)">{{item}}
                         </el-checkbox>
                       </el-menu-item>
                     </el-submenu>
@@ -114,23 +98,6 @@
               <div class="container-title">
                 <p>Libros</p>
               </div>
-              <div class="flex absolute right-0">
-                <div>
-                  <el-select
-                    v-model="value"
-                    clearable
-                    placeholder="Ordenar por"
-                  >
-                    <el-option
-                      v-for="item in options"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
-                    >
-                    </el-option>
-                  </el-select>
-                </div>
-              </div>
             </div>
           </el-header>
           <el-main>
@@ -145,7 +112,7 @@
                     >
                       <img
                         class="payment-card"
-                        src="/images/example-product.png"
+                        :src= item.images_src[0]
                       />
                       <p class="title-product pt-2">{{ item.name }}</p>
                       <div class="flex justify-center items-center pt-2">
@@ -171,12 +138,13 @@
                         "
                       >
                         <el-row>
+                          <nuxt-link :to="`/libros/${item.slug}`">
                           <el-button
                             class="btn_add_size button-to-by"
                             type="primary"
                             round
-                            >Comprar</el-button
-                          >
+                            >Comprar</el-button>
+                            </nuxt-link>
                         </el-row>
                       </div>
                     </div>
@@ -211,41 +179,14 @@ export default {
       checked: true,
       // barra de precio
       value_barra: 0,
-      // select
-      options: [
-        {
-          value: 'Option1',
-          label: 'Option1',
-        },
-        {
-          value: 'Option2',
-          label: 'Option2',
-        },
-        {
-          value: 'Option3',
-          label: 'Option3',
-        },
-        {
-          value: 'Option4',
-          label: 'Option4',
-        },
-        {
-          value: 'Option5',
-          label: 'Option5',
-        },
-      ],
-      value: '',
+    
       //-------------------------------VARIABLES
       
       //-------------------------------VARIABLES PARA APIS
       books: [],
       categories: [],
       //-------------------------------VARIABLES HELP EDITORIAL
-      result_book_editorial: [],
-      editorial: [],
-      //-------------------------------VARIABLES HELP AUTOR
-      result_book_autor: [],
-      autor: []
+      editorial: []
     }
   },
   methods: {
@@ -253,15 +194,16 @@ export default {
       console.log(item)
     },
     //------------------------------------PROCESO DEL FILTRADO
-    filter(data) {
+    async filter(data) {
       //  console.log("funcion del filtrado")
       //  console.log(data)
       // if(data){
-         console.log("data: " + data)
+        
+        console.log("data: " + data)
       // }s
 
       // this.books = this.books.filter(book => book.editorial == data || book.author == data);
-      // console.log(this.books)
+      // console.log(this.categories[0].active)
       
     },
     //-------------------------------------------------------
@@ -269,39 +211,27 @@ export default {
   async created() {
     const list_book = await this.$apidata({
       url: '/books',
-      methods: 'get',
-      data: this.data,
+      method: 'get'
     })
     this.books = list_book.data.data
     
     // -------------------------------------------Filtro Category 
     const category = await this.$apidata({
       url: '/categories',
-      methods: 'get',
-      data: this.data,
+      method: 'get'
     })
     this.categories = category.data.data
     // -------------------------------------------Filtro Editorial
-    this.books.forEach((book) => {
-      this.result_book_editorial.push(book.editorial)
+    const editorial = await this.$apidata({
+      url: '/editorial',
+      method: 'get'
     })
-    this.result_book_editorial.forEach((r_editorial)=>{
-      const value = this.editorial.includes(r_editorial)
-      if(!value){
-        this.editorial.push(r_editorial)
-      }
-    })
-    // -------------------------------------------Filtro Autor
-    this.books.forEach((book) => {
-      this.result_book_autor.push(book.author)
-    })
-    this.result_book_autor.forEach((r_autor)=>{
-      const value = this.autor.includes(r_autor)
-      if(!value){
-        this.autor.push(r_autor)
-      }
-    })
+    this.editorial = editorial.data.data
+    //--------------------------------------------
+    
+    
   },
+  
 }
 </script>
 <style>
