@@ -17,16 +17,16 @@
         <div class="flex flex-row pt-20 container-product-slug">
           <div class="w-2/4 flex items-center justify-center">
             <el-carousel indicator-position="outside">
-              <el-carousel-item v-for="item in 4" :key="item">
-                <img src="/images/portada-la-corona.jpg" />
+              <el-carousel-item v-for="item in books.images_src" :key="item">
+                <img :src="item" />
               </el-carousel-item>
             </el-carousel>
           </div>
           <div class="w-2/4 flex justify-center">
             <div class="conatiner-detail-product mx-12">
-              <p class="editorial">HarperCollins</p>
-              <p class="title">LA SELECCIÓN - LA CORONA</p>
-              <p class="author pt-4">Autor: Kiera Cass</p>
+              <p class="editorial">{{ books.editorial }}</p>
+              <p class="title">{{ books.name }}</p>
+              <p class="author pt-4">Autor: {{ books.author }}</p>
               <div class="star pt-4">
                 <div class="block">
                   <el-rate v-model="value1"></el-rate>
@@ -34,36 +34,38 @@
               </div>
               <div class="container-price flex flex-row pt-4">
                 <div class="container-price-current w-1/2">
-                  <p class="price-current">s/.30.00</p>
+                  <p class="price-current">{{ books.price_current }}</p>
                 </div>
                 <div class="container-price-before flex items-center w-1/2">
-                  <p class="price-before">s/.100.00</p>
+                  <p class="price-before">{{ books.price_before }}</p>
                 </div>
               </div>
               <div class="container-select-format pt-4">
-                <el-select v-model="value" clearable placeholder="Select">
+                <el-select v-model="type_book" clearable placeholder="Select">
                   <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
+                    v-for="type in books.type"
+                    :key="type"
+                    :label="type.format"
+                    :value="type.format"
                   >
                   </el-option>
                 </el-select>
               </div>
-              <div class="container-maps flex flex-row items-center pt-4">
-                <div class="conatiner-text w-1/2">
-                  <p class="text">Recoger en:</p>
+              <div v-if="type_book == 'Fisico'">
+                <div class="container-maps flex flex-row items-center pt-4">
+                  <div class="conatiner-text w-1/2">
+                    <p class="text">Recoger en:</p>
+                  </div>
+                  <div class="conatiner-enlace-maps w-1/2 flex justify-end">
+                    <a
+                      href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"
+                      ><p class="enlace-maps">Ver en Google Maps</p></a
+                    >
+                  </div>
                 </div>
-                <div class="conatiner-enlace-maps w-1/2 flex justify-end">
-                  <a
-                    href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"
-                    ><p class="enlace-maps">Ver en Google Maps</p></a
-                  >
+                <div class="container-direction pt-2">
+                  <p class="direction">Calle 8, Cercado de Lima 15828</p>
                 </div>
-              </div>
-              <div class="container-direction pt-2">
-                <p class="direction">Calle 8, Cercado de Lima 15828</p>
               </div>
               <div class="container-button-to-buy pt-8 flex justify-center">
                 <el-row>
@@ -83,12 +85,16 @@
         <div class="conatiner-tabs py-12 px-6">
           <el-tabs v-model="activeName" @tab-click="handleClick">
             <el-tab-pane label="Descripción" name="first"
-              >Descripción</el-tab-pane
+              >{{books.description}}</el-tab-pane
             >
             <el-tab-pane label="Comentarios" name="second"
               >Comentarios</el-tab-pane
             >
-            <el-tab-pane label="Detalle" name="third">Detalle</el-tab-pane>
+            <el-tab-pane label="Detalle" name="third">
+              <div v-for="item in books.details" :key="item">
+                - {{item}}
+              </div>
+            </el-tab-pane>
           </el-tabs>
         </div>
 
@@ -123,9 +129,11 @@ export default {
           label: 'Libro Fisico',
         },
       ],
-      value: '',
+      type_book: '',
       //tabs
       activeName: 'first',
+      //--------------------------------------------------------Variable api
+      books: {},
     }
   },
   methods: {
@@ -167,8 +175,19 @@ export default {
     },
   },
   // search autocomplete
-  mounted() {
+  async mounted() {
     this.links = this.loadAll()
+    const slug = this.$route.params.slug
+    try {
+      const response = await this.$apidata({
+        url: `/books/${slug}`,
+        method: 'get',
+      })
+      this.books = response.data.data
+      console.log(this.books.details)
+    } catch (error) {
+      console.log(error)
+    }
   },
 }
 </script>

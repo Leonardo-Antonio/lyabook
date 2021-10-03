@@ -26,7 +26,7 @@
       />
 
       <div class="flex justify-center w-7/12 mx-auto">
-        <div class="container-filter-father">
+        <div class="container-filter-father w-1/4">
           <!-- filter -->
           <div class="container-filter">
             <div class="header-filter px-6 py-4 rounded-t-2xl">
@@ -46,26 +46,14 @@
                         <!-- <i class="el-icon-location"></i> -->
                         <span class="subtitle-filter">Categoria</span>
                       </template>
-                      <el-menu-item v-for="item in [1, 2, 3, 10]" :key="item">
-                        <el-checkbox v-model="checked"
-                          >Opción {{ item }}</el-checkbox
-                        >
+                      <el-menu-item
+                        v-for="(category, index) of value_category"
+                        :key="category"
+                      >
+                        <el-checkbox id="checkbox" @change="filter(index, category.active, category._id)"
+                          >{{ category.name }}
+                        </el-checkbox>
                       </el-menu-item>
-                      <el-menu-item
-                        ><el-checkbox v-model="checked"
-                          >Opción</el-checkbox
-                        ></el-menu-item
-                      >
-                      <el-menu-item
-                        ><el-checkbox v-model="checked"
-                          >Opción</el-checkbox
-                        ></el-menu-item
-                      >
-                      <el-menu-item
-                        ><el-checkbox v-model="checked"
-                          >Opción</el-checkbox
-                        ></el-menu-item
-                      >
                     </el-submenu>
                   </el-menu>
                   <el-menu
@@ -79,59 +67,11 @@
                         <!-- <i class="el-icon-location"></i> -->
                         <span class="subtitle-filter">Editorial</span>
                       </template>
-                      <el-menu-item index="1-1"
-                        ><el-checkbox v-model="checked"
-                          >Opción</el-checkbox
-                        ></el-menu-item
-                      >
-                      <el-menu-item index="1-2"
-                        ><el-checkbox v-model="checked"
-                          >Opción</el-checkbox
-                        ></el-menu-item
-                      >
-                      <el-menu-item index="1-3"
-                        ><el-checkbox v-model="checked"
-                          >Opción</el-checkbox
-                        ></el-menu-item
-                      >
-                      <el-menu-item index="1-4"
-                        ><el-checkbox v-model="checked"
-                          >Opción</el-checkbox
-                        ></el-menu-item
-                      >
-                    </el-submenu>
-                  </el-menu>
-                  <el-menu
-                    default-active="2"
-                    class="el-menu-vertical-demo header-option-filter"
-                    @open="handleOpen"
-                    @close="handleClose"
-                  >
-                    <el-submenu index="3">
-                      <template slot="title">
-                        <!-- <i class="el-icon-location"></i> -->
-                        <span class="subtitle-filter">Autor</span>
-                      </template>
-                      <el-menu-item index="1-1"
-                        ><el-checkbox v-model="checked"
-                          >Opción</el-checkbox
-                        ></el-menu-item
-                      >
-                      <el-menu-item index="1-2"
-                        ><el-checkbox v-model="checked"
-                          >Opción</el-checkbox
-                        ></el-menu-item
-                      >
-                      <el-menu-item index="1-3"
-                        ><el-checkbox v-model="checked"
-                          >Opción</el-checkbox
-                        ></el-menu-item
-                      >
-                      <el-menu-item index="1-4"
-                        ><el-checkbox v-model="checked"
-                          >Opción</el-checkbox
-                        ></el-menu-item
-                      >
+                      <el-menu-item v-for="item of editorial" :key="item">
+                        <el-checkbox @change="filter(item)"
+                          >{{ item }}
+                        </el-checkbox>
+                      </el-menu-item>
                     </el-submenu>
                   </el-menu>
                   <el-menu class="rounded-b-2xl">
@@ -155,28 +95,14 @@
         </div>
 
         <!-- 2da barra -->
-        <el-container class="container-list-books pt-2">
+        <el-container
+          class="container-list-books pt-2 w-9/12"
+          style="z-index: 20"
+        >
           <el-header class="header-list-book">
             <div class="flex relative items-center">
               <div class="container-title">
                 <p>Libros</p>
-              </div>
-              <div class="flex absolute right-0">
-                <div>
-                  <el-select
-                    v-model="value"
-                    clearable
-                    placeholder="Ordenar por"
-                  >
-                    <el-option
-                      v-for="item in options"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
-                    >
-                    </el-option>
-                  </el-select>
-                </div>
               </div>
             </div>
           </el-header>
@@ -186,41 +112,77 @@
                 <div>
                   <div class="flex flex-wrap">
                     <div
-                      v-for="item of [2, 3, 4, 5, 6, 7, 8]"
+                      v-for="item of books"
                       :key="item"
-                      class="pl-4 pb-8"
+                      class="pl-4 pb-8 w-1/4 container-book"
+                      style="height: 28rem"
                     >
-                      <img
-                        class="payment-card"
-                        src="/images/example-product.png"
-                      />
-                      <p class="title-product pt-2">Memory - Lyabook</p>
-                      <div class="flex justify-center items-center pt-2">
-                        <p class="w-3/6 price-before">S/ 249.9</p>
-                        <p class="w-3/6 price-current">S/ 149.9</p>
-                      </div>
-                      <div class="star pt-4">
-                        <div class="block">
-                          <el-rate v-model="value1"></el-rate>
-                        </div>
-                      </div>
                       <div
                         class="
-                          container-button-to-buy
-                          pt-4
+                          container-portada
                           flex
                           justify-center
                           items-center
                         "
+                        style="height: 60%"
                       >
-                        <el-row>
-                          <el-button
-                            class="btn_add_size button-to-by"
-                            type="primary"
-                            round
-                            >Comprar</el-button
+                        <img
+                          class="payment-card h-full"
+                          :src="item.images_src[0]"
+                        />
+                      </div>
+                      <div
+                        class="container-detail relative"
+                        style="height: 40%"
+                      >
+                        <div class="container-detail-externa px-2">
+                          <p class="title-product-externa pt-2">
+                            {{ item.name }}
+                          </p>
+                          <div
+                            class="
+                              flex
+                              justify-center
+                              items-center
+                              pt-2
+                              absolute
+                              bottom-20
+                            "
                           >
-                        </el-row>
+                            <p class="w-3/6 price-before">S/.20.0</p>
+                            <p class="w-3/6 price-current pl-2">
+                              S/.{{ item.price_current }}
+                            </p>
+                          </div>
+                          <div class="star pt-4 absolute bottom-12">
+                            <div class="block">
+                              <el-rate v-model="value1"></el-rate>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="
+                            container-button-to-buy
+                            pt-4
+                            flex
+                            justify-center
+                            items-center
+                            -bottom-0
+                            absolute
+                            w-full
+                          "
+                        >
+                          <el-row>
+                            <nuxt-link :to="`/libros/${item.slug}`">
+                              <el-button
+                                class="btn_add_size button-to-by"
+                                type="primary"
+                                round
+                                >Comprar</el-button
+                              >
+                            </nuxt-link>
+                          </el-row>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -253,41 +215,105 @@ export default {
       // checkbox
       checked: true,
       // barra de precio
-      value_barra: 0,
-      // select
-      options: [
-        {
-          value: 'Option1',
-          label: 'Option1',
-        },
-        {
-          value: 'Option2',
-          label: 'Option2',
-        },
-        {
-          value: 'Option3',
-          label: 'Option3',
-        },
-        {
-          value: 'Option4',
-          label: 'Option4',
-        },
-        {
-          value: 'Option5',
-          label: 'Option5',
-        },
-      ],
-      value: '',
+      value_barra: '',
+
+      //-------------------------------VARIABLES
+      valueCheckbox: '',
+
+      //-------------------------------VARIABLES PARA APIS
+      books: [],
+      categories: [],
+      editorial: [],
+      //-------------------------------VARIABLES HELP EDITORIAL
+      value_category: [],
+      value_books:[],
+      books_active: []
     }
   },
   methods: {
     hi(item) {
       console.log(item)
     },
+    //------------------------------------PROCESO DEL FILTRADO
+    async filter(index, value, id_category) {
+      console.log('++++++++++++++++++++++FILTRADO+++++++++++++++++++++++++++++++')
+      console.log("ID index: " +index)
+      console.log("ID VALUE: " + value)
+      if(value){
+        this.value_category[index].active = !value
+        console.log('++++++++++++++++++++++LIBROS+++++++++++++++++++++++++++++++')
+        console.log("ID CATEGORIA: " + id_category)
+        //this.books = this.books.filter(book => book.categories[0] == id_category || book.categories[1] == id_category|| book.categories.)
+    
+        // for (let i = 0; i < this.books.length; i++) {
+        //   for (let x = 0; x < this.books[i].categories.length; x++) {
+        //     if(this.books[i].categories[x] == id_category){
+        //       console.log("encontrado")
+        //       this.value_books.push(this.books[i])
+        //     }
+            
+            
+        //   }
+        //   console.log("- - - - - - - - - - - - - - - - - - - - - - - ")
+        // }
+
+        // console.log("******************************RESULTADO********************************************")
+        // console.log(this.value_books)
+        // this.books = this.value_books
+        
+        //book => book.editorial == data || book.author == data
+        // console.log(this.categories[0].active)
+      }
+      
+
+      
+    },
+  },
+  watch: {
+    value_barra: function (value) {
+      console.log(value)
+    },
+  },
+  async created() {
+    // -------------------------------------------Filtro Libro
+    const list_book = await this.$apidata({
+      url: '/books',
+      method: 'get',
+    })
+    this.books = list_book.data.data.filter((b)=>b.active == true)
+
+    // -------------------------------------------Filtro Category
+    const category = await this.$apidata({
+      url: '/categories',
+      method: 'get',
+    })
+    this.categories = category.data.data
+    this.value_category = this.categories.filter(
+      (category) => category.active == true
+    )
+
+    console.log('-----------------------------------------------------')
+    console.log(this.value_category)
+
+    // -------------------------------------------Filtro Editorial
+    const editorial = await this.$apidata({
+      url: '/editorial',
+      method: 'get',
+    })
+    this.editorial = editorial.data.data
+    //--------------------------------------------
   },
 }
 </script>
 <style>
+.title-product-externa {
+  line-height: normal;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+}
+
 .header-filter {
   background: #021639;
   color: #fff;
@@ -302,15 +328,13 @@ export default {
   padding-left: 1rem;
   padding-right: 1rem;
 }
-.container-filter-father {
-  width: 37%;
-}
+
 .container-filter {
   box-shadow: 2px 4px 10px rgba(49, 64, 95, 0.15);
   border-radius: 10px;
 }
 .container-title {
-  font-family: Qucksand;
+  font-family: Qucksand, sans-serif;
   font-style: normal;
   font-weight: bold;
   font-size: 30px;
