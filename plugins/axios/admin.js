@@ -16,7 +16,7 @@ export default function ({ $axios, redirect }, inject) {
     if (
       response.config.url == '/users/roles/admin' ||
       response.config.url == '/users/count/admin' ||
-      response.config.url == '/claims' || 
+      response.config.url == '/claims' ||
       response.config.url == '/claims/amount'
     ) {
       return
@@ -54,6 +54,12 @@ export default function ({ $axios, redirect }, inject) {
 
       case 401:
         redirect('/errors/401')
+        break
+      case 500:
+        Notification.error({
+          title: `${message_type} - ${code}`,
+          message: `${response.message}`,
+        })
         break
     }
   })

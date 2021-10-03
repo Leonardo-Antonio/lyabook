@@ -23,8 +23,20 @@
         <div class="spacer"></div>
 
         <div>
-          <div>
+          <div class="flex justify-between">
             <h5 class="name_item_card">Listado</h5>
+            <button @click="exportData">
+              <div class="flex items-center">
+                <h5 class="name_item_card mr-2" style="color: #021639">
+                  Exportar
+                </h5>
+                <box-icon
+                  type="solid"
+                  color="#021639"
+                  name="file-export"
+                ></box-icon>
+              </div>
+            </button>
           </div>
           <div class="card">
             <div class="py-10 w-11/12 mx-auto px-10">
@@ -149,6 +161,8 @@
 </template>
 
 <script>
+import XLSX from 'xlsx'
+
 export default {
   data() {
     return {
@@ -187,6 +201,19 @@ export default {
       } catch (error) {
         console.log(error)
       }
+    },
+    exportData() {
+      for (let book of this.books) {
+        delete book.type
+        delete book.categories	
+        delete book.images_src
+      }
+      const workSheet = XLSX.utils.json_to_sheet(this.books)
+      const workBook = XLSX.utils.book_new()
+
+      XLSX.utils.book_append_sheet(workBook, workSheet, 'books')
+      XLSX.write(workBook, { bookType: 'xlsx', type: 'buffer' })
+      XLSX.writeFile(workBook, 'books.xlsx')
     },
   },
 }

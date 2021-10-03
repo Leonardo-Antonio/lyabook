@@ -43,8 +43,20 @@
         <div class="spacer"></div>
 
         <div>
-          <div>
+          <div class="flex justify-between">
             <h5 class="name_item_card">Listado</h5>
+            <button @click="exportData">
+              <div class="flex items-center">
+                <h5 class="name_item_card mr-2" style="color: #021639">
+                  Exportar
+                </h5>
+                <box-icon
+                  type="solid"
+                  color="#021639"
+                  name="file-export"
+                ></box-icon>
+              </div>
+            </button>
           </div>
           <div class="card">
             <div class="py-10 w-11/12 mx-auto px-10">
@@ -124,6 +136,7 @@
 
 <script>
 import Edit from './category/edit'
+import XLSX from 'xlsx'
 
 export default {
   components: {
@@ -187,6 +200,14 @@ export default {
             message: 'Se cancelo la operación',
           })
         })
+    },
+    exportData() {
+      const workSheet = XLSX.utils.json_to_sheet(this.categories)
+      const workBook = XLSX.utils.book_new()
+
+      XLSX.utils.book_append_sheet(workBook, workSheet, 'categories')
+      XLSX.write(workBook, { bookType: 'xlsx', type: 'buffer' })
+      XLSX.writeFile(workBook, 'categories.xlsx')
     },
   },
 }
