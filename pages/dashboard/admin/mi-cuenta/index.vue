@@ -59,6 +59,7 @@
                   placeholder="Please input"
                   v-model="data.name"
                   clearable
+                  disabled
                 />
               </div>
             </div>
@@ -80,6 +81,7 @@
                   placeholder="Please input"
                   v-model="data.last_name"
                   clearable
+                  disabled
                 />
               </div>
             </div>
@@ -98,7 +100,7 @@
               <div class="w-1/2 px-8 input">
                 <span class="title_input">Nuevo password*</span>
                 <el-input
-                  placeholder="Please input"
+                  placeholder="Ingrese la nueva contraseña"
                   v-model="data.password"
                   show-password
                 />
