@@ -230,6 +230,8 @@ export default {
       value_category: [],
       value_books: [],
       books_active: [],
+      ids: [],
+      master_books: []
     }
   },
   methods: {
@@ -271,6 +273,31 @@ export default {
         //book => book.editorial == data || book.author == data
         // console.log(this.categories[0].active)
       }
+      console.log('ID CATEGORIA: ' + id_category)
+      console.log('++++++++++++++++++++++IDS+++++++++++++++++++++++++++++++')
+
+      if (value) {
+        this.ids.push(id_category)
+        console.log(this.ids)
+        this.value_category[index].active = !value
+        
+      } else {
+        console.log('Desactivo')
+        const position = this.ids.indexOf(id_category)
+        console.log('Posicion: '+ position)
+        console.log(position)
+        this.ids.splice(position, 1)
+        console.log(
+          '++++++++++++++++++++++VALUE IDS+++++++++++++++++++++++++++++++'
+        )
+        console.log(this.ids)
+        this.value_category[index].active = !value
+      }
+      this.ids.forEach((id) => {
+        this.books = this.master_books.filter(
+          (book) => book.categories.includes(id) == true
+        )
+      })
     },
   },
   watch: {
@@ -285,6 +312,8 @@ export default {
       method: 'get',
     })
     this.books = list_book.data.data.filter((b) => b.active == true)
+    this.master_books = list_book.data.data.filter((b) => b.active == true)
+
 
     // -------------------------------------------Filtro Category
     const category = await this.$apidata({
