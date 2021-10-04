@@ -46,8 +46,7 @@
                         <!-- <i class="el-icon-location"></i> -->
                         <span class="subtitle-filter">Categoria</span>
                       </template>
-                      <el-menu-item
-                        v-for="(category, index) of value_category"
+                      <el-menu-item v-for="(category, index) of value_category"
                         :key="category"
                       >
                         <el-checkbox
@@ -229,7 +228,7 @@ export default {
       //-------------------------------VARIABLES HELP EDITORIAL
       value_category: [],
       ids: [],
-      master_books: []
+      master_books: [],
     }
   },
   methods: {
@@ -249,25 +248,29 @@ export default {
       if (value) {
         this.ids.push(id_category)
         console.log(this.ids)
+        this.ids.forEach((id) => {
+          this.books = this.books.filter(
+            (book) => book.categories.includes(id) == true
+          )
+        })
         this.value_category[index].active = !value
-        
       } else {
         console.log('Desactivo')
         const position = this.ids.indexOf(id_category)
-        console.log('Posicion: '+ position)
+        console.log('Posicion: ' + position)
         console.log(position)
         this.ids.splice(position, 1)
         console.log(
           '++++++++++++++++++++++VALUE IDS+++++++++++++++++++++++++++++++'
         )
+        this.ids.forEach((id) => {
+          this.books = this.master_books.filter(
+            (book) => book.categories.includes(id) == true
+          )
+        })
         console.log(this.ids)
         this.value_category[index].active = !value
       }
-      this.ids.forEach((id) => {
-        this.books = this.master_books.filter(
-          (book) => book.categories.includes(id) == true
-        )
-      })
     },
   },
   watch: {
@@ -283,7 +286,6 @@ export default {
     })
     this.books = list_book.data.data.filter((b) => b.active == true)
     this.master_books = list_book.data.data.filter((b) => b.active == true)
-
 
     // -------------------------------------------Filtro Category
     const category = await this.$apidata({
