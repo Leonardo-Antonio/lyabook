@@ -46,7 +46,8 @@
                         <!-- <i class="el-icon-location"></i> -->
                         <span class="subtitle-filter">Categoria</span>
                       </template>
-                      <el-menu-item v-for="(category, index) of value_category"
+                      <el-menu-item
+                        v-for="(category, index) of value_category"
                         :key="category"
                       >
                         <el-checkbox
@@ -108,7 +109,10 @@
             </div>
           </el-header>
           <el-main>
-            <div class="container-product flex justify-center">
+            <div
+              class="container-product flex justify-center"
+              v-show="showListProduct"
+            >
               <div class="w-full">
                 <div>
                   <div class="flex flex-wrap">
@@ -190,9 +194,17 @@
                 </div>
               </div>
             </div>
+
+            <div v-show="showMessage" class="px-6">
+              <p>Ningún producto coincide.</p>
+            </div>
+
+            <div v-show="showMessageProduct" class="px-6">
+              <p>Vacio</p>
+            </div>
           </el-main>
           <el-footer>
-            <div class="flex justify-center">
+            <div class="flex justify-center" v-show="showListProduct">
               <div class="block">
                 <el-pagination layout="prev, pager, next" :total="1000">
                 </el-pagination>
@@ -220,6 +232,9 @@ export default {
 
       //-------------------------------VARIABLES
       valueCheckbox: '',
+      showListProduct: true,
+      showMessage: false,
+      showMessageProduct: false,
 
       //-------------------------------VARIABLES PARA APIS
       books: [],
@@ -247,30 +262,35 @@ export default {
 
       if (value) {
         this.ids.push(id_category)
-        console.log(this.ids)
         this.ids.forEach((id) => {
           this.books = this.books.filter(
             (book) => book.categories.includes(id) == true
           )
         })
+        if(this.books.length == 0){
+          this.showListProduct = false
+          this.showMessage = true
+        }
         this.value_category[index].active = !value
+
       } else {
-        console.log('Desactivo')
         const position = this.ids.indexOf(id_category)
-        console.log('Posicion: ' + position)
-        console.log(position)
         this.ids.splice(position, 1)
-        console.log(
-          '++++++++++++++++++++++VALUE IDS+++++++++++++++++++++++++++++++'
-        )
         this.ids.forEach((id) => {
           this.books = this.master_books.filter(
             (book) => book.categories.includes(id) == true
           )
         })
-        console.log(this.ids)
+        if(this.ids.length == 0){
+          this.books = this.master_books
+        }
+        if(this.books.length != 0){
+          this.showListProduct = true
+          this.showMessage = false
+        }
         this.value_category[index].active = !value
       }
+
     },
   },
   watch: {
@@ -286,6 +306,11 @@ export default {
     })
     this.books = list_book.data.data.filter((b) => b.active == true)
     this.master_books = list_book.data.data.filter((b) => b.active == true)
+
+    if(this.books.length == 0){
+      this.showMessageProduct = true
+      this.showListProduct = false
+    }
 
     // -------------------------------------------Filtro Category
     const category = await this.$apidata({
