@@ -48,9 +48,11 @@
                       </template>
                       <el-menu-item
                         v-for="(category, index) of value_category"
-                        :key="category"
+                        :key="index"
                       >
-                        <el-checkbox id="checkbox" @change="filter(index, category.active, category._id)"
+                        <el-checkbox
+                          id="checkbox"
+                          @change="filter(index, category.active, category._id)"
                           >{{ category.name }}
                         </el-checkbox>
                       </el-menu-item>
@@ -226,8 +228,8 @@ export default {
       editorial: [],
       //-------------------------------VARIABLES HELP EDITORIAL
       value_category: [],
-      value_books:[],
-      books_active: []
+      value_books: [],
+      books_active: [],
     }
   },
   methods: {
@@ -236,23 +238,28 @@ export default {
     },
     //------------------------------------PROCESO DEL FILTRADO
     async filter(index, value, id_category) {
-      console.log('++++++++++++++++++++++FILTRADO+++++++++++++++++++++++++++++++')
-      console.log("ID index: " +index)
-      console.log("ID VALUE: " + value)
-      if(value){
+      this.books = this.books.filter((book) => book.categories.includes(id_category))
+      console.log(
+        '++++++++++++++++++++++FILTRADO+++++++++++++++++++++++++++++++'
+      )
+      console.log('ID index: ' + index)
+      console.log('ID VALUE: ' + value)
+      if (value) {
         this.value_category[index].active = !value
-        console.log('++++++++++++++++++++++LIBROS+++++++++++++++++++++++++++++++')
-        console.log("ID CATEGORIA: " + id_category)
+        console.log(
+          '++++++++++++++++++++++LIBROS+++++++++++++++++++++++++++++++'
+        )
+        console.log('ID CATEGORIA: ' + id_category)
+
         //this.books = this.books.filter(book => book.categories[0] == id_category || book.categories[1] == id_category|| book.categories.)
-    
+
         // for (let i = 0; i < this.books.length; i++) {
         //   for (let x = 0; x < this.books[i].categories.length; x++) {
         //     if(this.books[i].categories[x] == id_category){
         //       console.log("encontrado")
         //       this.value_books.push(this.books[i])
         //     }
-            
-            
+
         //   }
         //   console.log("- - - - - - - - - - - - - - - - - - - - - - - ")
         // }
@@ -260,13 +267,10 @@ export default {
         // console.log("******************************RESULTADO********************************************")
         // console.log(this.value_books)
         // this.books = this.value_books
-        
+
         //book => book.editorial == data || book.author == data
         // console.log(this.categories[0].active)
       }
-      
-
-      
     },
   },
   watch: {
@@ -280,7 +284,7 @@ export default {
       url: '/books',
       method: 'get',
     })
-    this.books = list_book.data.data.filter((b)=>b.active == true)
+    this.books = list_book.data.data.filter((b) => b.active == true)
 
     // -------------------------------------------Filtro Category
     const category = await this.$apidata({
