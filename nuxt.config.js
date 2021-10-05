@@ -29,6 +29,7 @@ export default {
     '@/plugins/maps.js',
     '@/plugins/axios/data.js',
     '@/plugins/axios/admin.js',
+    '@/plugins/axios/manager.js',
     '@/plugins/axios/client.js',
     '@/plugins/axios/credentials.js',
     '@/plugins/boxicons.js',

@@ -13,6 +13,11 @@ export default function ({ $axios, redirect }, inject) {
   })
 
   manager.onResponse((response) => {
+
+    if (response.config.url == '/users/roles/admin') {
+      return
+    }
+
     const data = response.data
     const message_type = data.message_type.toUpperCase()
     Notification.success({

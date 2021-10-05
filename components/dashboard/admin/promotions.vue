@@ -169,17 +169,19 @@ export default {
       books: [],
       search: '',
       loading: true,
+      booksDataExport: [],
     }
   },
 
   async mounted() {
     try {
-      const response = await this.$apidata({
+      const { status, data } = await this.$apidata({
         url: '/books',
         method: 'get',
       })
-      if (response.status == 200) {
-        this.books = response.data.data.filter((book) => book.active)
+      if (status == 200) {
+        this.books = data.data.filter((book) => book.active)
+        this.booksDataExport = data.data
         this.loading = true
       }
     } catch (error) {
@@ -203,12 +205,15 @@ export default {
       }
     },
     exportData() {
-      for (let book of this.books) {
+      for (let book of this.booksDataExport) {
         delete book.type
-        delete book.categories	
-        delete book.images_src
+        book.images_src = Array(book.images_src).join(';')
+        delete book.commentaries
+        book.details = book.details[0]
+        book.categories = Array(book.categories).join(';')
       }
-      const workSheet = XLSX.utils.json_to_sheet(this.books)
+
+      const workSheet = XLSX.utils.json_to_sheet(this.booksDataExport)
       const workBook = XLSX.utils.book_new()
 
       XLSX.utils.book_append_sheet(workBook, workSheet, 'books')

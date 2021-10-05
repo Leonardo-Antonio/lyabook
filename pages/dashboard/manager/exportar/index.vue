@@ -14,7 +14,7 @@
           <button @click="exportData(booksFisicos, 'booksFisicos')">
             <CardIcon icon="book-open" text="Libros Fisicos" />
           </button>
-          <button @click="exportData(editoriales, 'hola')">
+          <button @click="exportData(admins, 'admins')">
             <CardIcon icon="user-detail" text="Admins" />
           </button>
         </div>
@@ -55,12 +55,14 @@ export default {
       books: null,
       booksDigitals: null,
       booksFisicos: null,
+      admins: null,
     }
   },
   async mounted() {
     await this.getEditorials()
     await this.getCategories()
     await this.getBooks()
+    await this.getAdmins()
   },
 
   methods: {
@@ -117,6 +119,13 @@ export default {
       this.books = data.data
       this.booksDigitals = data.data.filter((book) => book.type == 'Digital')
       this.booksFisicos = data.data.filter((book) => book.type == 'Fisico')
+    },
+    async getAdmins() {
+      const { data } = await this.$manager({
+        url: '/users/roles/admin',
+        method: 'get',
+      })
+      this.admins = data.data
     },
   },
 }
