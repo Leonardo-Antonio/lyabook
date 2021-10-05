@@ -66,14 +66,22 @@
                   >
                     <el-submenu index="2">
                       <template slot="title">
-                        <!-- <i class="el-icon-location"></i> -->
                         <span class="subtitle-filter">Editorial</span>
                       </template>
-                      <el-menu-item v-for="item of editorial" :key="item">
-                        <el-checkbox @change="filter(item)"
-                          >{{ item }}
-                        </el-checkbox>
-                      </el-menu-item>
+                      <div v-for="(edi, indexE) of editorial" :key="edi">
+                        <el-menu-item
+                          index="1-1"
+                          @click="filterEditorial(indexE, edi.status, edi.name)"
+                          >{{ edi.name }}</el-menu-item
+                        >
+                      </div>
+
+                      <!-- <el-menu-item
+                        v-for="(edi, indexE) of editorial"
+                        :key="edi"
+                      >
+                        <el-menu-item index="1-1">item one</el-menu-item>
+                      </el-menu-item> -->
                     </el-submenu>
                   </el-menu>
                   <el-menu class="rounded-b-2xl">
@@ -231,7 +239,6 @@ export default {
       value_barra: '',
 
       //-------------------------------VARIABLES
-      valueCheckbox: '',
       showListProduct: true,
       showMessage: false,
       showMessageProduct: false,
@@ -244,6 +251,7 @@ export default {
       value_category: [],
       ids: [],
       master_books: [],
+      submaster_books: [],
     }
   },
   methods: {
@@ -251,7 +259,7 @@ export default {
       console.log(item)
     },
     //------------------------------------PROCESO DEL FILTRADO
-    async filter(index, value, id_category) {
+    filter(index, value, id_category) {
       console.log(
         '++++++++++++++++++++++FILTRADO+++++++++++++++++++++++++++++++'
       )
@@ -267,30 +275,66 @@ export default {
             (book) => book.categories.includes(id) == true
           )
         })
-        if(this.books.length == 0){
+
+        this.submaster_books = this.books
+        console.log(this.submaster_books)
+
+        if (this.books.length == 0) {
           this.showListProduct = false
           this.showMessage = true
         }
         this.value_category[index].active = !value
-
       } else {
         const position = this.ids.indexOf(id_category)
         this.ids.splice(position, 1)
+
+        for (let i = this.submaster_books.length; i > 0; i--) {
+          this.submaster_books.pop()
+        }
+
         this.ids.forEach((id) => {
           this.books = this.master_books.filter(
             (book) => book.categories.includes(id) == true
           )
+
+          this.submaster_books = this.master_books.filter(
+            (book) => book.categories.includes(id) == true
+          )
         })
-        if(this.ids.length == 0){
+
+        console.log(this.submaster_books)
+
+        if (this.ids.length == 0) {
           this.books = this.master_books
         }
-        if(this.books.length != 0){
+        if (this.books.length != 0) {
           this.showListProduct = true
           this.showMessage = false
         }
         this.value_category[index].active = !value
       }
+    },
+    filterEditorial(indexE, status, name_editorial) {
+      console.log(
+        '++++++++++++++++++++++FILTRADO Editorial+++++++++++++++++++++++++++++++'
+      )
+      console.log('STATUS: ' + status)
+      console.log('NAME EDITORIAL: ' + name_editorial)
+      console.log('++++++++++++++++++++++IDS+++++++++++++++++++++++++++++++')
 
+      const cant_category = this.submaster_books.length
+      console.log('CANTIDAD DE CATEGORIA: ' + cant_category)
+      if (cant_category != 0) {
+        console.log('hay categorias seleccionadas')
+        this.books = this.submaster_books.filter(
+          (book) => book.editorial == name_editorial
+        )
+      } else {
+        console.log('editorial se filtra primero')
+        this.books = this.master_books.filter(
+          (book) => book.editorial == name_editorial
+        )
+      }
     },
   },
   watch: {
@@ -307,7 +351,7 @@ export default {
     this.books = list_book.data.data.filter((b) => b.active == true)
     this.master_books = list_book.data.data.filter((b) => b.active == true)
 
-    if(this.books.length == 0){
+    if (this.books.length == 0) {
       this.showMessageProduct = true
       this.showListProduct = false
     }
