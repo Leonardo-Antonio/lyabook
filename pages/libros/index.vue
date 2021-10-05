@@ -233,15 +233,15 @@ export default {
     return {
       // star
       value1: null,
-      // checkbox
-      checked: true,
-      // barra de precio
-      value_barra: '',
+      
 
       //-------------------------------VARIABLES
       showListProduct: true,
       showMessage: false,
       showMessageProduct: false,
+      // barra de precio
+      value_barra: '',
+      max: 0,
 
       //-------------------------------VARIABLES PARA APIS
       books: [],
@@ -269,6 +269,7 @@ export default {
       console.log('++++++++++++++++++++++IDS+++++++++++++++++++++++++++++++')
 
       if (value) {
+        this.books = this.master_books
         this.ids.push(id_category)
         this.ids.forEach((id) => {
           this.books = this.books.filter(
@@ -348,13 +349,22 @@ export default {
       url: '/books',
       method: 'get',
     })
-    this.books = list_book.data.data.filter((b) => b.active == true)
-    this.master_books = list_book.data.data.filter((b) => b.active == true)
+    this.books = list_book.data.data.filter(
+      (book) => book.active == true
+    )
+    this.master_books = list_book.data.data.filter(
+      (book) => book.active == true
+    )
 
     if (this.books.length == 0) {
       this.showMessageProduct = true
       this.showListProduct = false
     }
+    const maximos = []
+
+    this.books.forEach((book)=>{
+      console.log(book.price_current)
+    })
 
     // -------------------------------------------Filtro Category
     const category = await this.$apidata({
