@@ -1,24 +1,20 @@
 import { Notification } from 'element-ui'
 
 export default function ({ $axios, redirect }, inject) {
-  const admin = $axios.create({ baseURL: 'http://localhost:8000/api/v1' })
+  const manager = $axios.create({ baseURL: 'http://localhost:8000/api/v1' })
   try {
-    admin.setToken(JSON.parse(localStorage.getItem('user')).token)
+    manager.setToken(JSON.parse(localStorage.getItem('user')).token)
   } catch {
     redirect('/errors/403')
   }
 
-  admin.onRequest((config) => {
+  manager.onRequest((config) => {
     console.log('Making request to ' + config.url)
   })
 
-  admin.onResponse((response) => {
-    if (
-      response.config.url == '/users/roles/admin' ||
-      response.config.url == '/users/count/admin' ||
-      response.config.url == '/claims' ||
-      response.config.url == '/claims/amount'
-    ) {
+  manager.onResponse((response) => {
+
+    if (response.config.url == '/users/roles/admin') {
       return
     }
 
@@ -29,7 +25,7 @@ export default function ({ $axios, redirect }, inject) {
       message: `${data.message}`,
     })
   })
-  admin.onError((error) => {
+  manager.onError((error) => {
     console.log(error)
     const code = parseInt(error.response && error.response.status)
     console.log('Error http code: ' + code)
@@ -63,5 +59,5 @@ export default function ({ $axios, redirect }, inject) {
         break
     }
   })
-  inject('admin', admin)
+  inject('manager', manager)
 }

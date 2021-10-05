@@ -1,0 +1,18 @@
+.input_rounded .el-input__inner {
+  border: 1px solid var(--primary);
+  height: 3rem;
+  box-sizing: border-box;
+  border-radius: 50px;
+}
+
+.input_rounded .el-input__inner:hover {
+  transition: all 0.1s;
+  border: 2px solid var(--primary);
+  border-radius: 50px;
+}
+
+.input_rounded .el-input__inner:focus {
+  transition: all 0.1s;
+  border: 2px solid var(--primary);
+  border-radius: 50px;
+}

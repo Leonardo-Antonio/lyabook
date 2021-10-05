@@ -58,6 +58,7 @@
                 placeholder="Please input"
                 v-model="data.name"
                 clearable
+                disabled
               />
             </div>
           </div>

@@ -14,16 +14,16 @@
             items-center
           "
         >
-          <span>{{data.rol}}</span>
+          <span>{{ data.rol }}</span>
         </div>
       </div>
 
       <div class="pr-8">
         <div class="flex flex-row">
-          <el-avatar icon="el-icon-user-solid"></el-avatar>
+          <el-avatar :src="data.src"></el-avatar>
           <div class="flex flex-col pl-2">
-            <strong>{{data.name}}</strong>
-            <span>{{data.auth}}</span>
+            <strong>{{ data.name }}</strong>
+            <span>{{ data.auth }}</span>
           </div>
         </div>
       </div>
@@ -38,7 +38,8 @@ export default {
       data: {
         name: 'example',
         auth: 'example',
-        rol: 'example'
+        rol: 'example',
+        src: 'http://uxpanol.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png',
       },
     }
   },
@@ -47,6 +48,7 @@ export default {
     const admin = JSON.parse(localStorage.getItem('user').toString())
     this.data.name = admin.user.name
     this.data.rol = admin.user.rol
+    this.data.src = admin.user.src = !undefined ? admin.user.src : this.data.src
     if (admin.user.email != undefined) {
       this.data.auth = admin.user.email
     } else {

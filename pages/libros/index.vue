@@ -52,7 +52,7 @@
                       </template>
                       <el-menu-item
                         v-for="(category, index) of value_category"
-                        :key="category"
+                        :key="index"
                       >
                         <el-checkbox
                           class="checkbox-filter"
@@ -262,6 +262,8 @@ export default {
       editorial: [],
       //-------------------------------VARIABLES HELP EDITORIAL
       value_category: [],
+      value_books: [],
+      books_active: [],
       ids: [],
       master_books: [],
       submaster_books: [],
@@ -272,12 +274,21 @@ export default {
       console.log(item)
     },
     //------------------------------------PROCESO DEL FILTRADO
-    filter(index, value, id_category) {
+    async filter(index, value, id_category) {
+      this.books = this.books.filter((book) => book.categories.includes(id_category))
       console.log(
         '++++++++++++++++++++++FILTRADO+++++++++++++++++++++++++++++++'
       )
       console.log('ID index: ' + index)
       console.log('ID VALUE: ' + value)
+      if (value) {
+        this.value_category[index].active = !value
+        console.log(
+          '++++++++++++++++++++++LIBROS+++++++++++++++++++++++++++++++'
+        )
+        console.log('ID CATEGORIA: ' + id_category)
+
+      }
       console.log('ID CATEGORIA: ' + id_category)
       console.log('++++++++++++++++++++++IDS+++++++++++++++++++++++++++++++')
 

@@ -15,7 +15,7 @@
               </div>
             </div>
 
-            <div class="flex justify-center container__login">
+            <div class="flex justify-center container__login input_rounded">
               <div class="w-3/4 z-40">
                 <el-input
                   class="mt-4"

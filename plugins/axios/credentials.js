@@ -1,6 +1,6 @@
 import { Notification } from 'element-ui'
 
-export default function ({ $axios }, inject) {
+export default function ({ $axios, redirect }, inject) {
   const credentials = $axios.create({ baseURL: 'http://localhost:8000/api/v1' })
   let urlRequest
   credentials.onRequest((config) => {
@@ -11,8 +11,27 @@ export default function ({ $axios }, inject) {
   credentials.onResponse((response) => {
     const route = new String(response.config.url).toString()
     if (route == '/users/log-in/dni' || route == '/users/log-in/email') {
-      localStorage.setItem('user', JSON.stringify(response.data.data))
+      const { data } = response.data
+      localStorage.setItem('user', JSON.stringify(data))
       console.log('GUARDADO EN EL LOCALSTORAGE')
+      switch (data.user.rol) {
+        case 'Admin':
+          redirect('/dashboard/admin')
+          break
+        case 'Client':
+          redirect('/')
+          break
+        case 'Manager':
+          redirect('/dashboard/manager')
+          break
+        default:
+          Notification.error({
+            title: 'Error',
+            message: 'el rol no existe',
+          })
+          break
+      }
+      console.log()
     }
 
     const data = response.data

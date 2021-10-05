@@ -100,6 +100,18 @@
                     :text="btns.books.text"
                   />
                 </nuxt-link>
+
+                <nuxt-link
+                  to="/dashboard/manager/exportar"
+                  no-prefetch
+                  class="py-1 panel_link"
+                >
+                  <BtnDashBoard
+                    :icon="btns.export.icon"
+                    :text="btns.export.text"
+                  />
+                </nuxt-link>
+
                 <button @click="showDialog = true">
                   <BtnDashBoard
                     :icon="btns.signOut.icon"
@@ -186,6 +198,10 @@ export default {
         books: {
           text: 'Libros',
           icon: 'el-icon-notebook-2',
+        },
+        export: {
+          text: 'Exportar',
+          icon: 'el-icon-download',
         },
         signOut: {
           text: 'Cerrar Sesión',

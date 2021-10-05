@@ -58,7 +58,10 @@
                   no-prefetch
                   class="py-1 panel_link home__inactive"
                 >
-                  <BtnDashBoard :icon="btns.my_account.icon" :text="btns.my_account.text" />
+                  <BtnDashBoard
+                    :icon="btns.my_account.icon"
+                    :text="btns.my_account.text"
+                  />
                 </nuxt-link>
 
                 <nuxt-link
