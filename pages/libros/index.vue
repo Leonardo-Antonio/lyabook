@@ -25,8 +25,8 @@
         style="width: 5rem; right: -1rem; top: 42rem"
       />
 
-      <div class="flex justify-center w-7/12 mx-auto">
-        <div class="container-filter-father w-1/4">
+      <div class="flex justify-center w-7/12 mx-auto pb-16">
+        <div class="container-filter-father w-1/4" style="z-index: 20">
           <!-- filter -->
           <div class="container-filter">
             <div class="header-filter px-6 py-4 rounded-t-2xl">
@@ -34,7 +34,11 @@
             </div>
             <div>
               <el-row class="tac">
-                <el-col :span="12" class="column-menu">
+                <el-col
+                  :span="12"
+                  class="column-menu rounded-b-2xl"
+                  style="background: #fff"
+                >
                   <el-menu
                     default-active="2"
                     class="el-menu-vertical-demo header-option-filter"
@@ -51,6 +55,7 @@
                         :key="category"
                       >
                         <el-checkbox
+                          class="checkbox-filter"
                           id="checkbox"
                           @change="filter(index, category.active, category._id)"
                           >{{ category.name }}
@@ -68,9 +73,14 @@
                       <template slot="title">
                         <span class="subtitle-filter">Editorial</span>
                       </template>
-                      <div v-for="(edi, indexE) of editorial" :key="edi">
+                      <div
+                        v-for="(edi, indexE) of editorial"
+                        :key="edi"
+                        class="container-options-filter"
+                      >
                         <el-menu-item
                           index="1-1"
+                          class="menu-item"
                           @click="filterEditorial(indexE, edi.status, edi.name)"
                           >{{ edi.name }}</el-menu-item
                         >
@@ -93,6 +103,8 @@
                         <el-slider
                           class="pt-2"
                           v-model="value_barra"
+                          :max="max"
+                          :min="min"
                         ></el-slider>
                       </div>
                     </div>
@@ -233,16 +245,17 @@ export default {
     return {
       // star
       value1: null,
-      
 
       //-------------------------------VARIABLES
       showListProduct: true,
       showMessage: false,
       showMessageProduct: false,
       // barra de precio
-      value_barra: '',
+      value_barra: 0,
       max: 0,
+      min: 0,
 
+      editorial_moment: [],
       //-------------------------------VARIABLES PARA APIS
       books: [],
       categories: [],
@@ -273,7 +286,9 @@ export default {
         this.ids.push(id_category)
         this.ids.forEach((id) => {
           this.books = this.books.filter(
-            (book) => book.categories.includes(id) == true
+            (book) =>
+              book.categories.includes(id) == true &&
+              book.price_current <= this.value_barra
           )
         })
 
@@ -295,7 +310,9 @@ export default {
 
         this.ids.forEach((id) => {
           this.books = this.master_books.filter(
-            (book) => book.categories.includes(id) == true
+            (book) =>
+              book.categories.includes(id) == true &&
+              book.price_current <= this.value_barra
           )
 
           this.submaster_books = this.master_books.filter(
@@ -306,7 +323,9 @@ export default {
         console.log(this.submaster_books)
 
         if (this.ids.length == 0) {
-          this.books = this.master_books
+          this.books = this.master_books.filter(
+            (book) => book.price_current <= this.value_barra
+          )
         }
         if (this.books.length != 0) {
           this.showListProduct = true
@@ -328,19 +347,55 @@ export default {
       if (cant_category != 0) {
         console.log('hay categorias seleccionadas')
         this.books = this.submaster_books.filter(
-          (book) => book.editorial == name_editorial
+          (book) =>
+            book.editorial == name_editorial &&
+            book.price_current <= this.value_barra
         )
       } else {
         console.log('editorial se filtra primero')
-        this.books = this.master_books.filter(
-          (book) => book.editorial == name_editorial
-        )
+        const value = this.editorial_moment.includes(name_editorial)
+        if (!value) {
+          this.editorial_moment[0] = name_editorial
+          console.log(this.editorial_moment)
+          this.books = this.master_books.filter(
+            (book) =>
+              book.editorial == name_editorial &&
+              book.price_current <= this.value_barra
+          )
+
+        } else {
+          this.books = this.master_books.filter(
+            (book) => book.price_current <= this.value_barra
+          )
+          console.log(this.books)
+        }
       }
     },
   },
   watch: {
     value_barra: function (value) {
+      console.log(
+        '++++++++++++++++++++++FILTRADO PRECIO+++++++++++++++++++++++++++++++'
+      )
+
+      this.showListProduct = true
+      this.showMessage = false
+
       console.log(value)
+
+      const cant_category = this.submaster_books.length
+      console.log('CANTIDAD DE CATEGORIA: ' + cant_category)
+      if (cant_category != 0) {
+        console.log('hay categorias seleccionadas')
+        this.books = this.submaster_books.filter(
+          (book) => book.price_current <= value
+        )
+      } else {
+        console.log('primer precio')
+        this.books = this.master_books.filter(
+          (book) => book.price_current <= value
+        )
+      }
     },
   },
   async created() {
@@ -349,9 +404,7 @@ export default {
       url: '/books',
       method: 'get',
     })
-    this.books = list_book.data.data.filter(
-      (book) => book.active == true
-    )
+    this.books = list_book.data.data.filter((book) => book.active == true)
     this.master_books = list_book.data.data.filter(
       (book) => book.active == true
     )
@@ -361,10 +414,42 @@ export default {
       this.showListProduct = false
     }
     const maximos = []
+    const minimos = []
 
-    this.books.forEach((book)=>{
-      console.log(book.price_current)
+    this.books.forEach((book) => {
+      const value = maximos.includes(book.price_current)
+      if (!value) {
+        maximos.push(book.price_current)
+      }
     })
+
+    console.log('----------------------MAXIMO-------------------')
+    console.log(maximos)
+    var contador = 0
+    for (let i = 0; i < maximos.length; i++) {
+      if (maximos[i] > contador) {
+        contador = maximos[i]
+      }
+    }
+    console.log('----------------------MAX-------------------')
+
+    this.max = contador
+    console.log(this.max)
+
+    console.log('----------------------MINIMO-------------------')
+    console.log(maximos)
+    var contador_min = this.max
+    for (let i = 0; i < maximos.length; i++) {
+      if (maximos[i] < contador_min) {
+        contador_min = maximos[i]
+      }
+    }
+    console.log('----------------------MAX-------------------')
+
+    this.min = contador_min
+    console.log(this.min)
+
+    this.value_barra = this.max
 
     // -------------------------------------------Filtro Category
     const category = await this.$apidata({

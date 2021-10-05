@@ -696,3 +696,15 @@ span.el-checkbox__label {
   display: flex !important;
   justify-content: center;
 }
+
+.container-filter-father .is-active{
+  color: #000000c7 !important;
+}
+
+.container-options-filter .el-menu-item:focus, .el-menu-item:hover{
+  background-color: #a580f647;
+}
+
+.checkbox-filter .el-checkbox__label{
+  white-space: normal;
+}
