@@ -142,49 +142,53 @@
                       class="pl-4 pb-8 w-1/4 container-book"
                       style="height: 28rem"
                     >
-                      <div
-                        class="
-                          container-portada
-                          flex
-                          justify-center
-                          items-center
-                        "
-                        style="height: 60%"
-                      >
-                        <img
-                          class="payment-card h-full"
-                          :src="item.images_src[0]"
-                        />
-                      </div>
+                      <nuxt-link :to="`/libros/${item.slug}`">
+                        <div
+                          class="
+                            container-portada
+                            flex
+                            justify-center
+                            items-center
+                          "
+                          style="height: 60%"
+                        >
+                          <img
+                            class="payment-card h-full"
+                            :src="item.images_src[0]"
+                          />
+                        </div>
+                      </nuxt-link>
                       <div
                         class="container-detail relative"
                         style="height: 40%"
                       >
-                        <div class="container-detail-externa px-2">
-                          <p class="title-product-externa pt-2">
-                            {{ item.name }}
-                          </p>
-                          <div
-                            class="
-                              flex
-                              justify-center
-                              items-center
-                              pt-2
-                              absolute
-                              bottom-20
-                            "
-                          >
-                            <p class="w-3/6 price-before">S/.20.0</p>
-                            <p class="w-3/6 price-current pl-2">
-                              S/.{{ item.price_current }}
+                        <nuxt-link :to="`/libros/${item.slug}`">
+                          <div class="container-detail-externa px-2">
+                            <p class="title-product-externa pt-2">
+                              {{ item.name }}
                             </p>
-                          </div>
-                          <div class="star pt-4 absolute bottom-12">
-                            <div class="block">
-                              <el-rate v-model="value1"></el-rate>
+                            <div
+                              class="
+                                flex
+                                justify-center
+                                items-center
+                                pt-2
+                                absolute
+                                bottom-20
+                              "
+                            >
+                              <p class="w-3/6 price-before">S/.20.0</p>
+                              <p class="w-3/6 price-current pl-2">
+                                S/.{{ item.price_current }}
+                              </p>
+                            </div>
+                            <div class="star pt-4 absolute bottom-12">
+                              <div class="block">
+                                <el-rate v-model="value1"></el-rate>
+                              </div>
                             </div>
                           </div>
-                        </div>
+                        </nuxt-link>
                         <div
                           class="
                             container-button-to-buy
@@ -198,14 +202,13 @@
                           "
                         >
                           <el-row>
-                            <nuxt-link :to="`/libros/${item.slug}`">
-                              <el-button
-                                class="btn_add_size button-to-by"
-                                type="primary"
-                                round
-                                >Comprar</el-button
-                              >
-                            </nuxt-link>
+                            <el-button
+                              class="btn_add_size button-to-by"
+                              type="primary"
+                              round
+                              @click="addCart(item)"
+                              >Agregar al carrito</el-button
+                            >
                           </el-row>
                         </div>
                       </div>
@@ -235,6 +238,25 @@
         <!-- fin de la barra 2 -->
       </div>
     </div>
+
+    <el-drawer
+      title="I am the title"
+      :visible.sync="showDrawer"
+      :with-header="false"
+    >
+      <p>Carrito</p>
+      <div class="productDrawer pt-4" v-for="gb of getbook" :key="gb">
+        <div class="pb-4">
+          <p>{{gb.name}}</p>
+          <div class="flex">
+            <p>{{gb.price_current}}</p>
+            <p class="pl-4">{{gb.price_before}}</p>
+          </div>
+        </div>
+        
+        
+      </div>
+    </el-drawer>
   </div>
 </template>
 
@@ -250,6 +272,7 @@ export default {
       showListProduct: true,
       showMessage: false,
       showMessageProduct: false,
+      showDrawer: false,
       // barra de precio
       value_barra: 0,
       max: 0,
@@ -267,6 +290,10 @@ export default {
       ids: [],
       master_books: [],
       submaster_books: [],
+
+      // -------------------------------DRAWER
+      booksCard: [],
+      getbook:''
     }
   },
   methods: {
@@ -275,7 +302,9 @@ export default {
     },
     //------------------------------------PROCESO DEL FILTRADO
     async filter(index, value, id_category) {
-      this.books = this.books.filter((book) => book.categories.includes(id_category))
+      this.books = this.books.filter((book) =>
+        book.categories.includes(id_category)
+      )
       console.log(
         '++++++++++++++++++++++FILTRADO+++++++++++++++++++++++++++++++'
       )
@@ -287,7 +316,6 @@ export default {
           '++++++++++++++++++++++LIBROS+++++++++++++++++++++++++++++++'
         )
         console.log('ID CATEGORIA: ' + id_category)
-
       }
       console.log('ID CATEGORIA: ' + id_category)
       console.log('++++++++++++++++++++++IDS+++++++++++++++++++++++++++++++')
@@ -373,7 +401,6 @@ export default {
               book.editorial == name_editorial &&
               book.price_current <= this.value_barra
           )
-
         } else {
           this.books = this.master_books.filter(
             (book) => book.price_current <= this.value_barra
@@ -382,6 +409,13 @@ export default {
         }
       }
     },
+    addCart(books){
+      this.showDrawer = true
+      console.log("--------------------------DRAWER-------------------------------")
+      this.booksCard.push(books)
+      console.log(this.booksCard)
+      localStorage.setItem("books", JSON.stringify(this.booksCard))
+    }
   },
   watch: {
     value_barra: function (value) {
@@ -481,7 +515,23 @@ export default {
       method: 'get',
     })
     this.editorial = editorial.data.data
-    //--------------------------------------------
+    //--------------------------------------------DRAWER
+    console.log("--------------------------GET DRAWER-------------------------------")
+    var local =  localStorage.getItem('books').toString()
+    this.getbook = JSON.parse(local)
+    console.log(this.getbook)
+
+    console.log("--------------------------RECORRIENDO GET DRAWER-------------------------------")
+    // if(this.getbook.length != 0){
+    //   let productDrawer = document.getElementById('productDrawer')
+    //   this.getbook.forEach((book)=>{
+    //   console.log("nombre: " + book.name)
+    //   console.log("---------------------------------------------------------------------")
+    //   if(book.name != null){
+    //     productDrawer.innerHTML = `<p>hola</p>`
+    //   }
+    // })
+    // }
   },
 }
 </script>

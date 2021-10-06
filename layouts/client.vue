@@ -45,11 +45,24 @@
               <box-icon name="user"></box-icon>
             </div>
             <div class="icon-shopping-cart">
-              <box-icon name="cart" animation="tada"></box-icon>
+              <box-icon
+                name="cart"
+                animation="tada"
+                @click="showDrawer = true"
+              ></box-icon>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <div>
+      <el-drawer
+        title="I am the title"
+        :visible.sync="showDrawer"
+        :with-header="false"
+      >
+        <span>Hi there!</span>
+      </el-drawer>
     </div>
     <nuxt />
 
@@ -272,7 +285,9 @@ export default {
     },
   },
   data() {
-    return {}
+    return {
+      showDrawer: false,
+    }
   },
 }
 </script>
