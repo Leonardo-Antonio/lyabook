@@ -2,38 +2,46 @@
   <div class="overflow-y-auto overflow-x-hidden" style="height: 83vh">
     <div class="p-4">
       <div>
-        <h1 class="title">Bienvenid@ {{ data.name }}</h1>
-        <p class="subtitle pt-4">
+        <h1 class="title-admin-home">Bienvenid@ {{ data.name }}</h1>
+        <p class="subtitle-admin-home pt-4">
           Aquí un resumen de lo más importante de esta semana
         </p>
       </div>
 
       <div class="pt-20">
-        <div class="w-3/5 mx-auto">
-          <div class="flex flex-row justify-between">
+        <div class="w-3/5 mx-auto mobile_admin-home-container-cards">
+          <div class="flex flex-row justify-between mobile_admin-home-container">
             <CardInfo :count="20" text="Ventas" />
+            <span class="mobile_spacer"></span>
             <CardInfo :count="cantClient" text="Clientes" />
+            <span class="mobile_spacer"></span>
             <CardInfo :count="amountClaims" text="Reglamos" />
+            <span class="mobile_spacer"></span>
           </div>
         </div>
 
-        <div class="w-3/5 mx-auto pt-8">
-          <div class="flex flex-row justify-between">
+        <div class="w-3/5 mx-auto pt-8 mobile_admin-home-container-cards">
+          <div class="flex flex-row justify-between mobile_admin-home-container">
             <CardLink
               to="admin/promotions"
               src="/images/promotions_admin.svg"
               text="Nueva promoción"
             />
+            <span class="mobile_spacer"></span>
             <CardLink
               to="admin/books/new"
               src="/images/books_admin.svg"
               text="Nuevo libro"
             />
+            <span class="mobile_spacer"></span>
             <CardLink
               to="admin/reglamos"
               src="/images/categories_admin.svg"
               text="Ver reglamos"
             />
+            <span class="mobile_spacer"></span>
+            <span class="mobile_spacer"></span>
+            <span class="mobile_spacer"></span>
           </div>
         </div>
       </div>
@@ -108,17 +116,26 @@ export default {
 </script>
 
 <style scoped>
-.title {
+@media (max-width: 640px) {
+  .mobile_admin-home-container {
+    flex-direction: column;
+  }
+
+  .mobile_admin-home-container-cards {
+    width: 100%;
+  }
+}
+.title-admin-home {
   font-family: Roboto;
   font-style: normal;
   font-weight: 500;
   font-size: 2rem;
-  line-height: 21px;
+  line-height: 1;
   /* or 87% */
 
   color: #000000;
 }
-.subtitle {
+.subtitle-admin-home {
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;

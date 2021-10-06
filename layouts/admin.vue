@@ -16,7 +16,7 @@
           <nuxt />
         </div>
 
-        <div class="fixed right-4 bottom-2 z-10">
+        <div class="fixed right-4 bottom-2 z-10 mobile_admin-icon_fixed-info">
           <el-popover
             placement="bottom"
             title="Info"
@@ -35,96 +35,115 @@
         </div>
       </div>
     </div>
-    <div class="w-1/5 pt-20 bg_white h-full shadow_card">
-      <div>
+    <div class="mobile_container-admin w-1/5 pt-20 bg_white h-full shadow_card">
+      <div class="mobile_container-admin_items-menu">
         <div>
-          <div class="flex justify-center">
-            <img src="/logos/main.svg" alt="logo" class="px-8" />
-          </div>
+          <div>
+            <div class="flex justify-center mobile_admin-logo">
+              <img src="/logos/main.svg" alt="logo" class="px-8" />
+            </div>
 
-          <div class="pt-8 px-8">
-            <div>
-              <div class="flex flex-col links__panel">
-                <nuxt-link
-                  to="/dashboard/admin"
-                  no-prefetch
-                  class="py-1 panel_link home__inactive"
-                >
-                  <BtnDashBoard :icon="btns.home.icon" :text="btns.home.text" />
-                </nuxt-link>
+            <div class="pt-8 px-8 mobile_container_admin-dashboard">
+              <div class="mobile_container_admin-menu_dashboard">
+                <div class="flex flex-col links__panel">
+                  <nuxt-link
+                    to="/dashboard/admin"
+                    no-prefetch
+                    class="py-1 mobile_admin-link panel_link home__inactive"
+                  >
+                    <BtnDashBoard
+                      :icon="btns.home.icon"
+                      :text="btns.home.text"
+                    />
+                  </nuxt-link>
 
-                <nuxt-link
-                  to="/dashboard/admin/mi-cuenta"
-                  no-prefetch
-                  class="py-1 panel_link home__inactive"
-                >
-                  <BtnDashBoard
-                    :icon="btns.my_account.icon"
-                    :text="btns.my_account.text"
-                  />
-                </nuxt-link>
+                  <nuxt-link
+                    to="/dashboard/admin/mi-cuenta"
+                    no-prefetch
+                    class="
+                      py-1
+                      mobile_admin-link
+                      panel_link
+                      home__inactive
+                      mobile_admin-menu_item-remove
+                    "
+                  >
+                    <BtnDashBoard
+                      :icon="btns.my_account.icon"
+                      :text="btns.my_account.text"
+                    />
+                  </nuxt-link>
 
-                <nuxt-link
-                  to="/dashboard/admin/users"
-                  no-prefetch
-                  class="py-1 panel_link"
-                >
-                  <BtnDashBoard
-                    :icon="btns.users.icon"
-                    :text="btns.users.text"
-                  />
-                </nuxt-link>
+                  <nuxt-link
+                    to="/dashboard/admin/users"
+                    no-prefetch
+                    class="
+                      py-1
+                      mobile_admin-link
+                      panel_link
+                      mobile_admin-menu_item-remove
+                    "
+                  >
+                    <BtnDashBoard
+                      :icon="btns.users.icon"
+                      :text="btns.users.text"
+                    />
+                  </nuxt-link>
 
-                <nuxt-link
-                  to="/dashboard/admin/categories"
-                  no-prefetch
-                  class="py-1 panel_link"
-                >
-                  <BtnDashBoard
-                    :icon="btns.categories.icon"
-                    :text="btns.categories.text"
-                  />
-                </nuxt-link>
+                  <nuxt-link
+                    to="/dashboard/admin/categories"
+                    no-prefetch
+                    class="py-1 mobile_admin-link panel_link"
+                  >
+                    <BtnDashBoard
+                      :icon="btns.categories.icon"
+                      :text="btns.categories.text"
+                    />
+                  </nuxt-link>
 
-                <nuxt-link
-                  to="/dashboard/admin/books"
-                  no-prefetch
-                  class="py-1 panel_link"
-                >
-                  <BtnDashBoard
-                    :icon="btns.books.icon"
-                    :text="btns.books.text"
-                  />
-                </nuxt-link>
+                  <nuxt-link
+                    to="/dashboard/admin/books"
+                    no-prefetch
+                    class="py-1 mobile_admin-link panel_link"
+                  >
+                    <BtnDashBoard
+                      :icon="btns.books.icon"
+                      :text="btns.books.text"
+                    />
+                  </nuxt-link>
 
-                <nuxt-link
-                  to="/dashboard/admin/promotions"
-                  no-prefetch
-                  class="py-1 panel_link"
-                >
-                  <BtnDashBoard
-                    :icon="btns.promotions.icon"
-                    :text="btns.promotions.text"
-                  />
-                </nuxt-link>
+                  <nuxt-link
+                    to="/dashboard/admin/promotions"
+                    no-prefetch
+                    class="py-1 mobile_admin-link panel_link"
+                  >
+                    <BtnDashBoard
+                      :icon="btns.promotions.icon"
+                      :text="btns.promotions.text"
+                    />
+                  </nuxt-link>
 
-                <nuxt-link
-                  to="/dashboard/admin/reglamos"
-                  no-prefetch
-                  class="py-1 panel_link"
-                >
-                  <BtnDashBoard
-                    :icon="btns.claims.icon"
-                    :text="btns.claims.text"
-                  />
-                </nuxt-link>
+                  <nuxt-link
+                    to="/dashboard/admin/reglamos"
+                    no-prefetch
+                    class="py-1 mobile_admin-link panel_link"
+                  >
+                    <BtnDashBoard
+                      :icon="btns.claims.icon"
+                      :text="btns.claims.text"
+                    />
+                  </nuxt-link>
 
-                <button @click="showDialog = true">
-                  <BtnDashBoard
-                    :icon="btns.signOut.icon"
-                    :text="btns.signOut.text"
-                  />
-                </button>
+                  <button
+                    @click="showDialog = true"
+                    class="mobile_admin-menu_item-remove"
+                  >
+                    <BtnDashBoard
+                      :icon="btns.signOut.icon"
+                      :text="btns.signOut.text"
+                    />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -287,5 +306,48 @@ export default {
 .links__panel .py-1 {
   padding: 0;
   margin: 0;
+}
+
+@media (max-width: 640px) {
+  .mobile_container-admin {
+    width: 100%;
+    height: 5rem;
+    position: absolute;
+    bottom: 0;
+  }
+
+  .mobile_admin-logo {
+    display: none;
+  }
+
+  .mobile_container_admin-menu_dashboard > .flex-col {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .mobile_admin-link {
+    width: 100%;
+  }
+
+  .mobile_container_admin-dashboard {
+    padding-top: 0;
+    padding-bottom: 1rem;
+  }
+
+  .mobile_container-admin_items-menu {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+  }
+
+  /* icon flotante */
+  .mobile_admin-icon_fixed-info {
+    bottom: 5.5rem;
+  }
+
+  /* remove items menu */
+  .mobile_admin-menu_item-remove {
+    display: none !important;
+  }
 }
 </style>

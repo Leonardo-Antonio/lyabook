@@ -96,7 +96,7 @@
 }
 
 .btn_second {
-  transition: all .3s;
+  transition: all 0.3s;
   border-color: var(--primary);
 }
 
@@ -657,7 +657,7 @@ span.el-checkbox__label {
 .container-input .input-email {
   border: solid 2px var(--second);
   border-radius: 5rem;
-  padding: .5rem;
+  padding: 0.5rem;
 }
 
 .container-input
@@ -688,11 +688,22 @@ span.el-checkbox__label {
   border: unset;
 }
 
-.container-product-slug .el-carousel--horizontal{
+.container-product-slug .el-carousel--horizontal {
   width: 100%;
 }
 
-.container-product-slug .el-carousel__item{
+.container-product-slug .el-carousel__item {
   display: flex !important;
   justify-content: center;
+}
+
+.mobile_spacer {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .mobile_spacer {
+    padding: 1rem;
+    display: block;
+  }
 }

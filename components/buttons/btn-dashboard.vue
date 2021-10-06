@@ -12,7 +12,7 @@
     "
   >
     <div class="w-3/5">
-      <i :class="icon"></i>
+      <i :class="icon" class="mobile_admin-dashboard_link-icon"></i>
       <span class="pl-4 text_dashboard">{{ text }}</span>
     </div>
   </div>
@@ -33,7 +33,17 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+@media (max-width: 640px) {
+  .text_dashboard {
+    display: none;
+  }
+  .mobile_admin-dashboard_link-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
 .text_dashboard {
   font-family: Roboto;
   font-style: normal;
