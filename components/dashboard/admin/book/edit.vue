@@ -24,8 +24,8 @@
       </div>
     </div>
 
-    <div class="flex flex-row pb-4">
-      <div class="w-1/2 pr-4">
+    <div class="flex flex-row pb-4 mobile_vertical">
+      <div class="w-1/2 pr-4 mobile_w-full mobile_px-0 mobile_pb-1">
         <div class="input">
           <span class="title_input">Autor*</span>
           <el-input
@@ -36,7 +36,7 @@
         </div>
       </div>
 
-      <div class="w-1/2 pl-4">
+      <div class="w-1/2 pl-4 mobile_w-full mobile_px-0">
         <div class="input select_details">
           <span class="title_input">Categorias*</span>
           <el-select
@@ -73,8 +73,8 @@
       </div>
     </div>
 
-    <div class="flex flex-row pb-4">
-      <div class="w-1/2 pr-4">
+    <div class="flex flex-row pb-4 mobile_vertical">
+      <div class="w-1/2 pr-4 mobile_w-full mobile_px-0 mobile_pb-1">
         <div>
           <h5 class="title_input">Detalle del Libro*</h5>
         </div>
@@ -91,7 +91,7 @@
         </div>
       </div>
 
-      <div class="w-1/2 pl-4">
+      <div class="w-1/2 pl-4 mobile_w-full mobile_px-0">
         <div>
           <h5 class="title_input">Precio*</h5>
         </div>

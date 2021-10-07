@@ -701,9 +701,22 @@ span.el-checkbox__label {
   display: none;
 }
 
+.mobile_spacer-sm {
+  display: none;
+}
+
 @media (max-width: 640px) {
   .mobile_spacer {
     padding: 1rem;
+    display: block;
+  }
+
+  .input__search .el-input__inner {
+    width: 100%;
+  }
+
+  .mobile_spacer-sm {
+    padding: .2rem;
     display: block;
   }
 }

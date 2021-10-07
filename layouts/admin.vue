@@ -11,7 +11,7 @@
   >
     <div class="w-full">
       <Header />
-      <div class="p-10">
+      <div class="p-10 container_main_admin-dashboard">
         <div class="h-screen z-10">
           <nuxt />
         </div>
@@ -35,7 +35,7 @@
         </div>
       </div>
     </div>
-    <div class="mobile_container-admin w-1/5 pt-20 bg_white h-full shadow_card">
+    <div class="mobile_container-admin w-1/5 pt-20 bg_white h-full shadow_card z-50">
       <div class="mobile_container-admin_items-menu">
         <div>
           <div>
@@ -71,22 +71,6 @@
                     <BtnDashBoard
                       :icon="btns.my_account.icon"
                       :text="btns.my_account.text"
-                    />
-                  </nuxt-link>
-
-                  <nuxt-link
-                    to="/dashboard/admin/users"
-                    no-prefetch
-                    class="
-                      py-1
-                      mobile_admin-link
-                      panel_link
-                      mobile_admin-menu_item-remove
-                    "
-                  >
-                    <BtnDashBoard
-                      :icon="btns.users.icon"
-                      :text="btns.users.text"
                     />
                   </nuxt-link>
 
@@ -208,11 +192,6 @@ export default {
           text: 'Inicio',
           icon: 'el-icon-s-home',
           methods: this.home,
-        },
-        users: {
-          text: 'Usuarios',
-          icon: 'el-icon-user-solid',
-          methods: this.users,
         },
         my_account: {
           text: 'Mi cuenta',
@@ -348,6 +327,10 @@ export default {
   /* remove items menu */
   .mobile_admin-menu_item-remove {
     display: none !important;
+  }
+
+  .container_main_admin-dashboard {
+    padding: .5rem;
   }
 }
 </style>

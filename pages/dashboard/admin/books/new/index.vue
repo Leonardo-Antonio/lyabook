@@ -3,7 +3,7 @@
     <div class="overflow-y-auto overflow-x-hidden" style="height: 85vh">
       <div class="p-4">
         <div>
-          <div class="flex flex-row justify-between">
+          <div class="flex flex-row justify-between mobile_vertical">
             <div class="flex flex-row">
               <nuxt-link to="/dashboard/admin/books">
                 <box-icon name="left-arrow-alt" color="#021639"></box-icon>
@@ -20,6 +20,7 @@
                     justify-center
                     items-center
                     btn_save_change
+                    mobile_w-full
                   "
                 >
                   <span class="flex justify-center items-center">

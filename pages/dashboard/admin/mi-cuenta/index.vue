@@ -2,14 +2,14 @@
   <div class="overflow-y-auto overflow-x-hidden" style="height: 83vh">
     <div class="p-4">
       <div>
-        <div class="flex flex-row justify-between">
-          <div class="flex items-end">
+        <div class="flex flex-row justify-between mobile_vertical">
+          <div class="flex items-end mobile_pb-1">
             <h3 class="title_admin">Mi cuenta</h3>
           </div>
           <div class="flex flex-row">
-            <div class="input__search">
+            <div class="input__search mobile_w-full">
               <button
-                class="btn_primary rounded-full w-60 h-10 btn_add_size"
+                class="btn_primary rounded-full w-60 h-10 btn_add_size mobile_w-full"
                 @click="update"
               >
                 Actualizar
@@ -27,8 +27,8 @@
         </div>
         <div class="card">
           <div class="py-10 w-11/12 mx-auto">
-            <div class="w-full flex flex-row pb-8">
-              <div class="w-1/2 px-8 input">
+            <div class="w-full flex flex-row pb-8 mobile_vertical">
+              <div class="w-1/2 px-8 mobile_px-0 input mobile_w-full mobile_pb-1">
                 <section class="flex flex-row justify-between">
                   <div>
                     <span class="title_input">Perfil*</span>
@@ -53,7 +53,7 @@
                 </section>
               </div>
 
-              <div class="w-1/2 px-8 input">
+              <div class="w-1/2 px-8 mobile_px-0 input mobile_w-full">
                 <span class="title_input">Nombres*</span>
                 <el-input
                   placeholder="Please input"
@@ -64,8 +64,8 @@
               </div>
             </div>
 
-            <div class="w-full flex flex-row pb-8">
-              <div class="w-1/2 px-8 input">
+            <div class="w-full flex flex-row pb-8 mobile_vertical">
+              <div class="w-1/2 px-8 input  mobile_px-0 input mobile_w-full mobile_pb-1">
                 <span class="title_input">Dni*</span>
                 <el-input
                   placeholder="Please input"
@@ -75,7 +75,7 @@
                 />
               </div>
 
-              <div class="w-1/2 px-8 input">
+              <div class="w-1/2 px-8 input  mobile_px-0 input mobile_w-full">
                 <span class="title_input">Apellidos*</span>
                 <el-input
                   placeholder="Please input"
@@ -86,8 +86,8 @@
               </div>
             </div>
 
-            <div class="w-full flex flex-row pb-8">
-              <div class="w-1/2 px-8 input">
+            <div class="w-full flex flex-row pb-8 mobile_vertical">
+              <div class="w-1/2 px-8 input  mobile_px-0 input mobile_w-full mobile_pb-1">
                 <span class="title_input">Email*</span>
                 <el-input
                   placeholder="Please input"
@@ -97,7 +97,7 @@
                 />
               </div>
 
-              <div class="w-1/2 px-8 input">
+              <div class="w-1/2 px-8 input  mobile_px-0 input mobile_w-full">
                 <span class="title_input">Nuevo password*</span>
                 <el-input
                   placeholder="Ingrese la nueva contraseña"
@@ -110,6 +110,9 @@
         </div>
       </div>
     </div>
+    <span class="mobile_spacer"></span>
+    <span class="mobile_spacer"></span>
+    <span class="mobile_spacer"></span>
   </div>
 </template>
 

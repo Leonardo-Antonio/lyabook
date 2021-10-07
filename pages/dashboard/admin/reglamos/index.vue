@@ -3,12 +3,12 @@
     <div class="overflow-y-auto overflow-x-hidden" style="height: 83vh">
       <div class="p-4">
         <div>
-          <div class="flex flex-row justify-between">
-            <div class="flex items-end">
+          <div class="flex flex-row justify-between mobile_vertical">
+            <div class="flex items-end mobile_pb-1">
               <h3 class="title_admin">Reglamos</h3>
             </div>
             <div class="flex flex-row">
-              <div class="input__search">
+              <div class="input__search mobile_w-full">
                 <el-input
                   placeholder="Busca por nombre de categoria"
                   v-model="search"
@@ -27,7 +27,7 @@
             <h5 class="name_item_card">Listado</h5>
           </div>
           <div class="card">
-            <div class="py-10 w-11/12 mx-auto px-10">
+            <div class="py-10 w-11/12 mx-auto px-10 mobile_table_custom">
               <div class="bg_white rounded-3xl table__custom">
                 <el-table
                   :data="
@@ -104,44 +104,46 @@
       </div>
     </div>
 
-    <el-dialog
-      :title="`${data.data_person.name} ${data.data_person.last_name} - ${data.claim_data.type}`"
-      :visible.sync="show"
-      width="45%"
-      center
-      v-loading.fullscreen.lock="loadingfull"
-    >
-      <div>
-        <DetailsClaim :data="data" :show="show" />
+    <div class="dialog_w-full">
+      <el-dialog
+        :title="`${data.data_person.name} ${data.data_person.last_name} - ${data.claim_data.type}`"
+        :visible.sync="show"
+        width="45%"
+        center
+        v-loading.fullscreen.lock="loadingfull"
+      >
+        <div>
+          <DetailsClaim :data="data" :show="show" />
 
-        <div class="py-4 text_area_new_admin input">
-          <el-input
-            type="textarea"
-            :rows="2"
-            placeholder="Respuesta"
-            v-model="response"
-          >
-          </el-input>
+          <div class="py-4 text_area_new_admin input">
+            <el-input
+              type="textarea"
+              :rows="2"
+              placeholder="Respuesta"
+              v-model="response"
+            >
+            </el-input>
+          </div>
+
+          <span slot="footer" class="dialog-footer">
+            <button
+              class="bg_second rounded-md h-10 color_white"
+              style="width: 6.5rem"
+              @click="show = false"
+            >
+              Cancelar
+            </button>
+            <button
+              class="bg_primary rounded-md h-10 color_white"
+              style="width: 6.5rem"
+              @click="responseClaim"
+            >
+              Responder
+            </button>
+          </span>
         </div>
-
-        <span slot="footer" class="dialog-footer">
-          <button
-            class="bg_second rounded-md h-10 color_white"
-            style="width: 6.5rem"
-            @click="show = false"
-          >
-            Cancelar
-          </button>
-          <button
-            class="bg_primary rounded-md h-10 color_white"
-            style="width: 6.5rem"
-            @click="responseClaim"
-          >
-            Responder
-          </button>
-        </span>
-      </div>
-    </el-dialog>
+      </el-dialog>
+    </div>
   </div>
 </template>
 

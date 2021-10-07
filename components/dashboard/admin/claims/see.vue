@@ -17,6 +17,7 @@
           </template>
           {{ data.data_person.name }} {{ data.data_person.last_name }}
         </el-descriptions-item>
+
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-mobile-phone"></i>
@@ -24,6 +25,7 @@
           </template>
           {{ data.data_sending_reply.phone }}
         </el-descriptions-item>
+
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-location-outline"></i>
@@ -31,6 +33,7 @@
           </template>
           {{ data.data_person.number_document }}
         </el-descriptions-item>
+
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-mobile-phone"></i>
@@ -38,6 +41,7 @@
           </template>
           {{ data.data_sending_reply.additional_telephone }}
         </el-descriptions-item>
+
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-office-building"></i>
@@ -47,6 +51,22 @@
           {{ data.data_sending_reply.district }}.
           {{ data.data_sending_reply.department }} -
           {{ data.data_sending_reply.department }}
+        </el-descriptions-item>
+
+        <el-descriptions-item>
+          <template slot="label">
+            <i class="el-icon-office-building"></i>
+            Orden
+          </template>
+          {{ data.claim_data.order }}
+        </el-descriptions-item>
+
+        <el-descriptions-item>
+          <template slot="label">
+            <i class="el-icon-office-building"></i>
+            Detalle
+          </template>
+          {{ data.claim_data.details }}
         </el-descriptions-item>
       </el-descriptions>
     </div>
