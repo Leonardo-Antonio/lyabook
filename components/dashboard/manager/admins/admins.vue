@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="overflow-y-auto overflow-x-hidden" style="height: 83vh">
-      <div class="p-4">
+      <div class="p-4 mobile_p-0">
         <div>
-          <div class="flex flex-row justify-between">
-            <div class="flex items-end">
+          <div class="flex flex-row justify-between mobile_vertical">
+            <div class="flex items-end mobile_pb-1">
               <h3 class="title_admin">Administradores</h3>
             </div>
             <div class="flex flex-row">
@@ -46,7 +46,7 @@
             <h5 class="name_item_card">Listado</h5>
           </div>
           <div class="card">
-            <div class="py-10 w-11/12 mx-auto px-10">
+            <div class="py-10 w-11/12 mx-auto px-10 mobile_px-0">
               <div class="bg_white rounded-3xl table__custom">
                 <el-table
                   :data="
@@ -114,6 +114,9 @@
               </div>
             </div>
           </div>
+          <span class="mobile_spacer"></span>
+          <span class="mobile_spacer"></span>
+          <span class="mobile_spacer"></span>
         </div>
       </div>
     </div>

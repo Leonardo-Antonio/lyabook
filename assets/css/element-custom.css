@@ -22,3 +22,8 @@
   display: flex;
   justify-content: center;
 }
+@media (max-width: 640px) {
+  #line-chart {
+    height: auto !important;
+  }
+}

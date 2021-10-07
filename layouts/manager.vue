@@ -11,16 +11,16 @@
   >
     <div class="w-full">
       <Header />
-      <div class="p-10">
+      <div class="p-10 mobile_p-1-5">
         <div class="h-screen z-10">
           <div class="overflow-y-auto overflow-x-hidden" style="height: 85vh">
-            <div class="p-4">
+            <div class="p-4 container_main_admin-dashboard mobile_p-0">
               <nuxt />
             </div>
           </div>
         </div>
 
-        <div class="fixed right-4 bottom-2 z-10">
+        <div class="fixed right-4 bottom-2 z-10 mobile_admin-icon_fixed-info">
           <el-popover
             placement="bottom"
             title="Info"
@@ -39,20 +39,20 @@
         </div>
       </div>
     </div>
-    <div class="w-1/5 pt-20 bg_white h-full shadow_card">
-      <div>
+    <div class="w-1/5 pt-20 bg_white h-full shadow_card mobile_container-admin z-50">
+      <div class="mobile_container-admin_items-menu">
         <div>
-          <div class="flex justify-center">
+          <div class="flex justify-center mobile_admin-logo">
             <img src="/logos/main.svg" alt="logo" class="px-8" />
           </div>
 
-          <div class="pt-8 px-8">
-            <div>
+          <div class="pt-8 px-8 mobile_container_admin-dashboard">
+            <div class="mobile_container_admin-menu_dashboard">
               <div class="flex flex-col links__panel">
                 <nuxt-link
                   to="/dashboard/manager"
                   no-prefetch
-                  class="py-1 panel_link home__inactive"
+                  class="py-1 panel_link home__inactive mobile_admin-link"
                 >
                   <BtnDashBoard :icon="btns.home.icon" :text="btns.home.text" />
                 </nuxt-link>
@@ -60,7 +60,7 @@
                 <nuxt-link
                   to="/dashboard/manager/mi-perfil"
                   no-prefetch
-                  class="py-1 panel_link"
+                  class="mobile_admin-menu_item-remove py-1 panel_link"
                 >
                   <BtnDashBoard
                     :icon="btns.users.icon"
@@ -71,7 +71,7 @@
                 <nuxt-link
                   to="/dashboard/manager/administradores"
                   no-prefetch
-                  class="py-1 panel_link"
+                  class="py-1 panel_link mobile_admin-link"
                 >
                   <BtnDashBoard
                     :icon="btns.admin.icon"
@@ -82,7 +82,7 @@
                 <nuxt-link
                   to="/dashboard/manager/categorias"
                   no-prefetch
-                  class="py-1 panel_link"
+                  class="py-1 panel_link mobile_admin-link"
                 >
                   <BtnDashBoard
                     :icon="btns.categories.icon"
@@ -93,7 +93,7 @@
                 <nuxt-link
                   to="/dashboard/manager/libros"
                   no-prefetch
-                  class="py-1 panel_link"
+                  class="py-1 panel_link mobile_admin-link"
                 >
                   <BtnDashBoard
                     :icon="btns.books.icon"
@@ -104,7 +104,7 @@
                 <nuxt-link
                   to="/dashboard/manager/exportar"
                   no-prefetch
-                  class="py-1 panel_link"
+                  class="py-1 panel_link mobile_admin-link"
                 >
                   <BtnDashBoard
                     :icon="btns.export.icon"
@@ -112,7 +112,7 @@
                   />
                 </nuxt-link>
 
-                <button @click="showDialog = true">
+                <button @click="showDialog = true" class="mobile_admin-menu_item-remove">
                   <BtnDashBoard
                     :icon="btns.signOut.icon"
                     :text="btns.signOut.text"
@@ -218,6 +218,53 @@ export default {
 </script>
 
 <style>
+@media (max-width: 640px) {
+  .mobile_container-admin {
+    width: 100%;
+    height: 5rem;
+    position: absolute;
+    bottom: 0;
+  }
+
+  .mobile_admin-logo {
+    display: none;
+  }
+
+  .mobile_container_admin-menu_dashboard > .flex-col {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .mobile_admin-link {
+    width: 100%;
+  }
+
+  .mobile_container_admin-dashboard {
+    padding-top: 0;
+    padding-bottom: 1rem;
+  }
+
+  .mobile_container-admin_items-menu {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+  }
+
+  /* icon flotante */
+  .mobile_admin-icon_fixed-info {
+    bottom: 5.5rem;
+  }
+
+  /* remove items menu */
+  .mobile_admin-menu_item-remove {
+    display: none !important;
+  }
+
+  .container_main_admin-dashboard {
+    padding: 0.5rem;
+  }
+}
+
 .panel_link.home__inactive.nuxt-link-active div span {
   color: #000;
   font-weight: 400;
