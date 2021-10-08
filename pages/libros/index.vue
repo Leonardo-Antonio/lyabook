@@ -177,7 +177,9 @@
                                 bottom-20
                               "
                             >
-                              <p class="w-3/6 price-before">S/.20.0</p>
+                              <p class="w-3/6 price-before">
+                                S/.{{ item.price_before }}
+                              </p>
                               <p class="w-3/6 price-current pl-2">
                                 S/.{{ item.price_current }}
                               </p>
@@ -238,25 +240,6 @@
         <!-- fin de la barra 2 -->
       </div>
     </div>
-
-    <el-drawer
-      title="I am the title"
-      :visible.sync="showDrawer"
-      :with-header="false"
-    >
-      <p>Carrito</p>
-      <div class="productDrawer pt-4" v-for="gb of getbook" :key="gb">
-        <div class="pb-4">
-          <p>{{gb.name}}</p>
-          <div class="flex">
-            <p>{{gb.price_current}}</p>
-            <p class="pl-4">{{gb.price_before}}</p>
-          </div>
-        </div>
-        
-        
-      </div>
-    </el-drawer>
   </div>
 </template>
 
@@ -293,7 +276,7 @@ export default {
 
       // -------------------------------DRAWER
       booksCard: [],
-      getbook:''
+      valuesCard: [],
     }
   },
   methods: {
@@ -409,13 +392,32 @@ export default {
         }
       }
     },
-    addCart(books){
-      this.showDrawer = true
-      console.log("--------------------------DRAWER-------------------------------")
-      this.booksCard.push(books)
-      console.log(this.booksCard)
-      localStorage.setItem("books", JSON.stringify(this.booksCard))
-    }
+    addCart(books) {
+      console.log(
+        '--------------------------DRAWER-------------------------------'
+      )
+
+      let cant = {
+        cant: 1,
+      }
+
+      this.booksCard.push(Object.assign(books, cant))
+      var validate = this.booksCard.filter((book) => book._id == books._id)
+
+      if (validate.length == 1) {
+        console.log('Agregado')
+        localStorage.setItem('books', JSON.stringify(this.booksCard))
+      } else {
+        console.log('Ya fue Agregado')
+        this.booksCard.pop()
+        console.log('-------------------------------------------------')
+        this.$message({
+          type: 'info',
+          message: 'El libro ya fue agregado al carrito.',
+        })
+
+      }
+    },
   },
   watch: {
     value_barra: function (value) {
@@ -515,23 +517,6 @@ export default {
       method: 'get',
     })
     this.editorial = editorial.data.data
-    //--------------------------------------------DRAWER
-    console.log("--------------------------GET DRAWER-------------------------------")
-    var local =  localStorage.getItem('books').toString()
-    this.getbook = JSON.parse(local)
-    console.log(this.getbook)
-
-    console.log("--------------------------RECORRIENDO GET DRAWER-------------------------------")
-    // if(this.getbook.length != 0){
-    //   let productDrawer = document.getElementById('productDrawer')
-    //   this.getbook.forEach((book)=>{
-    //   console.log("nombre: " + book.name)
-    //   console.log("---------------------------------------------------------------------")
-    //   if(book.name != null){
-    //     productDrawer.innerHTML = `<p>hola</p>`
-    //   }
-    // })
-    // }
   },
 }
 </script>

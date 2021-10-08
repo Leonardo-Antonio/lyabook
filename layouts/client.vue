@@ -1,12 +1,6 @@
 <template>
   <div>
     <div class="flex justify-center container mx-auto">
-      <!-- <img
-        class="absolute"
-        style="right: 0px; top: 0px"
-        src="/shapes/doble-cuadrado-esquina-derecha.png"
-        alt=""
-      /> -->
       <div>
         <img class="absolute" style="right: 0px; top: 0px" :src="src" />
       </div>
@@ -55,15 +49,65 @@
         </div>
       </div>
     </div>
-    <div>
-      <el-drawer
-        title="I am the title"
-        :visible.sync="showDrawer"
-        :with-header="false"
-      >
-        <span>Hi there!</span>
-      </el-drawer>
-    </div>
+    <el-drawer
+      title="I am the title"
+      :visible.sync="showDrawer"
+      :with-header="false"
+      @open="openDrawer"
+      class="relative drawer-product"
+    >
+      <p class="text-center title-drawer">Carrito</p>
+      <div v-show="showProductDrawer">
+        <div class="productDrawer pb-4 px-8" v-for="(gb,index) of getbook" :key="gb">
+          <div class="flex">
+            <div class="w-1/4">
+              <img class="" :src="gb.images_src[0]" />
+            </div>
+            <div class="pl-4" style="width: 70%;">
+              <div class="pb-2">
+                <p class="name-drawer">{{ gb.name }}</p>
+                <div class="flex items-center pt-2">
+                  <p class="price price_before ">S/.{{ gb.price_before }}</p>
+                  <p class="price price_current pl-4">S/.{{ gb.price_current }}</p>
+                </div>
+              </div>
+              <div v-show="gb.format == 'f' || gb.format == 'df'">
+                <el-input-number
+                  class="input input_number input-number-drawer"
+                  v-model="gb.cant"
+                  controls-position="right"
+                  :min="1"
+                  :max="10"
+                ></el-input-number>
+              </div>
+            </div>
+            <div style="width: 5%;">
+              <box-icon name='trash' type='solid' color='#5e20e4' @click="DeleteElement(index)"></box-icon>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="btn_mercadoPago"
+          @click="tobuy"
+          class="
+            absolute
+            bottom-0
+            w-full
+            flex
+            justify-center
+            container-tobuy-drawer
+            cho-container
+          "
+        >
+          <button class="">Comprar</button>
+        </div>
+      </div>
+      <div v-show="showMessageDrawer" class="h-full overflow-x-hidden overflow-y-hidden">
+        <el-empty class="h-full justify-center items-center" description="Vacío"></el-empty>
+      </div>
+    </el-drawer>
+
     <nuxt />
 
     <div class="footer flex justify-center px-8">
@@ -274,6 +318,8 @@
         >
       </div>
     </div>
+
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
   </div>
 </template>
 
@@ -287,6 +333,92 @@ export default {
   data() {
     return {
       showDrawer: false,
+      showProductDrawer: false,
+      showMessageDrawer: false,
+      getbook: '',
+      cant: 0,
+      cart: [],
+      finalResult: [],
+    }
+  },
+  methods: {
+    openDrawer() {
+      console.log('drawer abierto')
+      console.log(
+        '--------------------------GET DRAWER-------------------------------'
+      )
+      var local = localStorage.getItem('books')
+      if (local != null) {
+        this.getbook = JSON.parse(local)
+        console.log(
+          '--------------------------CART DRAWER-------------------------------'
+        )
+        this.showProductDrawer = true
+        this.showMessageDrawer = false
+      }else{
+        this.showProductDrawer = false
+        this.showMessageDrawer = true
+      }
+    },
+    DeleteElement(position){
+      this.getbook.splice(position, 1)
+    },
+    async tobuy() {
+      try {
+        this.getbook.forEach((book) => {
+          var books = {
+            title: book.name,
+            unit_price: book.price_current,
+            quantity: book.cant,
+          }
+          this.finalResult.push(books)
+        })
+
+        const response = await this.$apidata({
+          url: '/orders',
+          method: 'post',
+          data: this.finalResult,
+        })
+        console.log('response API: ')
+        console.log(response)
+
+        var id = response.data.id
+        console.log(id)
+
+        const mp = new MercadoPago(
+          'TEST-32e01da3-6294-476b-adfd-004faa209766',
+          { locale: 'es-AR' }
+        )
+        mp.checkout({
+          preference: {
+            id: id,
+          },
+          render: {
+            container: '.cho-container',
+            label: 'Pagar',
+          },
+        })
+      } catch {
+        console.log('error.....')
+      }
+    },
+  },
+  async created() {
+    //--------------------------------------------DRAWER
+    console.log(
+      '--------------------------GET DRAWER-------------------------------'
+    )
+    try {
+      var local = localStorage.getItem('books')
+      if (local != null) {
+        this.getbook = JSON.parse(local)
+        this.showProductDrawer = true
+        this.showMessageDrawer = false
+      }
+    } catch (error) {
+      console.log('error... Carrito vacio')
+      this.showProductDrawer = false
+      this.showMessageDrawer = true
     }
   },
 }
@@ -434,5 +566,49 @@ export default {
 
 .location {
   width: 80%;
+}
+
+.container-tobuy-drawer {
+  background: var(--primary);
+  font-family: 'Baloo Chettan 2';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 25px;
+  line-height: 70px;
+  color: #ffffff;
+}
+.title-drawer {
+  font-family: 'Baloo Chettan 2';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 25px;
+  line-height: 70px;
+  color: var(--primary);
+}
+.name-drawer {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 18px;
+  color: #000;
+}
+.price_before {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  -webkit-text-decoration-line: line-through;
+  text-decoration-line: line-through;
+  color: #7f7f7f;
+}
+.price_current {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+  color: #5e20e4;
 }
 </style>
