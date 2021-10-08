@@ -26,4 +26,8 @@
   #line-chart {
     height: auto !important;
   }
+
+  .r-white-space .el-checkbox__label {
+    white-space: normal;
+  }
 }

@@ -19,6 +19,7 @@ export default {
     'element-ui/lib/theme-chalk/index.css',
     '@/assets/css/global.css',
     '@/assets/css/admin.css',
+    '@/assets/css/response.css',
     '@/assets/css/my-account.css',
     '@/assets/css/buttons.css',
     '@/assets/css/element-custom.css',

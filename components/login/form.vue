@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="shadow_card flex justify-center items-center relative">
+  <div class="r-flex r-justify-center">
+    <div class="shadow_card flex justify-center items-center relative r-w90-important">
       <img class="absolute -right-20 -top-20" src="/images/book.svg" alt="" />
       <div>
         <div>

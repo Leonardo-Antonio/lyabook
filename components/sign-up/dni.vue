@@ -1,15 +1,15 @@
 <template>
-  <div class="w-4/5 h-screen flex items-center relative">
+  <div class="w-4/5 h-screen flex items-center relative mobile_w-full">
     <img
       class="absolute bottom-0 -left-12 z-0"
       src="/shapes/quadrate_circleminor.png"
       alt="quadrate_circleminor"
     />
-    <div class="w-4/5 mx-auto">
+    <div class="w-4/5 mx-auto mobile_w-full r-space-container">
       <div>
         <HeaderSignUp />
 
-        <div class="w-1/2">
+        <div class="w-1/2 mobile_w-full">
           <div class="input">
             <el-input
               class="mt-2"
@@ -24,7 +24,7 @@
               show-password
             />
           </div>
-          <div>
+          <div class="r-white-space">
             <el-checkbox class="mt-4 mb-8" v-model="checked">
               Acepto los Términos y condiciones y las Políticas de privacidad.
             </el-checkbox>

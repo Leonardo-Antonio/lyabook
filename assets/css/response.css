@@ -1,0 +1,29 @@
+@media (max-width: 640px) {
+    .r-flex {
+        display: flex;
+    }
+
+    .r-justify-center {
+        justify-content: center;
+    }
+
+    .r-w90 {
+        width: 90%;
+    }
+
+    .r-w90-important {
+        width: 90% !important;
+    }
+
+    .r-overflow-h {
+        overflow: hidden;
+    }
+
+    .r-space-container {
+        padding: 0 1.5rem;
+    }
+
+    .r-white-space {
+        white-space: normal
+    }
+}

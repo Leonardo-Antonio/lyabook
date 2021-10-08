@@ -83,15 +83,15 @@ export default {
       XLSX.writeFile(workBook, `${name}.xlsx`)
     },
     async getEditorials() {
-      const editoriales = await this.$apidata({
+      const { data } = await this.$apidata({
         url: '/editorial',
         method: 'get',
       })
-      let data = []
-      for (let editorial of editoriales.data.data) {
-        data.push({ editorial })
+      let dataNameEditorials = []
+      for (let editorial of data.data) {
+        dataNameEditorials.push({ editorial: editorial.name })
       }
-      this.editoriales = data
+      this.editoriales = dataNameEditorials
     },
     async getCategories() {
       const category = await this.$apidata({
@@ -99,7 +99,6 @@ export default {
         method: 'get',
       })
       this.categories = category.data.data
-      console.log(this.categories)
     },
     async getBooks() {
       const { data } = await this.$apidata({
