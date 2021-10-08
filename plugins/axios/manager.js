@@ -13,8 +13,10 @@ export default function ({ $axios, redirect }, inject) {
   })
 
   manager.onResponse((response) => {
-
-    if (response.config.url == '/users/roles/admin') {
+    if (
+      response.config.url == '/users/roles/admin' ||
+      response.config.url == '/reports/books/df'
+    ) {
       return
     }
 

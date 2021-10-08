@@ -58,7 +58,9 @@
             ></line-chart>
           </div>
 
-          <div class="flex flex-col justify-between w30 mobile_w-full-important">
+          <div
+            class="flex flex-col justify-between w30 mobile_w-full-important"
+          >
             <div class="flex flex-col pl-10 mobile_px-0">
               <div class="pb-4">
                 <button
@@ -115,28 +117,25 @@ export default {
       graphicOptions: ['Barras', 'Linar', 'Torta'],
       filterByOptions: ['Más vendidos', 'Menos comprados', 'Nuevos'],
       chartData: {
-        labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6'],
-        datasets: [
-          {
-            label: 'mi',
-            data: [23, 32, 32, 32, 3, 23, 2, 3, 23],
-            fill: false,
-            stepped: true,
-          },
-          {
-            label: 'amorcito',
-            data: [23, 32, 32, 32, 3, 23, 2, 3, 23],
-            fill: false,
-            stepped: true,
-          },
-          {
-            label: '<3',
-            data: [23, 32, 32, 32, 3, 23, 2, 3, 23],
-            fill: false,
-            stepped: true,
-          },
-        ],
+        labels: [],
+        datasets: [],
       },
+    }
+  },
+  async created() {
+    const { data } = await this.$manager({
+      url: '/reports/books/df',
+      method: 'get',
+    })
+
+    for (let label of data.data) {
+      this.chartData.labels.push(label.name)
+      this.chartData.datasets.push({
+        label: label.name,
+        data: [label.type.fisico.stock],
+        fill: false,
+        stepped: true,
+      })
     }
   },
 }

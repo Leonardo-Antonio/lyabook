@@ -17,7 +17,10 @@
                 </el-input>
               </div>
               <div>
-                <nuxt-link to="/dashboard/manager/administradores/new" no-prefetch>
+                <nuxt-link
+                  to="/dashboard/manager/administradores/new"
+                  no-prefetch
+                >
                   <div
                     class="
                       bg_primary
@@ -93,7 +96,7 @@
                     <template slot-scope="scope">
                       <div>
                         <div>
-                          <button @click="edit(scope.row)" class="btn_add_size">
+                          <button @click="open(scope.row)" class="btn_add_size">
                             <box-icon
                               name="pencil"
                               type="solid"
@@ -121,9 +124,35 @@
       </div>
     </div>
 
-    <el-dialog title="Shipping address" :visible.sync="showEdit">
-      <h1>hola</h1>
-    </el-dialog>
+    <div class="dialog_w-full">
+      <el-dialog title="Enviar mensaje" :visible.sync="showEdit">
+        <div class="text_area_new_admin input">
+          <div>
+            <el-input
+              type="textarea"
+              :rows="2"
+              placeholder="Escribe el mensaje o tarea"
+              v-model="message"
+            >
+            </el-input>
+          </div>
+
+          <div class="w-full pt-2">
+            <button
+              :disabled="btnDisable"
+              :class="{
+                'cursor-not-allowed': btnDisable,
+                color_disabled: btnDisable,
+              }"
+              @click="sendMessage"
+              class="bg_primary w-full h-10 color_white rounded-lg"
+            >
+              Enviar
+            </button>
+          </div>
+        </div>
+      </el-dialog>
+    </div>
   </div>
 </template>
 
@@ -136,7 +165,20 @@ export default {
       loading: true,
       showEdit: false,
       data: null,
+      message: '',
+      loadingDialog: false,
+      btnDisable: true,
     }
+  },
+
+  watch: {
+    message(value) {
+      if (value.length > 10) {
+        this.btnDisable = false
+      } else {
+        this.btnDisable = true
+      }
+    },
   },
 
   async mounted() {
@@ -155,9 +197,23 @@ export default {
   },
 
   methods: {
-    edit(row) {
+    open(row) {
       this.showEdit = true
       this.data = row
+    },
+    async sendMessage() {
+      /*  try {
+        await this.$manager({
+          url: '/manager/administrators/message',
+          method: 'post',
+          data: {
+            from: this.data.email,
+            subject: 'Nueva tarea',
+            name: this.data.name,
+            message: this.message,
+          },
+        })
+      } catch (error) {} */ console.log('tasdad')
     },
     async remove(row) {
       this.$confirm(
