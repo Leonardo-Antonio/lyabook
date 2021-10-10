@@ -202,9 +202,9 @@ export default {
       this.data = row
     },
     async sendMessage() {
-      /*  try {
+      try {
         await this.$manager({
-          url: '/manager/administrators/message',
+          url: '/managers/administrators/message',
           method: 'post',
           data: {
             from: this.data.email,
@@ -213,7 +213,7 @@ export default {
             message: this.message,
           },
         })
-      } catch (error) {} */ console.log('tasdad')
+      } catch (error) {}
     },
     async remove(row) {
       this.$confirm(

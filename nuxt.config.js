@@ -73,7 +73,6 @@ export default {
 
   router: {
     middleware: ["redirect/auth","redirect/redirect"],
-    middleware: ['redirect/redirect'],
   },
 
   publicRuntimeConfig: {
