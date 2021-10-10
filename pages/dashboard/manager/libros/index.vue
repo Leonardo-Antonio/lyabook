@@ -51,11 +51,11 @@
       <div class="py-10 w-11/12 mx-auto px-10 mobile_px-0">
         <div class="w-full flex flex-row mobile_vertical">
           <div class="w70 mobile_pb-1">
-            <line-chart
+<!--             <line-chart
               class="char"
               :data="chartData"
               style="width: 100%"
-            ></line-chart>
+            ></line-chart> -->
           </div>
 
           <div
