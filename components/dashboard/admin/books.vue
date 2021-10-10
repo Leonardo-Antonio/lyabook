@@ -1,14 +1,14 @@
 <template>
   <div>
-    <div class="overflow-y-auto overflow-x-hidden" style="height: 83vh">
-      <div class="p-4">
+    <div class="overflow-y-auto overflow-x-hidden r-pt-1" style="height: 83vh">
+      <div class="p-4 r-space-container ">
         <div>
-          <div class="flex flex-row justify-between mobile_vertical">
+          <div class="flex flex-row justify-between mobile_vertical r-flex-col">
             <div class="flex items-end mobile_pb-1">
-              <h3 class="title_admin">Libros</h3>
+              <h3 class="title_admin r-px-1">Libros</h3>
             </div>
             <div class="flex flex-row">
-              <div class="input__search mr-8">
+              <div class="input__search mr-8 r-w90">
                 <el-input
                   placeholder="Busca por nombre de libro"
                   v-model="search"

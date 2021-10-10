@@ -11,7 +11,7 @@
       <div>
         <nuxt-link
           to="/dashboard/admin/books/archivos/imagenes"
-          class="pr-4 mobile_px-0"
+          class="pr-4 r-px-0 mobile_px-0"
         >
           <button
             class="
@@ -28,7 +28,7 @@
         <span class="mobile_spacer-sm"></span>
         <nuxt-link
           to="/dashboard/admin/books/archivos/pdfs"
-          class="pl-4 mobile_px-0"
+          class="pl-4 mobile_px-0 r-px-0"
         >
           <button
             class="

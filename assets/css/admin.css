@@ -1,4 +1,4 @@
-@media (max-width: 640px) {
+@media (max-width: 640px) and (max-width: 1025px) {
   .mobile_container-section_header_title-admin {
     flex-direction: column;
   }
@@ -22,7 +22,6 @@
   .mobile_vertical-reverse {
     flex-direction: column-reverse;
   }
-
 
   .mobile_w-full {
     width: 100%;
@@ -60,11 +59,11 @@
   }
 
   .mobile_remove {
-      display: none;
+    display: none;
   }
 
   .el-message-box {
-      width: 80%;
+    width: 80%;
   }
 
   .mobile_p-1-5 {
@@ -81,5 +80,11 @@
 
   .mobile_p-0 {
     padding: 0 !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  .dialog_w-full .el-dialog {
+    width: 100% !important;
   }
 }

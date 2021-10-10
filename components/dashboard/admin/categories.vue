@@ -1,20 +1,22 @@
 <template>
   <div>
     <div class="overflow-y-auto overflow-x-hidden" style="height: 83vh">
-      <div class="p-4">
+      <div class="p-4 r-space-container">
         <div>
           <div
             class="
               flex flex-row
               justify-between
               mobile_container-section_header_title-admin
+              r-flex-col
+              r-pt-2
             "
           >
             <div class="flex items-end">
-              <h3 class="title_admin">Categorias</h3>
+              <h3 class="title_admin r-px-1">Categorias</h3>
             </div>
             <div class="flex flex-row">
-              <div class="input__search mr-8">
+              <div class="input__search mr-8 r-w90">
                 <el-input
                   placeholder="Busca por nombre de categoria"
                   v-model="search"

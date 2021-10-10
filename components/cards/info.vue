@@ -42,6 +42,14 @@ export default {
     width: 100% !important;
   }
 }
+
+@media (max-width: 1024px) {
+  .card-info {
+    width: 31%;
+    height: 14rem;
+  }
+}
+
 .card-info {
   width: 17rem;
   height: 16rem;

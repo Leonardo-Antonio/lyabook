@@ -698,7 +698,7 @@ span.el-checkbox__label {
 }
 
 .mobile_spacer {
-  display: none;
+  padding: .5rem;
 }
 
 .mobile_spacer-sm {
@@ -720,3 +720,22 @@ span.el-checkbox__label {
     display: block;
   }
 }
+
+
+
+@media (max-width: 1024px) {
+  .mobile_spacer {
+    padding: 1rem;
+    display: block;
+  }
+
+  .input__search .el-input__inner {
+    width: 100%;
+  }
+
+  .mobile_spacer-sm {
+    padding: .2rem;
+    display: block;
+  }
+}
+

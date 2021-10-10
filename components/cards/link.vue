@@ -65,6 +65,13 @@ export default {
   }
 }
 
+@media (max-width: 1024px) {
+  .card-link {
+    width: 31% !important;
+    height: 14rem !important;
+  }
+}
+
 .card-link {
   width: 17rem;
   height: 16rem;

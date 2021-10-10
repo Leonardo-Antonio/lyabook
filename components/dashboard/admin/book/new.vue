@@ -244,6 +244,7 @@
                               <span>Buscar tienda</span>
                             </div>
                           </button>
+                          <span class="r-spacer-sm"></span>
                           <button
                             @click="getCurrentLocation"
                             class="mobile_w-full"

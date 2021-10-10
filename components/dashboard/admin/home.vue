@@ -1,6 +1,6 @@
 <template>
   <div class="overflow-y-auto overflow-x-hidden" style="height: 83vh">
-    <div class="p-4">
+    <div class="p-4 r-space-container r-pt-4">
       <div>
         <h1 class="title-admin-home">Bienvenid@ {{ data.name }}</h1>
         <p class="subtitle-admin-home pt-4">
@@ -9,19 +9,24 @@
       </div>
 
       <div class="pt-20">
-        <div class="w-3/5 mx-auto mobile_admin-home-container-cards">
-          <div class="flex flex-row justify-between mobile_admin-home-container">
+        <div class="w-3/5 mx-auto mobile_admin-home-container-cards r-w-full">
+          <div
+            class="flex flex-row justify-between mobile_admin-home-container"
+          >
             <CardInfo :count="20" text="Ventas" />
             <span class="mobile_spacer"></span>
             <CardInfo :count="cantClient" text="Clientes" />
             <span class="mobile_spacer"></span>
             <CardInfo :count="amountClaims" text="Reglamos" />
-            <span class="mobile_spacer"></span>
           </div>
         </div>
 
-        <div class="w-3/5 mx-auto pt-8 mobile_admin-home-container-cards">
-          <div class="flex flex-row justify-between mobile_admin-home-container">
+        <div
+          class="w-3/5 mx-auto pt-8 mobile_admin-home-container-cards r-w-full"
+        >
+          <div
+            class="flex flex-row justify-between mobile_admin-home-container"
+          >
             <CardLink
               to="admin/promotions"
               src="/images/promotions_admin.svg"
@@ -39,12 +44,12 @@
               src="/images/categories_admin.svg"
               text="Ver reglamos"
             />
-            <span class="mobile_spacer"></span>
-            <span class="mobile_spacer"></span>
-            <span class="mobile_spacer"></span>
           </div>
         </div>
       </div>
+      <span class="mobile_spacer"></span>
+      <span class="mobile_spacer"></span>
+      <span class="mobile_spacer"></span>
     </div>
   </div>
 </template>

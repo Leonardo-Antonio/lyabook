@@ -44,6 +44,18 @@ export default {
     align-items: center;
   }
 }
+
+@media (max-width: 1204px) {
+  .text_dashboard {
+    display: none;
+  }
+  .mobile_admin-dashboard_link-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
 .text_dashboard {
   font-family: Roboto;
   font-style: normal;

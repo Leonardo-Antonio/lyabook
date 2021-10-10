@@ -9,7 +9,7 @@
       relative
     "
   >
-    <div class="w-full">
+    <div class="w77 r-w-full">
       <Header />
       <div class="p-10 container_main_admin-dashboard">
         <div class="h-screen z-10">
@@ -35,7 +35,17 @@
         </div>
       </div>
     </div>
-    <div class="mobile_container-admin w-1/5 pt-20 bg_white h-full shadow_card z-50">
+    <div
+      class="
+        mobile_container-admin
+        pt-20
+        bg_white
+        h-full
+        shadow_card
+        z-50
+        w23
+      "
+    >
       <div class="mobile_container-admin_items-menu">
         <div>
           <div>
@@ -228,6 +238,14 @@ export default {
 </script>
 
 <style>
+.w23 {
+  width: 23%;
+}
+
+.w77 {
+  width: 78%;
+}
+
 .panel_link.home__inactive.nuxt-link-active div span {
   color: #000;
   font-weight: 400;
@@ -330,7 +348,54 @@ export default {
   }
 
   .container_main_admin-dashboard {
-    padding: .5rem;
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .mobile_container-admin {
+    width: 100%;
+    height: 5rem;
+    position: absolute;
+    bottom: 0;
+  }
+
+  .mobile_admin-logo {
+    display: none;
+  }
+
+  .mobile_container_admin-menu_dashboard > .flex-col {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .mobile_admin-link {
+    width: 100%;
+  }
+
+  .mobile_container_admin-dashboard {
+    padding-top: 0;
+    padding-bottom: 1rem;
+  }
+
+  .mobile_container-admin_items-menu {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+  }
+
+  /* icon flotante */
+  .mobile_admin-icon_fixed-info {
+    bottom: 5.5rem;
+  }
+
+  /* remove items menu */
+  .mobile_admin-menu_item-remove {
+    display: none !important;
+  }
+
+  .container_main_admin-dashboard {
+    padding: 0.5rem;
   }
 }
 </style>
