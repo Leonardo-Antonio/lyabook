@@ -588,7 +588,7 @@ span.el-checkbox__label {
   background-color: #5e20e4;
   border-color: #5e20e4;
   border-radius: 20px;
-  padding: 3px 50px;
+  padding: 3px 25px;
 }
 
 .container-product .container-button-to-buy .button-to-by > span {
@@ -739,3 +739,25 @@ span.el-checkbox__label {
   }
 }
 
+.container-filter-father .is-active{
+  color: #000000c7 !important;
+}
+
+.container-options-filter .el-menu-item:focus, .el-menu-item:hover{
+  background-color: #a580f647;
+}
+
+.checkbox-filter .el-checkbox__label{
+  white-space: normal;
+}
+
+.drawer-product .el-drawer__container .el-drawer{
+  width: 20% !important;
+}
+
+.input-number-drawer .el-input__inner{
+  height: 2.5rem;
+}
+.el-drawer__body{
+  overflow-y: hidden;
+}

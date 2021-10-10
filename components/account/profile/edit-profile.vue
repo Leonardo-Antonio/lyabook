@@ -92,8 +92,17 @@ export default {
         },
       ],
       value_gender: '',
+
+      //values
+      data:''
     }
   },
+  created(){
+    console.log("-------------------------------------USER--------------------------------")
+    const data = localStorage.getItem('user').toString()
+    this.data = JSON.parse(data).user
+    console.log(this.data)
+  }
 }
 </script>
 

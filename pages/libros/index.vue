@@ -25,8 +25,8 @@
         style="width: 5rem; right: -1rem; top: 42rem"
       />
 
-      <div class="flex justify-center w-7/12 mx-auto">
-        <div class="container-filter-father w-1/4">
+      <div class="flex justify-center w-7/12 mx-auto pb-16">
+        <div class="container-filter-father w-1/4" style="z-index: 20">
           <!-- filter -->
           <div class="container-filter">
             <div class="header-filter px-6 py-4 rounded-t-2xl">
@@ -34,7 +34,11 @@
             </div>
             <div>
               <el-row class="tac">
-                <el-col :span="12" class="column-menu">
+                <el-col
+                  :span="12"
+                  class="column-menu rounded-b-2xl"
+                  style="background: #fff"
+                >
                   <el-menu
                     default-active="2"
                     class="el-menu-vertical-demo header-option-filter"
@@ -51,6 +55,7 @@
                         :key="index"
                       >
                         <el-checkbox
+                          class="checkbox-filter"
                           id="checkbox"
                           @change="filter(index, category.active, category._id)"
                           >{{ category.name }}
@@ -66,14 +71,27 @@
                   >
                     <el-submenu index="2">
                       <template slot="title">
-                        <!-- <i class="el-icon-location"></i> -->
                         <span class="subtitle-filter">Editorial</span>
                       </template>
-                      <el-menu-item v-for="item of editorial" :key="item">
-                        <el-checkbox @change="filter(item)"
-                          >{{ item }}
-                        </el-checkbox>
-                      </el-menu-item>
+                      <div
+                        v-for="(edi, indexE) of editorial"
+                        :key="edi"
+                        class="container-options-filter"
+                      >
+                        <el-menu-item
+                          index="1-1"
+                          class="menu-item"
+                          @click="filterEditorial(indexE, edi.status, edi.name)"
+                          >{{ edi.name }}</el-menu-item
+                        >
+                      </div>
+
+                      <!-- <el-menu-item
+                        v-for="(edi, indexE) of editorial"
+                        :key="edi"
+                      >
+                        <el-menu-item index="1-1">item one</el-menu-item>
+                      </el-menu-item> -->
                     </el-submenu>
                   </el-menu>
                   <el-menu class="rounded-b-2xl">
@@ -85,6 +103,8 @@
                         <el-slider
                           class="pt-2"
                           v-model="value_barra"
+                          :max="max"
+                          :min="min"
                         ></el-slider>
                       </div>
                     </div>
@@ -109,7 +129,10 @@
             </div>
           </el-header>
           <el-main>
-            <div class="container-product flex justify-center">
+            <div
+              class="container-product flex justify-center"
+              v-show="showListProduct"
+            >
               <div class="w-full">
                 <div>
                   <div class="flex flex-wrap">
@@ -119,49 +142,55 @@
                       class="pl-4 pb-8 w-1/4 container-book"
                       style="height: 28rem"
                     >
-                      <div
-                        class="
-                          container-portada
-                          flex
-                          justify-center
-                          items-center
-                        "
-                        style="height: 60%"
-                      >
-                        <img
-                          class="payment-card h-full"
-                          :src="item.images_src[0]"
-                        />
-                      </div>
+                      <nuxt-link :to="`/libros/${item.slug}`">
+                        <div
+                          class="
+                            container-portada
+                            flex
+                            justify-center
+                            items-center
+                          "
+                          style="height: 60%"
+                        >
+                          <img
+                            class="payment-card h-full"
+                            :src="item.images_src[0]"
+                          />
+                        </div>
+                      </nuxt-link>
                       <div
                         class="container-detail relative"
                         style="height: 40%"
                       >
-                        <div class="container-detail-externa px-2">
-                          <p class="title-product-externa pt-2">
-                            {{ item.name }}
-                          </p>
-                          <div
-                            class="
-                              flex
-                              justify-center
-                              items-center
-                              pt-2
-                              absolute
-                              bottom-20
-                            "
-                          >
-                            <p class="w-3/6 price-before">S/.20.0</p>
-                            <p class="w-3/6 price-current pl-2">
-                              S/.{{ item.price_current }}
+                        <nuxt-link :to="`/libros/${item.slug}`">
+                          <div class="container-detail-externa px-2">
+                            <p class="title-product-externa pt-2">
+                              {{ item.name }}
                             </p>
-                          </div>
-                          <div class="star pt-4 absolute bottom-12">
-                            <div class="block">
-                              <el-rate v-model="value1"></el-rate>
+                            <div
+                              class="
+                                flex
+                                justify-center
+                                items-center
+                                pt-2
+                                absolute
+                                bottom-20
+                              "
+                            >
+                              <p class="w-3/6 price-before">
+                                S/.{{ item.price_before }}
+                              </p>
+                              <p class="w-3/6 price-current pl-2">
+                                S/.{{ item.price_current }}
+                              </p>
+                            </div>
+                            <div class="star pt-4 absolute bottom-12">
+                              <div class="block">
+                                <el-rate v-model="value1"></el-rate>
+                              </div>
                             </div>
                           </div>
-                        </div>
+                        </nuxt-link>
                         <div
                           class="
                             container-button-to-buy
@@ -175,14 +204,13 @@
                           "
                         >
                           <el-row>
-                            <nuxt-link :to="`/libros/${item.slug}`">
-                              <el-button
-                                class="btn_add_size button-to-by"
-                                type="primary"
-                                round
-                                >Comprar</el-button
-                              >
-                            </nuxt-link>
+                            <el-button
+                              class="btn_add_size button-to-by"
+                              type="primary"
+                              round
+                              @click="addCart(item)"
+                              >Agregar al carrito</el-button
+                            >
                           </el-row>
                         </div>
                       </div>
@@ -191,9 +219,17 @@
                 </div>
               </div>
             </div>
+
+            <div v-show="showMessage" class="px-6">
+              <p>Ningún producto coincide.</p>
+            </div>
+
+            <div v-show="showMessageProduct" class="px-6">
+              <p>Vacio</p>
+            </div>
           </el-main>
           <el-footer>
-            <div class="flex justify-center">
+            <div class="flex justify-center" v-show="showListProduct">
               <div class="block">
                 <el-pagination layout="prev, pager, next" :total="1000">
                 </el-pagination>
@@ -214,14 +250,18 @@ export default {
     return {
       // star
       value1: null,
-      // checkbox
-      checked: true,
-      // barra de precio
-      value_barra: '',
 
       //-------------------------------VARIABLES
-      valueCheckbox: '',
+      showListProduct: true,
+      showMessage: false,
+      showMessageProduct: false,
+      showDrawer: false,
+      // barra de precio
+      value_barra: 0,
+      max: 0,
+      min: 0,
 
+      editorial_moment: [],
       //-------------------------------VARIABLES PARA APIS
       books: [],
       categories: [],
@@ -231,7 +271,12 @@ export default {
       value_books: [],
       books_active: [],
       ids: [],
-      master_books: []
+      master_books: [],
+      submaster_books: [],
+
+      // -------------------------------DRAWER
+      booksCard: [],
+      valuesCard: [],
     }
   },
   methods: {
@@ -240,7 +285,9 @@ export default {
     },
     //------------------------------------PROCESO DEL FILTRADO
     async filter(index, value, id_category) {
-      this.books = this.books.filter((book) => book.categories.includes(id_category))
+      this.books = this.books.filter((book) =>
+        book.categories.includes(id_category)
+      )
       console.log(
         '++++++++++++++++++++++FILTRADO+++++++++++++++++++++++++++++++'
       )
@@ -252,57 +299,154 @@ export default {
           '++++++++++++++++++++++LIBROS+++++++++++++++++++++++++++++++'
         )
         console.log('ID CATEGORIA: ' + id_category)
-
-        //this.books = this.books.filter(book => book.categories[0] == id_category || book.categories[1] == id_category|| book.categories.)
-
-        // for (let i = 0; i < this.books.length; i++) {
-        //   for (let x = 0; x < this.books[i].categories.length; x++) {
-        //     if(this.books[i].categories[x] == id_category){
-        //       console.log("encontrado")
-        //       this.value_books.push(this.books[i])
-        //     }
-
-        //   }
-        //   console.log("- - - - - - - - - - - - - - - - - - - - - - - ")
-        // }
-
-        // console.log("******************************RESULTADO********************************************")
-        // console.log(this.value_books)
-        // this.books = this.value_books
-
-        //book => book.editorial == data || book.author == data
-        // console.log(this.categories[0].active)
       }
       console.log('ID CATEGORIA: ' + id_category)
       console.log('++++++++++++++++++++++IDS+++++++++++++++++++++++++++++++')
 
       if (value) {
+        this.books = this.master_books
         this.ids.push(id_category)
-        console.log(this.ids)
+        this.ids.forEach((id) => {
+          this.books = this.books.filter(
+            (book) =>
+              book.categories.includes(id) == true &&
+              book.price_current <= this.value_barra
+          )
+        })
+
+        this.submaster_books = this.books
+        console.log(this.submaster_books)
+
+        if (this.books.length == 0) {
+          this.showListProduct = false
+          this.showMessage = true
+        }
         this.value_category[index].active = !value
-        
       } else {
-        console.log('Desactivo')
         const position = this.ids.indexOf(id_category)
-        console.log('Posicion: '+ position)
-        console.log(position)
         this.ids.splice(position, 1)
-        console.log(
-          '++++++++++++++++++++++VALUE IDS+++++++++++++++++++++++++++++++'
-        )
-        console.log(this.ids)
+
+        for (let i = this.submaster_books.length; i > 0; i--) {
+          this.submaster_books.pop()
+        }
+
+        this.ids.forEach((id) => {
+          this.books = this.master_books.filter(
+            (book) =>
+              book.categories.includes(id) == true &&
+              book.price_current <= this.value_barra
+          )
+
+          this.submaster_books = this.master_books.filter(
+            (book) => book.categories.includes(id) == true
+          )
+        })
+
+        console.log(this.submaster_books)
+
+        if (this.ids.length == 0) {
+          this.books = this.master_books.filter(
+            (book) => book.price_current <= this.value_barra
+          )
+        }
+        if (this.books.length != 0) {
+          this.showListProduct = true
+          this.showMessage = false
+        }
         this.value_category[index].active = !value
       }
-      this.ids.forEach((id) => {
-        this.books = this.master_books.filter(
-          (book) => book.categories.includes(id) == true
+    },
+    filterEditorial(indexE, status, name_editorial) {
+      console.log(
+        '++++++++++++++++++++++FILTRADO Editorial+++++++++++++++++++++++++++++++'
+      )
+      console.log('STATUS: ' + status)
+      console.log('NAME EDITORIAL: ' + name_editorial)
+      console.log('++++++++++++++++++++++IDS+++++++++++++++++++++++++++++++')
+
+      const cant_category = this.submaster_books.length
+      console.log('CANTIDAD DE CATEGORIA: ' + cant_category)
+      if (cant_category != 0) {
+        console.log('hay categorias seleccionadas')
+        this.books = this.submaster_books.filter(
+          (book) =>
+            book.editorial == name_editorial &&
+            book.price_current <= this.value_barra
         )
-      })
+      } else {
+        console.log('editorial se filtra primero')
+        const value = this.editorial_moment.includes(name_editorial)
+        if (!value) {
+          this.editorial_moment[0] = name_editorial
+          console.log(this.editorial_moment)
+          this.books = this.master_books.filter(
+            (book) =>
+              book.editorial == name_editorial &&
+              book.price_current <= this.value_barra
+          )
+        } else {
+          this.books = this.master_books.filter(
+            (book) => book.price_current <= this.value_barra
+          )
+          console.log(this.books)
+        }
+      }
+    },
+    addCart(books) {
+      console.log(
+        '--------------------------DRAWER-------------------------------'
+      )
+
+      var local = localStorage.getItem('books')
+      if (local != null) {
+        this.booksCard = JSON.parse(local)
+      }
+
+      let cant = {
+        cant: 1,
+      }
+
+      this.booksCard.push(Object.assign(books, cant))
+      var validate = this.booksCard.filter((book) => book._id == books._id)
+
+      if (validate.length == 1) {
+        console.log('Agregado')
+        localStorage.setItem('books', JSON.stringify(this.booksCard))
+      } else {
+        console.log('Ya fue Agregado')
+        this.booksCard.pop()
+        console.log('-------------------------------------------------')
+        this.$message({
+          type: 'info',
+          message: 'El libro ya fue agregado al carrito.',
+        })
+      }
     },
   },
   watch: {
     value_barra: function (value) {
+      console.log(
+        '++++++++++++++++++++++FILTRADO PRECIO+++++++++++++++++++++++++++++++'
+      )
+
+      this.showListProduct = true
+      this.showMessage = false
+
       console.log(value)
+
+      const cant_category = this.submaster_books.length
+      console.log('CANTIDAD DE CATEGORIA: ' + cant_category)
+      if (cant_category != 0) {
+        console.log('hay categorias seleccionadas')
+        this.books = this.submaster_books.filter(
+          (book) => book.price_current <= value
+        )
+      } else {
+        console.log('primer precio')
+        this.books = this.master_books.filter(
+          (book) => book.price_current <= value
+        )
+      }
     },
   },
   async created() {
@@ -311,9 +455,52 @@ export default {
       url: '/books',
       method: 'get',
     })
-    this.books = list_book.data.data.filter((b) => b.active == true)
-    this.master_books = list_book.data.data.filter((b) => b.active == true)
+    this.books = list_book.data.data.filter((book) => book.active == true)
+    this.master_books = list_book.data.data.filter(
+      (book) => book.active == true
+    )
 
+    if (this.books.length == 0) {
+      this.showMessageProduct = true
+      this.showListProduct = false
+    }
+    const maximos = []
+    const minimos = []
+
+    this.books.forEach((book) => {
+      const value = maximos.includes(book.price_current)
+      if (!value) {
+        maximos.push(book.price_current)
+      }
+    })
+
+    console.log('----------------------MAXIMO-------------------')
+    console.log(maximos)
+    var contador = 0
+    for (let i = 0; i < maximos.length; i++) {
+      if (maximos[i] > contador) {
+        contador = maximos[i]
+      }
+    }
+    console.log('----------------------MAX-------------------')
+
+    this.max = contador
+    console.log(this.max)
+
+    console.log('----------------------MINIMO-------------------')
+    console.log(maximos)
+    var contador_min = this.max
+    for (let i = 0; i < maximos.length; i++) {
+      if (maximos[i] < contador_min) {
+        contador_min = maximos[i]
+      }
+    }
+    console.log('----------------------MAX-------------------')
+
+    this.min = contador_min
+    console.log(this.min)
+
+    this.value_barra = this.max
 
     // -------------------------------------------Filtro Category
     const category = await this.$apidata({
@@ -334,7 +521,17 @@ export default {
       method: 'get',
     })
     this.editorial = editorial.data.data
-    //--------------------------------------------
+
+    //-------------------------------------------Book Cart
+    console.log(
+      '-------------------------Book Cart----------------------------'
+    )
+    var local = localStorage.getItem('books')
+    if (local != null) {
+      this.booksCard = JSON.parse(local)
+    }
+
+    console.log(this.booksCard)
   },
 }
 </script>
