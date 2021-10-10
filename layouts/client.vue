@@ -64,10 +64,10 @@
           :key="gb"
         >
           <div class="flex">
-            <div class="w-1/4">
+            <div class="" style="width: 30%;">
               <img class="" :src="gb.images_src[0]" />
             </div>
-            <div class="pl-4" style="width: 70%">
+            <div class="pl-4" style="width: 65%">
               <div class="pb-2">
                 <p class="name-drawer">{{ gb.name }}</p>
                 <div class="flex items-center pt-2">
@@ -77,7 +77,17 @@
                   </p>
                 </div>
               </div>
-              <div v-show="gb.format == 'f' || gb.format == 'df'">
+              <div v-show="gb.format == 'df'">
+                <el-switch
+                  v-model="gb.valueFormat"
+                  active-color="#5E20E4"
+                  inactive-color="#021639"
+                  active-text="Físico"
+                  inactive-text="Digital"
+                >
+                </el-switch>
+              </div>
+              <div v-show="gb.format == 'f' || gb.valueFormat==true" class="mt-2">
                 <el-input-number
                   class="input input_number input-number-drawer"
                   v-model="gb.cant"
@@ -356,8 +366,14 @@ export default {
       cant: 0,
       cart: [],
       finalResult: [],
+      showFormat: false,
     }
   },
+  // watch: {
+  //   value: function (value) {
+  //     console.log(value)
+  //   }
+  // },
   methods: {
     openDrawer() {
       console.log('drawer abierto')
@@ -427,6 +443,10 @@ export default {
       '--------------------------GET DRAWER-------------------------------'
     )
     try {
+      var format ={
+        valueFormat: false
+      }
+
       var local = localStorage.getItem('books')
       if (local != null) {
         this.getbook = JSON.parse(local)
@@ -437,9 +457,13 @@ export default {
       console.log(
         '--------------------------ARRAY-------------------------------'
       )
+      this.getbook.forEach((book)=>{
+        this.getbook.push(Object.assign(book, format))
+      })
+
       console.log('array:')
       console.log(this.getbook)
-
+      
     } catch (error) {
       console.log('error... Carrito vacio')
       this.showProductDrawer = false

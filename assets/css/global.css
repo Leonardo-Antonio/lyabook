@@ -716,6 +716,9 @@ span.el-checkbox__label {
 .input-number-drawer .el-input__inner{
   height: 2.5rem;
 }
-.el-drawer__body{
+/* .el-drawer__body{
   overflow-y: hidden;
+} */
+.el-switch__label.is-active{
+  color: var(--primary)
 }
