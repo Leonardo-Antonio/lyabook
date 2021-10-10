@@ -397,10 +397,10 @@ export default {
         '--------------------------DRAWER-------------------------------'
       )
 
-      // var local = localStorage.getItem('books')
-      // if (local != null) {
-      //   this.booksCard.push(JSON.parse(local))
-      // }
+      var local = localStorage.getItem('books')
+      if (local != null) {
+        this.booksCard = JSON.parse(local)
+      }
 
       let cant = {
         cant: 1,
@@ -420,7 +420,6 @@ export default {
           type: 'info',
           message: 'El libro ya fue agregado al carrito.',
         })
-
       }
     },
   },
@@ -522,6 +521,17 @@ export default {
       method: 'get',
     })
     this.editorial = editorial.data.data
+
+    //-------------------------------------------Book Cart
+    console.log(
+      '-------------------------Book Cart----------------------------'
+    )
+    var local = localStorage.getItem('books')
+    if (local != null) {
+      this.booksCard = JSON.parse(local)
+    }
+
+    console.log(this.booksCard)
   },
 }
 </script>
