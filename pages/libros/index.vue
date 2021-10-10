@@ -397,6 +397,11 @@ export default {
         '--------------------------DRAWER-------------------------------'
       )
 
+      // var local = localStorage.getItem('books')
+      // if (local != null) {
+      //   this.booksCard.push(JSON.parse(local))
+      // }
+
       let cant = {
         cant: 1,
       }

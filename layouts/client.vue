@@ -58,17 +58,23 @@
     >
       <p class="text-center title-drawer">Carrito</p>
       <div v-show="showProductDrawer">
-        <div class="productDrawer pb-4 px-8" v-for="(gb,index) of getbook" :key="gb">
+        <div
+          class="productDrawer pb-4 px-8"
+          v-for="(gb, index) of getbook"
+          :key="gb"
+        >
           <div class="flex">
             <div class="w-1/4">
               <img class="" :src="gb.images_src[0]" />
             </div>
-            <div class="pl-4" style="width: 70%;">
+            <div class="pl-4" style="width: 70%">
               <div class="pb-2">
                 <p class="name-drawer">{{ gb.name }}</p>
                 <div class="flex items-center pt-2">
-                  <p class="price price_before ">S/.{{ gb.price_before }}</p>
-                  <p class="price price_current pl-4">S/.{{ gb.price_current }}</p>
+                  <p class="price price_before">S/.{{ gb.price_before }}</p>
+                  <p class="price price_current pl-4">
+                    S/.{{ gb.price_current }}
+                  </p>
                 </div>
               </div>
               <div v-show="gb.format == 'f' || gb.format == 'df'">
@@ -81,8 +87,13 @@
                 ></el-input-number>
               </div>
             </div>
-            <div style="width: 5%;">
-              <box-icon name='trash' type='solid' color='#5e20e4' @click="DeleteElement(index)"></box-icon>
+            <div style="width: 5%">
+              <box-icon
+                name="trash"
+                type="solid"
+                color="#5e20e4"
+                @click="DeleteElement(index)"
+              ></box-icon>
             </div>
           </div>
         </div>
@@ -103,8 +114,14 @@
           <button class="">Comprar</button>
         </div>
       </div>
-      <div v-show="showMessageDrawer" class="h-full overflow-x-hidden overflow-y-hidden">
-        <el-empty class="h-full justify-center items-center" description="Vacío"></el-empty>
+      <div
+        v-show="showMessageDrawer"
+        class="h-full overflow-x-hidden overflow-y-hidden"
+      >
+        <el-empty
+          class="h-full justify-center items-center"
+          description="Vacío"
+        ></el-empty>
       </div>
     </el-drawer>
 
@@ -355,13 +372,14 @@ export default {
         )
         this.showProductDrawer = true
         this.showMessageDrawer = false
-      }else{
+      } else {
         this.showProductDrawer = false
         this.showMessageDrawer = true
       }
     },
-    DeleteElement(position){
+    DeleteElement(position) {
       this.getbook.splice(position, 1)
+      localStorage.setItem('books', JSON.stringify(this.getbook))
     },
     async tobuy() {
       try {
@@ -415,6 +433,13 @@ export default {
         this.showProductDrawer = true
         this.showMessageDrawer = false
       }
+
+      console.log(
+        '--------------------------ARRAY-------------------------------'
+      )
+      console.log('array:')
+      console.log(this.getbook)
+
     } catch (error) {
       console.log('error... Carrito vacio')
       this.showProductDrawer = false
