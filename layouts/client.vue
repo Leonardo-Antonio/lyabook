@@ -49,6 +49,21 @@
         </div>
       </div>
     </div>
+
+    <el-dialog
+      title="Elegir método de pago:"
+      :visible.sync="dialogPayment"
+      width="30%"
+      @open="openDialog"
+      @close="closeDialog"
+      class="dialog-container-payment"
+    >
+      <div class="cho-container" id="nodo"></div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogPayment = false">Cancel</el-button>
+      </span>
+    </el-dialog>
+
     <el-drawer
       title="I am the title"
       :visible.sync="showDrawer"
@@ -110,7 +125,7 @@
             </div>
           </div>
         </div>
-        <div class="cho-container" id="nodo"></div>
+
         <button
           id="btn_mercadoPago"
           @click="tobuy"
@@ -369,6 +384,8 @@ export default {
       cart: [],
       finalResult: [],
       showFormat: false,
+      response_id: '',
+      dialogPayment: false,
     }
   },
   // watch: {
@@ -378,33 +395,36 @@ export default {
   // },
   methods: {
     openDrawer() {
-      console.log('drawer abierto')
-      console.log(
-        '--------------------------GET DRAWER-------------------------------'
-      )
-      var local = localStorage.getItem('books')
-      if (local != null) {
-        this.getbook = JSON.parse(local)
+      try {
+        console.log('drawer abierto')
         console.log(
-          '--------------------------CART DRAWER-------------------------------'
+          '--------------------------GET DRAWER-------------------------------'
         )
-        this.showProductDrawer = true
-        this.showMessageDrawer = false
-      } else {
-        this.showProductDrawer = false
-        this.showMessageDrawer = true
+        var local = localStorage.getItem('books')
+        if (local != null) {
+          this.getbook = JSON.parse(local)
+          console.log(
+            '--------------------------CART DRAWER-------------------------------'
+          )
+          this.showProductDrawer = true
+          this.showMessageDrawer = false
+        } else {
+          this.showProductDrawer = false
+          this.showMessageDrawer = true
+        }
+      } catch (error) {
+        console.log('error al abrir el drawer')
       }
     },
     DeleteElement(position) {
-      this.getbook.splice(position, 1)
-      localStorage.setItem('books', JSON.stringify(this.getbook))
-      //----------------------------------------------BUTTOM DELETE
-      let Elemet = document.getElementsByClassName('mercadopago-button')[0]
-      if(Elemet != undefined){
-        this.deleteBottom()
+      try {
+        this.getbook.splice(position, 1)
+        localStorage.setItem('books', JSON.stringify(this.getbook))
+      } catch (error) {
+        console.log('error al eliminar elemento')
       }
     },
-    async tobuy() {
+    tobuy() {
       try {
         this.getbook.forEach((book) => {
           var books = {
@@ -415,6 +435,14 @@ export default {
           this.finalResult.push(books)
         })
 
+        this.dialogPayment = true
+      } catch {
+        console.log('error al comprar')
+      }
+    },
+    async openDialog() {
+      try {
+        console.log('el dialog se abrio')
         const response = await this.$apidata({
           url: '/orders',
           method: 'post',
@@ -423,43 +451,42 @@ export default {
         console.log('response API: ')
         console.log(response)
 
-        var id = response.data.id
-        console.log(id)
+        this.response_id = response.data.id
+        console.log(this.response_id)
 
         const mp = new MercadoPago(
           'TEST-32e01da3-6294-476b-adfd-004faa209766',
-          { locale: 'es-AR' }
+          {
+            locale: 'es-AR',
+          }
         )
         mp.checkout({
           preference: {
-            id: id,
+            id: this.response_id,
           },
           render: {
             container: '.cho-container',
-            label: 'Pagar',
+            label: 'Mercado Pago',
           },
         })
 
         for (let i = this.finalResult.length; i > 0; i--) {
           this.finalResult.pop()
         }
-
-        //----------------------------------------------BUTTOM DELETE
-        this.deleteBottom()
-      } catch {
-        console.log('error.....')
+      } catch (error) {
+        console.log('error al abrir el dialogo')
       }
     },
-    deleteBottom() {
-      let deleteElemet = document.getElementsByClassName('mercadopago-button')[0]
-      console.log(deleteElemet)
-      deleteElemet.addEventListener('click', () => {
-        console.log('clic en mercado pago')
+    closeDialog() {
+      try {
+        console.log('el dialog se cerro')
         let nodo = document.getElementById('nodo')
         if (nodo.lastChild != null) {
           nodo.removeChild(nodo.lastChild)
         }
-      })
+      } catch (error) {
+        console.log('error al cerrar el dialogo')
+      }
     },
   },
   async created() {
