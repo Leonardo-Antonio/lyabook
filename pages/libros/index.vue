@@ -131,7 +131,7 @@
           <el-main>
             <div
               class="container-product flex justify-center"
-              v-show="showListProduct"
+              v-show="books.length != 0"
             >
               <div class="w-full">
                 <div>
@@ -220,12 +220,8 @@
               </div>
             </div>
 
-            <div v-show="showMessage" class="px-6">
-              <p>Ningún producto coincide.</p>
-            </div>
-
-            <div v-show="showMessageProduct" class="px-6">
-              <p>Vacio</p>
+            <div v-show="books.length == 0" class="px-6 container-prod-vacio w-full flex justify-center align-center">
+              <el-empty description="Vacío"></el-empty>
             </div>
           </el-main>
           <el-footer>
@@ -252,9 +248,6 @@ export default {
       value1: null,
 
       //-------------------------------VARIABLES
-      showListProduct: true,
-      showMessage: false,
-      showMessageProduct: false,
       showDrawer: false,
       // barra de precio
       value_barra: 0,
@@ -317,10 +310,6 @@ export default {
         this.submaster_books = this.books
         console.log(this.submaster_books)
 
-        if (this.books.length == 0) {
-          this.showListProduct = false
-          this.showMessage = true
-        }
         this.value_category[index].active = !value
       } else {
         const position = this.ids.indexOf(id_category)
@@ -348,10 +337,6 @@ export default {
           this.books = this.master_books.filter(
             (book) => book.price_current <= this.value_barra
           )
-        }
-        if (this.books.length != 0) {
-          this.showListProduct = true
-          this.showMessage = false
         }
         this.value_category[index].active = !value
       }
@@ -429,9 +414,6 @@ export default {
         '++++++++++++++++++++++FILTRADO PRECIO+++++++++++++++++++++++++++++++'
       )
 
-      this.showListProduct = true
-      this.showMessage = false
-
       console.log(value)
 
       const cant_category = this.submaster_books.length
@@ -460,10 +442,6 @@ export default {
       (book) => book.active == true
     )
 
-    if (this.books.length == 0) {
-      this.showMessageProduct = true
-      this.showListProduct = false
-    }
     const maximos = []
     const minimos = []
 
