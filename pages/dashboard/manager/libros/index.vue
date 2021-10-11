@@ -57,6 +57,7 @@
     <span class="mobile_spacer"></span>
     <span class="mobile_spacer"></span>
     <span class="mobile_spacer"></span>
+    <span class="mobile_spacer"></span>
   </div>
 </template>
 

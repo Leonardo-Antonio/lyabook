@@ -43,11 +43,6 @@ export default {
 </script>
 
 <style>
-@media (max-width: 640px) {
-  .container-card-icon {
-    width: 100% !important;
-  }
-}
 .text_number {
   font-family: Roboto;
   font-style: normal;
@@ -71,5 +66,17 @@ export default {
 .container-card-icon {
   width: 17rem;
   height: 16rem;
+}
+
+@media (max-width: 1024px) {
+  .container-card-icon {
+    width: 17rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .container-card-icon {
+    width: 100%;
+  }
 }
 </style>

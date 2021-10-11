@@ -28,7 +28,7 @@
               data.auth
             }}</span>
             <span class="mobile_admin-admin_header-item_show color_primary"
-              ><nuxt-link to="/dashboard/admin/mi-cuenta"
+              ><nuxt-link :to="redirect"
                 >Ver perfil</nuxt-link
               ></span
             >
@@ -41,6 +41,12 @@
 
 <script>
 export default {
+  props:{
+    redirect: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
       data: {
@@ -71,6 +77,68 @@ export default {
   display: none;
 }
 @media (max-width: 640px) {
+  .mobile_container-admin_header {
+    padding: 0 1rem;
+  }
+
+  .mobile_container-admin_header .pl-8 {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .mobile_container-admin_header .pr-8 {
+    padding: 0;
+  }
+
+  .mobile-admin_header-rol {
+    width: 6rem;
+    height: 2rem;
+    font-size: 0.8rem;
+  }
+
+  .mobile_admin-admin_header-item_remove {
+    display: none;
+  }
+
+  .mobile_admin-admin_header-item_show {
+    display: block;
+  }
+}
+
+@media (max-width: 1024px) {
+  .mobile_container-admin_header {
+    padding: 0 1rem;
+  }
+
+  .mobile_container-admin_header .pl-8 {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .mobile_container-admin_header .pr-8 {
+    padding: 0;
+  }
+
+  .mobile-admin_header-rol {
+    width: 6rem;
+    height: 2rem;
+    font-size: 0.8rem;
+  }
+
+  .mobile_admin-admin_header-item_remove {
+    display: none;
+  }
+
+  .mobile_admin-admin_header-item_show {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1580px) {
   .mobile_container-admin_header {
     padding: 0 1rem;
   }

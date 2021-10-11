@@ -698,7 +698,7 @@ span.el-checkbox__label {
 }
 
 .mobile_spacer {
-  padding: .5rem;
+  padding: 0.5rem;
 }
 
 .mobile_spacer-sm {
@@ -716,12 +716,10 @@ span.el-checkbox__label {
   }
 
   .mobile_spacer-sm {
-    padding: .2rem;
+    padding: 0.2rem;
     display: block;
   }
 }
-
-
 
 @media (max-width: 1024px) {
   .mobile_spacer {
@@ -734,30 +732,38 @@ span.el-checkbox__label {
   }
 
   .mobile_spacer-sm {
-    padding: .2rem;
+    padding: 0.2rem;
     display: block;
   }
 }
 
-.container-filter-father .is-active{
+@media screen and (min-width: 1025px) and (max-width: 1580px) {
+  .mobile_spacer {
+    padding: 1rem;
+    display: block;
+  }
+}
+
+.container-filter-father .is-active {
   color: #000000c7 !important;
 }
 
-.container-options-filter .el-menu-item:focus, .el-menu-item:hover{
+.container-options-filter .el-menu-item:focus,
+.el-menu-item:hover {
   background-color: #a580f647;
 }
 
-.checkbox-filter .el-checkbox__label{
+.checkbox-filter .el-checkbox__label {
   white-space: normal;
 }
 
-.drawer-product .el-drawer__container .el-drawer{
+.drawer-product .el-drawer__container .el-drawer {
   width: 20% !important;
 }
 
-.input-number-drawer .el-input__inner{
+.input-number-drawer .el-input__inner {
   height: 2.5rem;
 }
-.el-drawer__body{
+.el-drawer__body {
   overflow-y: hidden;
 }

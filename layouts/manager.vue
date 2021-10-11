@@ -10,7 +10,7 @@
     "
   >
     <div class="w-full">
-      <Header />
+      <Header redirect="/dashboard/manager/mi-perfil"  />
       <div class="p-10 mobile_p-1-5">
         <div class="h-screen z-10">
           <div class="overflow-y-auto overflow-x-hidden" style="height: 85vh">
@@ -217,7 +217,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @media (max-width: 640px) {
   .mobile_container-admin {
     width: 100%;
@@ -322,5 +322,52 @@ export default {
 .links__panel .py-1 {
   padding: 0;
   margin: 0;
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1460px)  {
+  .mobile_container-admin {
+    width: 100%;
+    height: 5rem;
+    position: absolute;
+    bottom: 0;
+  }
+
+  .mobile_admin-logo {
+    display: none;
+  }
+
+  .mobile_container_admin-menu_dashboard > .flex-col {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .mobile_admin-link {
+    width: 100%;
+  }
+
+  .mobile_container_admin-dashboard {
+    padding-top: 0;
+    padding-bottom: 1rem;
+  }
+
+  .mobile_container-admin_items-menu {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+  }
+
+  /* icon flotante */
+  .mobile_admin-icon_fixed-info {
+    bottom: 5.5rem;
+  }
+
+  /* remove items menu */
+  .mobile_admin-menu_item-remove {
+    display: none !important;
+  }
+
+  .container_main_admin-dashboard {
+    padding: 0.5rem;
+  }
 }
 </style>

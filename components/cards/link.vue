@@ -59,6 +59,11 @@ export default {
 </script>
 
 <style>
+
+.card-link {
+  width: 17rem;
+  height: 16rem;
+}
 @media (max-width: 640px) {
   .card-link {
     width: 100% !important;
@@ -67,15 +72,11 @@ export default {
 
 @media (max-width: 1024px) {
   .card-link {
-    width: 31% !important;
-    height: 14rem !important;
+    width: 31% ;
+    height: 14rem ;
   }
 }
 
-.card-link {
-  width: 17rem;
-  height: 16rem;
-}
 .text_number {
   font-family: Roboto;
   font-style: normal;

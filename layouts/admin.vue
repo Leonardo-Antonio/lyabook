@@ -9,8 +9,8 @@
       relative
     "
   >
-    <div class="w77 r-w-full">
-      <Header />
+    <div class="w-full r-w-full">
+      <Header redirect="/dashboard/admin/mi-cuenta" />
       <div class="p-10 container_main_admin-dashboard">
         <div class="h-screen z-10">
           <nuxt />
@@ -43,7 +43,7 @@
         h-full
         shadow_card
         z-50
-        w23
+        w-1/5
       "
     >
       <div class="mobile_container-admin_items-menu">
@@ -353,6 +353,53 @@ export default {
 }
 
 @media (max-width: 1024px) {
+  .mobile_container-admin {
+    width: 100%;
+    height: 5rem;
+    position: absolute;
+    bottom: 0;
+  }
+
+  .mobile_admin-logo {
+    display: none;
+  }
+
+  .mobile_container_admin-menu_dashboard > .flex-col {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .mobile_admin-link {
+    width: 100%;
+  }
+
+  .mobile_container_admin-dashboard {
+    padding-top: 0;
+    padding-bottom: 1rem;
+  }
+
+  .mobile_container-admin_items-menu {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+  }
+
+  /* icon flotante */
+  .mobile_admin-icon_fixed-info {
+    bottom: 5.5rem;
+  }
+
+  /* remove items menu */
+  .mobile_admin-menu_item-remove {
+    display: none !important;
+  }
+
+  .container_main_admin-dashboard {
+    padding: 0.5rem;
+  }
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1580px) {
   .mobile_container-admin {
     width: 100%;
     height: 5rem;

@@ -8,7 +8,7 @@
     </div>
 
     <div class="pt-20">
-      <div class="w-3/5 mx-auto mobile_admin-home-container-cards mobile_w-full">
+      <div class="w-3/5 mx-auto mobile_admin-home-container-cards mobile_w-full r-w-full">
         <div class="flex flex-row justify-between mobile_admin-home-container mobile_vertical">
           <CardInfo :count="20" text="Ventas" />
           <span class="mobile_spacer"></span>
@@ -19,7 +19,7 @@
         </div>
       </div>
 
-      <div class="w-3/5 mx-auto pt-8 mobile_admin-home-container-cards mobile_w-full">
+      <div class="w-3/5 mx-auto pt-8 mobile_admin-home-container-cards mobile_w-full r-w-full">
         <div class="flex flex-row justify-between mobile_admin-home-container mobile_vertical">
           <CardLink
             to="admin/promotions"
@@ -42,6 +42,7 @@
         </div>
       </div>
     </div>
+    <span class="mobile_spacer"></span>
     <span class="mobile_spacer"></span>
     <span class="mobile_spacer"></span>
     <span class="mobile_spacer"></span>
