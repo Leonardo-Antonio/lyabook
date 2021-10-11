@@ -15,7 +15,8 @@ export default function ({ $axios, redirect }, inject) {
   manager.onResponse((response) => {
     if (
       response.config.url == '/users/roles/admin' ||
-      response.config.url == '/reports/books/df'
+      response.config.url == '/reports/books/df' ||
+      response.config.url == '/reports/books/stock/10'
     ) {
       return
     }

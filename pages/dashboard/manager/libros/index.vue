@@ -49,55 +49,8 @@
     </div>
     <section class="card">
       <div class="py-10 w-11/12 mx-auto px-10 mobile_px-0">
-        <div class="w-full flex flex-row mobile_vertical">
-          <div class="w70 mobile_pb-1">
-<!--             <line-chart
-              class="char"
-              :data="chartData"
-              style="width: 100%"
-            ></line-chart> -->
-          </div>
-
-          <div
-            class="flex flex-col justify-between w30 mobile_w-full-important"
-          >
-            <div class="flex flex-col pl-10 mobile_px-0">
-              <div class="pb-4">
-                <button
-                  class="btn_primary hover:shadow-2xl rounded-full w-full h-14"
-                >
-                  Exportar data en cvs
-                </button>
-              </div>
-              <div class="pb-4">
-                <button class="btn_primary rounded-full w-full h-14">
-                  Exportar data en hoja de calculo
-                </button>
-              </div>
-              <div class="pb-4">
-                <button class="btn_primary rounded-full w-full h-14">
-                  Exportar data en texto plano
-                </button>
-              </div>
-            </div>
-
-            <div>
-              <div class="pl-10 mobile_px-0">
-                <button
-                  class="
-                    bg_second
-                    color_white
-                    btn_add_size
-                    rounded-full
-                    w-full
-                    h-14
-                  "
-                >
-                  Generar reporte
-                </button>
-              </div>
-            </div>
-          </div>
+        <div class="w-full flex flex-col mobile_vertical">
+          <ReportNewBooks />
         </div>
       </div>
     </section>
@@ -108,35 +61,28 @@
 </template>
 
 <script>
+import ReportStock from '../../../../components/dashboard/manager/chart/stock'
+import ReportNewBooks from '../../../../components/dashboard/manager/chart/new-books'
 export default {
   layout: 'manager',
+  components: {
+    ReportStock,
+    ReportNewBooks
+  },
   data() {
     return {
-      graphic: '',
-      filterBy: '',
-      graphicOptions: ['Barras', 'Linar', 'Torta'],
-      filterByOptions: ['Más vendidos', 'Menos comprados', 'Nuevos'],
-      chartData: {
-        labels: [],
-        datasets: [],
-      },
+      graphic: 'bar',
+      filterBy: 'Poco stock',
+      graphicOptions: ['bar', 'pie'],
+      filterByOptions: [
+        'Más vendidos',
+        'Menos comprados',
+        'Nuevos',
+        'Poco stock',
+      ]
     }
   },
-  async created() {
-    const { data } = await this.$manager({
-      url: '/reports/books/df',
-      method: 'get',
-    })
-
-    for (let label of data.data) {
-      this.chartData.labels.push(label.name)
-      this.chartData.datasets.push({
-        label: label.name,
-        data: [label.type.fisico.stock],
-        fill: false,
-        stepped: true,
-      })
-    }
+  methods: {
   },
 }
 </script>
