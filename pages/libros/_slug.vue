@@ -33,15 +33,20 @@
                 </div>
               </div>
               <div class="container-price flex flex-row pt-4">
-                <div class="container-price-current w-1/2">
-                  <p class="price-current">{{ books.price_current }}</p>
-                </div>
                 <div class="container-price-before flex items-center w-1/2">
-                  <p class="price-before">{{ books.price_before }}</p>
+                  <p class="price-before">S/.{{ books.price_before }}</p>
+                </div>
+                <div class="container-price-current w-1/2">
+                  <p class="price-current">S/.{{ books.price_current }}</p>
                 </div>
               </div>
               <div class="container-select-format pt-4">
-                <el-select v-model="type_book" clearable placeholder="Select">
+                <el-select
+                  v-model="type_book"
+                  clearable
+                  placeholder="Tipo"
+                  v-show="books.format == 'df'"
+                >
                   <el-option
                     v-for="type in books.type"
                     :key="type"
@@ -51,7 +56,7 @@
                   </el-option>
                 </el-select>
               </div>
-              <div v-if="type_book == 'Fisico'">
+              <div v-show="type_book == 'Fisico' || books.format == 'f'">
                 <div class="container-maps flex flex-row items-center pt-4">
                   <div class="conatiner-text w-1/2">
                     <p class="text">Recoger en:</p>
@@ -73,7 +78,8 @@
                     class="btn_add_size button-to-by"
                     type="primary"
                     round
-                    >COMPRAR</el-button
+                    @click="addCart"
+                    >Agregar al carrito</el-button
                   >
                 </el-row>
               </div>
@@ -84,16 +90,25 @@
         <!-- container tabs -->
         <div class="conatiner-tabs py-12 px-6">
           <el-tabs v-model="activeName" @tab-click="handleClick">
-            <el-tab-pane label="Descripción" name="first"
-              >{{books.description}}</el-tab-pane
-            >
-            <el-tab-pane label="Comentarios" name="second"
-              >Comentarios</el-tab-pane
-            >
-            <el-tab-pane label="Detalle" name="third">
-              <div v-for="item in books.details" :key="item">
-                - {{item}}
+            <el-tab-pane label="Descripción" name="first">{{
+              books.description
+            }}</el-tab-pane>
+            <el-tab-pane label="Comentarios" name="second">
+              <div class="flex">
+                <el-input
+                  placeholder="Agrega un comentario"
+                  v-model="comentary"
+                  clearable
+                ></el-input>
+                <button class="ml-2" @click="addComentary">Agregar</button>
               </div>
+              <div class="flex mb-4 mt-4">
+                <p>Calificar:</p>
+                <el-rate class="star pl-4" v-model="star"></el-rate>
+              </div>
+            </el-tab-pane>
+            <el-tab-pane label="Detalle" name="third">
+              <div v-for="item in books.details" :key="item">- {{ item }}</div>
             </el-tab-pane>
           </el-tabs>
         </div>
@@ -134,6 +149,10 @@ export default {
       activeName: 'first',
       //--------------------------------------------------------Variable api
       books: {},
+      booksCard: [],
+      user: [],
+      comentary: '',
+      star:0
     }
   },
   methods: {
@@ -173,6 +192,59 @@ export default {
     handleClick(tab, event) {
       console.log(tab, event)
     },
+    //-----------------------------------AGREGAR AL CARRITO
+    addCart() {
+      console.log('----------------Agregar al carrito----------------------')
+      var local = localStorage.getItem('books')
+      if (local != null) {
+        this.booksCard = JSON.parse(local)
+      }
+
+      let cant = {
+        cant: 1,
+      }
+
+      this.booksCard.push(Object.assign(this.books, cant))
+      var validate = this.booksCard.filter((book) => book._id == this.books._id)
+
+      if (validate.length == 1) {
+        console.log('Agregado')
+        localStorage.setItem('books', JSON.stringify(this.booksCard))
+      } else {
+        console.log('Ya fue Agregado')
+        this.booksCard.pop()
+        console.log('-------------------------------------------------')
+        this.$message({
+          type: 'info',
+          message: 'El libro ya fue agregado al carrito.',
+        })
+      }
+    },
+    addComentary() {
+      var user = localStorage.getItem('user')
+      if (user != null) {
+        this.user = JSON.parse(user).user
+        console.log(this.user)
+      }
+
+      this.books.commentaries.push({
+        name: this.user.name + ' ' + this.user.last_name,
+        commentaries: this.comentary,
+        star: this.star
+      })
+
+      try {
+        this.$admin({
+          url: '/books/df/' + this.books._id,
+          method: 'put',
+          data: this.books,
+        })
+      } catch {
+        console.log('error.....')
+      }
+
+      console.log(this.books)
+    },
   },
   // search autocomplete
   async mounted() {
@@ -183,8 +255,13 @@ export default {
         url: `/books/${slug}`,
         method: 'get',
       })
-      this.books = response.data.data
-      console.log(this.books.details)
+      console.log('---------------------------book interna')
+      if (response.status == 200) {
+        this.books = response.data.data
+        // console.log(response.data.data.type.fisico)
+      }
+
+      this.books.commentaries = new Array()
     } catch (error) {
       console.log(error)
     }
