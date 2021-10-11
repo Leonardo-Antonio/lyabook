@@ -72,7 +72,7 @@
       class="relative drawer-product"
     >
       <p class="text-center title-drawer">Carrito</p>
-      <div v-show="showProductDrawer">
+      <div v-show="getbook.length != 0">
         <div
           class="productDrawer pb-4 px-8"
           v-for="(gb, index) of getbook"
@@ -142,8 +142,8 @@
         </button>
       </div>
       <div
-        v-show="showMessageDrawer"
-        class="h-full overflow-x-hidden overflow-y-hidden"
+        v-show="getbook.length == 0"
+        class="h-full overflow-x-hidden overflow-y-hidden container-drawer-vacio"
       >
         <el-empty
           class="h-full justify-center items-center"
@@ -377,8 +377,6 @@ export default {
   data() {
     return {
       showDrawer: false,
-      showProductDrawer: false,
-      showMessageDrawer: false,
       getbook: '',
       cant: 0,
       cart: [],
@@ -406,11 +404,6 @@ export default {
           console.log(
             '--------------------------CART DRAWER-------------------------------'
           )
-          this.showProductDrawer = true
-          this.showMessageDrawer = false
-        } else {
-          this.showProductDrawer = false
-          this.showMessageDrawer = true
         }
       } catch (error) {
         console.log('error al abrir el drawer')
@@ -502,8 +495,6 @@ export default {
       var local = localStorage.getItem('books')
       if (local != null) {
         this.getbook = JSON.parse(local)
-        this.showProductDrawer = true
-        this.showMessageDrawer = false
       }
 
       console.log(
@@ -517,8 +508,6 @@ export default {
       console.log(this.getbook)
     } catch (error) {
       console.log('error... Carrito vacio')
-      this.showProductDrawer = false
-      this.showMessageDrawer = true
     }
   },
 }
