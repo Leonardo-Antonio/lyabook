@@ -49,18 +49,6 @@
         </div>
       </div>
     </div>
-    <el-dialog title="Warning" :visible.sync="DialogToBuy" width="30%" center>
-      <span
-        >It should be noted that the content will not be aligned in center by
-        default</span
-      >
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="DialogToBuy = false">Cancel</el-button>
-        <el-button type="primary" @click="DialogToBuy = false"
-          >Confirm</el-button
-        >
-      </span>
-    </el-dialog>
     <el-drawer
       title="I am the title"
       :visible.sync="showDrawer"
@@ -381,8 +369,6 @@ export default {
       cart: [],
       finalResult: [],
       showFormat: false,
-      DialogToBuy: false,
-      response_id:'',
     }
   },
   // watch: {
@@ -412,6 +398,11 @@ export default {
     DeleteElement(position) {
       this.getbook.splice(position, 1)
       localStorage.setItem('books', JSON.stringify(this.getbook))
+      //----------------------------------------------BUTTOM DELETE
+      let Elemet = document.getElementsByClassName('mercadopago-button')[0]
+      if(Elemet != undefined){
+        this.deleteBottom()
+      }
     },
     async tobuy() {
       try {
@@ -432,8 +423,8 @@ export default {
         console.log('response API: ')
         console.log(response)
 
-        this.response_id = response.data.id
-        console.log(this.response_id)
+        var id = response.data.id
+        console.log(id)
 
         const mp = new MercadoPago(
           'TEST-32e01da3-6294-476b-adfd-004faa209766',
@@ -441,7 +432,7 @@ export default {
         )
         mp.checkout({
           preference: {
-            id: this.response_id,
+            id: id,
           },
           render: {
             container: '.cho-container',
@@ -452,14 +443,15 @@ export default {
         for (let i = this.finalResult.length; i > 0; i--) {
           this.finalResult.pop()
         }
-        this.DialogToBuy = true
+
+        //----------------------------------------------BUTTOM DELETE
+        this.deleteBottom()
       } catch {
         console.log('error.....')
       }
     },
     deleteBottom() {
-      let deleteElemet =
-        document.getElementsByClassName('mercadopago-button')[0]
+      let deleteElemet = document.getElementsByClassName('mercadopago-button')[0]
       console.log(deleteElemet)
       deleteElemet.addEventListener('click', () => {
         console.log('clic en mercado pago')
