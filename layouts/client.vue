@@ -49,6 +49,18 @@
         </div>
       </div>
     </div>
+    <el-dialog title="Warning" :visible.sync="DialogToBuy" width="30%" center>
+      <span
+        >It should be noted that the content will not be aligned in center by
+        default</span
+      >
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="DialogToBuy = false">Cancel</el-button>
+        <el-button type="primary" @click="DialogToBuy = false"
+          >Confirm</el-button
+        >
+      </span>
+    </el-dialog>
     <el-drawer
       title="I am the title"
       :visible.sync="showDrawer"
@@ -64,7 +76,7 @@
           :key="gb"
         >
           <div class="flex">
-            <div class="" style="width: 30%;">
+            <div class="" style="width: 30%">
               <img class="" :src="gb.images_src[0]" />
             </div>
             <div class="pl-4" style="width: 65%">
@@ -87,7 +99,10 @@
                 >
                 </el-switch>
               </div>
-              <div v-show="gb.format == 'f' || gb.valueFormat==true" class="mt-2">
+              <div
+                v-show="gb.format == 'f' || gb.valueFormat == true"
+                class="mt-2"
+              >
                 <el-input-number
                   class="input input_number input-number-drawer"
                   v-model="gb.cant"
@@ -107,8 +122,8 @@
             </div>
           </div>
         </div>
-
-        <div
+        <div class="cho-container" id="nodo"></div>
+        <button
           id="btn_mercadoPago"
           @click="tobuy"
           class="
@@ -118,11 +133,10 @@
             flex
             justify-center
             container-tobuy-drawer
-            cho-container
           "
         >
-          <button class="">Comprar</button>
-        </div>
+          Comprar
+        </button>
       </div>
       <div
         v-show="showMessageDrawer"
@@ -367,6 +381,8 @@ export default {
       cart: [],
       finalResult: [],
       showFormat: false,
+      DialogToBuy: false,
+      response_id:'',
     }
   },
   // watch: {
@@ -416,8 +432,8 @@ export default {
         console.log('response API: ')
         console.log(response)
 
-        var id = response.data.id
-        console.log(id)
+        this.response_id = response.data.id
+        console.log(this.response_id)
 
         const mp = new MercadoPago(
           'TEST-32e01da3-6294-476b-adfd-004faa209766',
@@ -425,16 +441,33 @@ export default {
         )
         mp.checkout({
           preference: {
-            id: id,
+            id: this.response_id,
           },
           render: {
             container: '.cho-container',
             label: 'Pagar',
           },
         })
+
+        for (let i = this.finalResult.length; i > 0; i--) {
+          this.finalResult.pop()
+        }
+        this.DialogToBuy = true
       } catch {
         console.log('error.....')
       }
+    },
+    deleteBottom() {
+      let deleteElemet =
+        document.getElementsByClassName('mercadopago-button')[0]
+      console.log(deleteElemet)
+      deleteElemet.addEventListener('click', () => {
+        console.log('clic en mercado pago')
+        let nodo = document.getElementById('nodo')
+        if (nodo.lastChild != null) {
+          nodo.removeChild(nodo.lastChild)
+        }
+      })
     },
   },
   async created() {
@@ -443,8 +476,8 @@ export default {
       '--------------------------GET DRAWER-------------------------------'
     )
     try {
-      var format ={
-        valueFormat: false
+      var format = {
+        valueFormat: false,
       }
 
       var local = localStorage.getItem('books')
@@ -457,13 +490,12 @@ export default {
       console.log(
         '--------------------------ARRAY-------------------------------'
       )
-      this.getbook.forEach((book)=>{
+      this.getbook.forEach((book) => {
         this.getbook.push(Object.assign(book, format))
       })
 
       console.log('array:')
       console.log(this.getbook)
-      
     } catch (error) {
       console.log('error... Carrito vacio')
       this.showProductDrawer = false
