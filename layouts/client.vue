@@ -143,7 +143,11 @@
       </div>
       <div
         v-show="getbook.length == 0"
-        class="h-full overflow-x-hidden overflow-y-hidden container-drawer-vacio"
+        class="
+          h-full
+          overflow-x-hidden overflow-y-hidden
+          container-drawer-vacio
+        "
       >
         <el-empty
           class="h-full justify-center items-center"
@@ -386,11 +390,6 @@ export default {
       dialogPayment: false,
     }
   },
-  // watch: {
-  //   value: function (value) {
-  //     console.log(value)
-  //   }
-  // },
   methods: {
     openDrawer() {
       try {
@@ -444,27 +443,31 @@ export default {
         console.log('response API: ')
         console.log(response)
 
-        this.response_id = response.data.id
-        console.log(this.response_id)
+        if (response.data.data.status == 201) {
+          this.response_id = response.data.id
+          console.log(this.response_id)
 
-        const mp = new MercadoPago(
-          'TEST-32e01da3-6294-476b-adfd-004faa209766',
-          {
-            locale: 'es-AR',
+          const mp = new MercadoPago(
+            'TEST-32e01da3-6294-476b-adfd-004faa209766',
+            {
+              locale: 'es-AR',
+            }
+          )
+          mp.checkout({
+            preference: {
+              id: this.response_id,
+            },
+            render: {
+              container: '.cho-container',
+              label: 'Mercado Pago',
+            },
+          })
+
+          for (let i = this.finalResult.length; i > 0; i--) {
+            this.finalResult.pop()
           }
-        )
-        mp.checkout({
-          preference: {
-            id: this.response_id,
-          },
-          render: {
-            container: '.cho-container',
-            label: 'Mercado Pago',
-          },
-        })
-
-        for (let i = this.finalResult.length; i > 0; i--) {
-          this.finalResult.pop()
+        }else{
+          console.log('Se produjo un error en el servidor')
         }
       } catch (error) {
         console.log('error al abrir el dialogo')
