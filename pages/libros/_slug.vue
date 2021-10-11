@@ -152,7 +152,7 @@ export default {
       booksCard: [],
       user: [],
       comentary: '',
-      star:0
+      star: 0,
     }
   },
   methods: {
@@ -227,15 +227,15 @@ export default {
         console.log(this.user)
       }
 
-      this.books.commentaries.push({
+      this.books.commentaries = {
         name: this.user.name + ' ' + this.user.last_name,
-        commentaries: this.comentary,
-        star: this.star
-      })
+        comentary: this.comentary,
+        star: this.star,
+      }
 
       try {
-        this.$admin({
-          url: '/books/df/' + this.books._id,
+        this.$apidata({
+          url: '/books/' + this.books._id,
           method: 'put',
           data: this.books,
         })
@@ -260,8 +260,6 @@ export default {
         this.books = response.data.data
         // console.log(response.data.data.type.fisico)
       }
-
-      this.books.commentaries = new Array()
     } catch (error) {
       console.log(error)
     }
