@@ -127,10 +127,14 @@
               </div>
               <div class="pt-4 flex justify-center">
                 <div id="seeMore">
-                  <el-button @click="seeMore">ver más</el-button>
+                  <el-button @click="seeMore" class="seeMoreButton"
+                    >ver más</el-button
+                  >
                 </div>
                 <div id="seeLess" class="hidden">
-                  <el-button @click="seeLess">ver menos</el-button>
+                  <el-button @click="seeLess" class="seeLessButton"
+                    >ver menos</el-button
+                  >
                 </div>
               </div>
             </el-tab-pane>
@@ -182,7 +186,7 @@ export default {
       star: 0,
       valueButtom: true,
       seeMoreButton: [],
-      seeLessButton: []
+      seeLessButton: [],
     }
   },
   methods: {
@@ -281,12 +285,12 @@ export default {
         this.books.commentaries = []
 
         this.seeMoreButton = response.data.data.commentaries
-        this.seeLessButton = response.data.data.commentaries.reverse().slice(0, 5)
+        this.seeLessButton = response.data.data.commentaries
+          .reverse()
+          .slice(0, 5)
         this.books.commentaries = this.seeLessButton
 
-
         this.addcomentary = ''
-
       } catch (error) {
         console.log('error al agregar un comentario')
       }
@@ -299,19 +303,22 @@ export default {
       const seeLess = document.getElementById('seeLess')
       seeLess.classList.remove('hidden')
     },
-    seeLess(){
+    seeLess() {
       this.books.commentaries = this.seeLessButton
       const seeMore = document.getElementById('seeMore')
       seeMore.classList.remove('hidden')
 
       const seeLess = document.getElementById('seeLess')
       seeLess.classList.add('hidden')
-    }
+    },
   },
   watch: {
     addcomentary: function (value) {
-      if (value.length > 0) {
-        this.valueButtom = false
+      if (value.trim().length != 0) {
+        if(value.length > 0){
+          this.valueButtom = false
+        }
+        
       } else {
         this.valueButtom = true
       }
@@ -495,16 +502,30 @@ export default {
   font-weight: 500;
 }
 .button-comentary {
-  background: #5e20e4;
-  border: solid 1px #5e20e4;
+  background: var(--primary);
+  border: solid 1px var(--primary);
   color: #fff;
   font-weight: 500;
   border-radius: 1rem;
 }
 .button-comentary:hover {
-  background: #5e20e4;
-  border: solid 1px #5e20e4;
+  background: var(--primary);
+  border: solid 1px var(--primary);
   color: #fff;
   font-weight: 500;
+}
+.seeMoreButton {
+  border: solid 1px var(--primary);
+  color: var(--primary);
+}
+.seeMoreButton:hover{
+  background: #5e20e40f;
+}
+.seeLessButton {
+  border: solid 1px var(--primary);
+  color: var(--primary);
+}
+.seeLessButton:hover{
+  background: #5e20e40f;
 }
 </style>
