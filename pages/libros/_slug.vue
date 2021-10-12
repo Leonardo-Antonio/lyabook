@@ -125,7 +125,7 @@
                   <p>{{ comentary.comentary }}</p>
                 </div>
               </div>
-              <div class="pt-4 flex justify-center">
+              <div class="pt-4 flex justify-center" v-show="cant_category > 5">
                 <div id="seeMore">
                   <el-button @click="seeMore" class="seeMoreButton"
                     >ver más</el-button
@@ -187,6 +187,7 @@ export default {
       valueButtom: true,
       seeMoreButton: [],
       seeLessButton: [],
+      cant_category: 0
     }
   },
   methods: {
@@ -290,6 +291,7 @@ export default {
           .slice(0, 5)
         this.books.commentaries = this.seeLessButton
 
+        this.cant_category = this.seeMoreButton.length
         this.addcomentary = ''
       } catch (error) {
         console.log('error al agregar un comentario')
@@ -343,6 +345,8 @@ export default {
         console.log('categories: ')
         console.log(this.seeMoreButton)
         console.log(this.books.commentaries)
+
+        this.cant_category = this.seeMoreButton.length
       }
     } catch (error) {
       console.log(error)
