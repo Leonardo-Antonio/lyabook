@@ -463,6 +463,9 @@ export default {
             },
           })
 
+          console.log('------------------------------MP-------------------------')
+          console.log(mp)
+
           for (let i = this.finalResult.length; i > 0; i--) {
             this.finalResult.pop()
           }
