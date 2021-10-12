@@ -1,6 +1,15 @@
 <template>
   <div class="r-flex r-justify-center">
-    <div class="shadow_card flex justify-center items-center relative r-w90-important">
+    <div
+      class="
+        shadow_card
+        flex
+        justify-center
+        items-center
+        relative
+        r-w90-important
+      "
+    >
       <img class="absolute -right-20 -top-20" src="/images/book.svg" alt="" />
       <div>
         <div>
@@ -28,6 +37,7 @@
                   placeholder="Ingrese su password"
                   v-model="password"
                   show-password
+                  @keypress.native.enter="logIn"
                 />
                 <div>
                   <div>
@@ -75,14 +85,12 @@ export default {
           password: this.password,
         }
         try {
-          const response = await this.$credentials({
+          const { status } = await this.$credentials({
             url: '/users/log-in/email',
             method: 'post',
             data: data,
           })
-        } catch (error) {
-          console.log(error)
-        }
+        } catch (error) {}
       } else {
         if (this.email_dni.length === 8) {
           const data = {
@@ -90,7 +98,7 @@ export default {
             password: this.password,
           }
           try {
-            const response = await this.$credentials({
+            const { status } = await this.$credentials({
               url: '/users/log-in/dni',
               method: 'post',
               data: data,
