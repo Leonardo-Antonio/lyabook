@@ -275,11 +275,18 @@ export default {
           data: this.books,
         })
 
-        this.books = response.data.data
+        // this.books = response.data.data
+        this.seeMoreButton = []
+        this.seeLessButton = []
+        this.books.commentaries = []
+
+        this.seeMoreButton = response.data.data.commentaries
+        this.seeLessButton = response.data.data.commentaries.reverse().slice(0, 5)
+        this.books.commentaries = this.seeLessButton
+
 
         this.addcomentary = ''
 
-        // console.log(this.books)
       } catch (error) {
         console.log('error al agregar un comentario')
       }
