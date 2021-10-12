@@ -131,7 +131,7 @@
           <el-main>
             <div
               class="container-product flex justify-center"
-              v-show="showListProduct"
+              v-show="books.length != 0"
             >
               <div class="w-full">
                 <div>
@@ -220,12 +220,18 @@
               </div>
             </div>
 
-            <div v-show="showMessage" class="px-6">
-              <p>Ningún producto coincide.</p>
-            </div>
-
-            <div v-show="showMessageProduct" class="px-6">
-              <p>Vacio</p>
+            <div
+              v-show="books.length == 0"
+              class="
+                px-6
+                container-prod-vacio
+                w-full
+                flex
+                justify-center
+                align-center
+              "
+            >
+              <el-empty description="Vacío"></el-empty>
             </div>
           </el-main>
           <el-footer>
@@ -252,9 +258,6 @@ export default {
       value1: null,
 
       //-------------------------------VARIABLES
-      showListProduct: true,
-      showMessage: false,
-      showMessageProduct: false,
       showDrawer: false,
       // barra de precio
       value_barra: 0,
@@ -284,7 +287,7 @@ export default {
       console.log(item)
     },
     //------------------------------------PROCESO DEL FILTRADO
-    async filter(index, value, id_category) {
+    filter(index, value, id_category) {
       this.books = this.books.filter((book) =>
         book.categories.includes(id_category)
       )
@@ -317,10 +320,6 @@ export default {
         this.submaster_books = this.books
         console.log(this.submaster_books)
 
-        if (this.books.length == 0) {
-          this.showListProduct = false
-          this.showMessage = true
-        }
         this.value_category[index].active = !value
       } else {
         const position = this.ids.indexOf(id_category)
@@ -348,10 +347,6 @@ export default {
           this.books = this.master_books.filter(
             (book) => book.price_current <= this.value_barra
           )
-        }
-        if (this.books.length != 0) {
-          this.showListProduct = true
-          this.showMessage = false
         }
         this.value_category[index].active = !value
       }
@@ -429,9 +424,6 @@ export default {
         '++++++++++++++++++++++FILTRADO PRECIO+++++++++++++++++++++++++++++++'
       )
 
-      this.showListProduct = true
-      this.showMessage = false
-
       console.log(value)
 
       const cant_category = this.submaster_books.length
@@ -451,76 +443,96 @@ export default {
   },
   async created() {
     // -------------------------------------------Filtro Libro
-    const list_book = await this.$apidata({
-      url: '/books',
-      method: 'get',
-    })
-    this.books = list_book.data.data.filter((book) => book.active == true)
-    this.master_books = list_book.data.data.filter(
-      (book) => book.active == true
-    )
+    try {
+      const list_book = await this.$apidata({
+        url: '/books',
+        method: 'get',
+      })
+      if (list_book.status == 200) {
+        this.books = list_book.data.data.filter((book) => book.active == true)
+        this.master_books = list_book.data.data.filter(
+          (book) => book.active == true
+        )
 
-    if (this.books.length == 0) {
-      this.showMessageProduct = true
-      this.showListProduct = false
-    }
-    const maximos = []
-    const minimos = []
+        const maximos = []
+        const minimos = []
 
-    this.books.forEach((book) => {
-      const value = maximos.includes(book.price_current)
-      if (!value) {
-        maximos.push(book.price_current)
+        this.books.forEach((book) => {
+          const value = maximos.includes(book.price_current)
+          if (!value) {
+            maximos.push(book.price_current)
+          }
+        })
+
+        console.log('----------------------MAXIMO-------------------')
+        console.log(maximos)
+        var contador = 0
+        for (let i = 0; i < maximos.length; i++) {
+          if (maximos[i] > contador) {
+            contador = maximos[i]
+          }
+        }
+        console.log('----------------------MAX-------------------')
+
+        this.max = contador
+        console.log(this.max)
+
+        console.log('----------------------MINIMO-------------------')
+        console.log(maximos)
+        var contador_min = this.max
+        for (let i = 0; i < maximos.length; i++) {
+          if (maximos[i] < contador_min) {
+            contador_min = maximos[i]
+          }
+        }
+        console.log('----------------------MAX-------------------')
+
+        this.min = contador_min
+        console.log(this.min)
+
+        this.value_barra = this.max
+      } else {
+        console.log('Error en el servidor al obtener libros')
       }
-    })
-
-    console.log('----------------------MAXIMO-------------------')
-    console.log(maximos)
-    var contador = 0
-    for (let i = 0; i < maximos.length; i++) {
-      if (maximos[i] > contador) {
-        contador = maximos[i]
-      }
+    } catch (error) {
+      console.log('Error en el servidor - libros')
     }
-    console.log('----------------------MAX-------------------')
-
-    this.max = contador
-    console.log(this.max)
-
-    console.log('----------------------MINIMO-------------------')
-    console.log(maximos)
-    var contador_min = this.max
-    for (let i = 0; i < maximos.length; i++) {
-      if (maximos[i] < contador_min) {
-        contador_min = maximos[i]
-      }
-    }
-    console.log('----------------------MAX-------------------')
-
-    this.min = contador_min
-    console.log(this.min)
-
-    this.value_barra = this.max
 
     // -------------------------------------------Filtro Category
-    const category = await this.$apidata({
-      url: '/categories',
-      method: 'get',
-    })
-    this.categories = category.data.data
-    this.value_category = this.categories.filter(
-      (category) => category.active == true
-    )
+    try {
+      const category = await this.$apidata({
+        url: '/categories',
+        method: 'get',
+      })
+      if (category.status == 200) {
+        this.categories = category.data.data
+        this.value_category = this.categories.filter(
+          (category) => category.active == true
+        )
 
-    console.log('-----------------------------------------------------')
-    console.log(this.value_category)
+        console.log('-----------------------------------------------------')
+        console.log(this.value_category)
+      } else {
+        console.log('error en el servidor al obtener la categoria.')
+      }
+    } catch (error) {
+        console.log('error en el servidor - categoria.')
+    }
 
     // -------------------------------------------Filtro Editorial
-    const editorial = await this.$apidata({
-      url: '/editorial',
-      method: 'get',
-    })
-    this.editorial = editorial.data.data
+    try {
+      const editorial = await this.$apidata({
+        url: '/editorial',
+        method: 'get',
+      })
+      if (editorial.status == 200) {
+        this.editorial = editorial.data.data
+      } else {
+        console.log('Error en el servidor al obtener editorial')
+      }
+    } catch (error) {
+      console.log('Error en el servidor - editorial')
+    }
 
     //-------------------------------------------Book Cart
     console.log(

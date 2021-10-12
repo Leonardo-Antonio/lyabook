@@ -10,34 +10,69 @@
             <div class="cp-1">
               <div>
                 <p class="text-title">Nombre</p>
-                <p class="text-p mt-2">Pedro</p>
+                <div v-show="this.user.name != null">
+                  <p class="text-p mt-2">{{ this.user.name }}</p>
+                </div>
+                <div v-show="this.user.name == null">
+                  <p class="text-p mt-2">-</p>
+                </div>
               </div>
               <div class="mt-8">
                 <p class="text-title">Email</p>
-                <p class="text-p mt-2">pedrolopez@gmail.com</p>
+                <div v-show="this.user.email != null">
+                  <p class="text-p mt-2">{{ this.user.email }}</p>
+                </div>
+                <div v-show="this.user.email == null">
+                  <p class="text-p mt-2">-</p>
+                </div>
               </div>
               <div class="mt-8">
                 <p class="text-title">DNI</p>
-                <p class="text-p mt-2">12345678</p>
+                <div v-show="this.user.dni != null">
+                  <p class="text-p mt-2">{{ this.user.dni }}</p>
+                </div>
+                <div v-show="this.user.dni == null">
+                  <p class="text-p mt-2">-</p>
+                </div>
               </div>
               <div class="mt-8">
                 <p class="text-title">Fecha de nacimiento</p>
-                <p class="text-p mt-2">12 de enero 1996</p>
+                <div v-show="this.user.date != null">
+                  <p class="text-p mt-2">{{ this.user.date }}</p>
+                </div>
+                <div v-show="this.user.date == null">
+                  <p class="text-p mt-2">-</p>
+                </div>
               </div>
             </div>
             <div class="cp-2">
               <div>
                 <p class="text-title">Apellido</p>
-                <p class="text-p mt-2">Lopez</p>
+                <div v-show="this.user.last_name != null">
+                  <p class="text-p mt-2">{{ this.user.last_name }}</p>
+                </div>
+                <div v-show="this.user.last_name == null">
+                  <p class="text-p mt-2">-</p>
+                </div>
               </div>
               <div class="space"></div>
               <div class="mt-8">
                 <p class="text-title">Género</p>
-                <p class="text-p mt-2">Masculino</p>
+                <div v-show="this.user.genero != null">
+                  <p class="text-p mt-2">{{ this.user.genero }}</p>
+                </div>
+                <div v-show="this.user.genero == null">
+                  <p class="text-p mt-2">-</p>
+                </div>
               </div>
               <div class="mt-8">
                 <p class="text-title">Celular</p>
-                <p class="text-p mt-2">999 999 999</p>
+                <div v-show="this.user.number != null">
+                  <p class="text-p mt-2">{{ this.user.number }}</p>
+                </div>
+                <div v-show="this.user.number == null">
+                  <p class="text-p mt-2">-</p>
+                </div>
               </div>
             </div>
           </div>
@@ -72,7 +107,7 @@
 
         <div class="w-2/5" v-show="!showPassword">
           <div class="container-password container-restore px-12 pt-20 m-4">
-            <RestorePassword/>
+            <RestorePassword />
           </div>
         </div>
       </div>
@@ -112,12 +147,22 @@ import RestorePassword from './restore-password'
 export default {
   components: {
     EditProfile,
-    RestorePassword
+    RestorePassword,
   },
   data() {
     return {
       showEdit: true,
       showPassword: true,
+      //----------------------------------------------------
+      user: [],
+    }
+  },
+  created() {
+    console.log('-------------------------USER----------------------------')
+    var user = localStorage.getItem('user')
+    if (user != null) {
+      this.user = JSON.parse(user).user
+      console.log(this.user)
     }
   },
 }
@@ -146,8 +191,7 @@ export default {
   background: unset;
 }
 
-.container-restore{
+.container-restore {
   padding-bottom: 5.5rem;
 }
-
 </style>

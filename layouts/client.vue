@@ -49,6 +49,21 @@
         </div>
       </div>
     </div>
+
+    <el-dialog
+      title="Elegir método de pago:"
+      :visible.sync="dialogPayment"
+      width="30%"
+      @open="openDialog"
+      @close="closeDialog"
+      class="dialog-container-payment"
+    >
+      <div class="cho-container" id="nodo"></div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogPayment = false">Cancel</el-button>
+      </span>
+    </el-dialog>
+
     <el-drawer
       title="I am the title"
       :visible.sync="showDrawer"
@@ -57,17 +72,17 @@
       class="relative drawer-product"
     >
       <p class="text-center title-drawer">Carrito</p>
-      <div v-show="showProductDrawer">
+      <div v-show="getbook.length != 0">
         <div
           class="productDrawer pb-4 px-8"
           v-for="(gb, index) of getbook"
           :key="gb"
         >
           <div class="flex">
-            <div class="w-1/4">
+            <div class="" style="width: 30%">
               <img class="" :src="gb.images_src[0]" />
             </div>
-            <div class="pl-4" style="width: 70%">
+            <div class="pl-4" style="width: 65%">
               <div class="pb-2">
                 <p class="name-drawer">{{ gb.name }}</p>
                 <div class="flex items-center pt-2">
@@ -77,7 +92,20 @@
                   </p>
                 </div>
               </div>
-              <div v-show="gb.format == 'f' || gb.format == 'df'">
+              <div v-show="gb.format == 'df'">
+                <el-switch
+                  v-model="gb.valueFormat"
+                  active-color="#5E20E4"
+                  inactive-color="#021639"
+                  active-text="Físico"
+                  inactive-text="Digital"
+                >
+                </el-switch>
+              </div>
+              <div
+                v-show="gb.format == 'f' || gb.valueFormat == true"
+                class="mt-2"
+              >
                 <el-input-number
                   class="input input_number input-number-drawer"
                   v-model="gb.cant"
@@ -98,7 +126,7 @@
           </div>
         </div>
 
-        <div
+        <button
           id="btn_mercadoPago"
           @click="tobuy"
           class="
@@ -108,15 +136,18 @@
             flex
             justify-center
             container-tobuy-drawer
-            cho-container
           "
         >
-          <button class="">Comprar</button>
-        </div>
+          Comprar
+        </button>
       </div>
       <div
-        v-show="showMessageDrawer"
-        class="h-full overflow-x-hidden overflow-y-hidden"
+        v-show="getbook.length == 0"
+        class="
+          h-full
+          overflow-x-hidden overflow-y-hidden
+          container-drawer-vacio
+        "
       >
         <el-empty
           class="h-full justify-center items-center"
@@ -350,38 +381,42 @@ export default {
   data() {
     return {
       showDrawer: false,
-      showProductDrawer: false,
-      showMessageDrawer: false,
       getbook: '',
       cant: 0,
       cart: [],
       finalResult: [],
+      showFormat: false,
+      response_id: '',
+      dialogPayment: false,
     }
   },
   methods: {
     openDrawer() {
-      console.log('drawer abierto')
-      console.log(
-        '--------------------------GET DRAWER-------------------------------'
-      )
-      var local = localStorage.getItem('books')
-      if (local != null) {
-        this.getbook = JSON.parse(local)
+      try {
+        console.log('drawer abierto')
         console.log(
-          '--------------------------CART DRAWER-------------------------------'
+          '--------------------------GET DRAWER-------------------------------'
         )
-        this.showProductDrawer = true
-        this.showMessageDrawer = false
-      } else {
-        this.showProductDrawer = false
-        this.showMessageDrawer = true
+        var local = localStorage.getItem('books')
+        if (local != null) {
+          this.getbook = JSON.parse(local)
+          console.log(
+            '--------------------------CART DRAWER-------------------------------'
+          )
+        }
+      } catch (error) {
+        console.log('error al abrir el drawer')
       }
     },
     DeleteElement(position) {
-      this.getbook.splice(position, 1)
-      localStorage.setItem('books', JSON.stringify(this.getbook))
+      try {
+        this.getbook.splice(position, 1)
+        localStorage.setItem('books', JSON.stringify(this.getbook))
+      } catch (error) {
+        console.log('error al eliminar elemento')
+      }
     },
-    async tobuy() {
+    tobuy() {
       try {
         this.getbook.forEach((book) => {
           var books = {
@@ -392,6 +427,14 @@ export default {
           this.finalResult.push(books)
         })
 
+        this.dialogPayment = true
+      } catch {
+        console.log('error al comprar')
+      }
+    },
+    async openDialog() {
+      try {
+        console.log('el dialog se abrio')
         const response = await this.$apidata({
           url: '/orders',
           method: 'post',
@@ -400,24 +443,45 @@ export default {
         console.log('response API: ')
         console.log(response)
 
-        var id = response.data.id
-        console.log(id)
+        if (response.data.data.status == 201) {
+          this.response_id = response.data.id
+          console.log(this.response_id)
 
-        const mp = new MercadoPago(
-          'TEST-32e01da3-6294-476b-adfd-004faa209766',
-          { locale: 'es-AR' }
-        )
-        mp.checkout({
-          preference: {
-            id: id,
-          },
-          render: {
-            container: '.cho-container',
-            label: 'Pagar',
-          },
-        })
-      } catch {
-        console.log('error.....')
+          const mp = new MercadoPago(
+            'TEST-32e01da3-6294-476b-adfd-004faa209766',
+            {
+              locale: 'es-AR',
+            }
+          )
+          mp.checkout({
+            preference: {
+              id: this.response_id,
+            },
+            render: {
+              container: '.cho-container',
+              label: 'Mercado Pago',
+            },
+          })
+
+          for (let i = this.finalResult.length; i > 0; i--) {
+            this.finalResult.pop()
+          }
+        }else{
+          console.log('Se produjo un error en el servidor')
+        }
+      } catch (error) {
+        console.log('error al abrir el dialogo')
+      }
+    },
+    closeDialog() {
+      try {
+        console.log('el dialog se cerro')
+        let nodo = document.getElementById('nodo')
+        if (nodo.lastChild != null) {
+          nodo.removeChild(nodo.lastChild)
+        }
+      } catch (error) {
+        console.log('error al cerrar el dialogo')
       }
     },
   },
@@ -427,23 +491,26 @@ export default {
       '--------------------------GET DRAWER-------------------------------'
     )
     try {
+      var format = {
+        valueFormat: false,
+      }
+
       var local = localStorage.getItem('books')
       if (local != null) {
         this.getbook = JSON.parse(local)
-        this.showProductDrawer = true
-        this.showMessageDrawer = false
       }
 
       console.log(
         '--------------------------ARRAY-------------------------------'
       )
+      this.getbook.forEach((book) => {
+        this.getbook.push(Object.assign(book, format))
+      })
+
       console.log('array:')
       console.log(this.getbook)
-
     } catch (error) {
       console.log('error... Carrito vacio')
-      this.showProductDrawer = false
-      this.showMessageDrawer = true
     }
   },
 }
