@@ -125,6 +125,14 @@
                   <p>{{ comentary.comentary }}</p>
                 </div>
               </div>
+              <div class="pt-4 flex justify-center">
+                <div id="seeMore">
+                  <el-button @click="seeMore">ver más</el-button>
+                </div>
+                <div id="seeLess" class="hidden">
+                  <el-button @click="seeLess">ver menos</el-button>
+                </div>
+              </div>
             </el-tab-pane>
             <el-tab-pane label="Detalle" name="third">
               <div v-for="item in books.details" :key="item">- {{ item }}</div>
@@ -173,6 +181,8 @@ export default {
       addcomentary: '',
       star: 0,
       valueButtom: true,
+      seeMoreButton: [],
+      seeLessButton: []
     }
   },
   methods: {
@@ -265,7 +275,7 @@ export default {
           data: this.books,
         })
 
-        this.books = response.data.data 
+        this.books = response.data.data
 
         this.addcomentary = ''
 
@@ -274,6 +284,22 @@ export default {
         console.log('error al agregar un comentario')
       }
     },
+    seeMore() {
+      this.books.commentaries = this.seeMoreButton
+      const seeMore = document.getElementById('seeMore')
+      seeMore.classList.add('hidden')
+
+      const seeLess = document.getElementById('seeLess')
+      seeLess.classList.remove('hidden')
+    },
+    seeLess(){
+      this.books.commentaries = this.seeLessButton
+      const seeMore = document.getElementById('seeMore')
+      seeMore.classList.remove('hidden')
+
+      const seeLess = document.getElementById('seeLess')
+      seeLess.classList.add('hidden')
+    }
   },
   watch: {
     addcomentary: function (value) {
@@ -296,7 +322,13 @@ export default {
       console.log('---------------------------book interna')
       if (response.status == 200) {
         this.books = response.data.data
-        // console.log(response.data.data.type.fisico)
+        this.seeMoreButton = response.data.data.commentaries
+        this.seeLessButton = this.books.commentaries.reverse().slice(0, 5)
+        this.books.commentaries = this.seeLessButton
+
+        console.log('categories: ')
+        console.log(this.seeMoreButton)
+        console.log(this.books.commentaries)
       }
     } catch (error) {
       console.log(error)
