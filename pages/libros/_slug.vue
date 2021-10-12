@@ -96,15 +96,34 @@
             <el-tab-pane label="Comentarios" name="second">
               <div class="flex">
                 <el-input
-                  placeholder="Agrega un comentario"
-                  v-model="comentary"
+                  placeholder="Agrega un comentario..."
+                  v-model="addcomentary"
                   clearable
+                  class="input mr-4"
                 ></el-input>
-                <button class="ml-2" @click="addComentary">Agregar</button>
+                <el-button
+                  id="btnComentary"
+                  class="ml-2 px-4 button-comentary"
+                  @click="addComentary"
+                  :disabled="valueButtom"
+                >
+                  Comentar
+                </el-button>
               </div>
               <div class="flex mb-4 mt-4">
                 <p>Calificar:</p>
                 <el-rate class="star pl-4" v-model="star"></el-rate>
+              </div>
+
+              <div
+                v-for="comentary in books.commentaries"
+                :key="comentary"
+                class="pt-2"
+              >
+                <div class="container-comentary">
+                  <p class="comentary-name">{{ comentary.name }}</p>
+                  <p>{{ comentary.comentary }}</p>
+                </div>
               </div>
             </el-tab-pane>
             <el-tab-pane label="Detalle" name="third">
@@ -151,8 +170,9 @@ export default {
       books: {},
       booksCard: [],
       user: [],
-      comentary: '',
+      addcomentary: '',
       star: 0,
+      valueButtom: true,
     }
   },
   methods: {
@@ -220,30 +240,48 @@ export default {
         })
       }
     },
-    addComentary() {
-      var user = localStorage.getItem('user')
-      if (user != null) {
-        this.user = JSON.parse(user).user
-        console.log(this.user)
-      }
-
-      this.books.commentaries = {
-        name: this.user.name + ' ' + this.user.last_name,
-        comentary: this.comentary,
-        star: this.star,
-      }
-
+    async addComentary() {
       try {
-        this.$apidata({
+        var user = localStorage.getItem('user')
+        if (user != null) {
+          this.user = JSON.parse(user).user
+        }
+
+        this.books.commentaries = {
+          name: this.user.name + ' ' + this.user.last_name,
+          comentary: this.addcomentary,
+          star: this.star,
+        }
+
+        await this.$apidata({
           url: '/books/' + this.books._id,
           method: 'put',
           data: this.books,
         })
-      } catch {
-        console.log('error.....')
-      }
 
-      console.log(this.books)
+        var response = await this.$apidata({
+          url: '/books/' + this.books.slug,
+          method: 'get',
+          data: this.books,
+        })
+
+        this.books = response.data.data 
+
+        this.addcomentary = ''
+
+        // console.log(this.books)
+      } catch (error) {
+        console.log('error al agregar un comentario')
+      }
+    },
+  },
+  watch: {
+    addcomentary: function (value) {
+      if (value.length > 0) {
+        this.valueButtom = false
+      } else {
+        this.valueButtom = true
+      }
     },
   },
   // search autocomplete
@@ -408,5 +446,26 @@ export default {
 
 .location {
   width: 80%;
+}
+.container-comentary {
+  background: #f0f0ff;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+.container-comentary .comentary-name {
+  font-weight: 500;
+}
+.button-comentary {
+  background: #5e20e4;
+  border: solid 1px #5e20e4;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 1rem;
+}
+.button-comentary:hover {
+  background: #5e20e4;
+  border: solid 1px #5e20e4;
+  color: #fff;
+  font-weight: 500;
 }
 </style>
