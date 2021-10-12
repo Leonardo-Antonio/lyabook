@@ -11,7 +11,7 @@
       alt="circle_quadrate"
     />
 
-    <div class="absolute bottom-5 left-8 z-50">
+    <div class="r-see absolute bottom-5 left-8 z-50 hidden">
       <div class="flex flex-row">
         <div class="w-28 bg_second rounded-2xl">
           <nuxt-link
