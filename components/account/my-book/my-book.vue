@@ -51,7 +51,66 @@
 <script>
 export default {
   data() {
-    return {}
+    return {
+      user: [],
+      products:[]
+    }
+  },
+  async created() {
+    if (this.$route.query.status != null && this.$route.query.status == 'approved') {
+
+      await this.$axios
+        .get(`${'https://api.mercadopago.com/v1/payments/' + this.$route.query.payment_id}`,{
+            headers: {
+              Authorization:
+                'Bearer TEST-6706525738118846-082101-03ee4a59346a45ff4f27a6f2eb905cf4-775792906',
+            },
+          }
+        )
+        .then((res) => {
+          res.data.additional_info.items.forEach(data => {
+            var product = {
+              id_payment: data.id,
+              title: data.title,
+              unit_price: parseFloat(data.unit_price), 
+              quantity: parseInt(data.quantity),
+              description: data.description
+            }
+            this.products.push(product)
+            
+          })
+          
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+
+      
+      var user = localStorage.getItem('user')
+      if (user != null) {
+        this.user = JSON.parse(user).user
+      }
+
+      var body = {
+        id_client: this.user._id,
+        payment_id: this.$route.query.payment_id,
+        status: this.$route.query.status,
+        products: this.products,
+        active: true
+      }
+
+      const response = await this.$apidata({
+        url: '/payments/',
+        method: 'post',
+        data: body
+      })
+
+      console.log('***********************RESPONSE API***********************')
+      if(response.data.error == false){
+        console.log('se registro correctamente')
+        this.$router.replace({'query': null})
+      }
+    }
   },
 }
 </script>
