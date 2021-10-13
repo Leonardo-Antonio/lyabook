@@ -419,12 +419,31 @@ export default {
     tobuy() {
       try {
         this.getbook.forEach((book) => {
+          var change = false
+          if(book.format == 'df'){
+            change = true
+            if(book.valueFormat == null || book.valueFormat == false){
+              book.format = 'd'
+              book.cant = 1
+            }else{
+              book.format = 'f'
+            }
+          }
+
           var books = {
             title: book.name,
             unit_price: book.price_current,
             quantity: book.cant,
+            description: book.format
           }
+          
           this.finalResult.push(books)
+
+          if(change){
+            book.format = 'df'
+          }
+
+
         })
 
         this.dialogPayment = true
@@ -434,6 +453,11 @@ export default {
     },
     async openDialog() {
       try {
+        console.log('FINAL RESULT-----------------------------')
+        this.finalResult.forEach((final)=>{
+          console.log(final)
+        })
+
         console.log('el dialog se abrio')
         const response = await this.$apidata({
           url: '/orders',
@@ -463,9 +487,6 @@ export default {
             },
           })
 
-          console.log('------------------------------MP-------------------------')
-          console.log(mp)
-
           for (let i = this.finalResult.length; i > 0; i--) {
             this.finalResult.pop()
           }
@@ -487,6 +508,10 @@ export default {
         console.log('error al cerrar el dialogo')
       }
     },
+    switchChange(value){
+      console.log('-----------------------SWITCH--------------------------')
+      console.log(value)
+    }
   },
   async created() {
     //--------------------------------------------DRAWER
