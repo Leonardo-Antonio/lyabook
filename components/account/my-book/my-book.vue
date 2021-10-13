@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="item of [2, 3, 4, 5, 6, 7, 8]" :key="item" class="pb-2">
+    <div v-for="item of my_books" :key="item" class="pb-2">
       <div class="flex">
         <div class="container-my-books p-6 m-4 w-full">
           <div class="flex">
@@ -9,15 +9,14 @@
             </div>
             <div class="container-star">
               <div class="h-1/2">
-                <p class="title-primary">Autor: Kiera Cass</p>
-                <p class="title-book pt-4">Memory - Lyabook</p>
+                <p class="title-primary">Autor: {{item.author}}</p>
+                <p class="title-book pt-4">{{item.name}}</p>
               </div>
               <div class="h-1/2 pt-4">
                 <p class="title-primary">Categoria</p>
                 <!-- <div v-for="item of [2, 3, 4, 5, 6, 7, 8]" :key="item" class="pl-4 pb-8"></div> -->
-                <div class="flex pt-4">
-                  <p class="name-category w-1/2">Romance</p>
-                  <p class="name-category w-1/2">Comedia</p>
+                <div class="flex pt-4" v-for="category of item.categories" :key="category">
+                  <p class="name-category w-1/2">{{category}}</p>
                 </div>
               </div>
             </div>
@@ -53,12 +52,23 @@ export default {
   data() {
     return {
       user: [],
-      products:[]
+      products:[],
+      slug: [],
+      my_books: []
     }
   },
   async created() {
-    if (this.$route.query.status != null && this.$route.query.status == 'approved') {
 
+    //--------------------------------GET USER---------------------------------
+
+    var user = localStorage.getItem('user') 
+    if (user != null) {
+      this.user = JSON.parse(user).user
+    }
+
+    //--------------------------------PAYMENT-----------------------------------------------
+
+    if (this.$route.query.status != null && this.$route.query.status == 'approved') {
       await this.$axios
         .get(`${'https://api.mercadopago.com/v1/payments/' + this.$route.query.payment_id}`,{
             headers: {
@@ -85,12 +95,6 @@ export default {
           console.error(error)
         })
 
-      
-      var user = localStorage.getItem('user')
-      if (user != null) {
-        this.user = JSON.parse(user).user
-      }
-
       var body = {
         id_client: this.user._id,
         payment_id: this.$route.query.payment_id,
@@ -105,12 +109,39 @@ export default {
         data: body
       })
 
-      console.log('***********************RESPONSE API***********************')
       if(response.data.error == false){
-        console.log('se registro correctamente')
         this.$router.replace({'query': null})
       }
     }
+
+    //--------------------------------GET PAYMENT BY CLIENT---------------------------------
+      console.log('***********************RESPONSE API***********************')
+      const getPayCli = await this.$apidata({
+        url: '/payments/' + this.user._id,
+        method: 'get'
+      })
+
+      if(getPayCli.data.error == false){
+        getPayCli.data.data.forEach(data => {
+          data.products.forEach(product => {
+            this.slug.push(product.id_payment)
+          })
+        })
+      }
+
+      if(this.slug.length > 0){
+        this.slug.forEach(async slug => {
+          const book = await this.$apidata({
+            url: '/books/'+ slug,
+            method: 'get',
+          })
+          if(book.data.error == false){
+            this.my_books.push(book.data.data)
+          }
+        })
+      }
+
+      console.log(this.my_books)
   },
 }
 </script>
