@@ -431,7 +431,7 @@ export default {
           }
 
           var books = {
-            id: book._id,
+            id: book.slug,
             title: book.name,
             unit_price: book.price_current,
             quantity: book.cant,
