@@ -68,7 +68,7 @@ export default {
 
     //--------------------------------PAYMENT-----------------------------------------------
 
-    if (this.$route.query.status != null && this.$route.query.status == 'approved') {
+    if ((this.$route.query.status != null && this.$route.query.status == 'approved')||(this.$route.query.status != null && this.$route.query.status == 'in_process')) {
       await this.$axios
         .get(`${'https://api.mercadopago.com/v1/payments/' + this.$route.query.payment_id}`,{
             headers: {
