@@ -9,29 +9,38 @@
             </div>
             <div class="container-star">
               <div class="h-1/2">
-                <p class="title-primary">Autor: {{item.author}}</p>
-                <p class="title-book pt-4">{{item.name}}</p>
+                <p class="title-primary">Autor: {{item.id_payment}}</p>
+                <p class="title-book pt-2">{{item.title}}</p>
               </div>
-              <div class="h-1/2 pt-4">
-                <p class="title-primary">Categoria</p>
-                <!-- <div v-for="item of [2, 3, 4, 5, 6, 7, 8]" :key="item" class="pl-4 pb-8"></div> -->
-                <div class="flex pt-4" v-for="category of item.categories" :key="category">
-                  <p class="name-category w-1/2">{{category}}</p>
+              <div class="h-1/2 pt-6">
+                <p class="title-primary">Formato</p>
+                <div class=" pt-2" v-show="item.description == 'd'">
+                  <p class="title-book  w-1/2">Digital</p>
+                </div>
+                <div class=" pt-2" v-show="item.description == 'f'" >
+                  <p class="title-book  w-1/2">Físico</p>
                 </div>
               </div>
             </div>
             <div class="w-1/4">
-              <div>
-                <p class="title-primary">Estrellas:</p>
+              <div class="h-1/3">
+                <p class="title-primary">Precio Unitario:</p>
+                <p class="name-category pt-2">S/.{{item.unit_price}}</p>
               </div>
-              <div class="block pt-4 start-container">
-                <el-rate v-model="value1"></el-rate>
+              <div class="h-1/3">
+                <p class="title-primary">Cantidad:</p>
+                <p class="name-category pt-2">S/.{{item.quantity}}</p>
               </div>
+              <div class="h-1/3">
+                <p class="title-primary">Total:</p>
+                <p class="name-category pt-2">S/.{{item.unit_price * item.quantity}}</p>
+              </div>
+              
             </div>
             <div class="w-1/4 flex justify-end">
               <div class="relative h-full">
                 <div class="">
-                  <p class="fecha p-2 px-6">6 de Agosto del 2020</p>
+                  <p class="fecha p-2 px-6">{{new Date(item.created_at).toLocaleString() }}</p>
                 </div>
                 <div class="absolute -bottom-0 right-px">
                   <a href="#" class="p-comentary">Ver comentarios</a>
@@ -78,13 +87,16 @@ export default {
           }
         )
         .then((res) => {
+          console.log(res.data.additional_info.items)
           res.data.additional_info.items.forEach(data => {
             var product = {
               id_payment: data.id,
               title: data.title,
               unit_price: parseFloat(data.unit_price), 
               quantity: parseInt(data.quantity),
-              description: data.description
+              description: data.description,
+              picture_url: data.picture_url,
+              category_id: data.category_id
             }
             this.products.push(product)
             
@@ -124,24 +136,19 @@ export default {
       if(getPayCli.data.error == false){
         getPayCli.data.data.forEach(data => {
           data.products.forEach(product => {
-            this.slug.push(product.id_payment)
+            console.log('PRODUCT-----------------')
+            data={
+              created_at: data.created_at
+            }
+            Object.assign(product, data)
+            this.my_books.push(product)
+
           })
         })
       }
-
-      if(this.slug.length > 0){
-        this.slug.forEach(async slug => {
-          const book = await this.$apidata({
-            url: '/books/'+ slug,
-            method: 'get',
-          })
-          if(book.data.error == false){
-            this.my_books.push(book.data.data)
-          }
-        })
-      }
-
+      
       console.log(this.my_books)
+
   },
 }
 </script>

@@ -420,6 +420,7 @@ export default {
       try {
         this.getbook.forEach((book) => {
           var change = false
+          var type = ''
           if(book.format == 'df'){
             change = true
             if(book.valueFormat == null || book.valueFormat == false){
@@ -430,12 +431,20 @@ export default {
             }
           }
 
+          if(book.format == 'd'){
+            type = book.type.digital.src
+          }else{
+            type = book.type.fisico.log + ' ' + book.type.fisico.lat
+          }
+
           var books = {
-            id: book.slug,
+            id: book.author,
             title: book.name,
             unit_price: book.price_current,
             quantity: book.cant,
-            description: book.format
+            description: book.format,
+            picture_url: book.images_src[0],
+            category_id: type
           }
           
           this.finalResult.push(books)
@@ -448,6 +457,8 @@ export default {
         })
 
         this.dialogPayment = true
+        console.log('---------------------FINAL RESULT---------------------')
+        console.log(this.finalResult)
       } catch {
         console.log('error al comprar')
       }
