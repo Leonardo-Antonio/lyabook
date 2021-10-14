@@ -195,7 +195,6 @@
   background: #5e20e4;
   border-color: #5e20e4;
   width: 10rem;
-  margin-top: 2rem !important;
 }
 .portada-book {
   height: 10rem;
@@ -404,9 +403,10 @@
 }
 
 .btn_readBook:hover {
-  background-color: #021639;
-  border-color: #021639;
-  transition: all 0.3s;
+  background-color: var(--secundary);
+  border-color: var(--primary);
+  color: var(--primary);
+  transition: all 0.4s;
 }
 
 .el-form-item__label {

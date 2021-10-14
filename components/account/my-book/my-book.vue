@@ -5,10 +5,10 @@
         <div class="container-my-books p-6 m-4 w-full">
           <div class="flex">
             <div class="w-1/5">
-              <img class="portada-book" src="/images/portada-la-corona.jpg" />
+              <img class="portada-book" :src="item.picture_url" />
             </div>
             <div class="container-star">
-              <div class="h-1/2">
+              <div class="h-1/2 pr-4">
                 <p class="title-primary">Autor: {{item.id_payment}}</p>
                 <p class="title-book pt-2">{{item.title}}</p>
               </div>
@@ -38,14 +38,26 @@
               
             </div>
             <div class="w-1/4 flex justify-end">
-              <div class="relative h-full">
-                <div class="">
+              <div class="h-full">
+                <div class="h-1/3">
                   <p class="fecha p-2 px-6">{{new Date(item.created_at).toLocaleString() }}</p>
                 </div>
-                <div class="absolute -bottom-0 right-px">
-                  <a href="#" class="p-comentary">Ver comentarios</a>
+                <div class="h-1/3">
+                  <div v-show="item.status == 'approved'">
+                    <p class="parrafo-status text-center">Aprobado</p>
+                  </div>
+                  <div v-show="item.status == 'in_process'">
+                    <p class="parrafo-status text-center">En proceso</p>
+                  </div>
+                </div>
+                <div class="h-1/3" v-show="item.description == 'd'">
                   <el-button class="btn_readBook" type="primary"
                     >Leer Libro</el-button
+                  >
+                </div>
+                <div class="h-1/3" v-show="item.description == 'f'">
+                  <el-button class="btn_readBook" type="primary"
+                    >Ver ubicación</el-button
                   >
                 </div>
               </div>
@@ -138,7 +150,8 @@ export default {
           data.products.forEach(product => {
             console.log('PRODUCT-----------------')
             data={
-              created_at: data.created_at
+              created_at: data.created_at,
+              status: data.status
             }
             Object.assign(product, data)
             this.my_books.push(product)
@@ -152,3 +165,15 @@ export default {
   },
 }
 </script>
+<style scoped>
+.parrafo-status{
+    background: var(--second);
+    color: var(--secundary);
+    padding: .2rem 0 .2rem 0rem;
+    border-radius: 7px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+}
+</style>
