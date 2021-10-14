@@ -164,13 +164,16 @@ export default {
 
             if(res.data.status != data.status && data.status != null){
               console.log("Son diferentes")
+              var status ={
+                status: res.data.status
+              }
               const validate_status = await this.$apidata({
                 url: '/payments/' + data._id,
                 method: 'put',
-                data: res.data.status
+                data: status
               })
               console.log(data._id)
-              console.log(res.data.status)
+              console.log(status)
               console.log(validate_status)
             }
 
