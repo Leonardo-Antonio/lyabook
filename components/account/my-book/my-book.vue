@@ -146,13 +146,47 @@ export default {
       })
 
       if(getPayCli.data.error == false){
-        getPayCli.data.data.forEach(data => {
+        getPayCli.data.data.forEach(async data => {
+          await this.$axios
+          .get('https://api.mercadopago.com/v1/payments/'+ data.payment_id,{
+              headers: {
+                Authorization:
+                  'Bearer TEST-6706525738118846-082101-03ee4a59346a45ff4f27a6f2eb905cf4-775792906',
+              },
+            }
+          )
+          .then(async (res) => {
+            console.log('CONSULTAR PAGO')
+            console.log(res.data.status)
+            console.log('CONSULTAR PAGO - MI API')
+            console.log(data.status)
+    //--------------------------------VALIDATE STATUS---------------------------------         
+
+            if(res.data.status != data.status && data.status != null){
+              console.log("Son diferentes")
+              const validate_status = await this.$apidata({
+                url: '/payments/' + data._id,
+                method: 'put',
+                data: res.data.status
+              })
+              console.log(data._id)
+              console.log(res.data.status)
+              console.log(validate_status)
+            }
+
+            
+          })
+          .catch((error) => {
+            console.error(error)
+          })
+
+    //--------------------------------ADD ARRAY LIST---------------------------------         
           data.products.forEach(product => {
-            console.log('PRODUCT-----------------')
             data={
               created_at: data.created_at,
               status: data.status
             }
+            
             Object.assign(product, data)
             this.my_books.push(product)
 
@@ -161,6 +195,9 @@ export default {
       }
       
       console.log(this.my_books)
+    //--------------------------------CONSULT PAYMENT---------------------------------
+
+      
 
   },
 }
