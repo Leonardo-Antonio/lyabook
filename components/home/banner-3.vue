@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <p class="title-banner pb-16">Libros destacados</p>
+      <p class="title-banner pb-16">Libros recomendados</p>
       <div class="container-home flex justify-center">
         <div class="container-banner-3">
           <el-carousel :interval="4000" type="card">
@@ -26,7 +26,7 @@
               <div class="w-full container-bottom h-1/2">
                 <div class="flex justify-between p-4">
                   <p class="parrafo-home" style="text-transform: uppercase">
-                    LIBROS MAS COMPRADOS
+                    LIBROS RECOMENDADOS
                   </p>
                   <div v-show="item.format == 'df'">
                     <p class="parrafo-home">Digital y Físico</p>
@@ -45,7 +45,8 @@
                     class="btn-comp btn_add_size w-full"
                     type="primary"
                     round
-                    >Comprar</el-button
+                    @click="addCart(item)"
+                    >Agregar al carrito</el-button
                   >
                 </div>
               </div>
@@ -60,7 +61,42 @@
 export default {
   data() {
     return {
-      books:[]
+      books:[],
+      booksCard: []
+    }
+  },
+  methods:{
+    addCart(books){
+      console.log('*******************AGREGAR AL CARRITO***************************')
+      console.log(books)
+      //-----------------------------------------------------------------------------
+
+      var local = localStorage.getItem('books')
+      if (local != null) {
+        this.booksCard = JSON.parse(local)
+      }
+
+      let cant = {
+        cant: 1,
+      }
+
+      this.booksCard.push(Object.assign(books, cant))
+      var validate = this.booksCard.filter((book) => book._id == books._id)
+
+      console.log(this.booksCard)
+
+      if (validate.length == 1) {
+        console.log('Agregado')
+        localStorage.setItem('books', JSON.stringify(this.booksCard))
+      } else {
+        console.log('Ya fue Agregado')
+        this.booksCard.pop()
+        console.log('-------------------------------------------------')
+        this.$message({
+          type: 'info',
+          message: 'El libro ya fue agregado al carrito.',
+        })
+      }
     }
   },
   async created(){
@@ -69,8 +105,21 @@ export default {
       method: 'get'
     })
     console.log('---------------------------------Libros destacados------------------------------')
+    response.data.data.forEach(res => {
+      res.description = res.description.slice(0, 200) + '...'
+    })
     this.books = response.data.data.slice(0, 5)
-    console.log(this.books)
+
+    //-------------------------------------------Book Cart-------------------------------------------
+    // console.log(
+    //   '-------------------------Book Cart----------------------------'
+    // )
+    var local = localStorage.getItem('books')
+    if (local != null) {
+      this.booksCard = JSON.parse(local)
+    }
+
+    // console.log(this.booksCard)
   }
 }
 </script>
@@ -112,7 +161,7 @@ export default {
   font-style: normal;
   font-weight: 600;
   font-size: 19px;
-  line-height: 30px;
+  line-height: 20px;
   color: #fff;
 }
 .sipnosis-product-home {
