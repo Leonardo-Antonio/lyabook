@@ -806,6 +806,7 @@ export default {
 }
 .container-login{
   box-shadow: 0px 4px 20px #5e20e340;
+  border-radius: 7px;
 }
 
 .button-log:hover{
