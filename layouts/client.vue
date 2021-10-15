@@ -34,7 +34,12 @@
               >
             </div>
             <div class="icon-login">
-              <box-icon name="user"></box-icon>
+              <div>
+                <box-icon
+                  name="user"
+                  @click="showLogin = !showLogin"
+                ></box-icon>
+              </div>
             </div>
             <div class="icon-shopping-cart">
               <box-icon
@@ -48,6 +53,21 @@
       </div>
     </div>
 
+    <div v-show="showLogin" class="relative">
+      <div class="absolute bottom-0 right-1/4 top-0.5 z-10 w-1/6">
+        <div class="container-login p-2 flex flex-col">
+          <nuxt-link :to="`/login`">
+            <el-button class="w-full button-log">Log In</el-button>
+          </nuxt-link>
+          <nuxt-link :to="`/sign-up/dni`">
+          <el-button class="w-full button-log" style="margin-top: .5rem;">Registrate por DNI</el-button>
+          </nuxt-link>
+          <nuxt-link :to="`/sign-up/email`">
+            <el-button class="w-full button-log" style="margin-top: .5rem;">Registrate por email y contraseña</el-button>
+          </nuxt-link>
+        </div>
+      </div>
+    </div>
     <el-dialog
       title="Elegir método de pago:"
       :visible.sync="dialogPayment"
@@ -386,6 +406,7 @@ export default {
       showFormat: false,
       response_id: '',
       dialogPayment: false,
+      showLogin: false,
 
       //--------------------------------------AUTOCOMPLETE----------------------------------
       links: [],
@@ -552,13 +573,13 @@ export default {
 
     var response = await this.$apidata({
       url: '/books/',
-       method: 'get',
+      method: 'get',
     })
     console.log('RESPONSE BOOKS')
-    response.data.data.forEach(res =>{
+    response.data.data.forEach((res) => {
       var book = {
         value: res.name,
-        slug: res.slug
+        slug: res.slug,
       }
       books.push(book)
     })
@@ -783,4 +804,20 @@ export default {
   line-height: 22px;
   color: #5e20e4;
 }
+.container-login{
+  box-shadow: 0px 4px 20px #5e20e340;
+}
+
+.button-log:hover{
+  color: var(--primary);
+  background: var(--secundary);
+}
+
+.button-log{
+  border: unset;
+  color: #5e20e3a1;
+  height: 3rem;
+  font-family: Roboto;
+}
+
 </style>
