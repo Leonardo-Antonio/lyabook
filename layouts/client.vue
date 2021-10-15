@@ -18,8 +18,9 @@
               <el-autocomplete
                 v-model="state"
                 :fetch-suggestions="querySearchAsync"
-                placeholder="Please input"
+                placeholder="Busca un libro..."
                 @select="handleSelect"
+                class="input-search-autocomplete"
               ></el-autocomplete>
             </div>
             <div class="enlaces-header">
