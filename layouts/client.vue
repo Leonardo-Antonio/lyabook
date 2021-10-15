@@ -10,7 +10,9 @@
           <!-- header -->
           <div class="flex items-center justify-center px-2">
             <div class="image-logo">
-              <img src="/images/LyaBook.svg" width="40%" />
+              <nuxt-link :to="`/`">
+                <img src="/images/LyaBook.svg" width="40%" />
+              </nuxt-link>
             </div>
             <div class="search-autocomplete">
               <el-autocomplete
@@ -18,16 +20,12 @@
                 :fetch-suggestions="querySearchAsync"
                 placeholder="Please input"
                 @select="handleSelect"
-                class="input-search-autocomplete"
-                style="border-color: #021639 !important"
-                aria-placeholder="aaaaaaaa"
               ></el-autocomplete>
             </div>
             <div class="enlaces-header">
-              <a
-                href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"
-                ><h1>Libros</h1></a
-              >
+              <nuxt-link :to="`/libros/`">
+                <h1>Libros</h1>
+              </nuxt-link>
             </div>
             <div class="enlaces-header">
               <a
@@ -388,6 +386,11 @@ export default {
       showFormat: false,
       response_id: '',
       dialogPayment: false,
+
+      //--------------------------------------AUTOCOMPLETE----------------------------------
+      links: [],
+      state: '',
+      timeout: null,
     }
   },
   methods: {
@@ -421,19 +424,19 @@ export default {
         this.getbook.forEach((book) => {
           var change = false
           var type = ''
-          if(book.format == 'df'){
+          if (book.format == 'df') {
             change = true
-            if(book.valueFormat == null || book.valueFormat == false){
+            if (book.valueFormat == null || book.valueFormat == false) {
               book.format = 'd'
               book.cant = 1
-            }else{
+            } else {
               book.format = 'f'
             }
           }
 
-          if(book.format == 'd'){
+          if (book.format == 'd') {
             type = book.type.digital.src
-          }else{
+          } else {
             type = book.type.fisico.log + ' ' + book.type.fisico.lat
           }
 
@@ -444,16 +447,14 @@ export default {
             quantity: book.cant,
             description: book.format,
             picture_url: book.images_src[0],
-            category_id: type
+            category_id: type,
           }
-          
+
           this.finalResult.push(books)
 
-          if(change){
+          if (change) {
             book.format = 'df'
           }
-
-
         })
 
         this.dialogPayment = true
@@ -466,7 +467,7 @@ export default {
     async openDialog() {
       try {
         console.log('FINAL RESULT-----------------------------')
-        this.finalResult.forEach((final)=>{
+        this.finalResult.forEach((final) => {
           console.log(final)
         })
 
@@ -502,7 +503,7 @@ export default {
           for (let i = this.finalResult.length; i > 0; i--) {
             this.finalResult.pop()
           }
-        }else{
+        } else {
           console.log('Se produjo un error en el servidor')
         }
       } catch (error) {
@@ -520,10 +521,49 @@ export default {
         console.log('error al cerrar el dialogo')
       }
     },
-    switchChange(value){
+    switchChange(value) {
       console.log('-----------------------SWITCH--------------------------')
       console.log(value)
-    }
+    },
+    //-------------------------------------AUTOCOMPLETE----------------------------------------------
+    querySearchAsync(queryString, cb) {
+      var links = this.links
+      var results = queryString
+        ? links.filter(this.createFilter(queryString))
+        : links
+
+      clearTimeout(this.timeout)
+      this.timeout = setTimeout(() => {
+        cb(results)
+      }, 0 * Math.random())
+    },
+    createFilter(queryString) {
+      return (link) => {
+        return link.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0
+      }
+    },
+    handleSelect(item) {
+      console.log(item)
+    },
+    //-----------------------------------------------------------------------------------------------
+  },
+  async mounted() {
+    var books = []
+
+    var response = await this.$apidata({
+      url: '/books/',
+       method: 'get',
+    })
+    console.log('RESPONSE BOOKS')
+    response.data.data.forEach(res =>{
+      var book = {
+        value: res.name,
+        slug: res.slug
+      }
+      books.push(book)
+    })
+
+    this.links = books
   },
   async created() {
     //--------------------------------------------DRAWER

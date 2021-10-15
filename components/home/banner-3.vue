@@ -5,22 +5,21 @@
       <div class="container-home flex justify-center">
         <div class="container-banner-3">
           <el-carousel :interval="4000" type="card">
-            <el-carousel-item v-for="item in 6" :key="item">
+            <el-carousel-item v-for="item in books" :key="item">
               <div class="w-full flex h-1/2">
                 <div
                   class="h-full container-left flex flex-col p-4 justify-center"
                   style="width: 68%"
                 >
-                  <p class="title-product-home pb-4">Memory</p>
+                  <p class="title-product-home pb-4">{{item.name}}</p>
                   <p class="sipnosis-product-home">
-                    La historia de una mujer que trata de recuperar a su familia
-                    ya que tuvo un accidente en la 2da guerra mundial
+                    {{item.description}}
                   </p>
                 </div>
                 <div class="h-full container-right" style="width: 32%">
                   <img
                     style="border-top-right-radius: 10px"
-                    src="/images/portada-la-corona.jpg"
+                    :src="item.images_src[0]"
                   />
                 </div>
               </div>
@@ -29,10 +28,18 @@
                   <p class="parrafo-home" style="text-transform: uppercase">
                     LIBROS MAS COMPRADOS
                   </p>
-                  <p class="parrafo-home">4h Read</p>
+                  <div v-show="item.format == 'df'">
+                    <p class="parrafo-home">Digital y Físico</p>
+                  </div>
+                  <div v-show="item.format == 'f'">
+                    <p class="parrafo-home">Físico</p>
+                  </div><div v-show="item.format == 'd'">
+                    <p class="parrafo-home">Digital</p>
+                  </div>
+                  
                 </div>
-                <p class="author-product-home px-4">Alexandra Navarro, Mor</p>
-                <p class="pag-product-home p-4">250 pag</p>
+                <p class="author-product-home px-4">{{item.author}}</p>
+                <p class="pag-product-home p-4">{{item.editorial}}</p>
                 <div class="btn-product-home flex justify-center px-4">
                   <el-button
                     class="btn-comp btn_add_size w-full"
@@ -52,8 +59,19 @@
 <script>
 export default {
   data() {
-    return {}
+    return {
+      books:[]
+    }
   },
+  async created(){
+    var response = await this.$apidata({
+      url: '/books/',
+      method: 'get'
+    })
+    console.log('---------------------------------Libros destacados------------------------------')
+    this.books = response.data.data.slice(0, 5)
+    console.log(this.books)
+  }
 }
 </script>
 <style scoped>

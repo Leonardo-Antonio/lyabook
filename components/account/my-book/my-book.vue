@@ -29,7 +29,7 @@
               </div>
               <div class="h-1/3">
                 <p class="title-primary">Cantidad:</p>
-                <p class="name-category pt-2">S/.{{item.quantity}}</p>
+                <p class="name-category pt-2">{{item.quantity}}</p>
               </div>
               <div class="h-1/3">
                 <p class="title-primary">Total:</p>
