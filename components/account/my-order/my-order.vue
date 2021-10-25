@@ -1,0 +1,287 @@
+<template>
+  <div>
+    <div>
+      <div class="ml-4">
+        <p class="title-account pb-2">Mis Ordenes</p>
+      </div>
+      <div class="flex items-center container-return mb-2" v-show="!show">
+        <el-button @click="show = true">
+          <box-icon
+            name="arrow-back"
+            animation="flashing"
+            color="#021639"
+          ></box-icon>
+        </el-button>
+
+        <el-button
+          class="return-button"
+          type="primary"
+          round
+          @click="show = true"
+          >Regresar</el-button
+        >
+      </div>
+
+      <div v-for="itemPayment of paymentList" :key="itemPayment" class="flex" v-show="show">
+        <div class="container-perfile px-12 py-6 m-4 w-3/5">
+          <div class="flex">
+            <div class="w-full">
+              <p class="size-title mt-2">Boleta de pago</p>
+              <p>{{itemPayment.payment_id}}</p>
+              <div class="mt-4 flex">
+                <el-button class="w-1/2 btn-detail" @click="showDetail(itemPayment)"
+                  >Ver detalle</el-button
+                >
+                <el-button class="w-1/2 btn-ticket">Boleta de venta</el-button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex" v-show="show">
+        <div class="container-perfile px-12 py-6 m-4 w-3/5">
+          <div class="flex">
+            <div class="w-full">
+              <div>
+                <div>
+                  <div v-show="this.user.name != null">
+                    <p class="mt-2 size-date">Fecha: 12/12/21</p>
+                  </div>
+                  <div v-show="this.user.name == null">
+                    <p class="mt-2 size-date">Fecha: -</p>
+                  </div>
+                </div>
+                <p class="size-title mt-2">Boleta de pago</p>
+                <div>
+                  <div v-show="this.user.name != null">
+                    <p class="mt-2 sub-size-title">Id Orden: 34324324324</p>
+                  </div>
+                  <div v-show="this.user.name == null">
+                    <p class="mt-2 sub-size-title">Id Orden: -</p>
+                  </div>
+                </div>
+                <div class="mt-4 flex">
+                  <el-button class="w-1/2 btn-detail" @click="show = false"
+                    >Ver detalle</el-button
+                  >
+                  <el-button class="w-1/2 btn-ticket"
+                    >Boleta de venta</el-button
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div v-show="!show" class="container-perfile px-4 py-6">
+        <div class="flex h-48">
+          <div class="container_boleta_right w-1/2">
+            <div class="flex justify-center h-1/2">
+              <img src="/images/LyaBook.svg" width="60%" />
+            </div>
+            <div
+              class="
+                container_boleta_botton
+                pl-2
+                h-1/2
+                flex flex-col
+                justify-center
+              "
+            >
+              <p>Empresa: LyaBook S.A.C</p>
+              <p>Correo Electrónico: lyabook@gmail.com</p>
+              <p>Teléfono: 937 015 104 / 996 501 260</p>
+            </div>
+          </div>
+          <div class="container_boleta_left w-1/2 h-full">
+            <div
+              class="
+                flex flex-col
+                justify-center
+                items-center
+                container_boleta_top
+                py-2
+                h-1/2
+              "
+            >
+              <p>RUC N° 999999999</p>
+              <p>BOLETA DE VENTA</p>
+              <p>B001-0000</p>
+            </div>
+            <div class="container_boleta_botton h-1/2 flex flex-col justify-center">
+              <p>Fecha de emisión: 01/12/2020</p>
+              <p>Señor(es): Alexandra Navarro</p>
+              <p>DNI: 72964584</p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-2">
+          <el-table :data="tableData" stripe style="width: 100%">
+            <el-table-column label="Portada" width="180">
+              <img :src="tableData.img" alt="" srcset="">
+            </el-table-column>
+            <el-table-column prop="name" label="Nombre" width="180">
+            </el-table-column>
+            <el-table-column prop="price" label="Precio Unitario">
+            </el-table-column>
+            <el-table-column prop="cant" label="Cantidad"> </el-table-column>
+            <el-table-column prop="total" label="Total"> </el-table-column>
+          </el-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+// import RestorePassword from './restore-password'
+export default {
+  components: {
+    // RestorePassword,
+  },
+  data() {
+    return {
+      tableData: [],
+      //----------------------------------------------------
+      user: [],
+      show: true,
+      paymentList: []
+    }
+  },
+  methods:{
+    showDetail(data){
+      this.show = false
+      this.tableData = []
+      console.log("DATA--------------------------------------------")
+      console.log(data)
+      data.products.forEach((product)=>{
+        var dataTable={
+          img: product.picture_url,
+          name: product.title,
+          price: product.unit_price,
+          cant: product.quantity,
+          total: product.unit_price * product.quantity
+        }
+        this.tableData.push(dataTable)
+      })
+      // var value={
+      //   date: data.
+      // }
+    }
+  },
+  async created() {
+    console.log('-------------------------USER----------------------------')
+    var user = localStorage.getItem('user')
+    if (user != null) {
+      this.user = JSON.parse(user).user
+      console.log(this.user)
+
+      const getPayCli = await this.$apidata({
+        url: '/payments/' + this.user._id,
+        method: 'get'
+      })
+
+      if(getPayCli.data.error == false){
+        console.log("----------------------RESPONSE-------------ORDER")
+        getPayCli.data.data.forEach((payment) => {
+          this.paymentList.push(payment)
+        })
+        console.log(this.paymentList)
+      }
+    }
+  },
+}
+</script>
+
+<style scoped>
+.size-title {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  color: var(--second);
+}
+.sub-size-title {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--second);
+}
+.size-date {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  color: #7f7f7f;
+}
+.btn-detail {
+  background: var(--second);
+  border: solid 1px var(--second);
+  color: var(--secundary);
+  border-radius: 7px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+}
+.btn-ticket {
+  background: var(--primary);
+  border: solid 1px var(--primary);
+  color: var(--secundary);
+  border-radius: 7px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+}
+
+.container-return .el-button {
+  padding: 0;
+  border-color: #fff;
+}
+
+.container-return .el-button:hover {
+  background: unset;
+}
+
+.return-button {
+  padding: 0px !important;
+  margin-left: 0.5rem !important;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 21px;
+  color: #021639;
+  background: unset;
+  border-color: #fff;
+}
+.container_boleta_top {
+  background: var(--primary);
+  color: var(--secundary);
+  border: solid 1px var(--primary);
+  border-radius: 7px;
+  font-family: 'Baloo Chettan 2';
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 25px;
+}
+.container_boleta_botton {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 21px;
+}
+</style>

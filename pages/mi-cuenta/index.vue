@@ -27,6 +27,10 @@
               <Profile />
             </el-tab-pane>
 
+            <el-tab-pane label="Mis Ordenes" class="tabOption">
+              <MyOrder />
+            </el-tab-pane>
+
             <el-tab-pane label="Mis Libros" class="tabOption">
               <div class="ml-4">
                 <p class="title-account pb-2">Mis Libros</p>
@@ -79,6 +83,8 @@ import Profile from '../../components/account/profile/profile'
 import NewBook from '../../components/account/public-book/new-book'
 import MyBook from '../../components/account/my-book/my-book'
 import BookPublic from '../../components/account/book-public/book-public'
+import MyOrder from '../../components/account/my-order/my-order'
+
 export default {
   layout: 'client',
   components: {
@@ -87,6 +93,7 @@ export default {
     MyBook,
     BookPublic,
     ImageHeader,
+    MyOrder,
   },
   data() {
     return {
