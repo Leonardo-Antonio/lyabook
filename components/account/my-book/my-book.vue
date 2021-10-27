@@ -9,16 +9,16 @@
             </div>
             <div class="container-star">
               <div class="h-1/2 pr-4">
-                <p class="title-primary">Autor: {{item.id_payment}}</p>
-                <p class="title-book pt-2">{{item.title}}</p>
+                <p class="title-primary">Autor: {{ item.id_payment }}</p>
+                <p class="title-book pt-2">{{ item.title }}</p>
               </div>
               <div class="h-1/2 pt-6">
                 <p class="title-primary">Formato</p>
-                <div class=" pt-2" v-show="item.description == 'd'">
-                  <p class="title-book  w-1/2">Digital</p>
+                <div class="pt-2" v-show="item.description == 'd'">
+                  <p class="title-book w-1/2">Digital</p>
                 </div>
-                <div class=" pt-2" v-show="item.description == 'f'" >
-                  <p class="title-book  w-1/2">Físico</p>
+                <div class="pt-2" v-show="item.description == 'f'">
+                  <p class="title-book w-1/2">Físico</p>
                 </div>
               </div>
             </div>
@@ -35,12 +35,13 @@
                 <p class="title-primary">Total:</p>
                 <p class="name-category pt-2">S/.{{item.unit_price * item.quantity}}</p>
               </div> -->
-              
             </div>
             <div class="w-1/4 flex justify-end">
               <div class="h-full">
                 <div class="h-1/3">
-                  <p class="fecha p-2 px-6">{{new Date(item.created_at).toLocaleString() }}</p>
+                  <p class="fecha p-2 px-6">
+                    {{ new Date(item.created_at).toLocaleString() }}
+                  </p>
                 </div>
                 <div class="h-1/3">
                   <div v-show="item.status == 'approved'">
@@ -73,25 +74,34 @@ export default {
   data() {
     return {
       user: [],
-      products:[],
+      products: [],
       slug: [],
-      my_books: []
+      my_books: [],
     }
   },
   async created() {
-
     //--------------------------------GET USER---------------------------------
 
-    var user = localStorage.getItem('user') 
+    var user = localStorage.getItem('user')
     if (user != null) {
       this.user = JSON.parse(user).user
     }
 
     //--------------------------------PAYMENT-----------------------------------------------
 
-    if ((this.$route.query.status != null && this.$route.query.status == 'approved')||(this.$route.query.status != null && this.$route.query.status == 'in_process')) {
+    if (
+      (this.$route.query.status != null &&
+        this.$route.query.status == 'approved') ||
+      (this.$route.query.status != null &&
+        this.$route.query.status == 'in_process')
+    ) {
       await this.$axios
-        .get(`${'https://api.mercadopago.com/v1/payments/' + this.$route.query.payment_id}`,{
+        .get(
+          `${
+            'https://api.mercadopago.com/v1/payments/' +
+            this.$route.query.payment_id
+          }`,
+          {
             headers: {
               Authorization:
                 'Bearer TEST-6706525738118846-082101-03ee4a59346a45ff4f27a6f2eb905cf4-775792906',
@@ -100,20 +110,38 @@ export default {
         )
         .then((res) => {
           console.log(res.data.additional_info.items)
-          res.data.additional_info.items.forEach(data => {
+          res.data.additional_info.items.forEach(async (data) => {
             var product = {
               id_payment: data.id,
               title: data.title,
-              unit_price: parseFloat(data.unit_price), 
+              unit_price: parseFloat(data.unit_price),
               quantity: parseInt(data.quantity),
               description: data.description,
               picture_url: data.picture_url,
-              category_id: data.category_id
+              category_id: data.category_id,
             }
             this.products.push(product)
-            
+
+            if (data.description == 'f' || data.description == 'df') {
+              const getBook = await this.$apidata({
+                url: '/books/name/' + data.title,
+                method: 'get',
+              })
+              
+              if (getBook.data.error == false) {
+                var dataBodyUpdate = {
+                  stock: getBook.data.data.type.fisico.stock - parseInt(data.quantity)
+                }
+
+                const updateByNameBook = await this.$apidata({
+                  url: '/books/name/' + data.title,
+                  method: 'put',
+                  data: dataBodyUpdate,
+                })
+                console.log(updateByNameBook.data.data)
+              }
+            }
           })
-          
         })
         .catch((error) => {
           console.error(error)
@@ -124,96 +152,89 @@ export default {
         payment_id: this.$route.query.payment_id,
         status: this.$route.query.status,
         products: this.products,
-        active: true
+        active: true,
       }
 
       const response = await this.$apidata({
         url: '/payments/',
         method: 'post',
-        data: body
+        data: body,
       })
 
-      if(response.data.error == false){
-        this.$router.replace({'query': null})
+      if (response.data.error == false) {
+        this.$router.replace({ query: null })
       }
     }
 
     //--------------------------------GET PAYMENT BY CLIENT---------------------------------
-      console.log('***********************RESPONSE API***********************')
-      const getPayCli = await this.$apidata({
-        url: '/payments/' + this.user._id,
-        method: 'get'
-      })
+    console.log('***********************RESPONSE API***********************')
+    const getPayCli = await this.$apidata({
+      url: '/payments/' + this.user._id,
+      method: 'get',
+    })
 
-      if(getPayCli.data.error == false){
-        getPayCli.data.data.forEach(async data => {
-          await this.$axios
-          .get('https://api.mercadopago.com/v1/payments/'+ data.payment_id,{
-              headers: {
-                Authorization:
-                  'Bearer TEST-6706525738118846-082101-03ee4a59346a45ff4f27a6f2eb905cf4-775792906',
-              },
-            }
-          )
+    if (getPayCli.data.error == false) {
+      getPayCli.data.data.forEach(async (data) => {
+        await this.$axios
+          .get('https://api.mercadopago.com/v1/payments/' + data.payment_id, {
+            headers: {
+              Authorization:
+                'Bearer TEST-6706525738118846-082101-03ee4a59346a45ff4f27a6f2eb905cf4-775792906',
+            },
+          })
           .then(async (res) => {
             console.log('CONSULTAR PAGO')
             console.log(res.data.status)
             console.log('CONSULTAR PAGO - MI API')
             console.log(data.status)
-    //--------------------------------VALIDATE STATUS---------------------------------         
+            //--------------------------------VALIDATE STATUS---------------------------------
 
-            if(res.data.status != data.status && data.status != null){
-              console.log("Son diferentes")
-              var status ={
-                status: res.data.status
+            if (res.data.status != data.status && data.status != null) {
+              console.log('Son diferentes')
+              var status = {
+                status: res.data.status,
               }
               const validate_status = await this.$apidata({
                 url: '/payments/' + data._id,
                 method: 'put',
-                data: status
+                data: status,
               })
               console.log(data._id)
               console.log(status)
               console.log(validate_status)
             }
-
-            
           })
           .catch((error) => {
             console.error(error)
           })
 
-    //--------------------------------ADD ARRAY LIST---------------------------------         
-          data.products.forEach(product => {
-            data={
-              created_at: data.created_at,
-              status: data.status
-            }
-            
-            Object.assign(product, data)
-            this.my_books.push(product)
+        //--------------------------------ADD ARRAY LIST---------------------------------
+        data.products.forEach((product) => {
+          data = {
+            created_at: data.created_at,
+            status: data.status,
+          }
 
-          })
+          Object.assign(product, data)
+          this.my_books.push(product)
         })
-      }
-      
-      console.log(this.my_books)
+      })
+    }
+
+    console.log(this.my_books)
     //--------------------------------CONSULT PAYMENT---------------------------------
-
-      
-
   },
 }
 </script>
 <style scoped>
-.parrafo-status{
-    background: var(--second);
-    color: var(--secundary);
-    padding: .2rem 0 .2rem 0rem;
-    border-radius: 7px;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
+.parrafo-status {
+  background: var(--second);
+  color: var(--secundary);
+  padding: 0.2rem 0 0.2rem 0rem;
+  border-radius: 7px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
 }
 </style>
