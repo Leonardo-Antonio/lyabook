@@ -37,6 +37,10 @@
 
   .r-see {
     display: inline;
+  } 
+
+  .r-remove {
+    display: none;
   }
 }
 
