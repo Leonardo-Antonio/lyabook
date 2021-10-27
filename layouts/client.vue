@@ -525,6 +525,9 @@ export default {
           for (let i = this.finalResult.length; i > 0; i--) {
             this.finalResult.pop()
           }
+
+          
+
         } else {
           console.log('Se produjo un error en el servidor')
         }

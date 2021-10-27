@@ -23,7 +23,7 @@
               </div>
             </div>
             <div class="w-1/4">
-              <div class="h-1/3">
+              <!-- <div class="h-1/3">
                 <p class="title-primary">Precio Unitario:</p>
                 <p class="name-category pt-2">S/.{{item.unit_price}}</p>
               </div>
@@ -34,7 +34,7 @@
               <div class="h-1/3">
                 <p class="title-primary">Total:</p>
                 <p class="name-category pt-2">S/.{{item.unit_price * item.quantity}}</p>
-              </div>
+              </div> -->
               
             </div>
             <div class="w-1/4 flex justify-end">
