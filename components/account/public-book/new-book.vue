@@ -18,15 +18,14 @@
           <div>
             <p class="titulo-form-book">Categoría</p>
             <el-select
-              class="input mt-2"
-              v-model="value_categoria"
+              v-model="category"
               multiple
-              filterable
-              allow-create
-              placeholder="Seleccionar las categorías"
+              collapse-tags
+              placeholder="Select"
+              class="input mt-2"
             >
               <el-option
-                v-for="item in categoria"
+                v-for="item in options"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value"
@@ -37,7 +36,6 @@
         </div>
       </div>
       <div class="flex flex-col w-full text_area_new_admin input mt-4">
-        <!-- <span class="title_input">Resumen*</span> -->
         <p class="titulo-form-book">Resumen</p>
         <el-input
           class="mt-2 inp-resumen"
@@ -110,9 +108,8 @@
           </el-input>
         </div>
         <div class="w-1/2 flex justify-end items-center">
-          <el-button class="btn_readBook-public" type="primary"
-            >Publicar libro</el-button
-          >
+          <el-button @click="addBook" class="btn_readBook-public" type="primary"
+            >Publicar libro</el-button>
         </div>
       </div>
     </div>
@@ -121,8 +118,38 @@
 <script>
 export default {
   data() {
-    return {}
+    return {
+      name:'',
+      resumen:'',
+      //--------------------------------------SELECT CATEGORY-----------------------------------------------
+      options: [],
+      category: [],
+      categories: []
+    }
   },
+  methods:{
+    addBook(){
+      console.log(this.name)
+      console.log(this.category)
+      console.log(this.resumen)
+
+    }
+  },
+  async created(){
+    this.categories = await this.$apidata({
+      url: '/categories/',
+      method: 'get'
+    })
+    console.log('---------------------------------CATEGORY------------------------------')
+    console.log(this.categories.data.data)
+    this.categories.data.data.forEach(category => {
+      var category = {
+        value: category._id,
+        label: category.name
+      }
+      this.options.push(category)
+    })
+  }
 }
 </script>
 <style scoped></style>

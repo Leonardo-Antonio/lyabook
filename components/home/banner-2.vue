@@ -23,10 +23,10 @@
             <p class="title-banner2 pb-4">Libros digitales y fisicos</p>
             <div class="">
               <p class="parrafos-banner2">
-                La venta de los libros son digitales y en casos
+                La venta de los libros son digitales y en el caso de los 
               </p>
               <p class="parrafos-banner2 prrf-2">
-                fisicos con recojo en tiendas o librerias
+                libros físicos son con recojo en tiendas o librerias
               </p>
               <p class="parrafos-banner2">para la meyor experiencia.</p>
             </div>

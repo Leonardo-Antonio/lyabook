@@ -10,24 +10,23 @@
           <!-- header -->
           <div class="flex items-center justify-center px-2">
             <div class="image-logo">
-              <img src="/images/LyaBook.svg" width="40%" />
+              <nuxt-link :to="`/`">
+                <img src="/images/LyaBook.svg" width="40%" />
+              </nuxt-link>
             </div>
             <div class="search-autocomplete">
               <el-autocomplete
                 v-model="state"
                 :fetch-suggestions="querySearchAsync"
-                placeholder="Please input"
+                placeholder="Busca un libro..."
                 @select="handleSelect"
                 class="input-search-autocomplete"
-                style="border-color: #021639 !important"
-                aria-placeholder="aaaaaaaa"
               ></el-autocomplete>
             </div>
             <div class="enlaces-header">
-              <a
-                href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"
-                ><h1>Libros</h1></a
-              >
+              <nuxt-link :to="`/libros/`">
+                <h1>Libros</h1>
+              </nuxt-link>
             </div>
             <div class="enlaces-header">
               <a
@@ -36,7 +35,12 @@
               >
             </div>
             <div class="icon-login">
-              <box-icon name="user"></box-icon>
+              <div>
+                <box-icon
+                  name="user"
+                  @click="showLogin = !showLogin"
+                ></box-icon>
+              </div>
             </div>
             <div class="icon-shopping-cart">
               <box-icon
@@ -50,6 +54,21 @@
       </div>
     </div>
 
+    <div v-show="showLogin" class="relative">
+      <div class="absolute bottom-0 right-1/4 top-0.5 z-10 w-1/6">
+        <div class="container-login p-2 flex flex-col">
+          <nuxt-link :to="`/login`">
+            <el-button class="w-full button-log">Log In</el-button>
+          </nuxt-link>
+          <nuxt-link :to="`/sign-up/dni`">
+          <el-button class="w-full button-log" style="margin-top: .5rem;">Registrate por DNI</el-button>
+          </nuxt-link>
+          <nuxt-link :to="`/sign-up/email`">
+            <el-button class="w-full button-log" style="margin-top: .5rem;">Registrate por email y contraseña</el-button>
+          </nuxt-link>
+        </div>
+      </div>
+    </div>
     <el-dialog
       title="Elegir método de pago:"
       :visible.sync="dialogPayment"
@@ -388,6 +407,12 @@ export default {
       showFormat: false,
       response_id: '',
       dialogPayment: false,
+      showLogin: false,
+
+      //--------------------------------------AUTOCOMPLETE----------------------------------
+      links: [],
+      state: '',
+      timeout: null,
     }
   },
   methods: {
@@ -419,21 +444,55 @@ export default {
     tobuy() {
       try {
         this.getbook.forEach((book) => {
+          var change = false
+          var type = ''
+          if (book.format == 'df') {
+            change = true
+            if (book.valueFormat == null || book.valueFormat == false) {
+              book.format = 'd'
+              book.cant = 1
+            } else {
+              book.format = 'f'
+            }
+          }
+
+          if (book.format == 'd') {
+            type = book.type.digital.src
+          } else {
+            type = book.type.fisico.log + ' ' + book.type.fisico.lat
+          }
+
           var books = {
+            id: book.author,
             title: book.name,
             unit_price: book.price_current,
             quantity: book.cant,
+            description: book.format,
+            picture_url: book.images_src[0],
+            category_id: type,
           }
+
           this.finalResult.push(books)
+
+          if (change) {
+            book.format = 'df'
+          }
         })
 
         this.dialogPayment = true
+        console.log('---------------------FINAL RESULT---------------------')
+        console.log(this.finalResult)
       } catch {
         console.log('error al comprar')
       }
     },
     async openDialog() {
       try {
+        console.log('FINAL RESULT-----------------------------')
+        this.finalResult.forEach((final) => {
+          console.log(final)
+        })
+
         console.log('el dialog se abrio')
         const response = await this.$apidata({
           url: '/orders',
@@ -466,7 +525,7 @@ export default {
           for (let i = this.finalResult.length; i > 0; i--) {
             this.finalResult.pop()
           }
-        }else{
+        } else {
           console.log('Se produjo un error en el servidor')
         }
       } catch (error) {
@@ -484,6 +543,49 @@ export default {
         console.log('error al cerrar el dialogo')
       }
     },
+    switchChange(value) {
+      console.log('-----------------------SWITCH--------------------------')
+      console.log(value)
+    },
+    //-------------------------------------AUTOCOMPLETE----------------------------------------------
+    querySearchAsync(queryString, cb) {
+      var links = this.links
+      var results = queryString
+        ? links.filter(this.createFilter(queryString))
+        : links
+
+      clearTimeout(this.timeout)
+      this.timeout = setTimeout(() => {
+        cb(results)
+      }, 0 * Math.random())
+    },
+    createFilter(queryString) {
+      return (link) => {
+        return link.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0
+      }
+    },
+    handleSelect(item) {
+      console.log(item)
+    },
+    //-----------------------------------------------------------------------------------------------
+  },
+  async mounted() {
+    var books = []
+
+    var response = await this.$apidata({
+      url: '/books/',
+      method: 'get',
+    })
+    console.log('RESPONSE BOOKS')
+    response.data.data.forEach((res) => {
+      var book = {
+        value: res.name,
+        slug: res.slug,
+      }
+      books.push(book)
+    })
+
+    this.links = books
   },
   async created() {
     //--------------------------------------------DRAWER
@@ -703,4 +805,21 @@ export default {
   line-height: 22px;
   color: #5e20e4;
 }
+.container-login{
+  box-shadow: 0px 4px 20px #5e20e340;
+  border-radius: 7px;
+}
+
+.button-log:hover{
+  color: var(--primary);
+  background: var(--secundary);
+}
+
+.button-log{
+  border: unset;
+  color: #5e20e3a1;
+  height: 3rem;
+  font-family: Roboto;
+}
+
 </style>
