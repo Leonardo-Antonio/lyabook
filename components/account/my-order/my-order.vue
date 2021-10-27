@@ -111,9 +111,9 @@
               <p>B001-0000</p>
             </div>
             <div class="container_boleta_botton h-1/2 flex flex-col justify-center">
-              <p>Fecha de emisión: 01/12/2020</p>
-              <p>Señor(es): Alexandra Navarro</p>
-              <p>DNI: 72964584</p>
+              <p>Fecha y Hora de Emisión: {{ new Date(created_at).toLocaleString() }}</p>
+              <p>Señor(es): {{user.name}} {{user.last_name}}</p>
+              <p>DNI: {{user.dni}}</p>
             </div>
           </div>
         </div>
@@ -129,6 +129,9 @@
             <el-table-column prop="cant" label="Cantidad"> </el-table-column>
             <el-table-column prop="total" label="Total"> </el-table-column>
           </el-table>
+        </div>
+        <div class="container_boleta_botton pt-4">
+          <p class="p_total text-right">Total: {{total}}</p>
         </div>
       </div>
     </div>
@@ -147,13 +150,17 @@ export default {
       //----------------------------------------------------
       user: [],
       show: true,
-      paymentList: []
+      paymentList: [],
+      created_at:'',
+      total:0
     }
   },
   methods:{
     showDetail(data){
       this.show = false
       this.tableData = []
+      this.total = 0
+      this.created_at = data.created_at
       console.log("DATA--------------------------------------------")
       console.log(data)
       data.products.forEach((product)=>{
@@ -164,6 +171,7 @@ export default {
           cant: product.quantity,
           total: product.unit_price * product.quantity
         }
+        this.total += dataTable.total
         this.tableData.push(dataTable)
       })
       // var value={
@@ -283,5 +291,8 @@ export default {
   font-weight: 300;
   font-size: 14px;
   line-height: 21px;
+}
+.p_total{
+  font-weight: 500;
 }
 </style>
