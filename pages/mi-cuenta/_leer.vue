@@ -39,6 +39,11 @@ export default {
       pageCount: 0,
     }
   },
+  created(){
+    const leer = this.$route.params.leer
+    console.log('************************PDF*************************')
+    console.log(leer)
+  },
   watch: {
     currentPage(value) {
       if (value < 1) {

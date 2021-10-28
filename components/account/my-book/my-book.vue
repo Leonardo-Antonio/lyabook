@@ -52,9 +52,11 @@
                   </div>
                 </div>
                 <div class="h-1/3" v-show="item.description == 'd'">
-                  <el-button class="btn_readBook" type="primary"
-                    >Leer Libro</el-button
-                  >
+                  <nuxt-link :to="`/mi-cuenta/${item.category_id}/`">
+                    <el-button class="btn_readBook" type="primary"
+                      >Leer Libro</el-button
+                    >
+                  </nuxt-link>
                 </div>
                 <div class="h-1/3" v-show="item.description == 'f'">
                   <el-button class="btn_readBook" type="primary"
@@ -127,10 +129,12 @@ export default {
                 url: '/books/name/' + data.title,
                 method: 'get',
               })
-              
+
               if (getBook.data.error == false) {
                 var dataBodyUpdate = {
-                  stock: getBook.data.data.type.fisico.stock - parseInt(data.quantity)
+                  stock:
+                    getBook.data.data.type.fisico.stock -
+                    parseInt(data.quantity),
                 }
 
                 const updateByNameBook = await this.$apidata({

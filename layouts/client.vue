@@ -28,12 +28,6 @@
                 <h1>Libros</h1>
               </nuxt-link>
             </div>
-            <div class="enlaces-header">
-              <a
-                href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"
-                ><h1>Promociones</h1></a
-              >
-            </div>
             <div class="icon-login">
               <div>
                 <box-icon
@@ -54,21 +48,45 @@
       </div>
     </div>
 
+    <!-- <div v-show="showLogin" class="relative">
+      <div class="absolute bottom-0 right-1/4 top-0.5 z-10 w-1/6">
+        <div class="container-login p-2 flex flex-col">
+          <nuxt-link :to="`/mi-cuenta`">
+            <el-button class="w-full button-log">Mi cuenta</el-button>
+          </nuxt-link>
+          <el-button class="w-full button-log">Cerrar Sección</el-button>
+        </div>
+      </div>
+    </div> -->
+
     <div v-show="showLogin" class="relative">
       <div class="absolute bottom-0 right-1/4 top-0.5 z-10 w-1/6">
         <div class="container-login p-2 flex flex-col">
-          <nuxt-link :to="`/login`">
-            <el-button class="w-full button-log">Log In</el-button>
-          </nuxt-link>
-          <nuxt-link :to="`/sign-up/dni`">
-          <el-button class="w-full button-log" style="margin-top: .5rem;">Registrate por DNI</el-button>
-          </nuxt-link>
-          <nuxt-link :to="`/sign-up/email`">
-            <el-button class="w-full button-log" style="margin-top: .5rem;">Registrate por email y contraseña</el-button>
-          </nuxt-link>
+          <div v-show="showOpen">
+            <nuxt-link :to="`/login`">
+              <el-button class="w-full button-log">Log In</el-button>
+            </nuxt-link>
+            <nuxt-link :to="`/sign-up/dni`">
+              <el-button class="w-full button-log" style="margin-top: 0.5rem"
+                >Registrate por DNI</el-button
+              >
+            </nuxt-link>
+            <nuxt-link :to="`/sign-up/email`">
+              <el-button class="w-full button-log" style="margin-top: 0.5rem"
+                >Registrate por email y contraseña</el-button
+              >
+            </nuxt-link>
+          </div>
+          <div v-show="!showOpen">
+            <nuxt-link :to="`/mi-cuenta`">
+              <el-button class="w-full button-log">Mi cuenta</el-button>
+            </nuxt-link>
+            <el-button class="w-full button-log" @click="closeSeccion">Cerrar Sección</el-button>
+          </div>
         </div>
       </div>
     </div>
+
     <el-dialog
       title="Elegir método de pago:"
       :visible.sync="dialogPayment"
@@ -408,6 +426,7 @@ export default {
       response_id: '',
       dialogPayment: false,
       showLogin: false,
+      showOpen: true,
 
       //--------------------------------------AUTOCOMPLETE----------------------------------
       links: [],
@@ -525,9 +544,6 @@ export default {
           for (let i = this.finalResult.length; i > 0; i--) {
             this.finalResult.pop()
           }
-
-          
-
         } else {
           console.log('Se produjo un error en el servidor')
         }
@@ -549,6 +565,10 @@ export default {
     switchChange(value) {
       console.log('-----------------------SWITCH--------------------------')
       console.log(value)
+    },
+    closeSeccion(){
+      localStorage.removeItem('user')
+      this.showOpen = false
     },
     //-------------------------------------AUTOCOMPLETE----------------------------------------------
     querySearchAsync(queryString, cb) {
@@ -591,11 +611,14 @@ export default {
     this.links = books
   },
   async created() {
-    //--------------------------------------------DRAWER
-    console.log(
-      '--------------------------GET DRAWER-------------------------------'
-    )
     try {
+      //--------------------------------------------USER
+      console.log('-------------------------USER----------------------------')
+      var user = localStorage.getItem('user')
+      if (user != null) {
+        this.showOpen = false
+      }
+      //--------------------------------------------DRAWER
       var format = {
         valueFormat: false,
       }
@@ -605,9 +628,6 @@ export default {
         this.getbook = JSON.parse(local)
       }
 
-      console.log(
-        '--------------------------ARRAY-------------------------------'
-      )
       this.getbook.forEach((book) => {
         this.getbook.push(Object.assign(book, format))
       })
@@ -808,21 +828,20 @@ export default {
   line-height: 22px;
   color: #5e20e4;
 }
-.container-login{
+.container-login {
   box-shadow: 0px 4px 20px #5e20e340;
   border-radius: 7px;
 }
 
-.button-log:hover{
+.button-log:hover {
   color: var(--primary);
   background: var(--secundary);
 }
 
-.button-log{
+.button-log {
   border: unset;
   color: #5e20e3a1;
   height: 3rem;
   font-family: Roboto;
 }
-
 </style>
