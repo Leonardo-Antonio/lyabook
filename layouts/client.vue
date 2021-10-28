@@ -48,17 +48,6 @@
       </div>
     </div>
 
-    <!-- <div v-show="showLogin" class="relative">
-      <div class="absolute bottom-0 right-1/4 top-0.5 z-10 w-1/6">
-        <div class="container-login p-2 flex flex-col">
-          <nuxt-link :to="`/mi-cuenta`">
-            <el-button class="w-full button-log">Mi cuenta</el-button>
-          </nuxt-link>
-          <el-button class="w-full button-log">Cerrar Sección</el-button>
-        </div>
-      </div>
-    </div> -->
-
     <div v-show="showLogin" class="relative">
       <div class="absolute bottom-0 right-1/4 top-0.5 z-10 w-1/6">
         <div class="container-login p-2 flex flex-col">

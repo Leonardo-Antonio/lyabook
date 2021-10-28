@@ -30,6 +30,7 @@
 <script>
 import pdf from 'vue-pdf'
 export default {
+  layout: 'cliente-pdf',
   components: {
     pdf,
   },
