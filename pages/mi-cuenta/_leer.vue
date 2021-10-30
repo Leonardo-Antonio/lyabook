@@ -17,7 +17,7 @@
       </div>
       <div>
         <pdf
-          src="http://192.168.1.8:8001/api/v1/pdfs/gECwnVhW.pdf"
+          :src="pdf"
           @num-pages="pageCount = $event"
           @page-loaded="currentPage = $event"
           :page="currentPage"
@@ -41,9 +41,10 @@ export default {
     }
   },
   created(){
-    const leer = this.$route.params.leer
-    console.log('************************PDF*************************')
-    console.log(leer)
+    if(this.$route.params.pdf != null){
+      this.pdf = this.$route.params.pdf
+      console.log(this.$route.params.pdf)
+    }
   },
   watch: {
     currentPage(value) {

@@ -52,7 +52,8 @@
                   </div>
                 </div>
                 <div class="h-1/3" v-show="item.description == 'd'">
-                  <nuxt-link :to="`/mi-cuenta/${item.category_id}/`">
+                  <!-- <nuxt-link :to="`/mi-cuenta/leer/${item.category_id}/`"> -->
+                  <nuxt-link :to="{name:'mi-cuenta-leer', params: {pdf:item.category_id}}">
                     <el-button class="btn_readBook" type="primary"
                       >Leer Libro</el-button
                     >
