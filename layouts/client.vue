@@ -180,7 +180,7 @@
     </el-drawer>
 
     <div class="container mx-auto">
-      <nuxt />
+      <nuxt class="z-50" />
     </div>
 
     <Footer />

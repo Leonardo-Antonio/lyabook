@@ -14,7 +14,7 @@
           transform: rotate(-355deg);
         "
       />
-      <div class="w-4/6 flex">
+      <div class="w-full flex">
         <div class="w-1/2 flex items-end justify-center">
           <img src="/images/banner-2-home.svg" class="absolute z-10" />
         </div>

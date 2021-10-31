@@ -3,7 +3,7 @@
     <div class="mt-20 relative overflow-x-hidden overflow-y-hidden">
       <img
         src="/shapes/circle-double-aye.svg"
-        class="absolute z-10 rotate"
+        class="absolute z-10 rotate z-10"
         style="width: 10rem; left: -5rem; top: 0rem"
       />
 
@@ -25,7 +25,7 @@
         style="width: 5rem; right: -1rem; top: 42rem"
       />
 
-      <div class="flex justify-center w-7/12 mx-auto pb-16">
+      <div class="flex justify-center mx-auto pb-16" style="width: 70%;">
         <div class="container-filter-father w-1/4" style="z-index: 20">
           <!-- filter -->
           <div class="container-filter">

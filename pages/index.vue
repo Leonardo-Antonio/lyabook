@@ -17,7 +17,7 @@
           pb-36
         "
       >
-        <div class="w-4/6">
+        <div class="">
           <Banner3 />
         </div>
         <img

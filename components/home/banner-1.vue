@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container-home flex justify-center relative overflow-x-hidden overflow-y-hidden pb-36">
-      <div class="w-4/6 flex pt-24">
+      <div class="w-full flex pt-24">
         <div class="w-2/3">
           <div class="">
             <div class="flex">
@@ -41,8 +41,8 @@
       />
       <img
         src="/shapes/circle-double-aye.svg"
-        class="absolute z-10 rotate"
-        style="width: 8rem; right: 20rem; top: 6rem"
+        class="absolute rotate"
+        style="width: 8rem; right: 20rem; top: 6rem; z-index: -10;"
       />
       <img
         src="/shapes/doble-circle.svg"
