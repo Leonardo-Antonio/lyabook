@@ -799,3 +799,7 @@ span.el-checkbox__label {
 .dialog-container-payment  .el-dialog__headerbtn .el-dialog__close:hover{
   color: var(--primary);
 }
+
+.r-remove-desktop {
+  display: none;
+}

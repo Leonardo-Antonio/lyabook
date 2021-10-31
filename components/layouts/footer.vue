@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="r-remove">
+    <div class="r-remove r-remove-tablet">
       <div class="footer flex justify-center px-8">
         <div class="conatiner-footer flex flex-row justify-center w-3/4 py-8">
           <div class="container-column-1 w-1/5">
@@ -109,58 +109,62 @@
       </div>
     </div>
 
-    <div class="r-see">
-      <el-collapse accordion>
-        <el-collapse-item name="1">
-          <template slot="title">
-            Consistency<i class="header-icon el-icon-information"></i>
-          </template>
+    <div class="r-see r-remove-desktop">
+      <el-collapse accordion class="r-px-2">
+        <el-collapse-item title="Contacto" name="1">
           <div>
-            Consistent with real life: in line with the process and logic of
-            real life, and comply with languages and habits that the users are
-            used to;
-          </div>
-          <div>
-            Consistent within interface: all elements should be consistent, such
-            as: design style, icons and texts, position of elements, etc.
-          </div>
-        </el-collapse-item>
-        <el-collapse-item title="Feedback" name="2">
-          <div>
-            Operation feedback: enable the users to clearly perceive their
-            operations by style updates and interactive effects;
-          </div>
-          <div>
-            Visual feedback: reflect current state by updating or rearranging
-            elements of the page.
+            <ul>
+              <li v-for="item of menu.contact" :key="item.text">
+                <a :href="item.src">
+                  <div class="flex items-center">
+                    <box-icon name="phone" color="#000"></box-icon>
+                    <span>{{ item.text }}</span>
+                  </div>
+                </a>
+              </li>
+            </ul>
           </div>
         </el-collapse-item>
-        <el-collapse-item title="Efficiency" name="3">
+
+        <el-collapse-item title="Información" name="2">
           <div>
-            Simplify the process: keep operating process simple and intuitive;
-          </div>
-          <div>
-            Definite and clear: enunciate your intentions clearly so that the
-            users can quickly understand and make decisions;
-          </div>
-          <div>
-            Easy to identify: the interface should be straightforward, which
-            helps the users to identify and frees them from memorizing and
-            recalling.
-          </div>
-        </el-collapse-item>
-        <el-collapse-item title="Controllability" name="4">
-          <div>
-            Decision making: giving advices about operations is acceptable, but
-            do not make decisions for the users;
-          </div>
-          <div>
-            Controlled consequences: users should be granted the freedom to
-            operate, including canceling, aborting or terminating current
-            operation.
+            <ul>
+              <li v-for="item of menu.info" :key="item.text">
+                <div class="flex items-center">
+                  <box-icon name="right-arrow" color="#000"></box-icon>
+                  <span>{{ item.text }}</span>
+                </div>
+              </li>
+            </ul>
           </div>
         </el-collapse-item>
-      </el-collapse>    
+
+        <el-collapse-item title="Categorías" name="3">
+          <div>
+            <ul>
+              <li v-for="item of menu.categories" :key="item.text">
+                <div class="flex items-center">
+                  <box-icon name="right-arrow" color="#000"></box-icon>
+                  <span>{{ item.text }}</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </el-collapse-item>
+
+        <el-collapse-item title="Soporte" name="4">
+          <div>
+            <ul>
+              <li v-for="item of menu.support" :key="item.text">
+                <div class="flex items-center">
+                  <box-icon name="right-arrow" color="#000"></box-icon>
+                  <span>{{ item.text }}</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </el-collapse-item>
+      </el-collapse>
     </div>
   </div>
 </template>

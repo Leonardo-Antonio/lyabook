@@ -1,53 +1,53 @@
 <template>
   <div>
     <div class="flex justify-center container mx-auto">
-      <div>
+      <!--       <div>
         <img class="absolute" style="right: 0px; top: 0px" :src="src" />
       </div>
-
-      <div class="flex justify-center w-3/4">
+ -->
+      <div class="flex justify-center w-full">
         <div class="pt-8 w-full">
           <!-- header -->
-          <div class="flex items-center justify-center px-2">
-            <div class="image-logo">
+          <div class="flex items-center justify-between px-2 r-flex-col">
+            <div style="width: 20%;">
               <nuxt-link :to="`/`">
-                <img src="/images/LyaBook.svg" width="40%" />
+                <img src="/images/LyaBook.svg"/>
               </nuxt-link>
             </div>
-            <div class="search-autocomplete">
-              <el-autocomplete
-                v-model="state"
-                :fetch-suggestions="querySearchAsync"
-                placeholder="Busca un libro..."
-                @select="handleSelect"
-                class="input-search-autocomplete"
-              ></el-autocomplete>
-            </div>
-            <div class="enlaces-header">
-              <nuxt-link :to="`/libros/`">
-                <h1>Libros</h1>
-              </nuxt-link>
-            </div>
-            <div class="enlaces-header">
-              <a
-                href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"
-                ><h1>Promociones</h1></a
-              >
-            </div>
-            <div class="icon-login">
-              <div>
-                <box-icon
-                  name="user"
-                  @click="showLogin = !showLogin"
-                ></box-icon>
+
+            <div class="flex flex-row justify-between r-flex-col" style="width: 80%;">
+              <div class="search-autocomplete r-w-full r-order-2">
+                <el-autocomplete
+                  v-model="state"
+                  :fetch-suggestions="querySearchAsync"
+                  placeholder="Busca un libro..."
+                  @select="handleSelect"
+                  class="input-search-autocomplete"
+                ></el-autocomplete>
               </div>
-            </div>
-            <div class="icon-shopping-cart">
-              <box-icon
-                name="cart"
-                animation="tada"
-                @click="showDrawer = true"
-              ></box-icon>
+
+              <div class="flex flex-row justify-between items-center r-order-1 r-pb-05 r-pt-1">
+                <div class="pr-2">
+                  <nuxt-link :to="`/libros/`">
+                    <h1>Libros</h1>
+                  </nuxt-link>
+                </div>
+                <div class="pr-2">
+                  <div>
+                    <box-icon
+                      name="user"
+                      @click="showLogin = !showLogin"
+                    ></box-icon>
+                  </div>
+                </div>
+                <div class="pr-2">
+                  <box-icon
+                    name="cart"
+                    animation="tada"
+                    @click="showDrawer = true"
+                  ></box-icon>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -61,10 +61,14 @@
             <el-button class="w-full button-log">Log In</el-button>
           </nuxt-link>
           <nuxt-link :to="`/sign-up/dni`">
-          <el-button class="w-full button-log" style="margin-top: .5rem;">Registrate por DNI</el-button>
+            <el-button class="w-full button-log" style="margin-top: 0.5rem"
+              >Registrate por DNI</el-button
+            >
           </nuxt-link>
           <nuxt-link :to="`/sign-up/email`">
-            <el-button class="w-full button-log" style="margin-top: .5rem;">Registrate por email y contraseña</el-button>
+            <el-button class="w-full button-log" style="margin-top: 0.5rem"
+              >Registrate por email y contraseña</el-button
+            >
           </nuxt-link>
         </div>
       </div>
@@ -95,7 +99,7 @@
         <div
           class="productDrawer pb-4 px-8"
           v-for="(gb, index) of getbook"
-          :key="gb"
+          :key="index"
         >
           <div class="flex">
             <div class="" style="width: 30%">
@@ -175,10 +179,12 @@
       </div>
     </el-drawer>
 
-    <nuxt />
+    <div class="container mx-auto">
+      <nuxt />
+    </div>
 
     <Footer />
-    
+
     <div class="footer-author py-4 flex justify-center">
       <p class="text-footer pr-2">Powered by</p>
       <div class="flex justify-center">
@@ -199,7 +205,7 @@
 <script>
 import Footer from '../components/layouts/footer'
 export default {
-  components:{Footer},
+  components: { Footer },
   props: {
     src: {
       type: String,
@@ -333,9 +339,6 @@ export default {
           for (let i = this.finalResult.length; i > 0; i--) {
             this.finalResult.pop()
           }
-
-          
-
         } else {
           console.log('Se produjo un error en el servidor')
         }
@@ -376,7 +379,7 @@ export default {
       }
     },
     handleSelect(item) {
-      console.log(item)
+      this.$router.push(`/libros/${item.slug}`);
     },
     //-----------------------------------------------------------------------------------------------
   },
@@ -430,9 +433,6 @@ export default {
 </script>
 
 <style scoped>
-.image-logo {
-  width: 25%;
-}
 .search-autocomplete {
   display: flex;
   justify-content: center;
@@ -442,21 +442,6 @@ export default {
   width: 90%;
 }
 
-.enlaces-header {
-  display: flex;
-  justify-content: center;
-  width: 10%;
-}
-.icon-login {
-  display: flex;
-  justify-content: center;
-  width: 5%;
-}
-.icon-shopping-cart {
-  display: flex;
-  justify-content: center;
-  width: 5%;
-}
 .editorial {
   font-family: Roboto;
   font-style: normal;
@@ -616,21 +601,20 @@ export default {
   line-height: 22px;
   color: #5e20e4;
 }
-.container-login{
+.container-login {
   box-shadow: 0px 4px 20px #5e20e340;
   border-radius: 7px;
 }
 
-.button-log:hover{
+.button-log:hover {
   color: var(--primary);
   background: var(--secundary);
 }
 
-.button-log{
+.button-log {
   border: unset;
   color: #5e20e3a1;
   height: 3rem;
   font-family: Roboto;
 }
-
 </style>

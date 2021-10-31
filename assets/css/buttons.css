@@ -20,3 +20,8 @@
 .color_disabled {
   background-color: darkgrey;
 }
+
+.btn_disabled {
+  background-color: darkgrey;
+  cursor: not-allowed;
+}
