@@ -25,11 +25,11 @@
             />
           </div>
           <div class="r-white-space">
-            <el-checkbox class="mt-4 mb-8" v-model="checked">
+            <el-checkbox class="mt-4" v-model="checked">
               Acepto los Términos y condiciones y las Políticas de privacidad.
             </el-checkbox>
           </div>
-
+            <nuxt-link to="/login" class="mb-8 el-checkbox__label color_primary underline">Ya tengo una cuenta, iniciar sesión</nuxt-link>
           <div>
             <button
               @click="signUp"

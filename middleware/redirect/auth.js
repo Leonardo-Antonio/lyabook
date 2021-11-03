@@ -46,7 +46,7 @@ export default function (context) {
           String(dataUserJson.rol).toLowerCase()
         ) {
           window.onNuxtReady(() => {
-            window.$nuxt.$router.push('/errors/401')
+            window.$nuxt.$router.push('https://google.com')
           })
         }
       }

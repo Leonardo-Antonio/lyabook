@@ -18,7 +18,22 @@
               disabled
             />
           </div>
-          <div class="py-4"></div>
+          <div class="py-4">
+            <button
+              @click="validate"
+              class="
+                btn_primary
+                color_white
+                bg_primary
+                rounded-2xl
+                w-40
+                h-10
+                btn_add_size
+              "
+            >
+              Validar cuenta
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -49,22 +64,31 @@ export default {
       verification_code: '',
     }
   },
-  async mounted() {
-    const { id, code } = this.$route.query
-
-    try {
-      const response = await this.$credentials({
-        url: `/users/verification/id/${id}/code/${code}`,
-        method: 'post',
+  methods: {
+    async validate() {
+      const loading = this.$loading({
+        lock: true,
+        text: 'Validando correo',
+        background: 'rgba(0, 0, 0, 0.7)',
       })
-      if (response.status == 201) {
-        this.$router.push('/login')
+
+      const { id, code } = this.$route.query
+
+      try {
+        const response = await this.$credentials({
+          url: `/users/verification/id/${id}/code/${code}`,
+          method: 'post',
+        })
+        if (response.status == 201) {
+          this.$router.push('/login')
+          loading.close();
+        }
+      } catch (error) {
+        if (error.response) {
+          console.log(error.response.data)
+        }
       }
-    } catch (error) {
-      if (error.response) {
-        console.log(error.response.data)
-      }
-    }
+    },
   },
 }
 </script>

@@ -52,7 +52,7 @@ export default function ({ $axios, redirect }, inject) {
         break
 
       case 401:
-        redirect('/errors/401')
+        redirect('https://google.com')
         break
       case 500:
         Notification.error({
