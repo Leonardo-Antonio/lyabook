@@ -26,8 +26,8 @@
         <div class="container-perfile px-12 py-6 m-4 w-3/5">
           <div class="flex">
             <div class="w-full">
-              <p class="size-title mt-2">Boleta de pago</p>
-              <p>{{itemPayment.payment_id}}</p>
+              <p class="size-title mt-2">Boleta de venta</p>
+              <p>B-{{itemPayment.payment_id}}</p>
               <div class="mt-4 flex">
                 <el-button class="w-1/2 btn-detail" @click="showDetail(itemPayment)"
                   >Ver detalle</el-button
@@ -108,7 +108,7 @@
             >
               <p>RUC N° 999999999</p>
               <p>BOLETA DE VENTA</p>
-              <p>B001-0000</p>
+              <p>B-{{id_payment}}</p>
             </div>
             <div class="container_boleta_botton h-1/2 flex flex-col justify-center">
               <p>Fecha y Hora de Emisión: {{ new Date(created_at).toLocaleString() }}</p>
@@ -152,6 +152,7 @@ export default {
       show: true,
       paymentList: [],
       created_at:'',
+      id_payment:'',
       total:0
     }
   },
@@ -161,6 +162,7 @@ export default {
       this.tableData = []
       this.total = 0
       this.created_at = data.created_at
+      this.id_payment = data.payment_id
       console.log("DATA--------------------------------------------")
       console.log(data)
       data.products.forEach((product)=>{

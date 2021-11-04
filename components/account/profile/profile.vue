@@ -26,24 +26,6 @@
                   <p class="text-p mt-2">-</p>
                 </div>
               </div>
-              <div class="mt-8">
-                <p class="text-title">DNI</p>
-                <div v-show="this.user.dni != null">
-                  <p class="text-p mt-2">{{ this.user.dni }}</p>
-                </div>
-                <div v-show="this.user.dni == null">
-                  <p class="text-p mt-2">-</p>
-                </div>
-              </div>
-              <div class="mt-8">
-                <p class="text-title">Fecha de nacimiento</p>
-                <div v-show="this.user.date != null">
-                  <p class="text-p mt-2">{{ this.user.date }}</p>
-                </div>
-                <div v-show="this.user.date == null">
-                  <p class="text-p mt-2">-</p>
-                </div>
-              </div>
             </div>
             <div class="cp-2">
               <div>
@@ -55,26 +37,17 @@
                   <p class="text-p mt-2">-</p>
                 </div>
               </div>
-              <div class="space"></div>
               <div class="mt-8">
-                <p class="text-title">Género</p>
-                <div v-show="this.user.genero != null">
-                  <p class="text-p mt-2">{{ this.user.genero }}</p>
+                <p class="text-title">DNI</p>
+                <div v-show="this.user.dni != null">
+                  <p class="text-p mt-2">{{ this.user.dni }}</p>
                 </div>
-                <div v-show="this.user.genero == null">
-                  <p class="text-p mt-2">-</p>
-                </div>
-              </div>
-              <div class="mt-8">
-                <p class="text-title">Celular</p>
-                <div v-show="this.user.number != null">
-                  <p class="text-p mt-2">{{ this.user.number }}</p>
-                </div>
-                <div v-show="this.user.number == null">
+                <div v-show="this.user.dni == null">
                   <p class="text-p mt-2">-</p>
                 </div>
               </div>
             </div>
+            
           </div>
           <div class="container-button-edit">
             <el-button

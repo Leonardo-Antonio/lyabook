@@ -88,7 +88,7 @@
         </div>
 
         <!-- container tabs -->
-        <div class="conatiner-tabs py-12 px-6">
+        <div class="conatiner-tabs py-12">
           <el-tabs v-model="activeName" @tab-click="handleClick">
             <el-tab-pane label="Descripción" name="first">{{
               books.description
@@ -187,7 +187,7 @@ export default {
       valueButtom: true,
       seeMoreButton: [],
       seeLessButton: [],
-      cant_category: 0
+      cant_category: 0,
     }
   },
   methods: {
@@ -317,10 +317,9 @@ export default {
   watch: {
     addcomentary: function (value) {
       if (value.trim().length != 0) {
-        if(value.length > 0){
+        if (value.length > 0) {
           this.valueButtom = false
         }
-        
       } else {
         this.valueButtom = true
       }
@@ -522,14 +521,14 @@ export default {
   border: solid 1px var(--primary);
   color: var(--primary);
 }
-.seeMoreButton:hover{
+.seeMoreButton:hover {
   background: #5e20e40f;
 }
 .seeLessButton {
   border: solid 1px var(--primary);
   color: var(--primary);
 }
-.seeLessButton:hover{
+.seeLessButton:hover {
   background: #5e20e40f;
 }
 </style>

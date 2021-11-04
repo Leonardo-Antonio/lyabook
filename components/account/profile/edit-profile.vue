@@ -14,58 +14,13 @@
       <el-input
         class="input mt-2"
         placeholder="Apellido"
-        v-model="apellido"
-        clearable
-      >
-      </el-input>
-
-      <p class="titulo-form-book pt-4">Documento de Identidad</p>
-      <el-input
-        class="input mt-2"
-        placeholder="Documento de Identidad"
-        v-model="dni"
-        clearable
-      >
-      </el-input>
-
-      <p class="titulo-form-book pt-4">Teléfono personal</p>
-      <el-input
-        class="input mt-2"
-        placeholder="Teléfono personal"
-        v-model="telefono"
-        clearable
-      >
-      </el-input>
-
-      <p class="titulo-form-book pt-4">Género</p>
-      <el-select
-        v-model="value_gender"
-        clearable
-        placeholder="Género"
-        class="mt-2 select-gender"
-      >
-        <el-option
-          v-for="item in gender"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        >
-        </el-option>
-      </el-select>
-
-      <p class="titulo-form-book pt-4">Fecha de nacimiento</p>
-      <el-input
-        class="input mt-2"
-        placeholder="Fecha de nacimiento"
-        v-model="date"
+        v-model="last_name"
         clearable
       >
       </el-input>
 
       <div class="flex justify-center pt-8">
-        <el-button
-          class="btn_save_change"
-          type="primary"
+        <el-button class="btn_save_change" @click="edit" type="primary"
           >Guardar Cambios</el-button
         >
       </div>
@@ -77,44 +32,58 @@
 export default {
   data() {
     return {
-      gender: [
-        {
-          value: 'Femenino',
-          label: 'Femenino',
-        },
-        {
-          value: 'Masculino',
-          label: 'Masculino',
-        },
-        {
-          value: 'Otro',
-          label: 'Otro',
-        },
-      ],
-      value_gender: '',
-
       //values
-      data:''
+      data: '',
+      name: '',
+      last_name: '',
+      
     }
   },
-  created(){
-    console.log("-------------------------------------USER--------------------------------")
+  methods: {
+    async edit() {
+      try {
+        var bodyData = {
+          name: this.name,
+          last_name: this.last_name
+        }
+        const response = await this.$admin({
+          url: '/users/personal-information/'+this.data._id,
+          method: 'patch',
+          data: bodyData
+        })
+        console.log('******************UPDATE DATA USER***********+++++++')
+        console.log(response)
+      } catch (error) {
+        console.log('******************UPDATE DATA USER***********+++++++')
+        console.log(error)
+      }
+    },
+  },
+  created() {
+    console.log(
+      '-------------------------------------USER--------------------------------'
+    )
     const data = localStorage.getItem('user').toString()
-    this.data = JSON.parse(data).user
-    console.log(this.data)
-  }
+    if (data != undefined || data != null) {
+      this.data = JSON.parse(data).user
+        console.log('******************UPDATE DATA USER***********+++++++')
+console.log(this.data._id)
+      this.name= this.data.name
+      this.last_name = this.data.last_name
+    }
+  },
 }
 </script>
 
 <style scoped>
-.btn_save_change{
-    width: 100%;
-    height: 4rem;
-    border-radius: 5rem;
-    background: var(--primary);
-    border-color: var(--primary);
+.btn_save_change {
+  width: 100%;
+  height: 4rem;
+  border-radius: 5rem;
+  background: var(--primary);
+  border-color: var(--primary);
 }
-.btn_save_change:hover{
-    transform: unset
+.btn_save_change:hover {
+  transform: unset;
 }
 </style>

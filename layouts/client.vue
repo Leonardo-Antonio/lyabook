@@ -53,7 +53,7 @@
         <div class="container-login p-2 flex flex-col">
           <div v-show="showOpen">
             <nuxt-link :to="`/login`">
-              <el-button class="w-full button-log">Log In</el-button>
+              <el-button class="w-full button-log">Iniciar Sesión</el-button>
             </nuxt-link>
             <nuxt-link :to="`/sign-up/dni`">
               <el-button class="w-full button-log" style="margin-top: 0.5rem"
@@ -558,6 +558,7 @@ export default {
     closeSeccion(){
       localStorage.removeItem('user')
       this.showOpen = false
+      window.location.reload(true)
     },
     //-------------------------------------AUTOCOMPLETE----------------------------------------------
     querySearchAsync(queryString, cb) {
