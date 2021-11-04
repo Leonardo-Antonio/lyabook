@@ -16,9 +16,14 @@
 export default {
   data() {
     return{
-      lat:-12.1692,
-      lon:-77.0244
+      lat: 0,
+      lon: 0
     }
   },
+  created(){
+    this.lat = Number(this.$route.params.position.fisico.lat)
+    this.lon = Number(this.$route.params.position.fisico.log)
+
+  }
 }
 </script>

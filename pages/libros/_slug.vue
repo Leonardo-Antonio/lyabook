@@ -62,10 +62,9 @@
                     <p class="text">Recoger en:</p>
                   </div>
                   <div class="conatiner-enlace-maps w-1/2 flex justify-end">
-                    <a
-                      href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"
-                      ><p class="enlace-maps">Ver en Google Maps</p></a
-                    >
+                    <nuxt-link :to="{name:'libros-mapa', params: {position:books.type}}">
+                      <p class="enlace-maps">Ver el mapa</p>
+                    </nuxt-link>
                   </div>
                 </div>
                 <div class="container-direction pt-2">
