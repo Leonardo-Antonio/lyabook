@@ -80,6 +80,7 @@
 
         <div class="w-2/5" v-show="!showPassword">
           <div class="container-password container-restore px-12 pt-20 m-4">
+
             <RestorePassword />
           </div>
         </div>
@@ -107,7 +108,7 @@
       <div class="ml-4 pt-4">
         <p class="title-account pb-2">Editar Perfil</p>
       </div>
-      <div>
+      <div v-show="this.user.email != null">
         <EditProfile />
       </div>
     </div>
