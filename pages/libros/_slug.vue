@@ -68,7 +68,7 @@
                   </div>
                 </div>
                 <div class="container-direction pt-2">
-                  <p class="direction">Calle 8, Cercado de Lima 15828</p>
+                  <p class="direction">{{street}} - {{name_street}}</p>
                 </div>
               </div>
               <div class="container-button-to-buy pt-8 flex justify-center">
@@ -187,6 +187,8 @@ export default {
       seeMoreButton: [],
       seeLessButton: [],
       cant_category: 0,
+      street:'',
+      name_street:''
     }
   },
   methods: {
@@ -350,6 +352,13 @@ export default {
       console.log(error)
     }
   },
+  async created(){
+    var res = await this.$axios.get("https://api.mymappi.com/v2/places/search?apikey=5a6f0cf3-af52-4aaf-bb06-2c5ed3dd0da7&lat=-12.1692&lon=-77.0244&radius=10&limit=25")
+    this.street = res.data.data[0].tags['addr:street']
+    this.name_street = res.data.data[0].tags.name
+
+    
+  }
 }
 </script>
 <style scoped>
