@@ -17,13 +17,16 @@
                   <p class="text-p mt-2">-</p>
                 </div>
               </div>
-              <div class="mt-8">
+              <div class="mt-8" v-show="this.user.email != null">
                 <p class="text-title">Email</p>
-                <div v-show="this.user.email != null">
+                <div>
                   <p class="text-p mt-2">{{ this.user.email }}</p>
                 </div>
-                <div v-show="this.user.email == null">
-                  <p class="text-p mt-2">-</p>
+              </div>
+              <div class="mt-8"  v-show="this.user.dni != null">
+                <p class="text-title">DNI</p>
+                <div>
+                  <p class="text-p mt-2">{{ this.user.dni }}</p>
                 </div>
               </div>
             </div>
@@ -37,19 +40,11 @@
                   <p class="text-p mt-2">-</p>
                 </div>
               </div>
-              <div class="mt-8">
-                <p class="text-title">DNI</p>
-                <div v-show="this.user.dni != null">
-                  <p class="text-p mt-2">{{ this.user.dni }}</p>
-                </div>
-                <div v-show="this.user.dni == null">
-                  <p class="text-p mt-2">-</p>
-                </div>
-              </div>
+              
             </div>
             
           </div>
-          <div class="container-button-edit">
+          <div class="container-button-edit" v-show="this.user.email != null">
             <el-button
               class="btn_add_size button-to-by btn-edit"
               type="primary"

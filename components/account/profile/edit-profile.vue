@@ -36,7 +36,6 @@ export default {
       data: '',
       name: '',
       last_name: '',
-      
     }
   },
   methods: {
@@ -44,17 +43,28 @@ export default {
       try {
         var bodyData = {
           name: this.name,
-          last_name: this.last_name
+          last_name: this.last_name,
         }
-        const response = await this.$admin({
-          url: '/users/personal-information/'+this.data._id,
+        const update = await this.$admin({
+          url: '/users/personal-information/' + this.data._id,
           method: 'patch',
-          data: bodyData
+          data: bodyData,
         })
-        console.log('******************UPDATE DATA USER***********+++++++')
-        console.log(response)
+        if (update.status == 200) {
+          const response = await this.$admin({
+            url: '/users/' + this.data._id,
+            method: 'get',
+          })
+          if(response.status == 200){
+            localStorage.removeItem('user')
+            var users = {
+              user : response.data.data
+            }
+            localStorage.setItem('user', JSON.stringify(users));
+            window.location.reload(true)
+          }
+        }
       } catch (error) {
-        console.log('******************UPDATE DATA USER***********+++++++')
         console.log(error)
       }
     },
@@ -66,9 +76,9 @@ export default {
     const data = localStorage.getItem('user').toString()
     if (data != undefined || data != null) {
       this.data = JSON.parse(data).user
-        console.log('******************UPDATE DATA USER***********+++++++')
-console.log(this.data._id)
-      this.name= this.data.name
+      console.log('******************UPDATE DATA USER***********+++++++')
+      console.log(this.data._id)
+      this.name = this.data.name
       this.last_name = this.data.last_name
     }
   },
