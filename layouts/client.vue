@@ -70,7 +70,11 @@
             <nuxt-link :to="`/mi-cuenta`">
               <el-button class="w-full button-log">Mi cuenta</el-button>
             </nuxt-link>
-            <el-button class="w-full button-log" @click="closeSeccion">Cerrar Sección</el-button>
+            <a href="/">
+              <el-button class="w-full button-log" @click="closeSeccion"
+                >Cerrar Sección</el-button
+              ></a
+            >
           </div>
         </div>
       </div>
@@ -555,7 +559,7 @@ export default {
       console.log('-----------------------SWITCH--------------------------')
       console.log(value)
     },
-    closeSeccion(){
+    closeSeccion() {
       localStorage.removeItem('user')
       this.showOpen = false
       window.location.reload(true)
