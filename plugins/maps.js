@@ -1,8 +1,6 @@
-import Vue from 'vue'
-import * as VueGoogleMaps from 'vue2-google-maps'
+import Vue from 'vue';
+import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
 
-Vue.use(VueGoogleMaps, {
-  load: {
-    key: 'AIzaSyAKxI6ekhVdj7fQpoj0Vr9OScO1A_d33y0'
-  }
-})
+Vue.component('l-map', LMap);
+Vue.component('l-tile-layer', LTileLayer);
+Vue.component('l-marker', LMarker);

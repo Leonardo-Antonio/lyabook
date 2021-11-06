@@ -9,13 +9,16 @@
         <div class="pt-8 w-full">
           <!-- header -->
           <div class="flex items-center justify-between px-2 r-flex-col">
-            <div style="width: 20%;">
+            <div style="width: 20%">
               <nuxt-link :to="`/`">
-                <img src="/images/LyaBook.svg"/>
+                <img src="/images/LyaBook.svg" />
               </nuxt-link>
             </div>
 
-            <div class="flex flex-row justify-between r-flex-col" style="width: 80%;">
+            <div
+              class="flex flex-row justify-between r-flex-col"
+              style="width: 80%"
+            >
               <div class="search-autocomplete r-w-full r-order-2">
                 <el-autocomplete
                   v-model="state"
@@ -26,7 +29,14 @@
                 ></el-autocomplete>
               </div>
 
-              <div class="flex flex-row justify-between items-center r-order-1 r-pb-05 r-pt-1">
+              <div
+                class="
+                  flex flex-row
+                  justify-between
+                  items-center
+                  r-order-1 r-pb-05 r-pt-1
+                "
+              >
                 <div class="pr-2">
                   <nuxt-link :to="`/libros/`">
                     <h1>Libros</h1>
@@ -179,9 +189,7 @@
       </div>
     </el-drawer>
 
-    <div class="container mx-auto">
-      <nuxt class="z-50" />
-    </div>
+    <nuxt />
 
     <Footer />
 
@@ -379,7 +387,7 @@ export default {
       }
     },
     handleSelect(item) {
-      this.$router.push(`/libros/${item.slug}`);
+      this.$router.push(`/libros/${item.slug}`)
     },
     //-----------------------------------------------------------------------------------------------
   },
