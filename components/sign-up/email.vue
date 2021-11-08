@@ -88,15 +88,26 @@ export default {
   },
   methods: {
     async signUp() {
+      const loading = this.$loading({
+        lock: true,
+        text: 'Enviando email',
+        background: 'rgba(0, 0, 0, 0.7)',
+      })
       try {
-        const response = await this.$credentials({
+        const { status } = await this.$credentials({
           method: 'post',
           url: '/users/sign-up/email',
           data: this.data,
         })
-        this.verify(this.data.email)
-        this.$router.push('verify')
-      } catch (error) {}
+
+        if (status == 201) {
+          this.verify(this.data.email)
+          this.$router.push('verify')
+          loading.close()
+        }
+      } catch (error) {
+        loading.close()
+      }
     },
     ...mapMutations(['verify']),
   },

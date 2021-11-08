@@ -37,16 +37,23 @@ export default function (context) {
     })
   } else {
     try {
+      const path = context.route.path
+      if (path == '/cerrar-sesion') {
+        localStorage.removeItem('user')
+        context.next()
+      }
+
+      if (String(path).includes('/verificacion-cuenta')) context.next()
+
       const dataUserJson = JSON.parse(dataUser).user
       if (dataUserJson.rol == 'Admin' || dataUserJson.rol == 'Manager') {
-        const path = context.route.path
         const sectionPage = context.route.name.split('-')[1]
         if (
           String(sectionPage).toLowerCase() !=
           String(dataUserJson.rol).toLowerCase()
         ) {
           window.onNuxtReady(() => {
-            window.$nuxt.$router.push('https://google.com')
+            window.$nuxt.$router.push('/403')
           })
         }
       }
