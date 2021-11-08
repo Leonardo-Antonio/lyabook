@@ -21,7 +21,7 @@
             <p class="nameUser">{{ this.user.name }}</p>
           </div>
         </div>
-        <div class="mt-4">
+        <div class="mt-4 container-desktop">
           <el-tabs :tab-position="tabPosition" style="height: 200px">
             <el-tab-pane label="Perfil" class="tabOption">
               <Profile />
@@ -72,9 +72,67 @@
             >
           </el-tabs>
         </div>
+        <div class="mt-4 container-response">
+          <el-tabs :tab-position="tabPosition" style="height: 200px">
+            <el-tab-pane>
+              <span slot="label"><box-icon name='user' color='#021639' ></box-icon></span>
+              <Profile />
+            </el-tab-pane>
+
+            <el-tab-pane>
+              <span slot="label"><box-icon name='user' color='#021639' ></box-icon></span>
+              <MyOrder />
+            </el-tab-pane>
+
+            <el-tab-pane>
+              <span slot="label"><box-icon type='solid' name='book' color='#021639'></box-icon></span>
+              <div class="ml-4">
+                <p class="title-account pb-2">Mis Libros</p>
+              </div>
+              <MyBook />
+            </el-tab-pane>
+
+            <el-tab-pane>
+              <span slot="label"><box-icon name='book' color='#021639' ></box-icon></span>
+              <div class="ml-4">
+                <p class="title-account pb-2">Publcar Libros</p>
+              </div>
+              <div class="container-tabs-public-book">
+                <el-tabs type="card" @tab-click="handleClick">
+                  <el-tab-pane class="tab1" label="Terminos y Condiciones">
+                    <div>
+                      si acepta los terminos y condiciones se monetisara el
+                      libro registrado, pero el 50% de la ganancia lo ganara la
+                      empresa y el 50% el usuario. si no acepta los terminos y
+                      condiciones, no tendra la opción el usuario de agregar un
+                      precio y será gratis el libro.
+                    </div>
+                  </el-tab-pane>
+
+                  <el-tab-pane class="tab2" label="Nuevo Libro">
+                    <NewBook />
+                  </el-tab-pane>
+                </el-tabs>
+              </div>
+            </el-tab-pane>
+
+            <el-tab-pane>
+              <span slot="label"><box-icon name='user' color='#021639' ></box-icon></span>
+              <div class="ml-4">
+                <p class="title-account pb-2">Libros Publicados</p>
+              </div>
+              <BookPublic />
+            </el-tab-pane>
+            <el-tab-pane><span slot="label"><box-icon type='solid' name='exit' color='#021639'></box-icon></span></el-tab-pane
+            >
+          </el-tabs>
+        </div>
       </div>
     </div>
-    <ImageHeader class="doble-cuadrado-mi-cuenta" src="/shapes/doble-cuadrado-mi-cuenta.png" />
+    <ImageHeader
+      class="doble-cuadrado-mi-cuenta"
+      src="/shapes/doble-cuadrado-mi-cuenta.png"
+    />
   </div>
 </template>
 <script>
@@ -130,7 +188,7 @@ export default {
       ],
       value_categoria: '',
       //----------------------------------------------Variables
-      user:[]
+      user: [],
     }
   },
   methods: {
@@ -146,22 +204,37 @@ export default {
       this.user = JSON.parse(user).user
       console.log(this.user)
     }
-  }
+  },
 }
 </script>
 <style scoped>
-@media only screen and (max-width: 640px){
-  .doble-cuadrado-left{
-    display: none;
-  }
-  .container-account{
+/* MOBILE */
+@media only screen and (max-width: 640px) {
+  .container-account {
+    background: blue;
     width: 90% !important;
   }
-  .doble-cuadrado-mi-cuenta{
+  .doble-cuadrado-left {
+    display: none;
+  }
+
+  .doble-cuadrado-mi-cuenta {
     display: none;
   }
   /* .container-account .el-tabs__header{
 
   } */
+}
+/* TABLET */
+@media screen and (min-width: 640px) and (max-width: 1025px) {
+  .container-account {
+    background: green;
+  }
+}
+/* DESKTOP */
+@media only screen and (min-width: 1025px) {
+  .container-account {
+    /* background: red; */
+  }
 }
 </style>
