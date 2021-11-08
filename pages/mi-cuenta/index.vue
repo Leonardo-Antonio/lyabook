@@ -3,10 +3,10 @@
     <div class="flex justify-center">
       <img
         src="/shapes/doble-cuadrado-left.svg"
-        class="absolute z-10"
+        class="absolute z-10 doble-cuadrado-left"
         style="width: 20rem; left: 0rem; bottom: 0rem"
       />
-      <div class="container-account w-3/5 flex justify-center flex-col my-16">
+      <div class="container-account w-3/5 flex justify-center flex-col mt-16">
         <div class="flex items-center">
           <div class="demo-basic--circle mr-2">
             <div class="block">
@@ -74,7 +74,7 @@
         </div>
       </div>
     </div>
-    <ImageHeader src="/shapes/doble-cuadrado-mi-cuenta.png" />
+    <ImageHeader class="doble-cuadrado-mi-cuenta" src="/shapes/doble-cuadrado-mi-cuenta.png" />
   </div>
 </template>
 <script>
@@ -149,3 +149,19 @@ export default {
   }
 }
 </script>
+<style scoped>
+@media only screen and (max-width: 640px){
+  .doble-cuadrado-left{
+    display: none;
+  }
+  .container-account{
+    width: 90% !important;
+  }
+  .doble-cuadrado-mi-cuenta{
+    display: none;
+  }
+  /* .container-account .el-tabs__header{
+
+  } */
+}
+</style>
