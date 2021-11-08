@@ -297,4 +297,10 @@ export default {
 .p_total{
   font-weight: 500;
 }
+
+@media only screen and (max-width: 1400px) {
+  .container-perfile{
+    width: 100%;
+  }
+}
 </style>
