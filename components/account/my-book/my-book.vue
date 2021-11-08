@@ -3,8 +3,8 @@
     <div v-for="item of my_books" :key="item" class="pb-2">
       <div class="flex">
         <div class="container-my-books p-6 m-4 w-full">
-          <div class="flex">
-            <div class="w-1/5 flex justify-center">
+          <div class="flex container-colum-my-books">
+            <div class="w-1/5 flex justify-center container-portada">
               <img class="portada-book" :src="item.picture_url" />
             </div>
             <div class="container-star pl-4">
@@ -22,7 +22,7 @@
                 </div>
               </div>
             </div>
-            <div class="w-1/4">
+            <div class="w-1/4 container-space-book">
               <!-- <div class="h-1/3">
                 <p class="title-primary">Precio Unitario:</p>
                 <p class="name-category pt-2">S/.{{item.unit_price}}</p>
@@ -36,14 +36,14 @@
                 <p class="name-category pt-2">S/.{{item.unit_price * item.quantity}}</p>
               </div> -->
             </div>
-            <div class="w-1/4 flex justify-end">
-              <div class="h-full">
-                <div class="h-1/3">
+            <div class="w-1/4 flex justify-end container-bottom">
+              <div class="h-full container-column-book">
+                <div class="h-1/3 btn-top">
                   <p class="fecha p-2 px-6">
                     {{ new Date(item.created_at).toLocaleString() }}
                   </p>
                 </div>
-                <div class="h-1/3">
+                <div class="h-1/3 btn-top">
                   <div v-show="item.status == 'approved'">
                     <p class="parrafo-status text-center">Aprobado</p>
                   </div>
@@ -51,15 +51,20 @@
                     <p class="parrafo-status text-center">En proceso</p>
                   </div>
                 </div>
-                <div class="h-1/3" v-show="item.description == 'd'">
+                <div class="h-1/3 btn-top" v-show="item.description == 'd'">
                   <!-- <nuxt-link :to="`/mi-cuenta/leer/${item.category_id}/`"> -->
-                  <nuxt-link :to="{name:'mi-cuenta-leer', params: {pdf:item.category_id}}">
+                  <nuxt-link
+                    :to="{
+                      name: 'mi-cuenta-leer',
+                      params: { pdf: item.category_id },
+                    }"
+                  >
                     <el-button class="btn_readBook" type="primary"
                       >Leer Libro</el-button
                     >
                   </nuxt-link>
                 </div>
-                <div class="h-1/3" v-show="item.description == 'f'">
+                <div class="h-1/3 btn-top" v-show="item.description == 'f'">
                   <el-button class="btn_readBook" type="primary"
                     >Ver ubicación</el-button
                   >
@@ -241,5 +246,41 @@ export default {
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
+}
+@media only screen and (max-width: 900px) {
+  .container-colum-my-books {
+    flex-direction: column;
+  }
+  .container-star {
+    width: 100%;
+    padding-top: 2rem;
+    padding-left: 0;
+  }
+  .container-bottom {
+    width: 100%;
+    justify-content: center;
+  }
+  .btn-top {
+    padding-top: 0.5rem;
+  }
+  .container-column-book {
+    width: 100%;
+    padding-top: .5rem;
+  }
+  .btn_readBook {
+    width: 100%;
+  }
+  .fecha {
+    text-align: center;
+  }
+  .container-portada{
+    width: 100%;
+  }
+  .portada-book{
+    height: 100%;
+  }
+  .container-space-book{
+    display: none;
+  }
 }
 </style>
