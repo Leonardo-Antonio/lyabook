@@ -806,3 +806,19 @@ span.el-checkbox__label {
 .r-remove-desktop {
   display: none;
 }
+
+.container-response .el-tabs__header.is-bottom {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+}
+
+.container-response .el-tabs.el-tabs--bottom {
+  display: flex;
+  flex-direction: column !important;
+}
+
+.el-tabs.el-tabs--bottom {
+  height: 100% !important;
+}

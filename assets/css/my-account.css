@@ -150,6 +150,11 @@
 .container-account .el-tabs__header {
   padding-top: 3rem;
 }
+@media only screen and (max-width: 641px) {
+  .container-account .el-tabs__header {
+    padding-top: 1rem;
+  }
+}
 
 .el-button--primary.is-active,
 .el-button--primary:active {

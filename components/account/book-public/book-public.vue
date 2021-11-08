@@ -3,10 +3,10 @@
     <div class="container-book-public">
       <div v-for="item of [2]" :key="item" class="pb-2">
         <div class="container-bookPublic flex p-6 m-4">
-          <div class="w-1/5">
+          <div class="w-1/5 flex justify-center">
             <img class="portada-book" src="/images/portada-la-corona.jpg" />
           </div>
-          <div class="w-2/5 relative">
+          <div class="w-2/5 relative pl-4">
             <div class="w-1/2">
               <p class="title-primary">Autor: Pedro Lopez</p>
               <p class="title-book pt-4">La Selección</p>

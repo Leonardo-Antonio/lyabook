@@ -4,7 +4,7 @@
       <div class="ml-4">
         <p class="title-account pb-2">Perfil</p>
       </div>
-      <div class="flex">
+      <div class="flex container-father-perfile">
         <div class="container-perfile p-12 m-4 w-3/5">
           <div class="flex">
             <div class="cp-1">
@@ -55,7 +55,7 @@
           </div>
         </div>
 
-        <div class="w-2/5" v-show="showPassword">
+        <div class="w-2/5 container-x-password" v-show="showPassword">
           <div class="container-password p-12 m-4">
             <p class="text-title">Contraseña</p>
             <p class="text-p mt-2">
@@ -73,7 +73,7 @@
           </div>
         </div>
 
-        <div class="w-2/5" v-show="!showPassword">
+        <div class="w-2/5 container-change-password" v-show="!showPassword">
           <div class="container-password container-restore px-12 pt-20 m-4">
 
             <RestorePassword />
@@ -162,5 +162,24 @@ export default {
 
 .container-restore {
   padding-bottom: 5.5rem;
+}
+
+@media only screen and (max-width: 1025px) {
+  .container-father-perfile{
+    flex-direction: column !important;
+  }
+  .container-perfile{
+    width: 100%;
+    margin: 0;
+  }
+  .container-x-password{
+    width: 100%;
+  }
+  .container-password{
+    margin: 1rem 0;
+  }
+  .container-change-password{
+    width: 100%;
+  }
 }
 </style>

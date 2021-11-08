@@ -73,19 +73,19 @@
           </el-tabs>
         </div>
         <div class="mt-4 container-response">
-          <el-tabs :tab-position="tabPosition" style="height: 200px">
+          <el-tabs tab-position="bottom" style="height: 200px">
             <el-tab-pane>
               <span slot="label"><box-icon name='user' color='#021639' ></box-icon></span>
               <Profile />
             </el-tab-pane>
 
             <el-tab-pane>
-              <span slot="label"><box-icon name='user' color='#021639' ></box-icon></span>
+              <span slot="label"><box-icon name='purchase-tag-alt' color='#021639'></box-icon></span>
               <MyOrder />
             </el-tab-pane>
 
             <el-tab-pane>
-              <span slot="label"><box-icon type='solid' name='book' color='#021639'></box-icon></span>
+              <span slot="label"><box-icon name='book-reader' color='#021639' ></box-icon></span>
               <div class="ml-4">
                 <p class="title-account pb-2">Mis Libros</p>
               </div>
@@ -93,7 +93,7 @@
             </el-tab-pane>
 
             <el-tab-pane>
-              <span slot="label"><box-icon name='book' color='#021639' ></box-icon></span>
+              <span slot="label"><box-icon name='book-add' color='#021639'></box-icon></span>
               <div class="ml-4">
                 <p class="title-account pb-2">Publcar Libros</p>
               </div>
@@ -117,7 +117,7 @@
             </el-tab-pane>
 
             <el-tab-pane>
-              <span slot="label"><box-icon name='user' color='#021639' ></box-icon></span>
+              <span slot="label"><box-icon name='book' color='#021639' ></box-icon></span>
               <div class="ml-4">
                 <p class="title-account pb-2">Libros Publicados</p>
               </div>
@@ -209,9 +209,8 @@ export default {
 </script>
 <style scoped>
 /* MOBILE */
-@media only screen and (max-width: 640px) {
+@media only screen and (max-width: 641px) {
   .container-account {
-    background: blue;
     width: 90% !important;
   }
   .doble-cuadrado-left {
@@ -221,20 +220,43 @@ export default {
   .doble-cuadrado-mi-cuenta {
     display: none;
   }
-  /* .container-account .el-tabs__header{
-
-  } */
+  .container-desktop{
+    display: none;
+  }
+  .container-response .el-tabs{
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  
 }
 /* TABLET */
 @media screen and (min-width: 640px) and (max-width: 1025px) {
   .container-account {
-    background: green;
+    width: 90% !important;
+  }
+
+  .doble-cuadrado-left {
+    display: none;
+  }
+
+  .doble-cuadrado-mi-cuenta {
+    display: none;
+  }
+  
+  .container-desktop{
+    display: none;
+  }
+}
+/* SUB DESKTOP */
+@media screen and (min-width: 1024px) and (max-width: 1399px) {
+  .container-desktop{
+    display: none;
   }
 }
 /* DESKTOP */
-@media only screen and (min-width: 1025px) {
-  .container-account {
-    /* background: red; */
+@media only screen and (min-width: 1400px) {
+  .container-response{
+    display: none;
   }
 }
 </style>
