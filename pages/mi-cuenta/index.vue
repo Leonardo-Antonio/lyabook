@@ -247,16 +247,42 @@ export default {
     display: none;
   }
 }
+/* SUB TABLET */
+@media screen and (min-width: 1025px) and (max-width: 1270px) {
+  .doble-cuadrado-left {
+    display: none;
+  }
+
+  .doble-cuadrado-mi-cuenta {
+    display: none;
+  }
+  .container-account {
+    width: 90% !important;
+  }
+}
 /* SUB DESKTOP */
 @media screen and (min-width: 1024px) and (max-width: 1399px) {
   .container-desktop{
     display: none;
   }
 }
+
 /* DESKTOP */
 @media only screen and (min-width: 1400px) {
   .container-response{
     display: none;
   }
 }
+
+/* EXTRA */
+@media screen and (min-width: 1269px) and (max-width: 1630px) {
+  .doble-cuadrado-left {
+    display: none;
+  }
+
+  .doble-cuadrado-mi-cuenta {
+    display: none;
+  }
+}
+
 </style>
