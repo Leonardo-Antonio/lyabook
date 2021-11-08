@@ -22,14 +22,21 @@
         >
       </div>
 
-      <div v-for="itemPayment of paymentList" :key="itemPayment" class="flex" v-show="show">
+      <div
+        v-for="itemPayment of paymentList"
+        :key="itemPayment"
+        class="flex"
+        v-show="show"
+      >
         <div class="container-perfile px-12 py-6 m-4 w-3/5">
           <div class="flex">
             <div class="w-full">
               <p class="size-title mt-2">Boleta de venta</p>
-              <p>B-{{itemPayment.payment_id}}</p>
+              <p>B-{{ itemPayment.payment_id }}</p>
               <div class="mt-4 flex">
-                <el-button class="w-1/2 btn-detail" @click="showDetail(itemPayment)"
+                <el-button
+                  class="w-1/2 btn-detail"
+                  @click="showDetail(itemPayment)"
                   >Ver detalle</el-button
                 >
                 <el-button class="w-1/2 btn-ticket">Boleta de venta</el-button>
@@ -76,7 +83,7 @@
       </div>
 
       <div v-show="!show" class="container-perfile px-4 py-6">
-        <div class="flex h-48">
+        <div class="flex h-48 header-boleta">
           <div class="container_boleta_right w-1/2">
             <div class="flex justify-center h-1/2">
               <img src="/images/LyaBook.svg" width="60%" />
@@ -102,26 +109,29 @@
                 justify-center
                 items-center
                 container_boleta_top
+                px-2
                 py-2
                 h-1/2
               "
             >
               <p>RUC N° 999999999</p>
               <p>BOLETA DE VENTA</p>
-              <p>B-{{id_payment}}</p>
+              <p>B-{{ id_payment }}</p>
             </div>
-            <div class="container_boleta_botton h-1/2 flex flex-col justify-center">
-              <p>Fecha y Hora de Emisión: {{ new Date(created_at).toLocaleString() }}</p>
-              <p>Señor(es): {{user.name}} {{user.last_name}}</p>
-              <p>DNI: {{user.dni}}</p>
+            <div
+              class="container_boleta_botton h-1/2 flex flex-col justify-center"
+            >
+              <p>
+                Fecha y Hora de Emisión:
+                {{ new Date(created_at).toLocaleString() }}
+              </p>
+              <p>Señor(es): {{ user.name }} {{ user.last_name }}</p>
+              <p>DNI: {{ user.dni }}</p>
             </div>
           </div>
         </div>
         <div class="mt-2">
           <el-table :data="tableData" stripe style="width: 100%">
-            <el-table-column label="Portada" width="180">
-              <img :src="tableData.img" alt="" srcset="">
-            </el-table-column>
             <el-table-column prop="name" label="Nombre" width="180">
             </el-table-column>
             <el-table-column prop="price" label="Precio Unitario">
@@ -131,7 +141,7 @@
           </el-table>
         </div>
         <div class="container_boleta_botton pt-4">
-          <p class="p_total text-right">Total: {{total}}</p>
+          <p class="p_total text-right">Total: {{ total }}</p>
         </div>
       </div>
     </div>
@@ -151,27 +161,27 @@ export default {
       user: [],
       show: true,
       paymentList: [],
-      created_at:'',
-      id_payment:'',
-      total:0
+      created_at: '',
+      id_payment: '',
+      total: 0,
     }
   },
-  methods:{
-    showDetail(data){
+  methods: {
+    showDetail(data) {
       this.show = false
       this.tableData = []
       this.total = 0
       this.created_at = data.created_at
       this.id_payment = data.payment_id
-      console.log("DATA--------------------------------------------")
+      console.log('DATA--------------------------------------------')
       console.log(data)
-      data.products.forEach((product)=>{
-        var dataTable={
+      data.products.forEach((product) => {
+        var dataTable = {
           img: product.picture_url,
           name: product.title,
           price: product.unit_price,
           cant: product.quantity,
-          total: product.unit_price * product.quantity
+          total: product.unit_price * product.quantity,
         }
         this.total += dataTable.total
         this.tableData.push(dataTable)
@@ -179,7 +189,7 @@ export default {
       // var value={
       //   date: data.
       // }
-    }
+    },
   },
   async created() {
     console.log('-------------------------USER----------------------------')
@@ -190,11 +200,11 @@ export default {
 
       const getPayCli = await this.$apidata({
         url: '/payments/' + this.user._id,
-        method: 'get'
+        method: 'get',
       })
 
-      if(getPayCli.data.error == false){
-        console.log("----------------------RESPONSE-------------ORDER")
+      if (getPayCli.data.error == false) {
+        console.log('----------------------RESPONSE-------------ORDER')
         getPayCli.data.data.forEach((payment) => {
           this.paymentList.push(payment)
         })
@@ -294,13 +304,34 @@ export default {
   font-size: 14px;
   line-height: 21px;
 }
-.p_total{
+.p_total {
   font-weight: 500;
 }
 
 @media only screen and (max-width: 1400px) {
-  .container-perfile{
+  .container-perfile {
     width: 100%;
   }
 }
+@media only screen and (max-width: 688px) {
+  .container_boleta_botton {
+    margin-top: 1rem;
+  }
+  .header-boleta{
+    height: 14rem;
+  }
+}
+
+@media only screen and (max-width: 460px) {
+  .container_boleta_top {
+    font-size: 14px !important;
+  }
+  .container_boleta_left{
+    padding-left: 1rem;
+  }
+  .header-boleta{
+    height: 20rem;
+  }
+}
+
 </style>

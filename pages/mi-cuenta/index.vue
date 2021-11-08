@@ -73,7 +73,7 @@
           </el-tabs>
         </div>
         <div class="mt-4 container-response">
-          <el-tabs tab-position="bottom" style="height: 200px">
+          <el-tabs tab-position="top" style="height: 200px">
             <el-tab-pane>
               <span slot="label"><box-icon name='user' color='#021639' ></box-icon></span>
               <Profile />
@@ -98,7 +98,7 @@
                 <p class="title-account pb-2">Publcar Libros</p>
               </div>
               <div class="container-tabs-public-book">
-                <el-tabs type="card" @tab-click="handleClick">
+                <el-tabs type="card" @tab-click="handleClick" class="conatiner-tabs">
                   <el-tab-pane class="tab1" label="Terminos y Condiciones">
                     <div>
                       si acepta los terminos y condiciones se monetisara el
@@ -223,10 +223,10 @@ export default {
   .container-desktop{
     display: none;
   }
-  .container-response .el-tabs{
+  /* .container-response .el-tabs{
     display: flex;
     flex-direction: column-reverse;
-  }
+  } */
   
 }
 /* TABLET */

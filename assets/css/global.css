@@ -807,18 +807,23 @@ span.el-checkbox__label {
   display: none;
 }
 
-.container-response .el-tabs__header.is-bottom {
+.container-response .el-tabs__header.is-top {
   width: 100%;
   display: flex;
   justify-content: center;
 
 }
 
-.container-response .el-tabs.el-tabs--bottom {
+.container-response .el-tabs{
   display: flex;
   flex-direction: column !important;
 }
 
-.el-tabs.el-tabs--bottom {
+.el-tabs.el-tabs--top {
   height: 100% !important;
+}
+
+.conatiner-tabs .el-tabs__header.is-top {
+  display: flex;
+  justify-content: flex-start;
 }
