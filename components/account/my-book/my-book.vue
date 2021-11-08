@@ -5,8 +5,8 @@
         <div class="container-my-books p-6 m-4 w-full">
           <div class="flex container-colum-my-books">
             <div class="w-1/5 flex justify-center container-portada">
-              <img class="portada-book" :src="item.picture_url" />
-            </div>
+            <img class="portada-book" :src="item.picture_url" />
+          </div>
             <div class="container-star pl-4">
               <div class="h-1/2 pr-4">
                 <p class="title-primary">Autor: {{ item.id_payment }}</p>
@@ -276,9 +276,9 @@ export default {
   .container-portada{
     width: 100%;
   }
-  .portada-book{
+  /* .portada-book{
     height: 100%;
-  }
+  } */
   .container-space-book{
     display: none;
   }

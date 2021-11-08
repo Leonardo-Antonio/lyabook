@@ -827,3 +827,10 @@ span.el-checkbox__label {
   display: flex;
   justify-content: flex-start;
 }
+
+.container_publicBook_Edit .dialog-edit .el-dialog{
+  width: 90% !important;
+}
+.container-delete .el-dialog{
+  width: 90% !important;
+}
