@@ -1,8 +1,8 @@
 <template>
   <div>
     <div>
-      <div class="flex flex-row justify-between">
-        <div class="flex items-end">
+      <div class="flex flex-row justify-between mobile_vertical">
+        <div class="flex items-end mobile_pb-1">
           <h3 class="title_admin">Nuevo administrador</h3>
         </div>
         <div>
@@ -36,8 +36,8 @@
         <div class="py-10">
           <div class="w-11/12 mx-auto">
             <div class="input_semiroundend">
-              <div class="w-full flex flex-row pb-4">
-                <div class="flex flex-col px-8 w-1/2 input">
+              <div class="w-full flex flex-row pb-4 mobile_vertical">
+                <div class="flex flex-col px-8 w-1/2 input mobile_w-full mobile_px-0 mobile_pb-1">
                   <span class="title_input">Dni*</span>
                   <el-input
                     v-model="dni"
@@ -46,7 +46,7 @@
                   />
                 </div>
 
-                <div class="flex flex-col px-8 w-1/2 input">
+                <div class="flex flex-col px-8 w-1/2 input mobile_w-full mobile_px-0">
                   <span class="title_input">Email*</span>
                   <el-input
                     v-model="email"
@@ -56,8 +56,8 @@
                 </div>
               </div>
 
-              <div class="w-full flex flex-row input">
-                <div class="flex flex-col px-8 w-1/2 input">
+              <div class="w-full flex flex-row input mobile_vertical">
+                <div class="flex flex-col px-8 w-1/2 input mobile_w-full mobile_px-0 mobile_pb-1">
                   <span class="title_input">Nombres y Apellos*</span>
                   <el-input
                     v-model="fullname"
@@ -66,7 +66,7 @@
                   />
                 </div>
 
-                <div class="flex flex-col px-8 w-1/2 input">
+                <div class="flex flex-col px-8 w-1/2 input mobile_w-full mobile_px-0">
                   <span class="title_input">Password*</span>
                   <el-input
                     v-model="password"

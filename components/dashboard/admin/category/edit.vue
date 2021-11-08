@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="flex flex-row w-full">
-      <div class="w-1/2 pr-4 input">
+    <div class="flex flex-row w-full mobile_vertical">
+      <div class="w-1/2 pr-4 input mobile_w-full mobile_px-0 mobile_pb-1">
         <el-input
           :autofocus="true"
           placeholder="Nombre de la categoria"
@@ -9,7 +9,7 @@
           clearable
         />
       </div>
-      <div class="w-1/2 pr-4">
+      <div class="w-1/2 pr-4 mobile_w-full mobile_px-0">
         <span class="title_input">Estado*</span><br />
         <el-switch
           v-model="data.active"

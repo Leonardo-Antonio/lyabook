@@ -1,112 +1,145 @@
 <template>
-  <div class="p-4">
-    <div>
-      <div class="flex flex-row justify-between">
-        <div class="flex items-end">
-          <h3 class="title_admin">Mi cuenta</h3>
-        </div>
-        <div class="flex flex-row">
-          <div class="input__search">
-            <button
-              class="btn_primary rounded-full w-60 h-10 btn_add_size"
-              @click="update"
-            >
-              Actualizar
-            </button>
+  <div class="overflow-y-auto overflow-x-hidden" style="height: 83vh">
+    <div class="p-4 r-space-container">
+      <div class="r-pt-2">
+        <div class="flex flex-row justify-between mobile_vertical">
+          <div class="flex items-end mobile_pb-1">
+            <h3 class="title_admin">Mi cuenta</h3>
+          </div>
+          <div class="flex flex-row">
+            <div class="input__search mobile_w-full">
+              <button
+                class="
+                  btn_primary
+                  rounded-full
+                  w-60
+                  h-10
+                  btn_add_size
+                  mobile_w-full
+                "
+                @click="update"
+              >
+                Actualizar
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="spacer"></div>
+      <div class="spacer"></div>
 
-    <div>
       <div>
-        <h5 class="name_item_card">Listado</h5>
-      </div>
-      <div class="card">
-        <div class="py-10 w-11/12 mx-auto">
-          <div class="w-full flex flex-row pb-8">
-            <div class="w-1/2 px-8 input">
-              <section class="flex flex-row justify-between">
-                <div>
-                  <span class="title_input">Perfil*</span>
-                  <el-upload
-                    :action="$config.API_IMAGES"
-                    :on-success="successImage"
-                    :before-upload="beforeUpload"
-                    accept="image/png"
-                  >
-                    <el-button size="small" type="primary"
-                      >Clic para subir archivo</el-button
+        <div>
+          <h5 class="name_item_card">Listado</h5>
+        </div>
+        <div class="card">
+          <div class="py-10 w-11/12 mx-auto">
+            <div class="w-full flex flex-row pb-8 mobile_vertical">
+              <div
+                class="w-1/2 px-8 mobile_px-0 input mobile_w-full mobile_pb-1"
+              >
+                <section class="flex flex-row justify-between">
+                  <div>
+                    <span class="title_input">Perfil*</span>
+                    <el-upload
+                      :action="$config.API_IMAGES"
+                      :on-success="successImage"
+                      :before-upload="beforeUpload"
+                      accept="image/png"
                     >
-                    <div slot="tip" class="el-upload__tip">
-                      Solo archivos .png con un tamaño menor de 500kb
-                    </div>
-                  </el-upload>
-                </div>
+                      <el-button size="small" type="primary"
+                        >Clic para subir archivo</el-button
+                      >
+                      <div slot="tip" class="el-upload__tip">
+                        Solo archivos .png con un tamaño menor de 500kb
+                      </div>
+                    </el-upload>
+                  </div>
 
-                <div>
-                  <el-avatar :size="80" :src="data.src" />
-                </div>
-              </section>
+                  <div>
+                    <el-avatar :size="80" :src="data.src" />
+                  </div>
+                </section>
+              </div>
+
+              <div class="w-1/2 px-8 mobile_px-0 input mobile_w-full">
+                <span class="title_input">Nombres*</span>
+                <el-input
+                  placeholder="Please input"
+                  v-model="data.name"
+                  clearable
+                  disabled
+                />
+              </div>
             </div>
 
-            <div class="w-1/2 px-8 input">
-              <span class="title_input">Nombres*</span>
-              <el-input
-                placeholder="Please input"
-                v-model="data.name"
-                clearable
-                disabled
-              />
-            </div>
-          </div>
+            <div class="w-full flex flex-row pb-8 mobile_vertical">
+              <div
+                class="
+                  w-1/2
+                  px-8
+                  input
+                  mobile_px-0
+                  input
+                  mobile_w-full mobile_pb-1
+                "
+              >
+                <span class="title_input">Dni*</span>
+                <el-input
+                  placeholder="Please input"
+                  v-model="data.dni"
+                  clearable
+                  :disabled="true"
+                />
+              </div>
 
-          <div class="w-full flex flex-row pb-8">
-            <div class="w-1/2 px-8 input">
-              <span class="title_input">Dni*</span>
-              <el-input
-                placeholder="Please input"
-                v-model="data.dni"
-                clearable
-                :disabled="true"
-              />
-            </div>
-
-            <div class="w-1/2 px-8 input">
-              <span class="title_input">Apellidos*</span>
-              <el-input
-                placeholder="Please input"
-                v-model="data.last_name"
-                clearable
-              />
-            </div>
-          </div>
-
-          <div class="w-full flex flex-row pb-8">
-            <div class="w-1/2 px-8 input">
-              <span class="title_input">Email*</span>
-              <el-input
-                placeholder="Please input"
-                v-model="data.email"
-                clearable
-                :disabled="true"
-              />
+              <div class="w-1/2 px-8 input mobile_px-0 input mobile_w-full">
+                <span class="title_input">Apellidos*</span>
+                <el-input
+                  placeholder="Please input"
+                  v-model="data.last_name"
+                  clearable
+                  disabled
+                />
+              </div>
             </div>
 
-            <div class="w-1/2 px-8 input">
-              <span class="title_input">Nuevo password*</span>
-              <el-input
-                placeholder="Please input"
-                v-model="data.password"
-                show-password
-              />
+            <div class="w-full flex flex-row pb-8 mobile_vertical">
+              <div
+                class="
+                  w-1/2
+                  px-8
+                  input
+                  mobile_px-0
+                  input
+                  mobile_w-full mobile_pb-1
+                "
+              >
+                <span class="title_input">Email*</span>
+                <el-input
+                  placeholder="Please input"
+                  v-model="data.email"
+                  clearable
+                  :disabled="true"
+                />
+              </div>
+
+              <div class="w-1/2 px-8 input mobile_px-0 input mobile_w-full">
+                <span class="title_input">Nuevo password*</span>
+                <el-input
+                  placeholder="Ingrese la nueva contraseña"
+                  v-model="data.password"
+                  show-password
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <span class="mobile_spacer"></span>
+    <span class="mobile_spacer"></span>
+    <span class="mobile_spacer"></span>
   </div>
 </template>
 
@@ -156,9 +189,7 @@ export default {
           data: this.data,
         })
         console.log(response)
-      } catch (error) {
-        console.log(error)
-      }
+      } catch (error) {}
     },
   },
 }

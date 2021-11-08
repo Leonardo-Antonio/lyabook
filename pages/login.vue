@@ -53,13 +53,13 @@
     <div>
       <div class="h-screen flex justify-center items-center relative">
         <img
-          class="absolute bottom-0 z-20"
+          class="absolute bottom-0 z-20 mobile_remove"
           src="/images/man_login_key.svg"
           style="right: 385px"
           alt=""
         />
         <img
-          class="absolute bottom-0 z-20"
+          class="absolute bottom-0 z-20 mobile_remove"
           style="right: -155px"
           src="/images/woman_login_key.svg"
           alt="woman_login_key"

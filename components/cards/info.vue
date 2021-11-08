@@ -9,8 +9,8 @@
       hover:shadow-2xl hover:duration-500
       duration-500
       cursor-default
+      card-info
     "
-    style="width: 17rem; height: 16rem"
   >
     <div class="flex justify-center">
       <div class="flex flex-col justify-center text-center">
@@ -37,6 +37,23 @@ export default {
 </script>
 
 <style>
+@media (max-width: 640px) {
+  .card-info {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  .card-info {
+    width: 31%;
+    height: 14rem;
+  }
+}
+
+.card-info {
+  width: 17rem;
+  height: 16rem;
+}
 .text_number {
   font-family: Roboto;
   font-style: normal;

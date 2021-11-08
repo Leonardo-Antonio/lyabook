@@ -1,0 +1,91 @@
+@media (max-width: 640px) and (max-width: 1025px) {
+  .mobile_container-section_header_title-admin {
+    flex-direction: column;
+  }
+
+  .mobile_container-section_header_title-admin > .items-end {
+    padding-bottom: 1rem;
+  }
+
+  .mobile_table_custom {
+    padding: 0;
+  }
+
+  .mobile_vertical {
+    flex-direction: column;
+  }
+
+  .mobile_vertical-important {
+    flex-direction: column !important;
+  }
+
+  .mobile_vertical-reverse {
+    flex-direction: column-reverse;
+  }
+
+  .mobile_w-full {
+    width: 100%;
+  }
+
+  .mobile_w-full-important {
+    width: 100% !important;
+  }
+
+  .mobile_px-0 {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .mobile_py-02 {
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+  }
+
+  .mobile_px-1 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .mobile_pb-1 {
+    padding-bottom: 1rem;
+  }
+
+  .mobile_w-full-upload .el-upload {
+    width: 100%;
+  }
+
+  .dialog_w-full .el-dialog {
+    width: 100% !important;
+  }
+
+  .mobile_remove {
+    display: none;
+  }
+
+  .el-message-box {
+    width: 80%;
+  }
+
+  .mobile_p-1-5 {
+    padding: 1.5rem;
+  }
+
+  .line-1 {
+    line-height: 1 !important;
+  }
+
+  .mobile_admin-link {
+    width: 100%;
+  }
+
+  .mobile_p-0 {
+    padding: 0 !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  .dialog_w-full .el-dialog {
+    width: 100% !important;
+  }
+}
+

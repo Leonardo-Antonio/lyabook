@@ -3,7 +3,7 @@
     <div class="mt-20 relative overflow-x-hidden overflow-y-hidden">
       <img
         src="/shapes/circle-double-aye.svg"
-        class="absolute z-10 rotate"
+        class="absolute z-10 rotate z-10"
         style="width: 10rem; left: -5rem; top: 0rem"
       />
 
@@ -25,8 +25,8 @@
         style="width: 5rem; right: -1rem; top: 42rem"
       />
 
-      <div class="flex justify-center w-7/12 mx-auto pb-16">
-        <div class="container-filter-father w-1/4" style="z-index: 20">
+      <div class="flex justify-center mx-auto pb-16" style="width: 70%">
+        <div class="container-filter-father w-1/4 r-remove" style="z-index: 20">
           <!-- filter -->
           <div class="container-filter">
             <div class="header-filter px-6 py-4 rounded-t-2xl">
@@ -121,6 +121,109 @@
           class="container-list-books pt-2 w-9/12"
           style="z-index: 20"
         >
+          <div class="w-full pb-8 r-remove-desktop r-see">
+            <el-button class="w-full" @click="drawerFilter = true"
+              >Filtrado</el-button
+            >
+
+            <el-drawer
+              title="I am the title"
+              :visible.sync="drawerFilter"
+              :with-header="false"
+              size="85%"
+              direction="ltr"
+            >
+              <div class="container-filter">
+                <div class="header-filter px-6 py-4 rounded-t-2xl">
+                  <p class="header-title">Filtar por</p>
+                </div>
+                <div>
+                  <el-row class="tac">
+                    <el-col
+                      :span="12"
+                      class="column-menu rounded-b-2xl"
+                      style="background: #fff"
+                    >
+                      <el-menu
+                        default-active="2"
+                        class="el-menu-vertical-demo header-option-filter"
+                        @open="handleOpen"
+                        @close="handleClose"
+                      >
+                        <el-submenu index="1">
+                          <template slot="title">
+                            <!-- <i class="el-icon-location"></i> -->
+                            <span class="subtitle-filter">Categoria</span>
+                          </template>
+                          <el-menu-item
+                            v-for="(category, index) of value_category"
+                            :key="index"
+                          >
+                            <el-checkbox
+                              class="checkbox-filter"
+                              id="checkbox"
+                              @change="
+                                filter(index, category.active, category._id)
+                              "
+                              >{{ category.name }}
+                            </el-checkbox>
+                          </el-menu-item>
+                        </el-submenu>
+                      </el-menu>
+                      <el-menu
+                        default-active="2"
+                        class="el-menu-vertical-demo header-option-filter"
+                        @open="handleOpen"
+                        @close="handleClose"
+                      >
+                        <el-submenu index="2">
+                          <template slot="title">
+                            <span class="subtitle-filter">Editorial</span>
+                          </template>
+                          <div
+                            v-for="(edi, indexE) of editorial"
+                            :key="edi"
+                            class="container-options-filter"
+                          >
+                            <el-menu-item
+                              index="1-1"
+                              class="menu-item"
+                              @click="
+                                filterEditorial(indexE, edi.status, edi.name)
+                              "
+                              >{{ edi.name }}</el-menu-item
+                            >
+                          </div>
+
+                          <!-- <el-menu-item
+                        v-for="(edi, indexE) of editorial"
+                        :key="edi"
+                      >
+                        <el-menu-item index="1-1">item one</el-menu-item>
+                      </el-menu-item> -->
+                        </el-submenu>
+                      </el-menu>
+                      <el-menu class="rounded-b-2xl">
+                        <div class="container-barra-price pt-4 pb-20">
+                          <div class="block">
+                            <span class="demonstration subtitle-filter"
+                              >Precio</span
+                            >
+                            <el-slider
+                              class="pt-2"
+                              v-model="value_barra"
+                              :max="max"
+                              :min="min"
+                            ></el-slider>
+                          </div>
+                        </div>
+                      </el-menu>
+                    </el-col>
+                  </el-row>
+                </div>
+              </div>
+            </el-drawer>
+          </div>
           <el-header class="header-list-book">
             <div class="flex relative items-center">
               <div class="container-title">
@@ -139,7 +242,7 @@
                     <div
                       v-for="item of books"
                       :key="item"
-                      class="pl-4 pb-8 w-1/4 container-book"
+                      class="pl-4 pb-8 w-48 container-book"
                       style="height: 28rem"
                     >
                       <nuxt-link :to="`/libros/${item.slug}`">
@@ -280,12 +383,19 @@ export default {
       // -------------------------------DRAWER
       booksCard: [],
       valuesCard: [],
+
+      drawerFilter: false,
     }
   },
   methods: {
     hi(item) {
       console.log(item)
     },
+
+    openFilter() {
+      alert(2)
+    },
+
     //------------------------------------PROCESO DEL FILTRADO
     filter(index, value, id_category) {
       this.books = this.books.filter((book) =>
@@ -516,7 +626,7 @@ export default {
         console.log('error en el servidor al obtener la categoria.')
       }
     } catch (error) {
-        console.log('error en el servidor - categoria.')
+      console.log('error en el servidor - categoria.')
     }
 
     // -------------------------------------------Filtro Editorial

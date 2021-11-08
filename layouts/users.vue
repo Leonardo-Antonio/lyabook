@@ -1,5 +1,5 @@
 <template>
-  <div class="relative">
+  <div class="relative r-overflow-h">
     <img
       class="absolute bottom-0 right-0"
       src="/shapes/circle_lines.png"
@@ -11,9 +11,51 @@
       alt="circle_quadrate"
     />
 
+    <div class="r-see absolute bottom-5 left-8 z-50 hidden">
+      <div class="flex flex-row">
+        <div class="w-28 bg_second rounded-2xl">
+          <nuxt-link
+            to="dni"
+            class="
+              w-16
+              btn_panel
+              flex
+              justify-center
+              items-center
+              rounded-2xl
+              text-left
+              link_mutex
+              color_white
+            "
+          >
+            <span class="color_white" style="color: #fff !important; font-weight: bold">Dni</span>
+          </nuxt-link>
+        </div>
+        <span class="mobile_spacer-sm"></span>
+        <div class="w-28 bg_second rounded-2xl">
+          <nuxt-link
+            to="email"
+            class="
+              w-16
+              btn_panel
+              flex
+              justify-center
+              items-center
+              rounded-2xl
+              text-left
+              link_mutex
+              color_white
+            "
+          >
+            <span class="color_white" style="color: #fff !important; font-weight: bold">Email</span>
+          </nuxt-link>
+        </div>
+      </div>
+    </div>
+
     <div class="w-full mx-auto h-screen">
       <div class="flex flex-row">
-        <div class="w-1/3 border-panel relative z-10 h-screen">
+        <div class="w-1/3 border-panel relative z-10 h-screen mobile_remove">
           <img
             class="absolute top-0 left-0"
             src="/shapes/circleofcircleminor.png"

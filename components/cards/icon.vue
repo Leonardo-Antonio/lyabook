@@ -9,12 +9,18 @@
       hover:shadow-2xl hover:duration-500
       duration-500
       cursor-default
+      container-card-icon
     "
-    style="width: 17rem; height: 16rem"
   >
     <div class="flex justify-center">
       <div class="flex flex-col justify-center text-center">
-        <box-icon :name='icon' type='solid' color='#5e20e4' size="cssSize" style="width: 8rem;"></box-icon>
+        <box-icon
+          :name="icon"
+          type="solid"
+          color="#5e20e4"
+          size="cssSize"
+          style="width: 8rem"
+        ></box-icon>
         <span class="text_title">{{ text }}</span>
       </div>
     </div>
@@ -55,5 +61,22 @@ export default {
   line-height: 21px;
   padding-top: 0.8rem;
   color: #000000;
+}
+
+.container-card-icon {
+  width: 17rem;
+  height: 16rem;
+}
+
+@media (max-width: 1024px) {
+  .container-card-icon {
+    width: 17rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .container-card-icon {
+    width: 100%;
+  }
 }
 </style>

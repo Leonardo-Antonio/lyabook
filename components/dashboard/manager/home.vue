@@ -1,42 +1,52 @@
 <template>
+  <div>
     <div>
-      <div>
-        <h1 class="title">Bienvenid@ {{ data.name }}</h1>
-        <p class="subtitle pt-4">
-          Aquí un resumen de lo más importante de esta semana
-        </p>
+      <h1 class="title line-1">Bienvenid@ {{ data.name }}</h1>
+      <p class="subtitle pt-4">
+        Aquí un resumen de lo más importante de esta semana
+      </p>
+    </div>
+
+    <div class="pt-20">
+      <div class="w-3/5 mx-auto mobile_admin-home-container-cards mobile_w-full r-w-full">
+        <div class="flex flex-row justify-between mobile_admin-home-container mobile_vertical">
+          <CardInfo :count="20" text="Ventas" />
+          <span class="mobile_spacer"></span>
+          <CardInfo :count="cantClient" text="Clientes" />
+          <span class="mobile_spacer"></span>
+          <CardInfo :count="amountClaims" text="Reglamos" />
+          <span class="mobile_spacer"></span>
+        </div>
       </div>
 
-      <div class="pt-20">
-        <div class="w-3/5 mx-auto">
-          <div class="flex flex-row justify-between">
-            <CardInfo :count="20" text="Ventas" />
-            <CardInfo :count="cantClient" text="Clientes" />
-            <CardInfo :count="amountClaims" text="Reglamos" />
-          </div>
-        </div>
-
-        <div class="w-3/5 mx-auto pt-8">
-          <div class="flex flex-row justify-between">
-            <CardLink
-              to="admin/promotions"
-              src="/images/promotions_admin.svg"
-              text="Nueva promoción"
-            />
-            <CardLink
-              to="admin/books/new"
-              src="/images/books_admin.svg"
-              text="Nuevo libro"
-            />
-            <CardLink
-              to="admin/reglamos"
-              src="/images/categories_admin.svg"
-              text="Ver reglamos"
-            />
-          </div>
+      <div class="w-3/5 mx-auto pt-8 mobile_admin-home-container-cards mobile_w-full r-w-full">
+        <div class="flex flex-row justify-between mobile_admin-home-container mobile_vertical">
+          <CardLink
+            to="admin/promotions"
+            src="/images/promotions_admin.svg"
+            text="Nueva promoción"
+          />
+          <span class="mobile_spacer"></span>
+          <CardLink
+            to="admin/books/new"
+            src="/images/books_admin.svg"
+            text="Nuevo libro"
+          />
+          <span class="mobile_spacer"></span>
+          <CardLink
+            to="admin/reglamos"
+            src="/images/categories_admin.svg"
+            text="Ver reglamos"
+          />
+          <span class="mobile_spacer"></span>
         </div>
       </div>
     </div>
+    <span class="mobile_spacer"></span>
+    <span class="mobile_spacer"></span>
+    <span class="mobile_spacer"></span>
+    <span class="mobile_spacer"></span>
+  </div>
 </template>
 
 <script>

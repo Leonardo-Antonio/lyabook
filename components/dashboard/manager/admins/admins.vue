@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="overflow-y-auto overflow-x-hidden" style="height: 83vh">
-      <div class="p-4">
+      <div class="p-4 mobile_p-0">
         <div>
-          <div class="flex flex-row justify-between">
-            <div class="flex items-end">
+          <div class="flex flex-row justify-between mobile_vertical">
+            <div class="flex items-end mobile_pb-1">
               <h3 class="title_admin">Administradores</h3>
             </div>
             <div class="flex flex-row">
@@ -17,7 +17,10 @@
                 </el-input>
               </div>
               <div>
-                <nuxt-link to="/dashboard/manager/administradores/new" no-prefetch>
+                <nuxt-link
+                  to="/dashboard/manager/administradores/new"
+                  no-prefetch
+                >
                   <div
                     class="
                       bg_primary
@@ -46,7 +49,7 @@
             <h5 class="name_item_card">Listado</h5>
           </div>
           <div class="card">
-            <div class="py-10 w-11/12 mx-auto px-10">
+            <div class="py-10 w-11/12 mx-auto px-10 mobile_px-0">
               <div class="bg_white rounded-3xl table__custom">
                 <el-table
                   :data="
@@ -93,7 +96,7 @@
                     <template slot-scope="scope">
                       <div>
                         <div>
-                          <button @click="edit(scope.row)" class="btn_add_size">
+                          <button @click="open(scope.row)" class="btn_add_size">
                             <box-icon
                               name="pencil"
                               type="solid"
@@ -114,13 +117,42 @@
               </div>
             </div>
           </div>
+          <span class="mobile_spacer"></span>
+          <span class="mobile_spacer"></span>
+          <span class="mobile_spacer"></span>
         </div>
       </div>
     </div>
 
-    <el-dialog title="Shipping address" :visible.sync="showEdit">
-      <h1>hola</h1>
-    </el-dialog>
+    <div class="dialog_w-full">
+      <el-dialog title="Enviar mensaje" :visible.sync="showEdit">
+        <div class="text_area_new_admin input">
+          <div>
+            <el-input
+              type="textarea"
+              :rows="2"
+              placeholder="Escribe el mensaje o tarea"
+              v-model="message"
+            >
+            </el-input>
+          </div>
+
+          <div class="w-full pt-2">
+            <button
+              :disabled="btnDisable"
+              :class="{
+                'cursor-not-allowed': btnDisable,
+                color_disabled: btnDisable,
+              }"
+              @click="sendMessage"
+              class="bg_primary w-full h-10 color_white rounded-lg"
+            >
+              Enviar
+            </button>
+          </div>
+        </div>
+      </el-dialog>
+    </div>
   </div>
 </template>
 
@@ -133,7 +165,20 @@ export default {
       loading: true,
       showEdit: false,
       data: null,
+      message: '',
+      loadingDialog: false,
+      btnDisable: true,
     }
+  },
+
+  watch: {
+    message(value) {
+      if (value.length > 10) {
+        this.btnDisable = false
+      } else {
+        this.btnDisable = true
+      }
+    },
   },
 
   async mounted() {
@@ -152,9 +197,23 @@ export default {
   },
 
   methods: {
-    edit(row) {
+    open(row) {
       this.showEdit = true
       this.data = row
+    },
+    async sendMessage() {
+      try {
+        await this.$manager({
+          url: '/managers/administrators/message',
+          method: 'post',
+          data: {
+            from: this.data.email,
+            subject: 'Nueva tarea',
+            name: this.data.name,
+            message: this.message,
+          },
+        })
+      } catch (error) {}
     },
     async remove(row) {
       this.$confirm(

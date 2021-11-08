@@ -99,7 +99,7 @@
 }
 
 .btn_second {
-  transition: all .3s;
+  transition: all 0.3s;
   border-color: var(--primary);
 }
 
@@ -660,7 +660,7 @@ span.el-checkbox__label {
 .container-input .input-email {
   border: solid 2px var(--second);
   border-radius: 5rem;
-  padding: .5rem;
+  padding: 0.5rem;
 }
 
 .container-input
@@ -691,33 +691,84 @@ span.el-checkbox__label {
   border: unset;
 }
 
-.container-product-slug .el-carousel--horizontal{
+.container-product-slug .el-carousel--horizontal {
   width: 100%;
 }
 
-.container-product-slug .el-carousel__item{
+.container-product-slug .el-carousel__item {
   display: flex !important;
   justify-content: center;
 }
 
-.container-filter-father .is-active{
+.mobile_spacer {
+  padding: 0.5rem;
+}
+
+.mobile_spacer-sm {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .mobile_spacer {
+    padding: 1rem;
+    display: block;
+  }
+
+  .input__search .el-input__inner {
+    width: 100%;
+  }
+
+  .mobile_spacer-sm {
+    padding: 0.2rem;
+    display: block;
+  }
+}
+
+@media (max-width: 1024px) {
+  .mobile_spacer {
+    padding: 1rem;
+    display: block;
+  }
+
+  .input__search .el-input__inner {
+    width: 100%;
+  }
+
+  .mobile_spacer-sm {
+    padding: 0.2rem;
+    display: block;
+  }
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1580px) {
+  .mobile_spacer {
+    padding: 1rem;
+    display: block;
+  }
+}
+
+.container-filter-father .is-active {
   color: #000000c7 !important;
 }
 
-.container-options-filter .el-menu-item:focus, .el-menu-item:hover{
+.container-options-filter .el-menu-item:focus,
+.el-menu-item:hover {
   background-color: #a580f647;
 }
 
-.checkbox-filter .el-checkbox__label{
+.checkbox-filter .el-checkbox__label {
   white-space: normal;
 }
 
-.drawer-product .el-drawer__container .el-drawer{
+.drawer-product .el-drawer__container .el-drawer {
   width: 20% !important;
 }
 
-.input-number-drawer .el-input__inner{
+.input-number-drawer .el-input__inner {
   height: 2.5rem;
+}
+.el-drawer__body {
+  overflow-y: hidden;
 }
 .el-drawer__body{
   margin-bottom: 5rem;
@@ -750,4 +801,8 @@ span.el-checkbox__label {
 
 .dialog-container-payment  .el-dialog__headerbtn .el-dialog__close:hover{
   color: var(--primary);
+}
+
+.r-remove-desktop {
+  display: none;
 }

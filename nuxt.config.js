@@ -12,12 +12,19 @@ export default {
       { name: 'format-detection', content: 'telephone=no' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    script: [
+      {
+        src: 'https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js',
+      },
+    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     'element-ui/lib/theme-chalk/index.css',
     '@/assets/css/global.css',
+    '@/assets/css/admin.css',
+    '@/assets/css/response.css',
     '@/assets/css/my-account.css',
     '@/assets/css/buttons.css',
     '@/assets/css/element-custom.css',
@@ -71,8 +78,7 @@ export default {
   build: {},
 
   router: {
-    middleware: ["redirect/auth","redirect/redirect"],
-    middleware: ['redirect/redirect'],
+    middleware: ['redirect/redirect', 'redirect/auth'],
   },
 
   publicRuntimeConfig: {

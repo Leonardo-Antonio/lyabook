@@ -16,3 +16,12 @@
   border: 2px solid var(--primary);
   border-radius: 50px;
 }
+
+.color_disabled {
+  background-color: darkgrey;
+}
+
+.btn_disabled {
+  background-color: darkgrey;
+  cursor: not-allowed;
+}

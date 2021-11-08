@@ -8,8 +8,16 @@
           <div class="py-10">
             <div class="w-11/12 mx-auto">
               <div class="input">
-                <div class="w-full flex flex-row pb-4">
-                  <div class="flex flex-col px-8 w-1/2">
+                <div class="w-full flex flex-row mobile_vertical pb-4">
+                  <div
+                    class="
+                      flex flex-col
+                      px-8
+                      mobile_px-0
+                      w-1/2
+                      mobile_w-full mobile_pb-1
+                    "
+                  >
                     <span class="title_input">Titulo*</span>
                     <el-input
                       placeholder="Ingrese el titulo"
@@ -18,7 +26,9 @@
                     />
                   </div>
 
-                  <div class="flex flex-col px-8 w-1/2">
+                  <div
+                    class="flex flex-col px-8 mobile_px-0 w-1/2 mobile_w-full"
+                  >
                     <span class="title_input">Editorial*</span>
                     <div class="input">
                       <el-input
@@ -30,8 +40,16 @@
                   </div>
                 </div>
 
-                <div class="w-full flex flex-row pb-4">
-                  <div class="flex flex-col px-8 w-1/2">
+                <div class="w-full flex flex-row mobile_vertical pb-4">
+                  <div
+                    class="
+                      flex flex-col
+                      px-8
+                      mobile_px-0
+                      w-1/2
+                      mobile_w-full mobile_pb-1
+                    "
+                  >
                     <span class="title_input">Autor*</span>
                     <div class="input">
                       <el-input
@@ -42,7 +60,17 @@
                     </div>
                   </div>
 
-                  <div class="flex flex-col px-8 w-1/2 input select_details">
+                  <div
+                    class="
+                      flex flex-col
+                      px-8
+                      mobile_px-0
+                      w-1/2
+                      mobile_w-full
+                      input
+                      select_details
+                    "
+                  >
                     <span class="title_input">Categorias*</span>
                     <el-select
                       v-model="data.categories"
@@ -62,7 +90,7 @@
                   </div>
                 </div>
 
-                <div class="w-full flex flex-row pb-4 px-8">
+                <div class="w-full flex flex-row pb-4 px-8 mobile_px-0">
                   <div class="flex flex-col w-full text_area_new_admin input">
                     <span class="title_input">Resumen*</span>
                     <el-input
@@ -77,10 +105,10 @@
                 </div>
 
                 <div class="w-full flex flex-row pb-4">
-                  <h5 class="px-8 title_input">Imágenes*</h5>
+                  <h5 class="px-8 mobile_px-0 title_input">Imágenes*</h5>
                 </div>
 
-                <div class="w-full flex flex-row px-8">
+                <div class="w-full flex flex-row px-8 mobile_px-0">
                   <el-upload
                     action="http://localhost:8001/api/v1/images?key=LyA1308_MORSAC25TQMor25_NNLiviN_SAkur4"
                     list-type="picture-card"
@@ -97,7 +125,7 @@
                   </el-dialog>
                 </div>
 
-                <div class="w-full flex flex-row px-8">
+                <div class="w-full flex flex-row px-8 mobile_px-0">
                   <div class="flex flex-col pt-4">
                     <p class="info_text_md">
                       El formato de las imágenes deben de ser en JPG con una
@@ -114,7 +142,7 @@
         <div class="spacer"></div>
 
         <div class="card">
-          <div class="w-11/12 mx-auto py-10 px-10">
+          <div class="w-11/12 mx-auto py-10 px-10 mobile_px-0">
             <div>
               <div>
                 <div class="pb-4">
@@ -172,9 +200,9 @@
             </div>
 
             <div v-show="typeBook.fisico">
-              <div class="pt-4 w-full flex flex-row">
-                <div class="w-1/2">
-                  <div class="flex flex-row">
+              <div class="pt-4 w-full flex flex-row mobile_vertical">
+                <div class="w-1/2 mobile_pb-1">
+                  <div class="flex flex-row mobile_vertical">
                     <div class="pr-8">
                       <div class="pb-4">
                         <h5 class="title_input">Stock</h5>
@@ -189,9 +217,9 @@
                   </div>
                 </div>
 
-                <div class="w-1/2 pl-8">
+                <div class="w-1/2 pl-8 mobile_px-0 mobile_w-full">
                   <div class="flex flex-row">
-                    <div class="pb-4">
+                    <div class="pb-4 mobile_w-full">
                       <div class="pb-4">
                         <h5 class="title_input">Estable ubicación</h5>
                       </div>
@@ -200,7 +228,7 @@
                         <div>
                           <button
                             @click="dialogSetUbication = true"
-                            class="pr-8"
+                            class="pr-8 mobile_px-0 mobile_w-full mobile_pb-1"
                           >
                             <div
                               class="
@@ -210,12 +238,17 @@
                                 justify-center
                                 items-center
                                 w-52
+                                mobile_w-full
                               "
                             >
                               <span>Buscar tienda</span>
                             </div>
                           </button>
-                          <button @click="getCurrentLocation">
+                          <span class="r-spacer-sm"></span>
+                          <button
+                            @click="getCurrentLocation"
+                            class="mobile_w-full"
+                          >
                             <div
                               class="
                                 btn_rounded_second btn_add_size
@@ -224,6 +257,7 @@
                                 justify-center
                                 items-center
                                 w-52
+                                mobile_w-full
                               "
                             >
                               <span>Ubicación actual</span>
@@ -238,8 +272,8 @@
             </div>
 
             <div>
-              <div class="flex flex-row">
-                <div class="pt-4 w-1/2 pr-8">
+              <div class="flex flex-row mobile_vertical">
+                <div class="pt-4 w-1/2 pr-8 mobile_px-0 mobile_w-full">
                   <div class="pb-4">
                     <h5 class="title_input">Detalle del Libro*</h5>
                   </div>
@@ -256,7 +290,7 @@
                   </div>
                 </div>
 
-                <div class="pt-4 w-1/2 pl-8">
+                <div class="pt-4 w-1/2 pl-8 mobile_px-0 mobile_w-full">
                   <div class="pb-4">
                     <h5 class="title_input">Precio*</h5>
                   </div>
@@ -289,66 +323,68 @@
       </div>
     </div>
 
-    <el-dialog :visible.sync="dialogSetUbication" width="60" center>
-      <div>
-        <div class="w-full flex flex-row">
-          <div class="w-1/2 pr-2">
-            <div class="input_search_place">
-              <el-input
-                @keypress.native.enter="searchPlace"
-                placeholder="Please input"
-                v-model="place"
-                class="input-with-select"
-              >
-                <el-button
-                  @click="searchPlace"
-                  slot="append"
-                  icon="el-icon-search"
-                ></el-button>
-              </el-input>
-            </div>
+    <div class="dialog_w-full">
+      <el-dialog :visible.sync="dialogSetUbication" width="60" center>
+        <div>
+          <div class="w-full flex flex-row">
+            <div class="w-1/2 pr-2 mobile_w-full">
+              <div class="input_search_place">
+                <el-input
+                  @keypress.native.enter="searchPlace"
+                  placeholder="Ingrese el lugar de la tienda"
+                  v-model="place"
+                  class="input-with-select"
+                >
+                  <el-button
+                    @click="searchPlace"
+                    slot="append"
+                    icon="el-icon-search"
+                  ></el-button>
+                </el-input>
+              </div>
 
-            <div>
-              <div class="pt-4">
-                <div>
-                  <div
-                    class="overflow-y-auto overflow-x-hidden"
-                    style="height: 500px"
-                  >
-                    <div>
-                      <div v-for="place of places" :key="place">
-                        <div class="pt-2 pb-2 pr-2">
-                          <button class="w-full" @click="setLocation(place)">
-                            <div
-                              class="
-                                bg_secundary
-                                rounded-xl
-                                delay-150
-                                hover:shadow-lg
-                                text-left
-                                p-4
-                              "
-                            >
-                              <div class="flex flex-col">
-                                <div>
-                                  <strong>Dirección: </strong>
-                                  <span>{{ place.display_name }}</span>
-                                </div>
-                                <div>
-                                  <strong>Region: </strong>
-                                  <span>{{ place.display_region }}</span>
-                                </div>
-                                <div>
-                                  <strong>Pais: </strong>
-                                  <span>{{ place.country }}</span>
-                                </div>
-                                <div>
-                                  <strong>Continente: </strong>
-                                  <span>{{ place.continent }}</span>
+              <div>
+                <div class="pt-4">
+                  <div>
+                    <div
+                      class="overflow-y-auto overflow-x-hidden"
+                      style="height: 500px"
+                    >
+                      <div>
+                        <div v-for="place of places" :key="place">
+                          <div class="pt-2 pb-2 pr-2">
+                            <button class="w-full" @click="setLocation(place)">
+                              <div
+                                class="
+                                  bg_secundary
+                                  rounded-xl
+                                  delay-150
+                                  hover:shadow-lg
+                                  text-left
+                                  p-4
+                                "
+                              >
+                                <div class="flex flex-col">
+                                  <div>
+                                    <strong>Dirección: </strong>
+                                    <span>{{ place.display_name }}</span>
+                                  </div>
+                                  <div>
+                                    <strong>Region: </strong>
+                                    <span>{{ place.display_region }}</span>
+                                  </div>
+                                  <div>
+                                    <strong>Pais: </strong>
+                                    <span>{{ place.country }}</span>
+                                  </div>
+                                  <div>
+                                    <strong>Continente: </strong>
+                                    <span>{{ place.continent }}</span>
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          </button>
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -356,14 +392,14 @@
                 </div>
               </div>
             </div>
-          </div>
 
-          <div class="w-1/2 pl-2">
-            <MapMarket />
+            <div class="w-1/2 pl-2 mobile_remove">
+              <MapMarket />
+            </div>
           </div>
         </div>
-      </div>
-    </el-dialog>
+      </el-dialog>
+    </div>
   </div>
 </template>
 

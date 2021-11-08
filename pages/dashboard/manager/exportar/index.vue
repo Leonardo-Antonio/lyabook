@@ -6,36 +6,33 @@
     </div>
 
     <div class="pt-20">
-      <div class="w-3/5 mx-auto">
-        <div class="flex flex-row justify-between">
-          <button @click="exportData(categories, 'categories')">
+      <div class="w-3/5 mx-auto mobile_w-full r-w-full">
+        <div class="flex flex-row justify-between mobile_vertical flex-wrap">
+          <button class="py-4 px-2" @click="exportData(categories, 'categories')">
             <CardIcon icon="category-alt" text="Categorias" />
           </button>
-          <button @click="exportData(booksFisicos, 'booksFisicos')">
+          <button class="py-4 px-2" @click="exportData(booksFisicos, 'booksFisicos')">
             <CardIcon icon="book-open" text="Libros Fisicos" />
           </button>
-          <button @click="exportData(admins, 'admins')">
+          <button class="py-4 px-2" @click="exportData(admins, 'admins')">
             <CardIcon icon="user-detail" text="Admins" />
           </button>
-        </div>
-      </div>
-    </div>
 
-    <div class="pt-8">
-      <div class="w-3/5 mx-auto">
-        <div class="flex flex-row justify-between">
-          <button @click="exportData(books, 'books')">
+          <button class="py-4 px-2" @click="exportData(books, 'books')">
             <CardIcon icon="list-ul" text="Libros todos" />
           </button>
-          <button @click="exportData(booksDigitals, 'booksDigitals')">
+          <button class="py-4 px-2" @click="exportData(booksDigitals, 'booksDigitals')">
             <CardIcon icon="book-bookmark" text="Libros Digitales" />
           </button>
-          <button @click="exportData(editoriales, 'editoriales')">
+          <button class="py-4 px-2" @click="exportData(editoriales, 'editoriales')">
             <CardIcon icon="building-house" text="Editoriales" />
           </button>
         </div>
       </div>
     </div>
+    <span class="mobile_spacer"></span>
+    <span class="mobile_spacer"></span>
+    <span class="mobile_spacer"></span>
   </div>
 </template>
 
@@ -75,15 +72,15 @@ export default {
       XLSX.writeFile(workBook, `${name}.xlsx`)
     },
     async getEditorials() {
-      const editoriales = await this.$apidata({
+      const { data } = await this.$apidata({
         url: '/editorial',
         method: 'get',
       })
-      let data = []
-      for (let editorial of editoriales.data.data) {
-        data.push({ editorial })
+      let dataNameEditorials = []
+      for (let editorial of data.data) {
+        dataNameEditorials.push({ editorial: editorial.name })
       }
-      this.editoriales = data
+      this.editoriales = dataNameEditorials
     },
     async getCategories() {
       const category = await this.$apidata({
@@ -91,7 +88,6 @@ export default {
         method: 'get',
       })
       this.categories = category.data.data
-      console.log(this.categories)
     },
     async getBooks() {
       const { data } = await this.$apidata({

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <div class="flex flex-row justify-between">
+      <div class="flex flex-row justify-between mobile_vertical">
         <div class="flex flex-row">
           <nuxt-link to="/dashboard/admin/books/new">
             <box-icon name="left-arrow-alt" color="#021639"></box-icon>
@@ -9,8 +9,9 @@
           <h2 class="title_admin pl-4">Nuevos libros</h2>
         </div>
         <div>
-          <button @click="save">
+          <button @click="save" class="mobile_w-full" :disabled="disabled">
             <div
+              :class="{ btn_disabled: disabled }"
               class="
                 bg_primary
                 rounded-full
@@ -18,6 +19,7 @@
                 justify-center
                 items-center
                 btn_save_change
+                mobile_w-full
               "
             >
               <span class="flex justify-center items-center">
@@ -35,11 +37,11 @@
         <div class="card">
           <div class="py-10">
             <div class="w-11/12 mx-auto">
-              <div class="px-8">
+              <div class="px-8 mobile_px-0">
                 <header>
                   <div class="flex justify-between">
-                    <div class="flex flex-row">
-                      <div class="pr-4">
+                    <div class="flex flex-row mobile_vertical">
+                      <div class="pr-4 mobile_px-0 mobile_pb-1">
                         <div
                           class="
                             color_white
@@ -68,7 +70,7 @@
                           </a>
                         </div>
                       </div>
-                      <div class="pl-4">
+                      <div class="pl-4 mobile_px-0">
                         <el-upload
                           ref="upload"
                           action=""
@@ -106,6 +108,10 @@
                   </div>
                 </header>
                 <section>
+                  <div v-show="is_error" class="pt-4">
+                    <el-alert :title="message_error" type="error" show-icon>
+                    </el-alert>
+                  </div>
                   <div class="pt-8">
                     <main>
                       <el-table :data="books" style="width: 100%" height="500">
@@ -138,6 +144,9 @@
             </div>
           </div>
         </div>
+        <span class="mobile_spacer"></span>
+        <span class="mobile_spacer"></span>
+        <span class="mobile_spacer"></span>
       </div>
     </div>
   </div>
@@ -149,6 +158,9 @@ export default {
   data() {
     return {
       books: [],
+      disabled: true,
+      is_error: false,
+      message_error: '',
     }
   },
   methods: {
@@ -184,58 +196,62 @@ export default {
           const categories = String(item.categories).replace(' ', '').split(';')
           item.categories = []
           for (let category of categories) {
-            item.categories.push(category.replace(" ", ""))
+            category = category.replace(' ', '')
+            item.categories.push(category.replace(' ', ''))
           }
           item.images_src = String(item.images_src).replace(' ', '').split(';')
           item.details = String(item.details).split(';')
         })
         this.books = result
+        result.length != 0 ? (this.disabled = false) : (this.disabled = true)
       }
 
       reader.readAsBinaryString(file.raw)
       return result
     },
     change(file, fileList) {
+      const loading = this.$loading({
+        lock: true,
+        text: 'Cargando los datos',
+        background: 'rgba(0, 0, 0, 0.7)',
+      })
       this.readerExcel(file)
+      loading.close()
     },
 
     async save() {
-      console.log(this.books)
+      const loading = this.$loading({
+        lock: true,
+        text: 'Validando información',
+        background: 'rgba(0, 0, 0, 0.7)',
+      })
       try {
         const response = await this.$admin({
           url: '/books/many',
           method: 'post',
           data: this.books,
         })
-        console.log(response)
-        if (response.status == 200) {
-          console.log('todo chido')
+
+        if (response.status == 201) {
+          console.log('finshhhh')
+          loading.close()
         }
       } catch (error) {
+        loading.close()
+        const code = parseInt(error.response && error.response.status)
+        if (code == 400) {
+          this.is_error = true
+          this.message_error = `${error.response.data.message} - Ean (category): ${error.response.data.data}`
+        }
+      }
+    },
+  },
+}
+</script>
+
         console.log(error)
       }
     },
   },
 }
-
-/* {
-        name: '',
-        author: '',
-        editorial: '',
-        price_current: 0,
-        description: '',
-        type: {
-          digital: {
-            src: '',
-          },
-          fisico: {
-            log: '',
-            lat: '',
-            stock: 0,
-          },
-        },
-        categories: [],
-        images_src: [],
-        details: [],
-      } */
 </script>

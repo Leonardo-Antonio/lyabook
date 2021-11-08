@@ -420,7 +420,6 @@ export default {
       dialogPayment: false,
       showLogin: false,
       showOpen: true,
-
       //--------------------------------------AUTOCOMPLETE----------------------------------
       links: [],
       state: '',
@@ -467,13 +466,11 @@ export default {
               book.format = 'f'
             }
           }
-
           if (book.format == 'd') {
             type = book.type.digital.src
           } else {
             type = book.type.fisico.log + ' ' + book.type.fisico.lat
           }
-
           var books = {
             id: book.author,
             title: book.name,
@@ -483,14 +480,11 @@ export default {
             picture_url: book.images_src[0],
             category_id: type,
           }
-
           this.finalResult.push(books)
-
           if (change) {
             book.format = 'df'
           }
         })
-
         this.dialogPayment = true
         console.log('---------------------FINAL RESULT---------------------')
         console.log(this.finalResult)
@@ -504,7 +498,6 @@ export default {
         this.finalResult.forEach((final) => {
           console.log(final)
         })
-
         console.log('el dialog se abrio')
         const response = await this.$apidata({
           url: '/orders',
@@ -513,11 +506,9 @@ export default {
         })
         console.log('response API: ')
         console.log(response)
-
         if (response.data.data.status == 201) {
           this.response_id = response.data.id
           console.log(this.response_id)
-
           const mp = new MercadoPago(
             'TEST-32e01da3-6294-476b-adfd-004faa209766',
             {
@@ -533,7 +524,6 @@ export default {
               label: 'Mercado Pago',
             },
           })
-
           for (let i = this.finalResult.length; i > 0; i--) {
             this.finalResult.pop()
           }
@@ -570,7 +560,6 @@ export default {
       var results = queryString
         ? links.filter(this.createFilter(queryString))
         : links
-
       clearTimeout(this.timeout)
       this.timeout = setTimeout(() => {
         cb(results)
@@ -588,7 +577,6 @@ export default {
   },
   async mounted() {
     var books = []
-
     var response = await this.$apidata({
       url: '/books/',
       method: 'get',
@@ -601,7 +589,6 @@ export default {
       }
       books.push(book)
     })
-
     this.links = books
   },
   async created() {
@@ -616,16 +603,13 @@ export default {
       var format = {
         valueFormat: false,
       }
-
       var local = localStorage.getItem('books')
       if (local != null) {
         this.getbook = JSON.parse(local)
       }
-
       this.getbook.forEach((book) => {
         this.getbook.push(Object.assign(book, format))
       })
-
       console.log('array:')
       console.log(this.getbook)
     } catch (error) {
@@ -647,7 +631,6 @@ export default {
 .input-search-autocomplete {
   width: 90%;
 }
-
 .enlaces-header {
   display: flex;
   justify-content: center;
@@ -723,7 +706,6 @@ export default {
   text-decoration-line: underline;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
-
 .direction {
   font-family: 'Baloo Chettan 2';
   font-style: normal;
@@ -732,11 +714,9 @@ export default {
   line-height: 35px;
   color: #5e20e4;
 }
-
 .footer {
   background: #021639;
 }
-
 .title-footer {
   font-family: Roboto;
   font-style: normal;
@@ -745,7 +725,6 @@ export default {
   line-height: 172%;
   color: #f9f9ff;
 }
-
 .subtitle-footer {
   font-family: Roboto;
   font-style: normal;
@@ -755,15 +734,12 @@ export default {
   color: #ffffff;
   padding-left: 0.5rem;
 }
-
 .footer-data {
   padding-top: 2rem;
 }
-
 .footer-author {
   background: #011e51;
 }
-
 .text-footer {
   font-family: Saira;
   font-style: normal;
@@ -771,14 +747,11 @@ export default {
   font-size: 18px;
   line-height: 31px;
   text-align: center;
-
   color: #ffffff;
 }
-
 .location {
   width: 80%;
 }
-
 .container-tobuy-drawer {
   background: var(--primary);
   font-family: 'Baloo Chettan 2';
@@ -826,12 +799,10 @@ export default {
   box-shadow: 0px 4px 20px #5e20e340;
   border-radius: 7px;
 }
-
 .button-log:hover {
   color: var(--primary);
   background: var(--secundary);
 }
-
 .button-log {
   border: unset;
   color: #5e20e3a1;

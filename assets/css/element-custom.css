@@ -22,3 +22,17 @@
   display: flex;
   justify-content: center;
 }
+@media (max-width: 640px) {
+  #line-chart {
+    height: auto !important;
+  }
+
+  .r-white-space .el-checkbox__label {
+    white-space: normal;
+  }
+
+  .drawer-product .el-drawer__container .el-drawer {
+    width: 90% !important;
+  }
+  
+}

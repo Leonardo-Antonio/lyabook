@@ -3,7 +3,7 @@
     <div class="overflow-y-auto overflow-x-hidden" style="height: 85vh">
       <div class="p-4">
         <div>
-          <div class="flex flex-row justify-between">
+          <div class="flex flex-row justify-between mobile_vertical">
             <div class="flex flex-row">
               <nuxt-link to="/dashboard/admin/categories">
                 <box-icon name="left-arrow-alt" color="#021639"></box-icon>
@@ -11,9 +11,10 @@
               <h2 class="title_admin pl-4">Nueva categoria</h2>
             </div>
             <div>
-              <button @click="save">
+              <button @click="save" class="mobile_w-full">
                 <div
                   class="
+                    mobile_w-full
                     bg_primary
                     rounded-full
                     flex
@@ -40,7 +41,7 @@
 
           <div>
             <div class="card">
-              <div class="py-10 w-11/12 mx-auto px-10">
+              <div class="py-10 w-11/12 mx-auto px-10 mobile_px-0">
                 <div>
                   <div>
                     <button @click="typeInsert = true" class="pr-1">
@@ -55,7 +56,7 @@
                   <div v-show="typeInsert">
                     <div>
                       <div class="flex flex-col">
-                        <div class="w-1/2 pr-2">
+                        <div class="w-1/2 pr-2 mobile_w-full">
                           <span class="title_input">Nombre*</span>
                           <div class="input">
                             <el-input
@@ -69,8 +70,8 @@
                   </div>
 
                   <div v-show="!typeInsert">
-                    <div class="flex flex-row">
-                      <div class="pr-2">
+                    <div class="flex flex-row mobile_vertical">
+                      <div class="pr-2 mobile_w-full mobile_px-0 mobile_py-02">
                         <div
                           class="
                             btn_rounded_second
@@ -80,6 +81,7 @@
                             flex
                             justify-center
                             items-center
+                            mobile_w-full
                           "
                         >
                           <a
@@ -90,8 +92,10 @@
                           </a>
                         </div>
                       </div>
-                      <div class="pl-2">
+
+                      <div class="pl-2 mobile_w-full-upload mobile_px-0">
                         <el-upload
+                          class="mobile_w-full"
                           ref="upload"
                           accept=".xls,.xlsx"
                           action=""
@@ -101,7 +105,7 @@
                         >
                           <button
                             slot="trigger"
-                            class="btn_rounded_primary h-10 w-52"
+                            class="btn_rounded_primary h-10 w-52 mobile_w-full"
                           >
                             Adjuntar excel
                           </button>
@@ -124,6 +128,9 @@
                 </div>
               </div>
             </div>
+            <span class="mobile_spacer"></span>
+            <span class="mobile_spacer"></span>
+            <span class="mobile_spacer"></span>
           </div>
         </div>
       </div>

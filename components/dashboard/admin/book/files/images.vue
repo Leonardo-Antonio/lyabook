@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex flex-row justify-between">
+    <div class="flex flex-row justify-between mobile_vertical">
       <div class="flex flex-row">
         <nuxt-link to="/dashboard/admin/books/new/many">
           <box-icon name="left-arrow-alt" color="#021639"></box-icon>
@@ -9,11 +9,40 @@
       </div>
 
       <div>
-        <nuxt-link to="/dashboard/admin/books/archivos/imagenes" class="pr-4">
-          <button class="btn_primary btn_add_size rounded-full h-10 w-52">Imagenes</button>
+        <nuxt-link
+          to="/dashboard/admin/books/archivos/imagenes"
+          class="pr-4 mobile_px-0 r-px-0"
+        >
+          <button
+            class="
+              btn_primary btn_add_size
+              rounded-full
+              h-10
+              w-52
+              mobile_w-full
+            "
+          >
+            Imagenes
+          </button>
         </nuxt-link>
-        <nuxt-link to="/dashboard/admin/books/archivos/pdfs" class="pl-4">
-          <button class="color_white bg_second btn_second btn_add_size rounded-full h-10 w-52">Pdfs</button>
+        <span class="mobile_spacer-sm"></span>
+        <nuxt-link
+          to="/dashboard/admin/books/archivos/pdfs"
+          class="pl-4 mobile_px-0 r-px-0"
+        >
+          <button
+            class="
+              color_white
+              bg_second
+              btn_second btn_add_size
+              rounded-full
+              h-10
+              w-52
+              mobile_w-full
+            "
+          >
+            Pdfs
+          </button>
         </nuxt-link>
       </div>
     </div>
@@ -25,9 +54,9 @@
     <section class="card">
       <div class="py-10">
         <div class="w-11/12 mx-auto">
-          <div class="px-8">
-            <div class="w-full flex flex-row">
-              <div class="w-1/2 pr-4">
+          <div class="px-8 mobile_px-0">
+            <div class="w-full flex flex-row mobile_vertical-reverse">
+              <div class="w-1/2 pr-4 mobile_px-0 mobile_w-full">
                 <div class="upload_drag_drop-w-full">
                   <el-upload
                     class="upload-demo"
@@ -48,7 +77,7 @@
                   </el-upload>
                 </div>
               </div>
-              <div class="w-1/2 pl-4">
+              <div class="w-1/2 pl-4 mobile_px-0 mobile_w-full">
                 <div>
                   <h4 class="title-upload_file">
                     Sube y copia el link de las
@@ -60,7 +89,7 @@
                     <el-tag class="bg_secondary color_second">.jpe</el-tag>
                   </div>
 
-                  <div class="pt-4">
+                  <div class="pt-4 mobile_pb-1">
                     <button
                       @click="copy"
                       class="btn_primary rounded-full w-52 h-10 btn_add_size"
@@ -75,6 +104,9 @@
         </div>
       </div>
     </section>
+    <span class="mobile_spacer"></span>
+    <span class="mobile_spacer"></span>
+    <span class="mobile_spacer"></span>
   </div>
 </template>
 

@@ -13,8 +13,11 @@ export default function ({ $axios, redirect }, inject) {
   })
 
   manager.onResponse((response) => {
-
-    if (response.config.url == '/users/roles/admin') {
+    if (
+      response.config.url == '/users/roles/admin' ||
+      response.config.url == '/reports/books/df' ||
+      response.config.url == '/reports/books/stock/10'
+    ) {
       return
     }
 
@@ -49,7 +52,7 @@ export default function ({ $axios, redirect }, inject) {
         break
 
       case 401:
-        redirect('/errors/401')
+        redirect('https://google.com')
         break
       case 500:
         Notification.error({

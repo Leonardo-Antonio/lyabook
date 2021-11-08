@@ -88,8 +88,6 @@ import Banner2 from '../components/home/banner-2'
 import Banner3 from '../components/home/banner-3'
 import Banner4 from '../components/home/banner-4'
 import Banner5 from '../components/home/banner-5'
-
-
 export default {
   layout: 'client',
   components: {

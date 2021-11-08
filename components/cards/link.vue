@@ -9,8 +9,8 @@
       hover:shadow-2xl hover:duration-500
       duration-500
       cursor-pointer
+      card-link
     "
-    style="width: 17rem; height: 16rem"
   >
     <div class="flex justify-center">
       <div class="flex flex-col justify-center text-center">
@@ -59,6 +59,24 @@ export default {
 </script>
 
 <style>
+
+.card-link {
+  width: 17rem;
+  height: 16rem;
+}
+@media (max-width: 640px) {
+  .card-link {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  .card-link {
+    width: 31% ;
+    height: 14rem ;
+  }
+}
+
 .text_number {
   font-family: Roboto;
   font-style: normal;

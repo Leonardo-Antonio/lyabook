@@ -52,7 +52,6 @@ export default {
   line-height: 58px;
   color: #000000;
 }
-
 .parrafos-banner2 {
   font-family: Barlow;
   font-style: normal;
@@ -61,7 +60,6 @@ export default {
   line-height: 30px;
   color: var(--resaltado);
 }
-
 .prrf-2 {
   color: var(--second) !important;
 }
