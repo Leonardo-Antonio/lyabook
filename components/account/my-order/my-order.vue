@@ -173,8 +173,6 @@ export default {
       this.total = 0
       this.created_at = data.created_at
       this.id_payment = data.payment_id
-      console.log('DATA--------------------------------------------')
-      console.log(data)
       data.products.forEach((product) => {
         var dataTable = {
           img: product.picture_url,
@@ -192,11 +190,9 @@ export default {
     },
   },
   async created() {
-    console.log('-------------------------USER----------------------------')
     var user = localStorage.getItem('user')
     if (user != null) {
       this.user = JSON.parse(user).user
-      console.log(this.user)
 
       const getPayCli = await this.$apidata({
         url: '/payments/' + this.user._id,
@@ -204,11 +200,9 @@ export default {
       })
 
       if (getPayCli.data.error == false) {
-        console.log('----------------------RESPONSE-------------ORDER')
         getPayCli.data.data.forEach((payment) => {
           this.paymentList.push(payment)
         })
-        console.log(this.paymentList)
       }
     }
   },

@@ -117,7 +117,6 @@ export default {
           }
         )
         .then((res) => {
-          console.log(res.data.additional_info.items)
           res.data.additional_info.items.forEach(async (data) => {
             var product = {
               id_payment: data.id,
@@ -148,7 +147,6 @@ export default {
                   method: 'put',
                   data: dataBodyUpdate,
                 })
-                console.log(updateByNameBook.data.data)
               }
             }
           })
@@ -177,7 +175,6 @@ export default {
     }
 
     //--------------------------------GET PAYMENT BY CLIENT---------------------------------
-    console.log('***********************RESPONSE API***********************')
     const getPayCli = await this.$apidata({
       url: '/payments/' + this.user._id,
       method: 'get',
@@ -193,14 +190,9 @@ export default {
             },
           })
           .then(async (res) => {
-            console.log('CONSULTAR PAGO')
-            console.log(res.data.status)
-            console.log('CONSULTAR PAGO - MI API')
-            console.log(data.status)
             //--------------------------------VALIDATE STATUS---------------------------------
 
             if (res.data.status != data.status && data.status != null) {
-              console.log('Son diferentes')
               var status = {
                 status: res.data.status,
               }
@@ -209,9 +201,6 @@ export default {
                 method: 'put',
                 data: status,
               })
-              console.log(data._id)
-              console.log(status)
-              console.log(validate_status)
             }
           })
           .catch((error) => {
@@ -231,7 +220,6 @@ export default {
       })
     }
 
-    console.log(this.my_books)
     //--------------------------------CONSULT PAYMENT---------------------------------
   },
 }

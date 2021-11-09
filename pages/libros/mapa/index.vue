@@ -23,8 +23,6 @@ export default {
   created(){
     this.lat = Number(this.$route.params.position.fisico.lat)
     this.lon = Number(this.$route.params.position.fisico.log)
-    console.log("lat: "+this.lat)
-    console.log("lon: "+this.lon)
 
 
   }

@@ -43,7 +43,6 @@ export default {
   created(){
     if(this.$route.params.pdf != null){
       this.pdf = this.$route.params.pdf
-      console.log(this.$route.params.pdf)
     }
   },
   watch: {

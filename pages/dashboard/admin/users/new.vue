@@ -163,7 +163,6 @@ export default {
   },
   watch: {
     typeEmail(value) {
-      console.log(value)
       if (value == 'dni') {
         this.account.dni = true
         this.account.email = false
@@ -182,11 +181,7 @@ export default {
             method: 'post',
             data: this.dataDni,
           })
-          console.log(response)
         } catch (error) {
-          if (error.response) {
-            console.log(error.response.data)
-          }
         }
       } else {
         try {
@@ -195,11 +190,7 @@ export default {
             method: 'post',
             data: this.dataEmail,
           })
-          console.log(response)
         } catch (error) {
-          if (error.response) {
-            console.log(error.response.data)
-          }
         }
       }
     },

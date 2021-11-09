@@ -187,8 +187,8 @@
     </el-drawer>
 
     <nuxt />
-
-    <div class="footer flex justify-center px-8">
+    <Footer/>
+    <!-- <div class="footer flex justify-center px-8">
       <div class="conatiner-footer flex flex-row justify-center w-3/4 py-8">
         <div class="container-column-1 w-1/5">
           <div class="container-contact-us">
@@ -383,7 +383,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="footer-author py-4 flex justify-center">
       <p class="text-footer pr-2">Powered by</p>
       <div class="flex justify-center">
@@ -402,11 +402,15 @@
 </template>
 
 <script>
+import Footer from '../components/layouts/footer'
 export default {
   props: {
     src: {
       type: String,
     },
+  },
+  components:{
+    Footer
   },
   data() {
     return {
@@ -429,19 +433,11 @@ export default {
   methods: {
     openDrawer() {
       try {
-        console.log('drawer abierto')
-        console.log(
-          '--------------------------GET DRAWER-------------------------------'
-        )
         var local = localStorage.getItem('books')
         if (local != null) {
           this.getbook = JSON.parse(local)
-          console.log(
-            '--------------------------CART DRAWER-------------------------------'
-          )
         }
       } catch (error) {
-        console.log('error al abrir el drawer')
       }
     },
     DeleteElement(position) {
@@ -449,7 +445,6 @@ export default {
         this.getbook.splice(position, 1)
         localStorage.setItem('books', JSON.stringify(this.getbook))
       } catch (error) {
-        console.log('error al eliminar elemento')
       }
     },
     tobuy() {
@@ -486,29 +481,18 @@ export default {
           }
         })
         this.dialogPayment = true
-        console.log('---------------------FINAL RESULT---------------------')
-        console.log(this.finalResult)
       } catch {
-        console.log('error al comprar')
       }
     },
     async openDialog() {
       try {
-        console.log('FINAL RESULT-----------------------------')
-        this.finalResult.forEach((final) => {
-          console.log(final)
-        })
-        console.log('el dialog se abrio')
         const response = await this.$apidata({
           url: '/orders',
           method: 'post',
           data: this.finalResult,
         })
-        console.log('response API: ')
-        console.log(response)
         if (response.data.data.status == 201) {
           this.response_id = response.data.id
-          console.log(this.response_id)
           const mp = new MercadoPago(
             'TEST-32e01da3-6294-476b-adfd-004faa209766',
             {
@@ -528,26 +512,20 @@ export default {
             this.finalResult.pop()
           }
         } else {
-          console.log('Se produjo un error en el servidor')
         }
       } catch (error) {
-        console.log('error al abrir el dialogo')
       }
     },
     closeDialog() {
       try {
-        console.log('el dialog se cerro')
         let nodo = document.getElementById('nodo')
         if (nodo.lastChild != null) {
           nodo.removeChild(nodo.lastChild)
         }
       } catch (error) {
-        console.log('error al cerrar el dialogo')
       }
     },
     switchChange(value) {
-      console.log('-----------------------SWITCH--------------------------')
-      console.log(value)
     },
     closeSeccion() {
       localStorage.removeItem('user')
@@ -581,7 +559,6 @@ export default {
       url: '/books/',
       method: 'get',
     })
-    console.log('RESPONSE BOOKS')
     response.data.data.forEach((res) => {
       var book = {
         value: res.name,
@@ -594,7 +571,6 @@ export default {
   async created() {
     try {
       //--------------------------------------------USER
-      console.log('-------------------------USER----------------------------')
       var user = localStorage.getItem('user')
       if (user != null) {
         this.showOpen = false
@@ -610,10 +586,7 @@ export default {
       this.getbook.forEach((book) => {
         this.getbook.push(Object.assign(book, format))
       })
-      console.log('array:')
-      console.log(this.getbook)
     } catch (error) {
-      console.log('error... Carrito vacio')
     }
   },
 }

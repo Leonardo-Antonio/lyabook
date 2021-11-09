@@ -70,14 +70,9 @@ export default {
     },
   },
   created() {
-    console.log(
-      '-------------------------------------USER--------------------------------'
-    )
     const data = localStorage.getItem('user').toString()
     if (data != undefined || data != null) {
       this.data = JSON.parse(data).user
-      console.log('******************UPDATE DATA USER***********+++++++')
-      console.log(this.data._id)
       this.name = this.data.name
       this.last_name = this.data.last_name
     }

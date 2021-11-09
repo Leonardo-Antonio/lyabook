@@ -103,10 +103,6 @@ export default {
     }
   },
   methods: {
-    // async add() {
-    //   const data = await this.$axios.$get('/todos/1')
-    //   console.log(data)
-    // },
   },
 }
 </script>

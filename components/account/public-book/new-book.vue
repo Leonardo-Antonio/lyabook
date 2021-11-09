@@ -140,10 +140,7 @@ export default {
       url: '/categories/',
       method: 'get',
     })
-    console.log(
-      '---------------------------------CATEGORY------------------------------'
-    )
-    console.log(this.categories.data.data)
+    
     this.categories.data.data.forEach((category) => {
       var category = {
         value: category._id,

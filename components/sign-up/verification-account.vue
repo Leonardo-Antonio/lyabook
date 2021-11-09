@@ -84,9 +84,6 @@ export default {
           loading.close();
         }
       } catch (error) {
-        if (error.response) {
-          console.log(error.response.data)
-        }
       }
     },
   },

@@ -230,7 +230,6 @@ export default {
     },
     //-----------------------------------AGREGAR AL CARRITO
     addCart() {
-      console.log('----------------Agregar al carrito----------------------')
       var local = localStorage.getItem('books')
       if (local != null) {
         this.booksCard = JSON.parse(local)
@@ -244,12 +243,9 @@ export default {
       var validate = this.booksCard.filter((book) => book._id == this.books._id)
 
       if (validate.length == 1) {
-        console.log('Agregado')
         localStorage.setItem('books', JSON.stringify(this.booksCard))
       } else {
-        console.log('Ya fue Agregado')
         this.booksCard.pop()
-        console.log('-------------------------------------------------')
         this.$message({
           type: 'info',
           message: 'El libro ya fue agregado al carrito.',
@@ -335,16 +331,11 @@ export default {
         url: `/books/${slug}`,
         method: 'get',
       })
-      console.log('---------------------------book interna')
       if (response.status == 200) {
         this.books = response.data.data
         this.seeMoreButton = response.data.data.commentaries
         this.seeLessButton = this.books.commentaries.reverse().slice(0, 5)
         this.books.commentaries = this.seeLessButton
-
-        console.log('categories: ')
-        console.log(this.seeMoreButton)
-        console.log(this.books.commentaries)
 
         this.cant_category = this.seeMoreButton.length
       }

@@ -127,11 +127,9 @@ export default {
     }
   },
   created() {
-    console.log('-------------------------USER----------------------------')
     var user = localStorage.getItem('user')
     if (user != null) {
       this.user = JSON.parse(user).user
-      console.log(this.user)
     }
   },
 }
