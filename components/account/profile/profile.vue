@@ -59,7 +59,7 @@
           <div class="container-password p-12 m-4">
             <p class="text-title">Contraseña</p>
             <p class="text-p mt-2">
-              Usted todavía no tiene una contraseña definida
+              Usted puede cambiar la contraseña definida
             </p>
             <div class="container-btn-password flex justify-end">
               <el-button
@@ -67,7 +67,7 @@
                 type="primary"
                 round
                 @click="showPassword = false"
-                >Definir Contraseña</el-button
+                >Cambiar Contraseña</el-button
               >
             </div>
           </div>
