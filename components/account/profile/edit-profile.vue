@@ -41,29 +41,38 @@ export default {
   methods: {
     async edit() {
       try {
+        //Obteniendo del localstorage
+        const tokenValue = JSON.parse(localStorage.getItem('user')).token
+
+        //Armando el body
         var bodyData = {
           name: this.name,
           last_name: this.last_name,
         }
+        
+        //Actualizando al usuario
         const update = await this.$admin({
           url: '/users/personal-information/' + this.data._id,
           method: 'patch',
           data: bodyData,
         })
+
         if (update.status == 200) {
+        //Obteniendo los nuevos datos
           const response = await this.$admin({
             url: '/users/' + this.data._id,
             method: 'get',
           })
           if(response.status == 200){
+        //Eliminar el localstorage
             localStorage.removeItem('user')
-            var users = {
-              user : response.data.data
-            }
-            localStorage.setItem('user', JSON.stringify(users));
+
+        //Agregando el localstorage
+            localStorage.setItem('user', JSON.stringify({ token: tokenValue, user: response.data.data }));
             window.location.reload(true)
           }
         }
+
       } catch (error) {
         console.log(error)
       }
