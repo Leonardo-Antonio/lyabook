@@ -26,6 +26,18 @@
   --second: #021639;
 }
 
+@media screen and (min-width: 550px) and (max-width: 650px){
+  .container-drawer-login .el-drawer.ltr {
+     width: 40% !important;
+  }
+}
+
+@media (max-width: 550px) {
+  .container-drawer-login .el-drawer.ltr {
+    width: 50% !important;
+  }
+}
+
 .container-footer-father .el-collapse .el-collapse-item .el-collapse-item__header{
   background-color: #011e51;
   color: var(--secundary);
@@ -859,4 +871,27 @@ span.el-checkbox__label {
 }
 .container-delete .el-dialog{
   width: 90% !important;
+}
+
+@media screen and (min-width: 641px) and (max-width: 800px) {
+  .drawer-product .el-drawer__container .el-drawer{
+    width: 50% !important;
+  }
+}
+@media screen and (min-width: 800px) and (max-width: 1000px) {
+  .drawer-product .el-drawer__container .el-drawer{
+    width: 45% !important;
+  }
+}
+
+@media screen and (min-width: 1000px) and (max-width: 1150px) {
+  .drawer-product .el-drawer__container .el-drawer{
+    width: 30% !important;
+  }
+}
+
+@media (min-width: 1150px) {
+  .drawer-product .el-drawer__container .el-drawer{
+    width: 25rem !important;
+  }
 }

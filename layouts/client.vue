@@ -79,7 +79,7 @@
                   <div>
                     <box-icon
                       name="user"
-                      @click="showLogin = !showLogin"
+                      @click="showDrawerLogin = true"
                     ></box-icon>
                   </div>
                 </div>
@@ -114,7 +114,9 @@
     </div>
 
     <div v-show="showLogin" class="relative">
-      <div class="absolute bottom-0 right-1/4 top-0.5 z-10 w-1/6">
+      <div
+        class="absolute bottom-0 right-1/4 top-0.5 z-10 w-1/6 container-login-x"
+      >
         <div class="container-login p-2 flex flex-col">
           <div v-show="showOpen">
             <nuxt-link :to="`/login`">
@@ -250,6 +252,44 @@
           class="h-full justify-center items-center"
           description="Vacío"
         ></el-empty>
+      </div>
+    </el-drawer>
+
+    <el-drawer
+      title="I am the title"
+      :visible.sync="showDrawerLogin"
+      :with-header="false"
+      direction="ltr"
+      class="container-drawer-login"
+    >
+      <div class="container-data-drawer">
+        <div v-show="showOpen">
+          <nuxt-link :to="`/login`">
+            <el-button class="w-full button-log">Iniciar Sesión</el-button>
+          </nuxt-link>
+          <nuxt-link :to="`/sign-up/dni`">
+            <el-button class="w-full button-log" style="margin-top: 0.5rem"
+              >Registrate por DNI</el-button
+            >
+          </nuxt-link>
+          <nuxt-link :to="`/sign-up/email`">
+            <el-button class="w-full button-log" style="margin-top: 0.5rem"
+              >Registrate por email y contraseña</el-button
+            >
+          </nuxt-link>
+        </div>
+        <div v-show="!showOpen">
+          <nuxt-link :to="`/mi-cuenta`">
+            <el-button class="w-full button-log" @click="showDrawerLogin = false"
+              >Mi cuenta</el-button
+            >
+          </nuxt-link>
+          <a href="/">
+            <el-button class="w-full button-log" @click="closeSeccion"
+              >Cerrar Sección</el-button
+            ></a
+          >
+        </div>
       </div>
     </el-drawer>
 
@@ -491,6 +531,7 @@ export default {
       dialogPayment: false,
       showLogin: false,
       showOpen: true,
+      showDrawerLogin: false,
       //--------------------------------------AUTOCOMPLETE----------------------------------
       links: [],
       state: '',
@@ -498,6 +539,9 @@ export default {
     }
   },
   methods: {
+    // openDialogLogin(){
+
+    // },
     openDrawer() {
       try {
         var local = localStorage.getItem('books')
@@ -588,6 +632,7 @@ export default {
       } catch (error) {}
     },
     switchChange(value) {},
+
     closeSeccion() {
       localStorage.removeItem('user')
       this.showOpen = false
@@ -960,7 +1005,7 @@ export default {
     padding-right: 1rem;
   }
 
-  .search-autocomplete-mobile .input-search-autocomplete{
+  .search-autocomplete-mobile .input-search-autocomplete {
     width: 100% !important;
   }
 
@@ -973,7 +1018,27 @@ export default {
   .img-portada-mobile {
     width: 80%;
   }
-  
+}
+
+@media screen and (min-width: 1170px) and (max-width: 1270px) {
+  .container-login-x {
+    right: 19% !important;
+  }
+}
+@media screen and (min-width: 935px) and (max-width: 1170px) {
+  .container-login-x {
+    right: 13% !important;
+  }
+}
+@media screen and (min-width: 831px) and (max-width: 935px) {
+  .container-login-x {
+    right: 7% !important;
+  }
+}
+@media (max-width: 830px) {
+  .container-login-x {
+    display: none;
+  }
 }
 
 </style>
