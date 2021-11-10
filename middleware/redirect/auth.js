@@ -1,5 +1,6 @@
 export default function (context) {
-  const path = context.route.path
+  let path = context.route.path
+
   switch (path) {
     case '/sign-up':
       window.onNuxtReady(() => {
@@ -23,13 +24,16 @@ export default function (context) {
       break
   }
 
+
   const dataUser = JSON.parse(JSON.stringify(localStorage.getItem('user')))
   if (dataUser == null) {
     if (
       context.route.path == '/login' ||
       context.route.path == '/sign-up' ||
       context.route.path == '/sign-up/dni' ||
-      context.route.path == '/sign-up/email'
+      context.route.path == '/sign-up/email' ||
+      context.route.path == '/verificacion-cuenta' ||
+      context.route.path == '/'
     )
       return
     window.onNuxtReady(() => {
@@ -37,13 +41,13 @@ export default function (context) {
     })
   } else {
     try {
-      const path = context.route.path
+      let path = context.route.path
+      if (context.route.path == '/verificacion-cuenta') context.next()
+
       if (path == '/cerrar-sesion') {
         localStorage.removeItem('user')
         context.next()
       }
-
-      if (String(path).includes('/verificacion-cuenta')) context.next()
 
       const dataUserJson = JSON.parse(dataUser).user
       if (dataUserJson.rol == 'Admin' || dataUserJson.rol == 'Manager') {

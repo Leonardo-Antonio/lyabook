@@ -188,7 +188,8 @@ export default {
         method: 'get',
       })
       if (response.status == 200) {
-        this.users = response.data.data
+        console.log(response.data)
+        this.users = response.data.data == null || undefined ? [] :  response.data.data
         this.loading = false
       }
     } catch (error) {
