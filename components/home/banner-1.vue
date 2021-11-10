@@ -1,5 +1,30 @@
 <template>
   <div>
+    <img
+        src="/shapes/double-circle-transparent.svg"
+        class="absolute z-10"
+        style="width: 8rem; left: -2rem; top: 4rem"
+      />
+      <img
+        src="/shapes/circle-double-aye.svg"
+        class="absolute z-10 rotate"
+        style="width: 8rem; right: 20rem; top: 6rem"
+      />
+      <img
+        src="/shapes/doble-circle.svg"
+        class="absolute z-10"
+        style="width: 5rem; right: -1rem; top: 8rem"
+      />
+      <img
+        src="/shapes/circle-double-aye.svg"
+        class="absolute z-10 rotate"
+        style="width: 8rem; left: 24rem; top: 29rem"
+      />
+      <img
+        src="/shapes/circle-double-aye.svg"
+        class="absolute z-10 rotate"
+        style="width: 15rem; right: -6rem; top: 30rem"
+      />
     <div class="container-home flex justify-center relative overflow-x-hidden overflow-y-hidden pb-36">
       <div class="w-4/6 flex pt-24">
         <div class="w-2/3">
@@ -33,32 +58,6 @@
           <img src="/images/image-home-banner.svg" width="75%" />
         </div>
       </div>
-
-      <img
-        src="/shapes/double-circle-transparent.svg"
-        class="absolute z-10"
-        style="width: 8rem; left: -2rem; top: 4rem"
-      />
-      <img
-        src="/shapes/circle-double-aye.svg"
-        class="absolute z-10 rotate"
-        style="width: 8rem; right: 20rem; top: 6rem"
-      />
-      <img
-        src="/shapes/doble-circle.svg"
-        class="absolute z-10"
-        style="width: 5rem; right: -1rem; top: 8rem"
-      />
-      <img
-        src="/shapes/circle-double-aye.svg"
-        class="absolute z-10 rotate"
-        style="width: 8rem; left: 24rem; top: 29rem"
-      />
-      <img
-        src="/shapes/circle-double-aye.svg"
-        class="absolute z-10 rotate"
-        style="width: 15rem; right: -6rem; top: 30rem"
-      />
     </div>
   </div>
 </template>
