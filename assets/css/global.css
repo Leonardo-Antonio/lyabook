@@ -682,7 +682,7 @@ span.el-checkbox__label {
 }
 
 .container-banner-3 .el-carousel__container {
-  width: 800px !important;
+  width: 100% !important;
   height: 400px !important;
 }
 

@@ -19,6 +19,7 @@
                   </div>
                   <div class="h-full container-right" style="width: 32%">
                     <img
+                      class="h-full w-full"
                       style="border-top-right-radius: 10px"
                       :src="item.images_src[0]"
                     />
