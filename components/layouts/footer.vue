@@ -109,16 +109,16 @@
       </div>
     </div>
 
-    <div class="r-see r-remove-desktop">
+    <div class="r-see r-remove-desktop container-footer-father">
       <el-collapse accordion class="r-px-2">
         <el-collapse-item title="Contacto" name="1">
           <div>
             <ul>
-              <li v-for="item of menu.contact" :key="item.text">
+              <li class="pt-4" v-for="item of menu.contact" :key="item.text">
                 <a :href="item.src">
                   <div class="flex items-center">
-                    <box-icon name="phone" color="#000"></box-icon>
-                    <span>{{ item.text }}</span>
+                    <box-icon name="phone" color="#F9F9FF"></box-icon>
+                    <span class="pl-2">{{ item.text }}</span>
                   </div>
                 </a>
               </li>
@@ -129,10 +129,10 @@
         <el-collapse-item title="Información" name="2">
           <div>
             <ul>
-              <li v-for="item of menu.info" :key="item.text">
+              <li class="pt-4" v-for="item of menu.info" :key="item.text">
                 <div class="flex items-center">
-                  <box-icon name="right-arrow" color="#000"></box-icon>
-                  <span>{{ item.text }}</span>
+                  <box-icon name="right-arrow" color="#F9F9FF"></box-icon>
+                  <span class="pl-2">{{ item.text }}</span>
                 </div>
               </li>
             </ul>
@@ -142,10 +142,10 @@
         <el-collapse-item title="Categorías" name="3">
           <div>
             <ul>
-              <li v-for="item of menu.categories" :key="item.text">
+              <li class="pt-4" v-for="item of menu.categories" :key="item.text">
                 <div class="flex items-center">
-                  <box-icon name="right-arrow" color="#000"></box-icon>
-                  <span>{{ item.text }}</span>
+                  <box-icon name="right-arrow" color="#F9F9FF"></box-icon>
+                  <span class="pl-2">{{ item.text }}</span>
                 </div>
               </li>
             </ul>
@@ -155,10 +155,10 @@
         <el-collapse-item title="Soporte" name="4">
           <div>
             <ul>
-              <li v-for="item of menu.support" :key="item.text">
+              <li class="pt-4" v-for="item of menu.support" :key="item.text">
                 <div class="flex items-center">
-                  <box-icon name="right-arrow" color="#000"></box-icon>
-                  <span>{{ item.text }}</span>
+                  <box-icon name="right-arrow" color="#F9F9FF"></box-icon>
+                  <span class="pl-2">{{ item.text }}</span>
                 </div>
               </li>
             </ul>
@@ -469,4 +469,6 @@ export default {
   height: 3rem;
   font-family: Roboto;
 }
+
+
 </style>

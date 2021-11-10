@@ -26,6 +26,32 @@
   --second: #021639;
 }
 
+.container-footer-father .el-collapse .el-collapse-item .el-collapse-item__header{
+  background-color: #011e51;
+  color: var(--secundary);
+  height: 28px !important;
+}
+
+.container-footer-father .el-collapse{
+  padding: 1rem;
+  background-color: #011e51;
+  margin-top: 1rem;
+
+}
+
+.container-footer-father .el-collapse .el-collapse-item__content{
+  background-color: #011e51;
+  color: var(--secundary);
+}
+
+.container-footer-father .el-collapse .el-collapse-item {
+  padding: 1rem;
+}
+
+.container-footer-father .el-collapse-item__wrap{
+  background-color: unset;
+}
+
 .color_primary {
   color: #5e20e4;
 }
