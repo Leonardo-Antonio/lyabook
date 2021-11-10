@@ -68,7 +68,7 @@
           </div>
           <div v-show="!showOpen">
             <nuxt-link :to="`/mi-cuenta`">
-              <el-button class="w-full button-log">Mi cuenta</el-button>
+              <el-button class="w-full button-log" @click="showLogin = false">Mi cuenta</el-button>
             </nuxt-link>
             <a href="/">
               <el-button class="w-full button-log" @click="closeSeccion"
