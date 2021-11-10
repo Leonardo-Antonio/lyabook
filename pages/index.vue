@@ -65,7 +65,7 @@
         /> -->
         <img
           src="/images/book-open.svg"
-          class="absolute z-10"
+          class="absolute z-10 img-book"
           style="width: 20rem; right: 22rem; top: 118rem"
         />
         <img
@@ -114,6 +114,9 @@ export default {
   .img-degrad{
     display: none;
   }
+  .img-book{
+    display: none;
+  }
   
 }
 @media screen and (min-width: 1025px) and (max-width: 1300px) {
@@ -123,6 +126,7 @@ export default {
   .img-degrad{
     display: none;
   }
+  .img-book{display: none;}
 }
 
 </style>
