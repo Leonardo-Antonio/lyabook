@@ -8,7 +8,7 @@
       <img
         src="/shapes/circle-double-aye.svg"
         class="absolute z-10 rotate"
-        style="width: 8rem; right: 20rem; top: 6rem"
+        style="width: 8rem; right: 20rem; top: 6rem; z-index: -10;"
       />
       <img
         src="/shapes/doble-circle.svg"
@@ -17,7 +17,7 @@
       />
       <img
         src="/shapes/circle-double-aye.svg"
-        class="absolute z-10 rotate"
+        class="absolute z-10 rotate img-circle-double"
         style="width: 8rem; left: 24rem; top: 29rem"
       />
       <img
@@ -25,7 +25,7 @@
         class="absolute z-10 rotate"
         style="width: 15rem; right: -6rem; top: 30rem"
       />
-    <div class="container-home flex justify-center relative overflow-x-hidden overflow-y-hidden pb-36">
+    <div class="container-home cont-hom-resp flex justify-center relative overflow-x-hidden overflow-y-hidden pb-36">
       <div class="w-4/6 flex pt-24">
         <div class="w-2/3">
           <div class="">
@@ -42,7 +42,7 @@
             </p>
             <div class="flex pt-8">
               <el-button
-                class="btn_primary btn_home_banner"
+                class="btn_primary btn_home_banner btn-visitarnos"
                 type="primary"
                 >Visitarnos</el-button
               >
@@ -104,5 +104,40 @@ export default {
   font-size: 18px;
   line-height: 29px;
   width: 25%;
+}
+
+.btn-visitarnos{
+  border-color: var(--primary);
+}
+
+.btn-visitarnos:hover{
+  border-width: 2px;
+  background: unset;
+  color: var(--second);
+}
+
+@media screen and (min-width: 1500px) and (max-width: 1695px) {
+  .title {
+    font-size: 30px !important;
+    line-height: 35px !important;
+  }
+  .logo-2 {
+    font-size: 30px !important;
+    line-height: 35px !important;
+  }
+  .sub-parrafo{
+    font-size: 20px;
+  }
+  .btn_home_banner{
+    font-size: 16px;
+    line-height: 20px;
+    height: 10%;
+  }
+  .img-circle-double{
+    top: 25rem !important;
+  }
+  .cont-hom-resp{
+    padding-bottom: 7rem !important;
+  }
 }
 </style>

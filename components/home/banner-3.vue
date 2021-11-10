@@ -220,4 +220,13 @@ export default {
   font-size: 40px;
   line-height: 58px;
 }
+
+@media screen and (min-width: 1500px) and (max-width: 1695px) {
+  .title-banner{
+    font-size: 30px;
+  }
+  .container-banner-3{
+    width: 80%;
+  }
+}
 </style>

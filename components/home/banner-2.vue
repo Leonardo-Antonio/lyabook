@@ -63,4 +63,14 @@ export default {
 .prrf-2 {
   color: var(--second) !important;
 }
+
+@media screen and (min-width: 1500px) and (max-width: 1695px) {
+  .parrafos-banner2{
+    font-size: 20px;
+  }
+  .title-banner2{
+    font-size: 30px;
+  }
+
+}
 </style>

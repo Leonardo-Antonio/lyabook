@@ -30,6 +30,11 @@
         class="absolute z-10 rotate"
         style="width: 8rem; right: -2rem; top: 5rem"
       />
+      <img
+        src="/shapes/double-circle-transparent.svg"
+        class="absolute z-10"
+        style="width: 8rem; left: -2rem; top: 10rem"
+      />
 
     </div>
   </div>
@@ -69,5 +74,18 @@ export default {
   font-weight: 600;
   font-size: 25px;
   line-height: 40px;
+}
+
+@media screen and (min-width: 1500px) and (max-width: 1695px) {
+  .parrafos-banner4{
+    font-size: 20px;
+  }
+  .title-banner4{
+    font-size: 30px;
+  }
+  .btn_banner4{
+    font-size: 20px;
+  }
+
 }
 </style>

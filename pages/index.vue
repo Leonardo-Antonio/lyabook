@@ -49,20 +49,20 @@
       <div class="">
         <Banner4 />
       </div>
-      <div>
+      <!-- <div>
         <Banner5/>
-      </div>
-      <img
+      </div> -->
+      <!-- <img
           src="/images/book-blue.svg"
           class="absolute z-10"
           style="width: 20rem; right: 17rem; top: 146rem"
-        />
+        /> -->
 
-        <img
+        <!-- <img
           src="/images/book-white.svg"
           class="absolute z-10"
           style="width: 18rem; right: 44rem; top: 124rem"
-        />
+        /> -->
         <img
           src="/images/book-open.svg"
           class="absolute z-10"
