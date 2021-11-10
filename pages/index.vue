@@ -32,7 +32,7 @@
         />
         <img
           src="/shapes/circle-degradado-complete.svg"
-          class="absolute z-10 rotate"
+          class="absolute z-10 rotate img-degrad"
           style="
             width: 12rem;
             right: -4rem;
@@ -70,7 +70,7 @@
         />
         <img
         src="/images/doble-cuadrado.transparent.svg"
-        class="absolute z-10"
+        class="absolute z-10 double-cuadrado"
         style="
           width: 16rem;
           right: 0rem;
@@ -106,4 +106,23 @@ export default {
   },
 }
 </script>
-<style scoped></style>
+<style scoped>
+@media screen and (min-width: 1300px) and (max-width: 1500px) {
+  .double-cuadrado{
+    display: none;
+  }
+  .img-degrad{
+    display: none;
+  }
+  
+}
+@media screen and (min-width: 1025px) and (max-width: 1300px) {
+  .double-cuadrado{
+    display: none;
+  }
+  .img-degrad{
+    display: none;
+  }
+}
+
+</style>

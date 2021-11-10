@@ -113,7 +113,7 @@ export default {
     })
     console.log('---------------------------------Libros destacados------------------------------')
     response.data.data.forEach(res => {
-      res.description = res.description.slice(0, 200) + '...'
+      res.description = res.description.slice(0, 100) + '...'
     })
     this.books = response.data.data.slice(0, 5)
 
@@ -227,6 +227,25 @@ export default {
   }
   .container-banner-3{
     width: 80%;
+  }
+}
+@media screen and (min-width: 1300px) and (max-width: 1500px) {
+  .container-banner-3{
+      width: 80% !important;
+  }
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1500px) {
+  .title-banner{
+    font-size: 25px !important;
+    line-height: 30px !important;
+  }
+  
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1300px) {
+  .container-banner-3{
+    width: 100%;
   }
 }
 </style>
