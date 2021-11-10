@@ -2,12 +2,12 @@
   <div>
     <img
         src="/shapes/double-circle-transparent.svg"
-        class="absolute z-10"
+        class="absolute z-10 double-circle-transparent"
         style="width: 8rem; left: -2rem; top: 4rem"
       />
       <img
         src="/shapes/circle-double-aye.svg"
-        class="absolute z-10 rotate"
+        class="absolute z-10 rotate circle-doble-aye"
         style="width: 8rem; right: 20rem; top: 6rem; z-index: -10;"
       />
       <img
@@ -138,6 +138,70 @@ export default {
   }
   .cont-hom-resp{
     padding-bottom: 7rem !important;
+  }
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1500px) {
+.title {
+    font-size: 25px !important;
+    line-height: 30px !important;
+  }
+  .logo-2 {
+    font-size: 25px !important;
+    line-height: 30px !important;
+  }
+  .sub-parrafo{
+    font-size: 18px !important;
+    line-height: 20px !important;
+  }
+  .btn_home_banner{
+    font-size: 16px !important;
+    width: 40%;
+  }
+  .cont-hom-resp{
+    padding-bottom: 5rem !important;
+  }
+  .img-circle-double{
+    top: 22rem !important;
+    z-index: -10;
+  }
+}
+@media screen and (min-width: 1200px) and (max-width: 1350px) {
+  .img-circle-double{
+    width: 6rem !important;
+  }
+  .circle-doble-aye{
+    width: 6rem !important;
+    top: 3rem;
+    right: 16rem;
+  }
+}
+@media screen and (min-width: 1140px) and (max-width: 1200px) {
+  .img-circle-double{
+    width: 4rem !important;
+    top: 23rem !important;
+  }
+  .circle-doble-aye{
+    width: 4rem !important;
+    top: 2rem !important;
+    right: 15rem !important;
+  }
+  .double-circle-transparent {
+    width: 6rem !important;
+  }
+}
+@media screen and (min-width: 1025px) and (max-width: 1140px) {
+  .img-circle-double{
+    width: 4rem !important;
+    top: 22rem !important;
+  }
+  .circle-doble-aye{
+    width: 4rem !important;
+    top: 2rem !important;
+    right: 15rem !important;
+  }
+  .double-circle-transparent {
+    width: 6rem !important;
   }
 }
 </style>
