@@ -21,8 +21,8 @@
         style="width: 8rem; left: 24rem; top: 29rem"
       />
       <img
-        src="/shapes/circle-double-aye.svg"
-        class="absolute z-10 rotate"
+        src="/shapes/circle-double-aye.svg "
+        class="absolute z-10 rotate img-circle"
         style="width: 15rem; right: -6rem; top: 30rem"
       />
     <div class="container-home cont-hom-resp flex justify-center relative overflow-x-hidden overflow-y-hidden pb-36">
@@ -175,6 +175,10 @@ export default {
     top: 3rem;
     right: 16rem;
   }
+  /* .img-circle{
+    width: 10rem !important;
+    right: -3rem !important;
+  } */
 }
 @media screen and (min-width: 1140px) and (max-width: 1200px) {
   .img-circle-double{
@@ -202,6 +206,12 @@ export default {
   }
   .double-circle-transparent {
     width: 6rem !important;
+  }
+}
+@media screen and (min-width: 1025px) and (max-width: 1500px) {
+  .img-circle{
+      width: 10rem !important;
+      right: -3rem !important;
   }
 }
 </style>
