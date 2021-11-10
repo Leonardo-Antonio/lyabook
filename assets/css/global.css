@@ -895,3 +895,9 @@ span.el-checkbox__label {
     width: 25rem !important;
   }
 }
+
+@media (max-width: 1270px) {
+  .conatiner-footer{
+    width: 100% !important;
+  }
+}
