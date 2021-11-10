@@ -233,7 +233,6 @@ export default {
         })
 
         if (response.status == 201) {
-          console.log('finshhhh')
           loading.close()
         }
       } catch (error) {

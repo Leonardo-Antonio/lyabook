@@ -1,63 +1,47 @@
 <template>
   <div>
     <div class="flex justify-center container mx-auto">
-      <!--       <div>
+      <div>
         <img class="absolute" style="right: 0px; top: 0px" :src="src" />
       </div>
- -->
-      <div class="flex justify-center w-full">
+
+      <div class="flex justify-center w-3/4">
         <div class="pt-8 w-full">
           <!-- header -->
-          <div class="flex items-center justify-between px-2 r-flex-col">
-            <div style="width: 20%">
+          <div class="flex items-center justify-center px-2">
+            <div class="image-logo">
               <nuxt-link :to="`/`">
-                <img src="/images/LyaBook.svg" />
+                <img src="/images/LyaBook.svg" width="40%" />
               </nuxt-link>
             </div>
-
-            <div
-              class="flex flex-row justify-between r-flex-col"
-              style="width: 80%"
-            >
-              <div class="search-autocomplete r-w-full r-order-2">
-                <el-autocomplete
-                  v-model="state"
-                  :fetch-suggestions="querySearchAsync"
-                  placeholder="Busca un libro..."
-                  @select="handleSelect"
-                  class="input-search-autocomplete"
-                ></el-autocomplete>
+            <div class="search-autocomplete">
+              <el-autocomplete
+                v-model="state"
+                :fetch-suggestions="querySearchAsync"
+                placeholder="Busca un libro..."
+                @select="handleSelect"
+                class="input-search-autocomplete"
+              ></el-autocomplete>
+            </div>
+            <div class="enlaces-header">
+              <nuxt-link :to="`/libros/`">
+                <h1>Libros</h1>
+              </nuxt-link>
+            </div>
+            <div class="icon-login">
+              <div>
+                <box-icon
+                  name="user"
+                  @click="showLogin = !showLogin"
+                ></box-icon>
               </div>
-
-              <div
-                class="
-                  flex flex-row
-                  justify-between
-                  items-center
-                  r-order-1 r-pb-05 r-pt-1
-                "
-              >
-                <div class="pr-2">
-                  <nuxt-link :to="`/libros/`">
-                    <h1>Libros</h1>
-                  </nuxt-link>
-                </div>
-                <div class="pr-2">
-                  <div>
-                    <box-icon
-                      name="user"
-                      @click="showLogin = !showLogin"
-                    ></box-icon>
-                  </div>
-                </div>
-                <div class="pr-2">
-                  <box-icon
-                    name="cart"
-                    animation="tada"
-                    @click="showDrawer = true"
-                  ></box-icon>
-                </div>
-              </div>
+            </div>
+            <div class="icon-shopping-cart">
+              <box-icon
+                name="cart"
+                animation="tada"
+                @click="showDrawer = true"
+              ></box-icon>
             </div>
           </div>
         </div>
@@ -67,22 +51,35 @@
     <div v-show="showLogin" class="relative">
       <div class="absolute bottom-0 right-1/4 top-0.5 z-10 w-1/6">
         <div class="container-login p-2 flex flex-col">
-          <nuxt-link :to="`/login`">
-            <el-button class="w-full button-log">Log In</el-button>
-          </nuxt-link>
-          <nuxt-link :to="`/sign-up/dni`">
-            <el-button class="w-full button-log" style="margin-top: 0.5rem"
-              >Registrate por DNI</el-button
+          <div v-show="showOpen">
+            <nuxt-link :to="`/login`">
+              <el-button class="w-full button-log">Iniciar Sesión</el-button>
+            </nuxt-link>
+            <nuxt-link :to="`/sign-up/dni`">
+              <el-button class="w-full button-log" style="margin-top: 0.5rem"
+                >Registrate por DNI</el-button
+              >
+            </nuxt-link>
+            <nuxt-link :to="`/sign-up/email`">
+              <el-button class="w-full button-log" style="margin-top: 0.5rem"
+                >Registrate por email y contraseña</el-button
+              >
+            </nuxt-link>
+          </div>
+          <div v-show="!showOpen">
+            <nuxt-link :to="`/mi-cuenta`">
+              <el-button class="w-full button-log" @click="showLogin = false">Mi cuenta</el-button>
+            </nuxt-link>
+            <a href="/">
+              <el-button class="w-full button-log" @click="closeSeccion"
+                >Cerrar Sección</el-button
+              ></a
             >
-          </nuxt-link>
-          <nuxt-link :to="`/sign-up/email`">
-            <el-button class="w-full button-log" style="margin-top: 0.5rem"
-              >Registrate por email y contraseña</el-button
-            >
-          </nuxt-link>
+          </div>
         </div>
       </div>
     </div>
+
     <el-dialog
       title="Elegir método de pago:"
       :visible.sync="dialogPayment"
@@ -109,7 +106,7 @@
         <div
           class="productDrawer pb-4 px-8"
           v-for="(gb, index) of getbook"
-          :key="index"
+          :key="gb"
         >
           <div class="flex">
             <div class="" style="width: 30%">
@@ -190,9 +187,203 @@
     </el-drawer>
 
     <nuxt />
+    <Footer/>
+    <!-- <div class="footer flex justify-center px-8">
+      <div class="conatiner-footer flex flex-row justify-center w-3/4 py-8">
+        <div class="container-column-1 w-1/5">
+          <div class="container-contact-us">
+            <p class="title-footer title-contact-us">Contacto</p>
+            <div class="footer-data conatiner-telephone flex flex-row">
+              <box-icon name="phone" color="#ffffff"></box-icon>
+              <a href="tel:+51 993 583 805"
+                ><p class="subtitle-footer number-phone">+51 993 583 805</p></a
+              >
+            </div>
+            <div class="footer-data container-mail flex flex-row">
+              <box-icon name="mail-send" color="#ffffff"></box-icon>
+              <a href="mailto:atenciónalcliente@lyabook.com"
+                ><p class="subtitle-footer direction-mail">
+                  atenciónalcliente@lyabook.com
+                </p></a
+              >
+            </div>
+            <div class="footer-data conatiner-location flex flex-row">
+              <box-icon name="location-plus" color="#ffffff"></box-icon>
+              <p class="subtitle-footer location">
+                Paseo de la República 5613- Miraflores. Lima, Perú
+              </p>
+            </div>
+          </div>
 
-    <Footer />
-
+          <div class="container-follow-us pt-16">
+            <p class="title-footer title-follow-us">Síguenos</p>
+            <div class="footer-data flex flex-row">
+              <div class="">
+                <box-icon
+                  size="md"
+                  name="facebook-circle"
+                  type="logo"
+                  color="#ffffff"
+                ></box-icon>
+              </div>
+              <div class="px-2">
+                <box-icon
+                  size="md"
+                  name="youtube"
+                  type="logo"
+                  color="#ffffff"
+                ></box-icon>
+              </div>
+              <div class="">
+                <box-icon
+                  size="md"
+                  name="instagram-alt"
+                  type="logo"
+                  color="#ffffff"
+                ></box-icon>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container-column-2 w-1/5">
+          <p class="title-footer title-my-account">Contacto</p>
+          <div class="footer-data my-profile flex flex-row">
+            <box-icon name="right-arrow" color="#ffffff"></box-icon>
+            <a
+              href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"
+              ><p class="subtitle-footer profile">Mi Perfil</p></a
+            >
+          </div>
+          <div class="footer-data favorite flex flex-row">
+            <box-icon name="right-arrow" color="#ffffff"></box-icon>
+            <NuxtLink to="/"
+              ><p class="subtitle-footer favorite">Mis favoritos</p></NuxtLink
+            >
+          </div>
+          <div class="footer-data orders flex flex-row">
+            <box-icon name="right-arrow" color="#ffffff"></box-icon>
+            <a
+              href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"
+              ><p class="subtitle-footer order">Mis órdenes</p></a
+            >
+          </div>
+          <div class="footer-data us flex flex-row">
+            <box-icon name="right-arrow" color="#ffffff"></box-icon>
+            <a
+              href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"
+              ><p class="subtitle-footer us">Nosotros</p></a
+            >
+          </div>
+          <div class="footer-data contact-us flex flex-row">
+            <box-icon name="right-arrow" color="#ffffff"></box-icon>
+            <a
+              href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"
+              ><p class="subtitle-footer contact-us">Contáctanos</p></a
+            >
+          </div>
+        </div>
+        <div class="container-column-3 w-1/5">
+          <p class="title-footer title-category">Categorías</p>
+          <div class="footer-data romance flex flex-row">
+            <box-icon name="right-arrow" color="#ffffff"></box-icon>
+            <a
+              href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"
+              ><p class="subtitle-footer romance">Romance</p></a
+            >
+          </div>
+          <div class="footer-data comedy flex flex-row">
+            <box-icon name="right-arrow" color="#ffffff"></box-icon>
+            <a
+              href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"
+              ><p class="subtitle-footer comedy">Comedia</p></a
+            >
+          </div>
+          <div class="footer-data mystery flex flex-row">
+            <box-icon name="right-arrow" color="#ffffff"></box-icon>
+            <a
+              href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"
+              ><p class="subtitle-footer mystery">Misterio</p></a
+            >
+          </div>
+          <div class="footer-data footer-data terror flex flex-row">
+            <box-icon name="right-arrow" color="#ffffff"></box-icon>
+            <a
+              href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"
+              ><p class="subtitle-footer terror">Terror</p></a
+            >
+          </div>
+          <div class="footer-data adventure flex flex-row">
+            <box-icon name="right-arrow" color="#ffffff"></box-icon>
+            <a
+              href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"
+              ><p class="subtitle-footer adventure">Aventura</p></a
+            >
+          </div>
+        </div>
+        <div class="container-column-4 w-1/5">
+          <div class="container-medium">
+            <p class="title-footer title-medium">Soporte</p>
+            <div class="footer-data frequent-questions flex flex-row">
+              <box-icon name="right-arrow" color="#ffffff"></box-icon>
+              <a
+                href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"
+                ><p class="subtitle-footer frequent-questions">
+                  Preguntas frecuentes
+                </p></a
+              >
+            </div>
+            <div class="footer-data complaints-book flex flex-row">
+              <box-icon name="right-arrow" color="#ffffff"></box-icon>
+              <a
+                href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"
+                ><p class="subtitle-footer complaints-book">
+                  Libro de reclamaciones
+                </p></a
+              >
+            </div>
+            <div class="footer-data terms-and-conditions flex flex-row">
+              <box-icon name="right-arrow" color="#ffffff"></box-icon>
+              <a
+                href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"
+                ><p class="subtitle-footer terms-and-conditions">
+                  Términos y condiciones
+                </p></a
+              >
+            </div>
+            <div class="footer-data privacy-policies flex flex-row">
+              <box-icon name="right-arrow" color="#ffffff"></box-icon>
+              <a
+                href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"
+                ><p class="subtitle-footer privacy-policies">
+                  Políticas de privacidad
+                </p></a
+              >
+            </div>
+          </div>
+          <div class="container-payment-methods pt-8">
+            <p class="title-footer title-payment-methods">Métodos de pago</p>
+            <div class="footer-data flex flex-row">
+              <img
+                class="payment-card"
+                src="/images/metodo-de-pago-express.png"
+              />
+              <img
+                class="payment-card"
+                src="/images/metodo-de-pago-express.png"
+              />
+              <img
+                class="payment-card"
+                src="/images/metodo-de-pago-express.png"
+              />
+              <img
+                class="payment-card"
+                src="/images/metodo-de-pago-express.png"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
     <div class="footer-author py-4 flex justify-center">
       <p class="text-footer pr-2">Powered by</p>
       <div class="flex justify-center">
@@ -213,11 +404,13 @@
 <script>
 import Footer from '../components/layouts/footer'
 export default {
-  components: { Footer },
   props: {
     src: {
       type: String,
     },
+  },
+  components:{
+    Footer
   },
   data() {
     return {
@@ -230,7 +423,7 @@ export default {
       response_id: '',
       dialogPayment: false,
       showLogin: false,
-
+      showOpen: true,
       //--------------------------------------AUTOCOMPLETE----------------------------------
       links: [],
       state: '',
@@ -240,19 +433,11 @@ export default {
   methods: {
     openDrawer() {
       try {
-        console.log('drawer abierto')
-        console.log(
-          '--------------------------GET DRAWER-------------------------------'
-        )
         var local = localStorage.getItem('books')
         if (local != null) {
           this.getbook = JSON.parse(local)
-          console.log(
-            '--------------------------CART DRAWER-------------------------------'
-          )
         }
       } catch (error) {
-        console.log('error al abrir el drawer')
       }
     },
     DeleteElement(position) {
@@ -260,7 +445,6 @@ export default {
         this.getbook.splice(position, 1)
         localStorage.setItem('books', JSON.stringify(this.getbook))
       } catch (error) {
-        console.log('error al eliminar elemento')
       }
     },
     tobuy() {
@@ -277,13 +461,11 @@ export default {
               book.format = 'f'
             }
           }
-
           if (book.format == 'd') {
             type = book.type.digital.src
           } else {
             type = book.type.fisico.log + ' ' + book.type.fisico.lat
           }
-
           var books = {
             id: book.author,
             title: book.name,
@@ -293,41 +475,24 @@ export default {
             picture_url: book.images_src[0],
             category_id: type,
           }
-
           this.finalResult.push(books)
-
           if (change) {
             book.format = 'df'
           }
         })
-
         this.dialogPayment = true
-        console.log('---------------------FINAL RESULT---------------------')
-        console.log(this.finalResult)
       } catch {
-        console.log('error al comprar')
       }
     },
     async openDialog() {
       try {
-        console.log('FINAL RESULT-----------------------------')
-        this.finalResult.forEach((final) => {
-          console.log(final)
-        })
-
-        console.log('el dialog se abrio')
         const response = await this.$apidata({
           url: '/orders',
           method: 'post',
           data: this.finalResult,
         })
-        console.log('response API: ')
-        console.log(response)
-
         if (response.data.data.status == 201) {
           this.response_id = response.data.id
-          console.log(this.response_id)
-
           const mp = new MercadoPago(
             'TEST-32e01da3-6294-476b-adfd-004faa209766',
             {
@@ -343,31 +508,29 @@ export default {
               label: 'Mercado Pago',
             },
           })
-
           for (let i = this.finalResult.length; i > 0; i--) {
             this.finalResult.pop()
           }
         } else {
-          console.log('Se produjo un error en el servidor')
         }
       } catch (error) {
-        console.log('error al abrir el dialogo')
       }
     },
     closeDialog() {
       try {
-        console.log('el dialog se cerro')
         let nodo = document.getElementById('nodo')
         if (nodo.lastChild != null) {
           nodo.removeChild(nodo.lastChild)
         }
       } catch (error) {
-        console.log('error al cerrar el dialogo')
       }
     },
     switchChange(value) {
-      console.log('-----------------------SWITCH--------------------------')
-      console.log(value)
+    },
+    closeSeccion() {
+      localStorage.removeItem('user')
+      this.showOpen = false
+      window.location.reload(true)
     },
     //-------------------------------------AUTOCOMPLETE----------------------------------------------
     querySearchAsync(queryString, cb) {
@@ -375,7 +538,6 @@ export default {
       var results = queryString
         ? links.filter(this.createFilter(queryString))
         : links
-
       clearTimeout(this.timeout)
       this.timeout = setTimeout(() => {
         cb(results)
@@ -387,18 +549,16 @@ export default {
       }
     },
     handleSelect(item) {
-      this.$router.push(`/libros/${item.slug}`)
+      console.log(item)
     },
     //-----------------------------------------------------------------------------------------------
   },
   async mounted() {
     var books = []
-
     var response = await this.$apidata({
       url: '/books/',
       method: 'get',
     })
-    console.log('RESPONSE BOOKS')
     response.data.data.forEach((res) => {
       var book = {
         value: res.name,
@@ -406,41 +566,36 @@ export default {
       }
       books.push(book)
     })
-
     this.links = books
   },
   async created() {
-    //--------------------------------------------DRAWER
-    console.log(
-      '--------------------------GET DRAWER-------------------------------'
-    )
     try {
+      //--------------------------------------------USER
+      var user = localStorage.getItem('user')
+      if (user != null) {
+        this.showOpen = false
+      }
+      //--------------------------------------------DRAWER
       var format = {
         valueFormat: false,
       }
-
       var local = localStorage.getItem('books')
       if (local != null) {
         this.getbook = JSON.parse(local)
       }
-
-      console.log(
-        '--------------------------ARRAY-------------------------------'
-      )
       this.getbook.forEach((book) => {
         this.getbook.push(Object.assign(book, format))
       })
-
-      console.log('array:')
-      console.log(this.getbook)
     } catch (error) {
-      console.log('error... Carrito vacio')
     }
   },
 }
 </script>
 
 <style scoped>
+.image-logo {
+  width: 25%;
+}
 .search-autocomplete {
   display: flex;
   justify-content: center;
@@ -449,7 +604,21 @@ export default {
 .input-search-autocomplete {
   width: 90%;
 }
-
+.enlaces-header {
+  display: flex;
+  justify-content: center;
+  width: 10%;
+}
+.icon-login {
+  display: flex;
+  justify-content: center;
+  width: 5%;
+}
+.icon-shopping-cart {
+  display: flex;
+  justify-content: center;
+  width: 5%;
+}
 .editorial {
   font-family: Roboto;
   font-style: normal;
@@ -510,7 +679,6 @@ export default {
   text-decoration-line: underline;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
-
 .direction {
   font-family: 'Baloo Chettan 2';
   font-style: normal;
@@ -519,11 +687,9 @@ export default {
   line-height: 35px;
   color: #5e20e4;
 }
-
 .footer {
   background: #021639;
 }
-
 .title-footer {
   font-family: Roboto;
   font-style: normal;
@@ -532,7 +698,6 @@ export default {
   line-height: 172%;
   color: #f9f9ff;
 }
-
 .subtitle-footer {
   font-family: Roboto;
   font-style: normal;
@@ -542,15 +707,12 @@ export default {
   color: #ffffff;
   padding-left: 0.5rem;
 }
-
 .footer-data {
   padding-top: 2rem;
 }
-
 .footer-author {
   background: #011e51;
 }
-
 .text-footer {
   font-family: Saira;
   font-style: normal;
@@ -558,14 +720,11 @@ export default {
   font-size: 18px;
   line-height: 31px;
   text-align: center;
-
   color: #ffffff;
 }
-
 .location {
   width: 80%;
 }
-
 .container-tobuy-drawer {
   background: var(--primary);
   font-family: 'Baloo Chettan 2';
@@ -613,12 +772,10 @@ export default {
   box-shadow: 0px 4px 20px #5e20e340;
   border-radius: 7px;
 }
-
 .button-log:hover {
   color: var(--primary);
   background: var(--secundary);
 }
-
 .button-log {
   border: unset;
   color: #5e20e3a1;

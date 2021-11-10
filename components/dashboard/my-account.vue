@@ -188,7 +188,6 @@ export default {
           method: 'put',
           data: this.data,
         })
-        console.log(response)
       } catch (error) {}
     },
   },

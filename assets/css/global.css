@@ -14,6 +14,9 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 
+@import 'leaflet/dist/leaflet.css';
+
+
 :root {
   --primary: #5e20e4;
   --opacity2: #c4c4c4;
@@ -802,4 +805,32 @@ span.el-checkbox__label {
 
 .r-remove-desktop {
   display: none;
+}
+
+.container-response .el-tabs__header.is-top {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+}
+
+.container-response .el-tabs{
+  display: flex;
+  flex-direction: column !important;
+}
+
+.el-tabs.el-tabs--top {
+  height: 100% !important;
+}
+
+.conatiner-tabs .el-tabs__header.is-top {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.container_publicBook_Edit .dialog-edit .el-dialog{
+  width: 90% !important;
+}
+.container-delete .el-dialog{
+  width: 90% !important;
 }

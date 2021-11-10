@@ -4,7 +4,7 @@
       <div class="ml-4">
         <p class="title-account pb-2">Perfil</p>
       </div>
-      <div class="flex">
+      <div class="flex container-father-perfile">
         <div class="container-perfile p-12 m-4 w-3/5">
           <div class="flex">
             <div class="cp-1">
@@ -17,31 +17,16 @@
                   <p class="text-p mt-2">-</p>
                 </div>
               </div>
-              <div class="mt-8">
+              <div class="mt-8" v-show="this.user.email != null">
                 <p class="text-title">Email</p>
-                <div v-show="this.user.email != null">
+                <div>
                   <p class="text-p mt-2">{{ this.user.email }}</p>
                 </div>
-                <div v-show="this.user.email == null">
-                  <p class="text-p mt-2">-</p>
-                </div>
               </div>
-              <div class="mt-8">
+              <div class="mt-8"  v-show="this.user.dni != null">
                 <p class="text-title">DNI</p>
-                <div v-show="this.user.dni != null">
+                <div>
                   <p class="text-p mt-2">{{ this.user.dni }}</p>
-                </div>
-                <div v-show="this.user.dni == null">
-                  <p class="text-p mt-2">-</p>
-                </div>
-              </div>
-              <div class="mt-8">
-                <p class="text-title">Fecha de nacimiento</p>
-                <div v-show="this.user.date != null">
-                  <p class="text-p mt-2">{{ this.user.date }}</p>
-                </div>
-                <div v-show="this.user.date == null">
-                  <p class="text-p mt-2">-</p>
                 </div>
               </div>
             </div>
@@ -55,28 +40,11 @@
                   <p class="text-p mt-2">-</p>
                 </div>
               </div>
-              <div class="space"></div>
-              <div class="mt-8">
-                <p class="text-title">Género</p>
-                <div v-show="this.user.genero != null">
-                  <p class="text-p mt-2">{{ this.user.genero }}</p>
-                </div>
-                <div v-show="this.user.genero == null">
-                  <p class="text-p mt-2">-</p>
-                </div>
-              </div>
-              <div class="mt-8">
-                <p class="text-title">Celular</p>
-                <div v-show="this.user.number != null">
-                  <p class="text-p mt-2">{{ this.user.number }}</p>
-                </div>
-                <div v-show="this.user.number == null">
-                  <p class="text-p mt-2">-</p>
-                </div>
-              </div>
+              
             </div>
+            
           </div>
-          <div class="container-button-edit">
+          <div class="container-button-edit" v-show="this.user.email != null">
             <el-button
               class="btn_add_size button-to-by btn-edit"
               type="primary"
@@ -87,11 +55,11 @@
           </div>
         </div>
 
-        <div class="w-2/5" v-show="showPassword">
+        <div class="w-2/5 container-x-password" v-show="showPassword">
           <div class="container-password p-12 m-4">
             <p class="text-title">Contraseña</p>
             <p class="text-p mt-2">
-              Usted todavía no tiene una contraseña definida
+              Usted puede cambiar la contraseña definida
             </p>
             <div class="container-btn-password flex justify-end">
               <el-button
@@ -99,14 +67,15 @@
                 type="primary"
                 round
                 @click="showPassword = false"
-                >Definir Contraseña</el-button
+                >Cambiar Contraseña</el-button
               >
             </div>
           </div>
         </div>
 
-        <div class="w-2/5" v-show="!showPassword">
+        <div class="w-2/5 container-change-password" v-show="!showPassword">
           <div class="container-password container-restore px-12 pt-20 m-4">
+
             <RestorePassword />
           </div>
         </div>
@@ -134,7 +103,7 @@
       <div class="ml-4 pt-4">
         <p class="title-account pb-2">Editar Perfil</p>
       </div>
-      <div>
+      <div v-show="this.user.email != null">
         <EditProfile />
       </div>
     </div>
@@ -158,11 +127,9 @@ export default {
     }
   },
   created() {
-    console.log('-------------------------USER----------------------------')
     var user = localStorage.getItem('user')
     if (user != null) {
       this.user = JSON.parse(user).user
-      console.log(this.user)
     }
   },
 }
@@ -193,5 +160,24 @@ export default {
 
 .container-restore {
   padding-bottom: 5.5rem;
+}
+
+@media only screen and (max-width: 1025px) {
+  .container-father-perfile{
+    flex-direction: column !important;
+  }
+  .container-perfile{
+    width: 100%;
+    margin: 0;
+  }
+  .container-x-password{
+    width: 100%;
+  }
+  .container-password{
+    margin: 1rem 0;
+  }
+  .container-change-password{
+    width: 100%;
+  }
 }
 </style>

@@ -401,20 +401,10 @@ export default {
       this.books = this.books.filter((book) =>
         book.categories.includes(id_category)
       )
-      console.log(
-        '++++++++++++++++++++++FILTRADO+++++++++++++++++++++++++++++++'
-      )
-      console.log('ID index: ' + index)
-      console.log('ID VALUE: ' + value)
+      
       if (value) {
         this.value_category[index].active = !value
-        console.log(
-          '++++++++++++++++++++++LIBROS+++++++++++++++++++++++++++++++'
-        )
-        console.log('ID CATEGORIA: ' + id_category)
       }
-      console.log('ID CATEGORIA: ' + id_category)
-      console.log('++++++++++++++++++++++IDS+++++++++++++++++++++++++++++++')
 
       if (value) {
         this.books = this.master_books
@@ -428,7 +418,6 @@ export default {
         })
 
         this.submaster_books = this.books
-        console.log(this.submaster_books)
 
         this.value_category[index].active = !value
       } else {
@@ -451,8 +440,6 @@ export default {
           )
         })
 
-        console.log(this.submaster_books)
-
         if (this.ids.length == 0) {
           this.books = this.master_books.filter(
             (book) => book.price_current <= this.value_barra
@@ -462,28 +449,18 @@ export default {
       }
     },
     filterEditorial(indexE, status, name_editorial) {
-      console.log(
-        '++++++++++++++++++++++FILTRADO Editorial+++++++++++++++++++++++++++++++'
-      )
-      console.log('STATUS: ' + status)
-      console.log('NAME EDITORIAL: ' + name_editorial)
-      console.log('++++++++++++++++++++++IDS+++++++++++++++++++++++++++++++')
 
       const cant_category = this.submaster_books.length
-      console.log('CANTIDAD DE CATEGORIA: ' + cant_category)
       if (cant_category != 0) {
-        console.log('hay categorias seleccionadas')
         this.books = this.submaster_books.filter(
           (book) =>
             book.editorial == name_editorial &&
             book.price_current <= this.value_barra
         )
       } else {
-        console.log('editorial se filtra primero')
         const value = this.editorial_moment.includes(name_editorial)
         if (!value) {
           this.editorial_moment[0] = name_editorial
-          console.log(this.editorial_moment)
           this.books = this.master_books.filter(
             (book) =>
               book.editorial == name_editorial &&
@@ -493,15 +470,10 @@ export default {
           this.books = this.master_books.filter(
             (book) => book.price_current <= this.value_barra
           )
-          console.log(this.books)
         }
       }
     },
     addCart(books) {
-      console.log(
-        '--------------------------DRAWER-------------------------------'
-      )
-
       var local = localStorage.getItem('books')
       if (local != null) {
         this.booksCard = JSON.parse(local)
@@ -515,12 +487,9 @@ export default {
       var validate = this.booksCard.filter((book) => book._id == books._id)
 
       if (validate.length == 1) {
-        console.log('Agregado')
         localStorage.setItem('books', JSON.stringify(this.booksCard))
       } else {
-        console.log('Ya fue Agregado')
         this.booksCard.pop()
-        console.log('-------------------------------------------------')
         this.$message({
           type: 'info',
           message: 'El libro ya fue agregado al carrito.',
@@ -530,21 +499,13 @@ export default {
   },
   watch: {
     value_barra: function (value) {
-      console.log(
-        '++++++++++++++++++++++FILTRADO PRECIO+++++++++++++++++++++++++++++++'
-      )
-
-      console.log(value)
 
       const cant_category = this.submaster_books.length
-      console.log('CANTIDAD DE CATEGORIA: ' + cant_category)
       if (cant_category != 0) {
-        console.log('hay categorias seleccionadas')
         this.books = this.submaster_books.filter(
           (book) => book.price_current <= value
         )
       } else {
-        console.log('primer precio')
         this.books = this.master_books.filter(
           (book) => book.price_current <= value
         )
@@ -574,31 +535,25 @@ export default {
           }
         })
 
-        console.log('----------------------MAXIMO-------------------')
-        console.log(maximos)
+        
         var contador = 0
         for (let i = 0; i < maximos.length; i++) {
           if (maximos[i] > contador) {
             contador = maximos[i]
           }
         }
-        console.log('----------------------MAX-------------------')
 
         this.max = contador
-        console.log(this.max)
 
-        console.log('----------------------MINIMO-------------------')
-        console.log(maximos)
+     
         var contador_min = this.max
         for (let i = 0; i < maximos.length; i++) {
           if (maximos[i] < contador_min) {
             contador_min = maximos[i]
           }
         }
-        console.log('----------------------MAX-------------------')
 
         this.min = contador_min
-        console.log(this.min)
 
         this.value_barra = this.max
       } else {
@@ -620,8 +575,6 @@ export default {
           (category) => category.active == true
         )
 
-        console.log('-----------------------------------------------------')
-        console.log(this.value_category)
       } else {
         console.log('error en el servidor al obtener la categoria.')
       }
@@ -645,15 +598,10 @@ export default {
     }
 
     //-------------------------------------------Book Cart
-    console.log(
-      '-------------------------Book Cart----------------------------'
-    )
     var local = localStorage.getItem('books')
     if (local != null) {
       this.booksCard = JSON.parse(local)
     }
-
-    console.log(this.booksCard)
   },
 }
 </script>

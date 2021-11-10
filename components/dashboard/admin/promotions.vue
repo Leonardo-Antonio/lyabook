@@ -202,9 +202,7 @@ export default {
             price_current: row.price_current,
           },
         })
-        console.log(response)
       } catch (error) {
-        console.log(error)
       }
     },
     exportData() {

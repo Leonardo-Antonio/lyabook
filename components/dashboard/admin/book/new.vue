@@ -476,7 +476,6 @@ export default {
           data: this.data,
         })
       } catch {
-        console.log('error.....')
       }
     },
     beforeUpload(file) {
@@ -523,7 +522,6 @@ export default {
       this.data.images_src = urls
     },
     successPdf(response, file, fileList) {
-      console.log(response)
       this.data.type.digital.src = response.data.url
     },
 

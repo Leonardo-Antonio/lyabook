@@ -104,7 +104,6 @@ export default {
               data: data,
             })
           } catch (error) {
-            console.log(error)
           }
         } else {
           this.$message.error('Ingrese un email o dni valido')

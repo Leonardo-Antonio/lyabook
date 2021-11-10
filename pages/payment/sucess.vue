@@ -13,7 +13,6 @@ export default {
     return {}
   },
   async created() {
-    console.log('--------------------PARAM---------------')
     
   },
 }

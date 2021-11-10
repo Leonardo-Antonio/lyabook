@@ -62,14 +62,13 @@
                     <p class="text">Recoger en:</p>
                   </div>
                   <div class="conatiner-enlace-maps w-1/2 flex justify-end">
-                    <a
-                      href="https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1"
-                      ><p class="enlace-maps">Ver en Google Maps</p></a
-                    >
+                    <nuxt-link :to="{name:'libros-mapa', params: {position:books.type}}">
+                      <p class="enlace-maps">Ver el mapa</p>
+                    </nuxt-link>
                   </div>
                 </div>
                 <div class="container-direction pt-2">
-                  <p class="direction">Calle 8, Cercado de Lima 15828</p>
+                  <p class="direction">{{street}} - {{name_street}}</p>
                 </div>
               </div>
               <div class="container-button-to-buy pt-8 flex justify-center">
@@ -88,7 +87,7 @@
         </div>
 
         <!-- container tabs -->
-        <div class="conatiner-tabs py-12 px-6">
+        <div class="conatiner-tabs py-12">
           <el-tabs v-model="activeName" @tab-click="handleClick">
             <el-tab-pane label="Descripción" name="first">{{
               books.description
@@ -187,7 +186,9 @@ export default {
       valueButtom: true,
       seeMoreButton: [],
       seeLessButton: [],
-      cant_category: 0
+      cant_category: 0,
+      street:'',
+      name_street:''
     }
   },
   methods: {
@@ -229,7 +230,6 @@ export default {
     },
     //-----------------------------------AGREGAR AL CARRITO
     addCart() {
-      console.log('----------------Agregar al carrito----------------------')
       var local = localStorage.getItem('books')
       if (local != null) {
         this.booksCard = JSON.parse(local)
@@ -243,12 +243,9 @@ export default {
       var validate = this.booksCard.filter((book) => book._id == this.books._id)
 
       if (validate.length == 1) {
-        console.log('Agregado')
         localStorage.setItem('books', JSON.stringify(this.booksCard))
       } else {
-        console.log('Ya fue Agregado')
         this.booksCard.pop()
-        console.log('-------------------------------------------------')
         this.$message({
           type: 'info',
           message: 'El libro ya fue agregado al carrito.',
@@ -317,10 +314,9 @@ export default {
   watch: {
     addcomentary: function (value) {
       if (value.trim().length != 0) {
-        if(value.length > 0){
+        if (value.length > 0) {
           this.valueButtom = false
         }
-        
       } else {
         this.valueButtom = true
       }
@@ -335,16 +331,11 @@ export default {
         url: `/books/${slug}`,
         method: 'get',
       })
-      console.log('---------------------------book interna')
       if (response.status == 200) {
         this.books = response.data.data
         this.seeMoreButton = response.data.data.commentaries
         this.seeLessButton = this.books.commentaries.reverse().slice(0, 5)
         this.books.commentaries = this.seeLessButton
-
-        console.log('categories: ')
-        console.log(this.seeMoreButton)
-        console.log(this.books.commentaries)
 
         this.cant_category = this.seeMoreButton.length
       }
@@ -352,6 +343,13 @@ export default {
       console.log(error)
     }
   },
+  async created(){
+    var res = await this.$axios.get("https://api.mymappi.com/v2/places/search?apikey=5a6f0cf3-af52-4aaf-bb06-2c5ed3dd0da7&lat=-12.1692&lon=-77.0244&radius=10&limit=25")
+    this.street = res.data.data[0].tags['addr:street']
+    this.name_street = res.data.data[0].tags.name
+
+    
+  }
 }
 </script>
 <style scoped>
@@ -522,14 +520,14 @@ export default {
   border: solid 1px var(--primary);
   color: var(--primary);
 }
-.seeMoreButton:hover{
+.seeMoreButton:hover {
   background: #5e20e40f;
 }
 .seeLessButton {
   border: solid 1px var(--primary);
   color: var(--primary);
 }
-.seeLessButton:hover{
+.seeLessButton:hover {
   background: #5e20e40f;
 }
 </style>

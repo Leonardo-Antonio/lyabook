@@ -31,7 +31,7 @@
 .btn-edit {
   background: unset;
   border: unset;
-  padding: 2rem 0 0 0 !important;
+  padding: 1.5rem 0 0 0 !important;
 }
 .btn-edit:hover {
   background: unset;
@@ -149,6 +149,11 @@
 }
 .container-account .el-tabs__header {
   padding-top: 3rem;
+}
+@media only screen and (max-width: 641px) {
+  .container-account .el-tabs__header {
+    padding-top: 1rem;
+  }
 }
 
 .el-button--primary.is-active,
@@ -284,7 +289,7 @@
 }
 
 .container-tabs-public-book .btn_readBook-public {
-  width: 90%;
+  width: 100%;
   height: 100%;
   background: #5e20e4;
   border-color: #5e20e4;

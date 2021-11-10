@@ -165,7 +165,6 @@ export default {
           data: this.data,
         })
 
-        console.log(response)
       } catch (error) {}
     },
   },
@@ -176,7 +175,6 @@ export default {
       method: 'get',
     })
     this.categories = response.data.data
-    console.log(this.categories)
   },
 }
 </script>

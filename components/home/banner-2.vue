@@ -14,7 +14,7 @@
           transform: rotate(-355deg);
         "
       />
-      <div class="w-full flex">
+      <div class="w-4/6 flex">
         <div class="w-1/2 flex items-end justify-center">
           <img src="/images/banner-2-home.svg" class="absolute z-10" />
         </div>
@@ -52,7 +52,6 @@ export default {
   line-height: 58px;
   color: #000000;
 }
-
 .parrafos-banner2 {
   font-family: Barlow;
   font-style: normal;
@@ -61,7 +60,6 @@ export default {
   line-height: 30px;
   color: var(--resaltado);
 }
-
 .prrf-2 {
   color: var(--second) !important;
 }

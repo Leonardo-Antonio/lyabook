@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="p-12 container-new-book">
-      <div class="flex">
-        <div class="w-3/5">
+      <div class="flex fila-1">
+        <div class="w-3/5 fc1">
           <div>
             <p class="titulo-form-book">Nombre</p>
             <el-input
@@ -14,7 +14,7 @@
             </el-input>
           </div>
         </div>
-        <div class="w-2/5 pl-6">
+        <div class="w-2/5 pl-6 fc2">
           <div>
             <p class="titulo-form-book">Categoría</p>
             <el-select
@@ -97,7 +97,7 @@
       </div>
 
       <div class="flex mt-4">
-        <div class="flex w-1/2 justify-center items-center">
+        <!-- <div class="flex w-1/2 justify-center items-center">
           <p class="w-1/2 titulo-form-book">Precio normal</p>
           <el-input
             class="w-1/2 input"
@@ -106,10 +106,11 @@
             clearable
           >
           </el-input>
-        </div>
-        <div class="w-1/2 flex justify-end items-center">
+        </div> -->
+        <div class="w-full flex justify-end items-center">
           <el-button @click="addBook" class="btn_readBook-public" type="primary"
-            >Publicar libro</el-button>
+            >Publicar libro</el-button
+          >
         </div>
       </div>
     </div>
@@ -119,37 +120,52 @@
 export default {
   data() {
     return {
-      name:'',
-      resumen:'',
+      name: '',
+      resumen: '',
       //--------------------------------------SELECT CATEGORY-----------------------------------------------
       options: [],
       category: [],
-      categories: []
+      categories: [],
     }
   },
-  methods:{
-    addBook(){
+  methods: {
+    addBook() {
       console.log(this.name)
       console.log(this.category)
       console.log(this.resumen)
-
-    }
+    },
   },
-  async created(){
+  async created() {
     this.categories = await this.$apidata({
       url: '/categories/',
-      method: 'get'
+      method: 'get',
     })
-    console.log('---------------------------------CATEGORY------------------------------')
-    console.log(this.categories.data.data)
-    this.categories.data.data.forEach(category => {
+    
+    this.categories.data.data.forEach((category) => {
       var category = {
         value: category._id,
-        label: category.name
+        label: category.name,
       }
       this.options.push(category)
     })
-  }
+  },
 }
 </script>
-<style scoped></style>
+<style scoped>
+@media only screen and (max-width: 641px) {
+  .fila-1 {
+    flex-direction: column;
+  }
+  .fc1{
+    width: 100%;
+  }
+  .fc2{
+    width: 100%;
+    padding-left: 0;
+    padding-top: 1rem;
+  }
+  .container-new-book{
+    padding: 2rem;
+  }
+}
+</style>
