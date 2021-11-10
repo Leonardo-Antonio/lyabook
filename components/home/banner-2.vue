@@ -15,10 +15,10 @@
         "
       />
       <div class="w-4/6 flex">
-        <div class="w-1/2 flex items-end justify-center">
+        <div class="w-1/2 flex items-end justify-center pr-8">
           <img src="/images/banner-2-home.svg" class="absolute z-10" />
         </div>
-        <div class="w-1/2 flex items-center flex-col justify-center">
+        <div class="w-1/2 flex items-center flex-col justify-center ">
           <div>
             <p class="title-banner2 pb-4">Libros digitales y fisicos</p>
             <div class="">
