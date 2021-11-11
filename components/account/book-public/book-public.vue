@@ -1,15 +1,15 @@
 <template>
   <div>
     <div class="container-book-public">
-      <div v-for="item of [2]" :key="item" class="pb-2">
+      <div v-for="item of dataBook" :key="item" class="pb-2">
         <div class="container-bookPublic flex p-6 m-4">
           <div class="w-1/5 flex justify-center container-portada">
-            <img class="portada-book" src="/images/portada-la-corona.jpg" />
+            <img class="portada-book" :src="item.images_src" />
           </div>
           <div class="w-2/5 relative pl-4 container-detalle">
             <div class="w-1/2 container-data">
-              <p class="title-primary">Autor: Pedro Lopez</p>
-              <p class="title-book pt-4">La Selección</p>
+              <p class="title-primary">Autor: {{item.author}}</p>
+              <p class="title-book pt-4">{{item.name}}</p>
             </div>
             <div class="w-1/2 absolute -bottom-0 container-category">
               <p class="title-primary">Categoria</p>
@@ -131,8 +131,33 @@ export default {
       },
       formLabelWidth: '120px',
       DialogVisible_publicBook_Delete: false,
+      //----------------------------------------------------------------
+      user:[],
+      dataBook:[]
     }
   },
+  async created() {
+    try {
+      var user = localStorage.getItem('user')
+      if (user != null) {
+        this.user = JSON.parse(user).user
+
+        const response = await this.$apidata({
+          url: '/books/property/' + this.user._id,
+          method: 'get'
+        })
+
+        if(response.status == 200){
+          this.dataBook = response.data.data
+        }
+        console.log(this.dataBook)
+      }
+      
+    } catch (error) {
+      
+    }
+
+  }
 }
 </script>
 <style scoped>
