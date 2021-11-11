@@ -231,7 +231,7 @@
               </div>
             </div>
           </el-header>
-          <el-main>
+          <el-main style="overflow:overlay;height: 40rem;">
             <div
               class="container-product flex justify-center"
               v-show="books.length != 0"
@@ -267,9 +267,16 @@
                       >
                         <nuxt-link :to="`/libros/${item.slug}`">
                           <div class="container-detail-externa px-2">
-                            <p class="title-product-externa pt-2">
+                            <p
+                              v-if="item.name.length > 36"
+                              class="title-product-externa pt-2"
+                            >
+                              {{ item.name.substring(0, 32) + '...' }}
+                            </p>
+                            <p v-else class="title-product-externa pt-2">
                               {{ item.name }}
                             </p>
+
                             <div
                               class="
                                 flex
@@ -289,7 +296,13 @@
                             </div>
                             <div class="star pt-4 absolute bottom-12">
                               <div class="block">
-                                <el-rate v-model="value1"></el-rate>
+                                <div v-if="item.star != 0">
+                                  <el-rate
+                                    v-model="item.star"
+                                    text-color="#ff9900"
+                                  />
+                                </div>
+                                <div v-else>Sin calificaciones</div>
                               </div>
                             </div>
                           </div>
@@ -401,7 +414,7 @@ export default {
       this.books = this.books.filter((book) =>
         book.categories.includes(id_category)
       )
-      
+
       if (value) {
         this.value_category[index].active = !value
       }
@@ -449,7 +462,6 @@ export default {
       }
     },
     filterEditorial(indexE, status, name_editorial) {
-
       const cant_category = this.submaster_books.length
       if (cant_category != 0) {
         this.books = this.submaster_books.filter(
@@ -499,7 +511,6 @@ export default {
   },
   watch: {
     value_barra: function (value) {
-
       const cant_category = this.submaster_books.length
       if (cant_category != 0) {
         this.books = this.submaster_books.filter(
@@ -533,9 +544,18 @@ export default {
           if (!value) {
             maximos.push(book.price_current)
           }
+
+          let cantidad = 0
+          let total = 0
+          book.commentaries.forEach((commentary) => {
+            cantidad++
+            total += commentary.star
+          })
+
+          const promedio = total / cantidad
+          book['star'] = isNaN(promedio) ? 0 : promedio
         })
 
-        
         var contador = 0
         for (let i = 0; i < maximos.length; i++) {
           if (maximos[i] > contador) {
@@ -545,7 +565,6 @@ export default {
 
         this.max = contador
 
-     
         var contador_min = this.max
         for (let i = 0; i < maximos.length; i++) {
           if (maximos[i] < contador_min) {
@@ -574,7 +593,6 @@ export default {
         this.value_category = this.categories.filter(
           (category) => category.active == true
         )
-
       } else {
         console.log('error en el servidor al obtener la categoria.')
       }
