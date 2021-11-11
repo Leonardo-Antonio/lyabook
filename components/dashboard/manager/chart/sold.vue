@@ -49,13 +49,13 @@ export default {
       data: null,
 
       config: {
-        type: 'bar',
+        type: 'radar',
         data: {
           labels: [],
           datasets: [
             {
               label: 'Más vendidos',
-              backgroundColor: 'rgb(249,249,255)',
+              backgroundColor: 'rgb(2,22,57,85%)',
               data: [],
             },
             {
@@ -104,38 +104,72 @@ export default {
         })
         if (status == 200) {
           this.data = data.data
-
+          let dataReport = []
           let max = 0
-          let min = 0
-          this.data.forEach((item) => {
-            if (item.books_sold > max) {
-              max = item.books_sold
-            } else {
-              min = item.books_sold
-            }
 
-            if (item.books_sold < min) {
-              min = item.books_sold
-            }
+          this.data.forEach((book) => {
+            if (book.sold_book.books_sold > max) max = book.sold_book.books_sold
           })
 
-          this.data.forEach((item) => {
-            this.config.data.labels.push(item._id)
+          this.data.forEach((book) => {
+            dataReport.push({
+              nombre: book.data.name,
+              precio_actual: book.data.price_current,
+              editorial: book.data.editorial,
+              formato: book.data.format,
+              categorias: Array(book.data.categories).join('; '),
+              veces_vendido: book.sold_book.times_sold,
+              libros_vendidos: book.sold_book.books_sold,
+              tag:
+                book.sold_book.books_sold > max / 5
+                  ? 'Más vendido'
+                  : 'Menos vendido',
+            })
+          })
 
-            if (item.books_sold == max || item.books_sold > min + 2) {
-              this.config.data.datasets[0].data.push(item.books_sold)
-            } else {
-              this.config.data.datasets[1].data.push(item.books_sold)
-            }
+          this.data = dataReport
+          if (dataReport.length < 8) {
+            dataReport.forEach((item) => {
+              this.config.data.labels.push(item.nombre)
+            })
+
+            let m1 = dataReport.splice(0, dataReport.length / 2)
+            m1.forEach((item) => {
+              this.config.data.datasets[0].data.push(item.libros_vendidos)
+            })
+
+            let m2 = dataReport.splice(0, dataReport.length)
+            m2.forEach((item) => {
+              this.config.data.datasets[1].data.push(item.libros_vendidos)
+            })
+          }
+
+          const booksData = dataReport.splice(0, 8)
+          booksData.forEach((item) => {
+            this.config.data.labels.push(item.nombre)
+          })
+
+          let m1 = booksData.splice(0, booksData.length / 2)
+          m1.forEach((item) => {
+            this.config.data.datasets[0].data.push(item.libros_vendidos)
+          })
+
+          let m2 = booksData.splice(0, booksData.length)
+          m2.forEach((item) => {
+            this.config.data.datasets[1].data.push(item.libros_vendidos)
           })
         }
       } catch (error) {}
     },
 
     async getReport() {
+      const loading = this.$loading({
+        lock: true,
+        text: 'Exportando',
+      })
       try {
         const { status, data } = await this.$manager({
-          url: '/reports/books/stock/10',
+          url: '/reports/books/sold',
           method: 'get',
           responseType: 'blob',
         })
@@ -143,11 +177,14 @@ export default {
           const url = window.URL.createObjectURL(new Blob([data]))
           const link = document.createElement('a')
           link.href = url
-          link.setAttribute('download', 'stock.pdf')
+          link.setAttribute('download', 'libros_vendidos.pdf')
           document.body.appendChild(link)
           link.click()
+          loading.close()
         }
-      } catch (error) {}
+      } catch (error) {
+        loading.close()
+      }
     },
   },
 

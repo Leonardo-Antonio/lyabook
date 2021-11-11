@@ -13,19 +13,7 @@
         "
       >
         <div class="flex fle-row mobile_vertical mobile_w-full">
-          <el-select
-            class="w-1/2 pr-4 rounded-full mobile_px-0 mobile_w-full-important"
-            v-model="graphic"
-            clearable
-            placeholder="Grafico de"
-          >
-            <el-option
-              v-for="item in graphicOptions"
-              :key="item.value"
-              :label="item"
-              :value="item"
-            />
-          </el-select>
+
           <span class="mobile_spacer-sm"></span>
           <el-select
             class="w-1/2 pl-4 mobile_px-0 mobile_w-full-important"

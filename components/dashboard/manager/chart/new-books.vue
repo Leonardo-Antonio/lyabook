@@ -49,7 +49,7 @@ export default {
       data: null,
 
       config: {
-        type: 'bar',
+        type: 'pie',
         data: {
           labels: [],
           datasets: [
