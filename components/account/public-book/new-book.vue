@@ -116,38 +116,62 @@ export default {
     return {
       name: '',
       resumen: '',
+      user: [],
       //--------------------------------------SELECT CATEGORY-----------------------------------------------
       options: [],
       category: [],
       categories: [],
-      images:[] ,
-      pdf:''
+      images: [],
+      pdf: '',
     }
   },
   methods: {
-    addBook() {
-      console.log(this.name)
-      console.log(this.category)
-      console.log(this.resumen)
-      console.log(this.images)
-      console.log(this.pdf)
+    async addBook() {
+      var data = {
+        title: this.name,
+        author: this.user.name + ' ' + this.user.last_name,
+        resumen: this.resumen,
+        pdf: this.pdf,
+        categories: this.category,
+        image_src: this.images,
+        property: this.user._id,
+      }
+      try {
+        const response = await this.$apidata({
+          url: '/books',
+          method: 'post',
+          data: data,
+        })
+        if(response.status == 201){
+          this.$message({
+            message: 'Se registro exitosamente el texto.',
+            type: 'success'
+          })
+          this.name=''
+          this.resumen=''
+          this.pdf =[],
+          this.category= [],
+          this.images = []
 
+        }
+      } catch (error) {
+          this.$message.error('Oops, no se pudo publicar el texto.')
+      }
     },
     beforeUpload(file) {
       if (file.type != 'image/png') {
         this.$message.error('La imagen solo debe ser .png')
       }
     },
-    successImages(response, file, fileList){
+    successImages(response, file, fileList) {
       this.images = []
-      fileList.forEach((fil)=>{
+      fileList.forEach((fil) => {
         this.images.push(fil.response.data.url)
       })
-
     },
-    handleRemove(file, fileList){
+    handleRemove(file, fileList) {
       this.images = []
-      fileList.forEach((fil)=>{
+      fileList.forEach((fil) => {
         this.images.push(fil.response.data.url)
       })
     },
@@ -167,15 +191,14 @@ export default {
     },
     successPdf(response, file, fileList) {
       this.pdf = response.data.url
-    }
-
+    },
   },
   async created() {
     this.categories = await this.$apidata({
       url: '/categories/',
       method: 'get',
     })
-    
+
     this.categories.data.data.forEach((category) => {
       var category = {
         value: category._id,
@@ -183,6 +206,11 @@ export default {
       }
       this.options.push(category)
     })
+
+    var user = localStorage.getItem('user')
+    if (user != null) {
+      this.user = JSON.parse(user).user
+    }
   },
 }
 </script>
@@ -191,15 +219,15 @@ export default {
   .fila-1 {
     flex-direction: column;
   }
-  .fc1{
+  .fc1 {
     width: 100%;
   }
-  .fc2{
+  .fc2 {
     width: 100%;
     padding-left: 0;
     padding-top: 1rem;
   }
-  .container-new-book{
+  .container-new-book {
     padding: 2rem;
   }
 }
