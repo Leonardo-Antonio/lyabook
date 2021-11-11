@@ -40,6 +40,7 @@ export default {
     '@/plugins/axios/manager.js',
     '@/plugins/axios/client.js',
     '@/plugins/axios/credentials.js',
+    '@/plugins/axios/payment.js',
     '@/plugins/boxicons.js',
     '@/plugins/notify',
     '@/plugins/element-ui',

@@ -81,9 +81,10 @@ export default {
         })
         if (response.status == 201) {
           this.$router.push('/login')
-          loading.close();
+          loading.close()
         }
       } catch (error) {
+        loading.close()
       }
     },
   },

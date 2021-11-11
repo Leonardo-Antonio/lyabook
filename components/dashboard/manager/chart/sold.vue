@@ -54,8 +54,13 @@ export default {
           labels: [],
           datasets: [
             {
-              label: '',
+              label: 'Más vendidos',
               backgroundColor: 'rgb(249,249,255)',
+              data: [],
+            },
+            {
+              label: 'Menos vendidos',
+              backgroundColor: 'rgb(51,153,255)',
               data: [],
             },
           ],
@@ -91,28 +96,37 @@ export default {
       XLSX.writeFile(workBook, `stock.xlsx`)
     },
 
-    async getDataBooksByStock() {
+    async getData() {
       try {
-        const { status, data } = await this.$manager({
-          url: '/reports/data/new/books/7',
+        const { status, data } = await this.$payment({
+          url: '/reports/books/sold',
           method: 'get',
         })
         if (status == 200) {
           this.data = data.data
-          this.data.forEach((book) => {
-            this.config.data.labels.push(book.name)
-            if (book.type.fisico.stock == undefined) {
-              this.config.data.datasets[0].data.push(0)
-            } else {
-              this.config.data.datasets[0].data.push(book.type.fisico.stock)
-            }
-            this.config.data.datasets[0].label = 'libros nuevos'
 
-            book.stock = book.type.fisico.stock
-            book.categories = book.categories.join(';')
-            delete book.type
-            delete book.details
-            delete book.commentaries
+          let max = 0
+          let min = 0
+          this.data.forEach((item) => {
+            if (item.books_sold > max) {
+              max = item.books_sold
+            } else {
+              min = item.books_sold
+            }
+
+            if (item.books_sold < min) {
+              min = item.books_sold
+            }
+          })
+
+          this.data.forEach((item) => {
+            this.config.data.labels.push(item._id)
+
+            if (item.books_sold == max || item.books_sold > min + 2) {
+              this.config.data.datasets[0].data.push(item.books_sold)
+            } else {
+              this.config.data.datasets[1].data.push(item.books_sold)
+            }
           })
         }
       } catch (error) {}
@@ -138,7 +152,7 @@ export default {
   },
 
   async mounted() {
-    await this.getDataBooksByStock()
+    await this.getData()
     let chart = new Chart(
       document.getElementById('chart').getContext('2d'),
       this.config

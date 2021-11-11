@@ -50,7 +50,16 @@
     <section class="card">
       <div class="py-10 w-11/12 mx-auto px-10 mobile_px-0">
         <div class="w-full flex flex-col mobile_vertical">
-          <ReportNewBooks />
+          {{ filterBy }}
+          <div v-if="filterBy == 'Poco stock'">
+            <ReportStock />
+          </div>
+          <div v-else-if="filterBy == 'Nuevos'">
+            <ReportNewBooks />
+          </div>
+          <div v-else-if="filterBy == 'Más vendidos y menos vendidos'">
+            <Sold />
+          </div>
         </div>
       </div>
     </section>
@@ -64,11 +73,13 @@
 <script>
 import ReportStock from '../../../../components/dashboard/manager/chart/stock'
 import ReportNewBooks from '../../../../components/dashboard/manager/chart/new-books'
+import Sold from '../../../../components/dashboard/manager/chart/sold'
 export default {
   layout: 'manager',
   components: {
     ReportStock,
-    ReportNewBooks
+    ReportNewBooks,
+    Sold
   },
   data() {
     return {
@@ -76,15 +87,13 @@ export default {
       filterBy: 'Poco stock',
       graphicOptions: ['bar', 'pie'],
       filterByOptions: [
-        'Más vendidos',
-        'Menos comprados',
+        'Más vendidos y menos vendidos',
         'Nuevos',
         'Poco stock',
-      ]
+      ],
     }
   },
-  methods: {
-  },
+  methods: {},
 }
 </script>
 
