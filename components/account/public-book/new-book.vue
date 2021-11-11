@@ -58,29 +58,23 @@
           list-type="picture-card"
           accept="image/png"
           :before-upload="beforeUpload"
-          :on-preview="handlePictureCardPreview"
           :on-remove="handleRemove"
           :on-success="successImages"
         >
           <i class="el-icon-plus"></i>
         </el-upload>
-        <el-dialog :visible.sync="dialogVisible">
-          <img width="100%" :src="dialogImageUrl" alt="" />
-        </el-dialog>
       </div>
 
       <div class="flex flex-col pt-4">
         <p class="info_text_md">
-          El formato de las imágenes deben de ser en JPG con una resolución
-          mínima de 1080x1080 px.
+          El formato de las imágenes deben de ser en PNG.
         </p>
-        <span class="info_text_md">Peso max 500 KB</span>
       </div>
 
       <div class="upload_pdf mt-4">
         <el-upload
           drag
-          action="http://192.168.1.7:8001/api/v1/pdfs?key=LyA1308_MORSAC25TQMor25_NNLiviN_SAkur4"
+          action="http://192.168.1.8:8001/api/v1/pdfs?key=LyA1308_MORSAC25TQMor25_NNLiviN_SAkur4"
           accept="application/pdf"
           :before-upload="beforeUploadPdf"
           :on-success="successPdf"
@@ -126,6 +120,8 @@ export default {
       options: [],
       category: [],
       categories: [],
+      images:[] ,
+      pdf:''
     }
   },
   methods: {
@@ -133,7 +129,46 @@ export default {
       console.log(this.name)
       console.log(this.category)
       console.log(this.resumen)
+      console.log(this.images)
+      console.log(this.pdf)
+
     },
+    beforeUpload(file) {
+      if (file.type != 'image/png') {
+        this.$message.error('La imagen solo debe ser .png')
+      }
+    },
+    successImages(response, file, fileList){
+      this.images = []
+      fileList.forEach((fil)=>{
+        this.images.push(fil.response.data.url)
+      })
+
+    },
+    handleRemove(file, fileList){
+      this.images = []
+      fileList.forEach((fil)=>{
+        this.images.push(fil.response.data.url)
+      })
+    },
+    beforeUploadPdf(file) {
+      if (file.size / 1000 > 150) {
+        const isPdf = file.type === 'application/pdf'
+        const isLt2M = file.size / 1024 / 1024 < 2
+
+        if (!isPdf) {
+          this.$message.error('Ingrese un pdf')
+        }
+        if (!isLt2M) {
+          this.$message.error('La imagen excede los 2MB!')
+        }
+        // return isPdf && isLt2M
+      }
+    },
+    successPdf(response, file, fileList) {
+      this.pdf = response.data.url
+    }
+
   },
   async created() {
     this.categories = await this.$apidata({
