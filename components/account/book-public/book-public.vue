@@ -111,7 +111,7 @@
               <el-button
                 class="btn_publicBook_Delete w-48 rounded-xl"
                 type="primary"
-                @click="DialogVisible_publicBook_Delete = true"
+                @click="DeleteBook"
                 >Eliminar</el-button
               >
               <el-dialog
@@ -130,7 +130,7 @@
                   <el-button
                     class="btn_confirm"
                     type="primary"
-                    @click="DialogVisible_publicBook_Delete = false"
+                    @click="eventEliminar"
                     >Confirmar</el-button
                   >
                 </span>
@@ -162,6 +162,21 @@ export default {
     }
   },
   methods: {
+    DeleteBook(){
+      this.idBook = id
+      DialogVisible_publicBook_Delete = true
+    },
+    async eventEliminar(){
+      var deleteText = await this.$apidata({
+        url: '/books/'+ this.idBook,
+        method: 'delete'
+      })
+
+      console.log(deleteText)
+
+      DialogVisible_publicBook_Delete = true
+      
+    },
     eventEdit(id) {
       this.idBook = id
       this.dialog_publicBook_Edit = true
