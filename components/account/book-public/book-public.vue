@@ -8,8 +8,8 @@
           </div>
           <div class="w-2/5 relative pl-4 container-detalle">
             <div class="w-1/2 container-data">
-              <p class="title-primary">Autor: {{item.author}}</p>
-              <p class="title-book pt-4">{{item.name}}</p>
+              <p class="title-primary">Autor: {{ item.author }}</p>
+              <p class="title-book pt-4">{{ item.name }}</p>
             </div>
             <div class="w-1/2 absolute -bottom-0 container-category">
               <p class="title-primary">Categoria</p>
@@ -20,12 +20,20 @@
             </div>
           </div>
           <div class="w-1/5"></div>
-          <div class="w-2/5 flex flex-col justify-between items-end container-button-public">
+          <div
+            class="
+              w-2/5
+              flex flex-col
+              justify-between
+              items-end
+              container-button-public
+            "
+          >
             <div class="container-book-edit">
               <el-button
                 class="btn_publicBook_Edit w-48 rounded-xl"
                 type="primary"
-                @click="dialog_publicBook_Edit = true"
+                @click="eventEdit(item._id)"
                 >Editar</el-button
               >
             </div>
@@ -41,32 +49,48 @@
                     label="Titulo del Libro"
                     :label-width="formLabelWidth"
                   >
+                    <el-input v-model="form.name" autocomplete="off"></el-input>
+                  </el-form-item>
+                  <el-form-item label="Resumen" :label-width="formLabelWidth">
                     <el-input
-                      v-model="form.title_book"
+                      v-model="form.resumen"
                       autocomplete="off"
                     ></el-input>
                   </el-form-item>
-                  <el-form-item label="Peso" :label-width="formLabelWidth">
-                    <el-input
-                      v-model="form.weight"
-                      autocomplete="off"
-                    ></el-input>
+                  <el-form-item label="Portada" :label-width="formLabelWidth">
+                    <div>
+                      <el-upload
+                        class="mt-2"
+                        action="http://localhost:8001/api/v1/images?key=LyA1308_MORSAC25TQMor25_NNLiviN_SAkur4"
+                        list-type="picture-card"
+                        accept="image/png"
+                        :before-upload="beforeUpload"
+                        :on-remove="handleRemove"
+                        :on-success="successImages"
+                      >
+                        <i class="el-icon-plus"></i>
+                      </el-upload>
+                    </div>
                   </el-form-item>
-                  <el-form-item label="Formato" :label-width="formLabelWidth">
-                    <el-input
-                      v-model="form.format"
-                      autocomplete="off"
-                    ></el-input>
+                  <el-form-item label="Archivo" :label-width="formLabelWidth">
+                    <div class="upload_pdf mt-4">
+                      <el-upload
+                        drag
+                        action="http://192.168.1.8:8001/api/v1/pdfs?key=LyA1308_MORSAC25TQMor25_NNLiviN_SAkur4"
+                        accept="application/pdf"
+                        :before-upload="beforeUploadPdf"
+                        :on-success="successPdf"
+                        multiple
+                      >
+                        <i class="el-icon-upload"></i>
+                        <div class="el-upload__text">
+                          Suelta tu archivo aquí o <em>haz clic para cargar</em>
+                        </div>
+                        
+                      </el-upload>
+                    </div>
                   </el-form-item>
-                  <el-form-item label="Categoría" :label-width="formLabelWidth">
-                    <el-select
-                      v-model="form.category"
-                      placeholder="Seleccionar las categorias"
-                    >
-                      <el-option label="Romance" value="Romance"></el-option>
-                      <el-option label="Comedia" value="Comedia"></el-option>
-                    </el-select>
-                  </el-form-item>
+                  
                 </el-form>
                 <span slot="footer" class="dialog-footer">
                   <el-button
@@ -77,7 +101,7 @@
                   <el-button
                     class="btn_confirm"
                     type="primary"
-                    @click="dialog_publicBook_Edit = false"
+                    @click="confirmEdit"
                     >Confirmar</el-button
                   >
                 </span>
@@ -124,17 +148,82 @@ export default {
     return {
       dialog_publicBook_Edit: false,
       form: {
-        title_book: '',
-        category: '',
-        weight: '',
-        format: '',
+        name: '',
+        resumen: ''
       },
       formLabelWidth: '120px',
       DialogVisible_publicBook_Delete: false,
       //----------------------------------------------------------------
-      user:[],
-      dataBook:[]
+      user: [],
+      dataBook: [],
+      idBook: '',
+      images:[],
+      pdf:''
     }
+  },
+  methods: {
+    eventEdit(id) {
+      this.idBook = id
+      this.dialog_publicBook_Edit = true
+    },
+    async confirmEdit() {
+      console.log('*********VALUE************')
+      console.log(this.idBook)
+      var data = {
+        name: this.form.name,
+        description: this.form.resumen,
+        images_src: this.images,
+        type: {
+          digital: {
+            src: this.pdf,
+          },
+        },
+      }
+
+      var updateText = await this.$apidata({
+        url: '/books/public/'+ this.idBook,
+        method: 'put',
+        data: data
+      })
+
+      console.log(updateText)
+
+      this.dialog_publicBook_Edit = false
+    },
+    beforeUpload(file) {
+      if (file.type != 'image/png') {
+        this.$message.error('La imagen solo debe ser .png')
+      }
+    },
+    successImages(response, file, fileList) {
+      this.images = []
+      fileList.forEach((fil) => {
+        this.images.push(fil.response.data.url)
+      })
+    },
+    handleRemove(file, fileList) {
+      this.images = []
+      fileList.forEach((fil) => {
+        this.images.push(fil.response.data.url)
+      })
+    },
+    beforeUploadPdf(file) {
+      if (file.size / 1000 > 150) {
+        const isPdf = file.type === 'application/pdf'
+        const isLt2M = file.size / 1024 / 1024 < 2
+
+        if (!isPdf) {
+          this.$message.error('Ingrese un pdf')
+        }
+        if (!isLt2M) {
+          this.$message.error('La imagen excede los 2MB!')
+        }
+        // return isPdf && isLt2M
+      }
+    },
+    successPdf(response, file, fileList) {
+      this.pdf = response.data.url
+    },
   },
   async created() {
     try {
@@ -144,20 +233,16 @@ export default {
 
         const response = await this.$apidata({
           url: '/books/property/' + this.user._id,
-          method: 'get'
+          method: 'get',
         })
 
-        if(response.status == 200){
+        if (response.status == 200) {
           this.dataBook = response.data.data
         }
         console.log(this.dataBook)
       }
-      
-    } catch (error) {
-      
-    }
-
-  }
+    } catch (error) {}
+  },
 }
 </script>
 <style scoped>
@@ -169,48 +254,46 @@ export default {
   .container-bookPublic {
     flex-direction: column;
   }
-  .container-portada{
+  .container-portada {
     width: 100%;
   }
-  .portada-book{
+  .portada-book {
     height: auto;
   }
-  .container-detalle{
+  .container-detalle {
     width: 100%;
   }
-  .container-data{
+  .container-data {
     width: 100%;
     padding-top: 2rem;
   }
-  .container-category{
+  .container-category {
     width: 100%;
     bottom: unset;
   }
-  .container-button-public{
+  .container-button-public {
     width: 100%;
     align-items: flex-start;
     padding-top: 5rem;
-
   }
-  .container-detalle{
+  .container-detalle {
     padding: 0%;
   }
-  .container-category{
+  .container-category {
     padding-top: 1rem;
   }
-  .btn_publicBook_Delete{
+  .btn_publicBook_Delete {
     width: 100%;
   }
-  .btn_publicBook_Edit{
+  .btn_publicBook_Edit {
     width: 100%;
   }
-  .container-book-edit{
+  .container-book-edit {
     width: 100%;
   }
-  .container-delete{
+  .container-delete {
     width: 100%;
     padding-top: 1rem;
   }
-  
 }
 </style>

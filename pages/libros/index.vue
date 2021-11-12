@@ -319,7 +319,7 @@
                             w-full
                           "
                         >
-                          <el-row>
+                          <el-row v-show="item.property == null">
                             <el-button
                               class="btn_add_size button-to-by"
                               type="primary"
@@ -327,6 +327,22 @@
                               @click="addCart(item)"
                               >Agregar al carrito</el-button
                             >
+                          </el-row>
+                          <el-row v-show="item.property != null">
+                            <nuxt-link
+                              :to="{
+                                name: 'mi-cuenta-leer',
+                                params: { pdf: item.type.digital.src },
+                              }"
+                            >
+                              <el-button
+                                class="btn_add_size button-to-by"
+                                type="primary"
+                                round
+                                @click="readText()"
+                                >Leer texto o libro</el-button
+                              >
+                            </nuxt-link>
                           </el-row>
                         </div>
                       </div>
@@ -508,6 +524,9 @@ export default {
         })
       }
     },
+    readText(){
+      console.log("leer libro")
+    }
   },
   watch: {
     value_barra: function (value) {
