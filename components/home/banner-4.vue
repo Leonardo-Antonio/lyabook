@@ -5,7 +5,7 @@
       style="background: #f9f9ff; height: 30rem"
     >
       <div class="w-4/6 flex">
-        <div class="w-1/2 flex items-center">
+        <div class="w-1/2 flex items-center container-img">
           <div>
             <p class="title-banner4 pb-4">Publica tu libro</p>
             <div class="">
@@ -29,6 +29,11 @@
         src="/shapes/circle-double-aye.svg"
         class="absolute z-10 rotate"
         style="width: 8rem; right: -2rem; top: 5rem"
+      />
+      <img
+        src="/shapes/double-circle-transparent.svg"
+        class="absolute z-10"
+        style="width: 8rem; left: -2rem; top: 10rem"
       />
 
     </div>
@@ -69,5 +74,48 @@ export default {
   font-weight: 600;
   font-size: 25px;
   line-height: 40px;
+}
+
+@media screen and (min-width: 1500px) and (max-width: 1695px) {
+  .parrafos-banner4{
+    font-size: 20px;
+  }
+  .title-banner4{
+    font-size: 30px;
+  }
+  .btn_banner4{
+    font-size: 20px;
+  }
+
+}
+@media screen and (min-width: 1300px) and (max-width:1500px) {
+  .title-banner4 {
+    font-size: 25px !important;
+    line-height: 30px !important;
+  }
+  .parrafos-banner4 {
+    font-size: 18px;
+    line-height: 20px !important;
+  }
+  .btn_banner4{
+    font-size: 18px;
+  }
+      
+}
+@media screen and (min-width: 1025px) and (max-width:1300px) {
+  .title-banner4 {
+    font-size: 25px !important;
+    line-height: 30px !important;
+  }
+  .parrafos-banner4 {
+    font-size: 18px;
+    line-height: 20px !important;
+  }
+  .btn_banner4{
+    font-size: 18px;
+  }
+  .container-img{
+    margin-right: 2rem !important;
+  }
 }
 </style>

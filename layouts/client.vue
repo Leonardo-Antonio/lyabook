@@ -5,13 +5,17 @@
         <img class="absolute" style="right: 0px; top: 0px" :src="src" />
       </div>
 
-      <div class="flex justify-center w-3/4">
+      <div class="flex justify-center w-3/4 container-f-header">
         <div class="pt-8 w-full">
           <!-- header -->
           <div class="flex items-center justify-center px-2">
             <div class="image-logo">
               <nuxt-link :to="`/`">
-                <img src="/images/LyaBook.svg" width="40%" />
+                <img
+                  class="img-portada"
+                  src="/images/LyaBook.svg"
+                  width="40%"
+                />
               </nuxt-link>
             </div>
             <div class="search-autocomplete">
@@ -46,10 +50,73 @@
           </div>
         </div>
       </div>
+
+      <div class="flex justify-center w-3/4 container-f-header-mobile">
+        <div class="pt-8 w-full">
+          <!-- header -->
+          <el-row class="flex items-center">
+            <el-col :span="12" class="flex items-center">
+              <div class="image-logo-mobile">
+                <nuxt-link :to="`/`">
+                  <img
+                    class="img-portada-mobile"
+                    src="/images/LyaBook.svg"
+                    width="40%"
+                  />
+                </nuxt-link>
+              </div>
+            </el-col>
+            <el-col :span="12" class="flex justify-center items-center">
+              <el-col :span="8" class="flex justify-center">
+                <div class="enlaces-header-mobile">
+                  <nuxt-link :to="`/libros/`">
+                    <h1>Libros</h1>
+                  </nuxt-link>
+                </div>
+              </el-col>
+              <el-col :span="8" class="flex justify-center">
+                <div class="icon-login-mobile">
+                  <div>
+                    <box-icon
+                      name="user"
+                      @click="showDrawerLogin = true"
+                    ></box-icon>
+                  </div>
+                </div>
+              </el-col>
+              <el-col :span="8" class="flex justify-center">
+                <div class="icon-shopping-cart-mobile">
+                  <box-icon
+                    name="cart"
+                    animation="tada"
+                    @click="showDrawer = true"
+                  ></box-icon>
+                </div>
+              </el-col>
+            </el-col>
+          </el-row>
+
+          <el-row>
+            <el-col :span="24">
+              <div class="search-autocomplete-mobile flex justify-center pt-4">
+                <el-autocomplete
+                  v-model="state"
+                  :fetch-suggestions="querySearchAsync"
+                  placeholder="Busca un libro..."
+                  @select="handleSelect"
+                  class="input-search-autocomplete"
+                ></el-autocomplete>
+              </div>
+            </el-col>
+          </el-row>
+        </div>
+      </div>
     </div>
 
     <div v-show="showLogin" class="relative">
-      <div class="absolute bottom-0 right-1/4 top-0.5 z-10 w-1/6">
+      <div
+        class="absolute bottom-0 right-1/4 top-0.5 z-10 w-1/6 container-login-x"
+      >
         <div class="container-login p-2 flex flex-col">
           <div v-show="showOpen">
             <nuxt-link :to="`/login`">
@@ -68,7 +135,9 @@
           </div>
           <div v-show="!showOpen">
             <nuxt-link :to="`/mi-cuenta`">
-              <el-button class="w-full button-log" @click="showLogin = false">Mi cuenta</el-button>
+              <el-button class="w-full button-log" @click="showLogin = false"
+                >Mi cuenta</el-button
+              >
             </nuxt-link>
             <a href="/">
               <el-button class="w-full button-log" @click="closeSeccion"
@@ -186,8 +255,46 @@
       </div>
     </el-drawer>
 
+    <el-drawer
+      title="I am the title"
+      :visible.sync="showDrawerLogin"
+      :with-header="false"
+      direction="ltr"
+      class="container-drawer-login"
+    >
+      <div class="container-data-drawer">
+        <div v-show="showOpen">
+          <nuxt-link :to="`/login`">
+            <el-button class="w-full button-log">Iniciar Sesión</el-button>
+          </nuxt-link>
+          <nuxt-link :to="`/sign-up/dni`">
+            <el-button class="w-full button-log" style="margin-top: 0.5rem"
+              >Registrate por DNI</el-button
+            >
+          </nuxt-link>
+          <nuxt-link :to="`/sign-up/email`">
+            <el-button class="w-full button-log" style="margin-top: 0.5rem"
+              >Registrate por email y contraseña</el-button
+            >
+          </nuxt-link>
+        </div>
+        <div v-show="!showOpen">
+          <nuxt-link :to="`/mi-cuenta`">
+            <el-button class="w-full button-log" @click="showDrawerLogin = false"
+              >Mi cuenta</el-button
+            >
+          </nuxt-link>
+          <a href="/">
+            <el-button class="w-full button-log" @click="closeSeccion"
+              >Cerrar Sección</el-button
+            ></a
+          >
+        </div>
+      </div>
+    </el-drawer>
+
     <nuxt />
-    <Footer/>
+    <Footer />
     <!-- <div class="footer flex justify-center px-8">
       <div class="conatiner-footer flex flex-row justify-center w-3/4 py-8">
         <div class="container-column-1 w-1/5">
@@ -409,8 +516,8 @@ export default {
       type: String,
     },
   },
-  components:{
-    Footer
+  components: {
+    Footer,
   },
   data() {
     return {
@@ -424,6 +531,7 @@ export default {
       dialogPayment: false,
       showLogin: false,
       showOpen: true,
+      showDrawerLogin: false,
       //--------------------------------------AUTOCOMPLETE----------------------------------
       links: [],
       state: '',
@@ -431,21 +539,22 @@ export default {
     }
   },
   methods: {
+    // openDialogLogin(){
+
+    // },
     openDrawer() {
       try {
         var local = localStorage.getItem('books')
         if (local != null) {
           this.getbook = JSON.parse(local)
         }
-      } catch (error) {
-      }
+      } catch (error) {}
     },
     DeleteElement(position) {
       try {
         this.getbook.splice(position, 1)
         localStorage.setItem('books', JSON.stringify(this.getbook))
-      } catch (error) {
-      }
+      } catch (error) {}
     },
     tobuy() {
       try {
@@ -481,8 +590,7 @@ export default {
           }
         })
         this.dialogPayment = true
-      } catch {
-      }
+      } catch {}
     },
     async openDialog() {
       try {
@@ -513,8 +621,7 @@ export default {
           }
         } else {
         }
-      } catch (error) {
-      }
+      } catch (error) {}
     },
     closeDialog() {
       try {
@@ -522,11 +629,10 @@ export default {
         if (nodo.lastChild != null) {
           nodo.removeChild(nodo.lastChild)
         }
-      } catch (error) {
-      }
+      } catch (error) {}
     },
-    switchChange(value) {
-    },
+    switchChange(value) {},
+
     closeSeccion() {
       localStorage.removeItem('user')
       this.showOpen = false
@@ -586,8 +692,7 @@ export default {
       this.getbook.forEach((book) => {
         this.getbook.push(Object.assign(book, format))
       })
-    } catch (error) {
-    }
+    } catch (error) {}
   },
 }
 </script>
@@ -782,4 +887,158 @@ export default {
   height: 3rem;
   font-family: Roboto;
 }
+
+@media (max-width: 640px) {
+  .text-footer {
+    font-size: 12px !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  .img-portada {
+    width: 40% !important;
+  }
+  .search-autocomplete {
+    width: 35% !important;
+  }
+  .container-f-header {
+    width: 75% !important;
+  }
+  .container-f-header-mobile {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 1280px) and (max-width: 1280px) {
+  .img-portada {
+    width: 40% !important;
+  }
+  .container-f-header-mobile {
+    display: none;
+  }
+  /* .container-f-header{
+    width: 100% !important;
+  } */
+}
+
+@media screen and (min-width: 1280px) and (max-width: 1281px) {
+  .container-f-header {
+    width: 60% !important;
+    /* width: 70% !important; */
+  }
+  .search-autocomplete {
+    width: 60% !important;
+  }
+  .img-portada {
+    width: 60% !important;
+  }
+}
+@media screen and (min-width: 1270px) and (max-width: 1279px) {
+  .container-f-header {
+    width: 70% !important;
+  }
+  .search-autocomplete {
+    width: 60% !important;
+  }
+  .img-portada {
+    width: 60% !important;
+  }
+  .container-f-header-mobile {
+    display: none;
+  }
+}
+@media screen and (min-width: 1075px) and (max-width: 1270px) {
+  .container-f-header {
+    width: 80%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .search-autocomplete {
+    width: 60%;
+  }
+  .img-portada {
+    width: 60%;
+  }
+  .container-f-header-mobile {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1074px) {
+  .container-f-header {
+    width: 80% !important;
+  }
+  .search-autocomplete {
+    width: 60%;
+  }
+  .img-portada {
+    width: 60%;
+  }
+  .container-f-header-mobile {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 830px) and (max-width: 1023px) {
+  .container-f-header {
+    width: 100%;
+  }
+  .search-autocomplete {
+    width: 60%;
+  }
+  .img-portada {
+    width: 60%;
+  }
+  .container-f-header-mobile {
+    display: none;
+  }
+}
+
+@media (max-width: 830px) {
+  .container-f-header {
+    display: none !important;
+  }
+
+  .container-f-header-mobile {
+    display: block !important;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .search-autocomplete-mobile .input-search-autocomplete {
+    width: 100% !important;
+  }
+
+  .img-portada-mobile {
+    width: 80%;
+  }
+}
+
+@media (max-width: 600px) {
+  .img-portada-mobile {
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 1170px) and (max-width: 1270px) {
+  .container-login-x {
+    right: 19% !important;
+  }
+}
+@media screen and (min-width: 935px) and (max-width: 1170px) {
+  .container-login-x {
+    right: 13% !important;
+  }
+}
+@media screen and (min-width: 831px) and (max-width: 935px) {
+  .container-login-x {
+    right: 7% !important;
+  }
+}
+@media (max-width: 830px) {
+  .container-login-x {
+    display: none;
+  }
+}
+
 </style>

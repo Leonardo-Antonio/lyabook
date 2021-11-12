@@ -2,8 +2,8 @@
   <div>
     <div class="r-remove r-remove-tablet">
       <div class="footer flex justify-center px-8">
-        <div class="conatiner-footer flex flex-row justify-center w-3/4 py-8">
-          <div class="container-column-1 w-1/5">
+        <div class="conatiner-footer flex flex-row justify-center py-8" style="width: 80%;">
+          <div class="container-column-1 w-1/5 mx-4">
             <div class="container-contact-us">
               <p class="title-footer title-contact-us">Contacto</p>
               <div
@@ -11,7 +11,7 @@
                 v-for="item of menu.contact"
                 :key="item.text"
               >
-                <box-icon name="phone" color="#ffffff"></box-icon>
+                <box-icon :name="item.icon" color="#ffffff"></box-icon>
                 <a :href="item.src"
                   ><p class="subtitle-footer number-phone">
                     {{ item.text }}
@@ -50,7 +50,7 @@
               </div>
             </div>
           </div>
-          <div class="container-column-2 w-1/5">
+          <div class="container-column-2 w-1/5 mx-4">
             <p class="title-footer title-my-account">Información</p>
             <div
               class="footer-data my-profile flex flex-row"
@@ -63,7 +63,7 @@
               >
             </div>
           </div>
-          <div class="container-column-3 w-1/5">
+          <div class="container-column-3 w-1/5 mx-4">
             <p class="title-footer title-category">Categorías</p>
 
             <div
@@ -77,7 +77,7 @@
               >
             </div>
           </div>
-          <div class="container-column-4 w-1/5">
+          <div class="container-column-4 w-1/5 mx-4">
             <div class="container-medium">
               <p class="title-footer title-medium">Soporte</p>
               <div
@@ -109,16 +109,16 @@
       </div>
     </div>
 
-    <div class="r-see r-remove-desktop">
+    <div class="r-see r-remove-desktop container-footer-father">
       <el-collapse accordion class="r-px-2">
         <el-collapse-item title="Contacto" name="1">
           <div>
             <ul>
-              <li v-for="item of menu.contact" :key="item.text">
+              <li class="pt-4" v-for="item of menu.contact" :key="item.text">
                 <a :href="item.src">
                   <div class="flex items-center">
-                    <box-icon name="phone" color="#000"></box-icon>
-                    <span>{{ item.text }}</span>
+                    <box-icon name="phone" color="#F9F9FF"></box-icon>
+                    <span class="pl-2">{{ item.text }}</span>
                   </div>
                 </a>
               </li>
@@ -129,10 +129,10 @@
         <el-collapse-item title="Información" name="2">
           <div>
             <ul>
-              <li v-for="item of menu.info" :key="item.text">
+              <li class="pt-4" v-for="item of menu.info" :key="item.text">
                 <div class="flex items-center">
-                  <box-icon name="right-arrow" color="#000"></box-icon>
-                  <span>{{ item.text }}</span>
+                  <box-icon name="right-arrow" color="#F9F9FF"></box-icon>
+                  <span class="pl-2">{{ item.text }}</span>
                 </div>
               </li>
             </ul>
@@ -142,10 +142,10 @@
         <el-collapse-item title="Categorías" name="3">
           <div>
             <ul>
-              <li v-for="item of menu.categories" :key="item.text">
+              <li class="pt-4" v-for="item of menu.categories" :key="item.text">
                 <div class="flex items-center">
-                  <box-icon name="right-arrow" color="#000"></box-icon>
-                  <span>{{ item.text }}</span>
+                  <box-icon name="right-arrow" color="#F9F9FF"></box-icon>
+                  <span class="pl-2">{{ item.text }}</span>
                 </div>
               </li>
             </ul>
@@ -155,10 +155,10 @@
         <el-collapse-item title="Soporte" name="4">
           <div>
             <ul>
-              <li v-for="item of menu.support" :key="item.text">
+              <li class="pt-4" v-for="item of menu.support" :key="item.text">
                 <div class="flex items-center">
-                  <box-icon name="right-arrow" color="#000"></box-icon>
-                  <span>{{ item.text }}</span>
+                  <box-icon name="right-arrow" color="#F9F9FF"></box-icon>
+                  <span class="pl-2">{{ item.text }}</span>
                 </div>
               </li>
             </ul>
@@ -168,7 +168,6 @@
     </div>
   </div>
 </template>
-
 <script>
 export default {
   data() {
@@ -184,14 +183,17 @@ export default {
           {
             text: '+51 993 583 805',
             src: 'tel:+51 993 583 805',
+            icon:'phone'
           },
           {
             text: 'atenciónalcliente@lyabook.com',
             src: 'mailto:atenciónalcliente@lyabook.com',
+            icon:'mail-send'
           },
           {
             text: 'Paseo de la República 5613- Miraflores. Lima, Perú',
             src: '',
+            icon:'map'
           },
         ],
         info: [
@@ -469,4 +471,12 @@ export default {
   height: 3rem;
   font-family: Roboto;
 }
+
+@media (min-width: 1025px) {
+  .conatiner-footer {
+      width: 100%;
+  }
+}
+
+
 </style>

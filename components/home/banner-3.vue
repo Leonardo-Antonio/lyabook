@@ -19,6 +19,7 @@
                   </div>
                   <div class="h-full container-right" style="width: 32%">
                     <img
+                      class="h-full w-full"
                       style="border-top-right-radius: 10px"
                       :src="item.images_src[0]"
                     />
@@ -112,7 +113,7 @@ export default {
     })
     console.log('---------------------------------Libros destacados------------------------------')
     response.data.data.forEach(res => {
-      res.description = res.description.slice(0, 200) + '...'
+      res.description = res.description.slice(0, 100) + '...'
     })
     this.books = response.data.data.slice(0, 5)
 
@@ -218,5 +219,33 @@ export default {
   font-weight: 600;
   font-size: 40px;
   line-height: 58px;
+}
+
+@media screen and (min-width: 1500px) and (max-width: 1695px) {
+  .title-banner{
+    font-size: 30px;
+  }
+  .container-banner-3{
+    width: 80%;
+  }
+}
+@media screen and (min-width: 1300px) and (max-width: 1500px) {
+  .container-banner-3{
+      width: 80% !important;
+  }
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1500px) {
+  .title-banner{
+    font-size: 25px !important;
+    line-height: 30px !important;
+  }
+  
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1300px) {
+  .container-banner-3{
+    width: 100%;
+  }
 }
 </style>

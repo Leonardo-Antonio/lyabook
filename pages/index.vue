@@ -32,7 +32,7 @@
         />
         <img
           src="/shapes/circle-degradado-complete.svg"
-          class="absolute z-10 rotate"
+          class="absolute z-10 rotate img-degrad"
           style="
             width: 12rem;
             right: -4rem;
@@ -49,28 +49,28 @@
       <div class="">
         <Banner4 />
       </div>
-      <div>
+      <!-- <div>
         <Banner5/>
-      </div>
-      <img
+      </div> -->
+      <!-- <img
           src="/images/book-blue.svg"
           class="absolute z-10"
           style="width: 20rem; right: 17rem; top: 146rem"
-        />
+        /> -->
 
-        <img
+        <!-- <img
           src="/images/book-white.svg"
           class="absolute z-10"
           style="width: 18rem; right: 44rem; top: 124rem"
-        />
+        /> -->
         <img
           src="/images/book-open.svg"
-          class="absolute z-10"
+          class="absolute z-10 img-book"
           style="width: 20rem; right: 22rem; top: 118rem"
         />
         <img
         src="/images/doble-cuadrado.transparent.svg"
-        class="absolute z-10"
+        class="absolute z-10 double-cuadrado"
         style="
           width: 16rem;
           right: 0rem;
@@ -106,4 +106,27 @@ export default {
   },
 }
 </script>
-<style scoped></style>
+<style scoped>
+@media screen and (min-width: 1300px) and (max-width: 1500px) {
+  .double-cuadrado{
+    display: none;
+  }
+  .img-degrad{
+    display: none;
+  }
+  .img-book{
+    display: none;
+  }
+  
+}
+@media screen and (min-width: 1025px) and (max-width: 1300px) {
+  .double-cuadrado{
+    display: none;
+  }
+  .img-degrad{
+    display: none;
+  }
+  .img-book{display: none;}
+}
+
+</style>
