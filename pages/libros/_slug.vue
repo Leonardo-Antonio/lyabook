@@ -28,9 +28,11 @@
               <p class="title">{{ books.name }}</p>
               <p class="author pt-4">Autor: {{ books.author }}</p>
               <div class="star pt-4">
-                <div class="block">
-                  <el-rate v-model="value1"></el-rate>
+                <div v-if="books.star != 0" class="block">
+                  <el-rate v-model="books.star"></el-rate>
                 </div>
+
+                <div v-else class="block">Sin calificaciones</div>
               </div>
               <div class="container-price flex flex-row pt-4">
                 <div class="container-price-before flex items-center w-1/2">
@@ -62,13 +64,18 @@
                     <p class="text">Recoger en:</p>
                   </div>
                   <div class="conatiner-enlace-maps w-1/2 flex justify-end">
-                    <nuxt-link :to="{name:'libros-mapa', params: {position:books.type}}">
+                    <nuxt-link
+                      :to="{
+                        name: 'libros-mapa',
+                        params: { position: books.type },
+                      }"
+                    >
                       <p class="enlace-maps">Ver el mapa</p>
                     </nuxt-link>
                   </div>
                 </div>
                 <div class="container-direction pt-2">
-                  <p class="direction">{{street}} - {{name_street}}</p>
+                  <p class="direction">{{ street }} - {{ name_street }}</p>
                 </div>
               </div>
               <div class="container-button-to-buy pt-8 flex justify-center">
@@ -187,8 +194,8 @@ export default {
       seeMoreButton: [],
       seeLessButton: [],
       cant_category: 0,
-      street:'',
-      name_street:''
+      street: '',
+      name_street: '',
     }
   },
   methods: {
@@ -338,18 +345,28 @@ export default {
         this.books.commentaries = this.seeLessButton
 
         this.cant_category = this.seeMoreButton.length
+
+        let total = 0
+        if (response.data.data.commentaries.length != 0) {
+          response.data.data.commentaries.forEach((item) => {
+            total += item.star
+          })
+        }
+
+        const promedio = total / response.data.data.commentaries.length
+        this.books['star'] = isNaN(promedio) ? 0 : promedio
       }
     } catch (error) {
       console.log(error)
     }
   },
-  async created(){
-    var res = await this.$axios.get("https://api.mymappi.com/v2/places/search?apikey=5a6f0cf3-af52-4aaf-bb06-2c5ed3dd0da7&lat=-12.1692&lon=-77.0244&radius=10&limit=25")
+  async created() {
+    var res = await this.$axios.get(
+      'https://api.mymappi.com/v2/places/search?apikey=5a6f0cf3-af52-4aaf-bb06-2c5ed3dd0da7&lat=-12.1692&lon=-77.0244&radius=10&limit=25'
+    )
     this.street = res.data.data[0].tags['addr:street']
     this.name_street = res.data.data[0].tags.name
-
-    
-  }
+  },
 }
 </script>
 <style scoped>

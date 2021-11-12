@@ -49,13 +49,13 @@ export default {
       data: null,
 
       config: {
-        type: 'bar',
+        type: 'doughnut',
         data: {
           labels: [],
           datasets: [
             {
               label: '',
-              backgroundColor: 'rgb(249,249,255)',
+              backgroundColor: 'rgb(52,123,246, 70%)',
               data: [],
             },
           ],

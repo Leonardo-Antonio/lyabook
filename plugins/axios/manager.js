@@ -16,7 +16,8 @@ export default function ({ $axios, redirect }, inject) {
     if (
       response.config.url == '/users/roles/admin' ||
       response.config.url == '/reports/books/df' ||
-      response.config.url == '/reports/books/stock/10'
+      response.config.url == '/reports/books/stock/10' ||
+      response.config.url == '/reports/books/sold'
     ) {
       return
     }
@@ -52,7 +53,7 @@ export default function ({ $axios, redirect }, inject) {
         break
 
       case 401:
-        redirect('https://google.com')
+        redirect('/401')
         break
       case 500:
         Notification.error({

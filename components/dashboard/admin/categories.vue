@@ -82,7 +82,7 @@
                   height="500"
                   style="width: 100%"
                 >
-                  <el-table-column prop="_id" label="ID" width="200" />
+                  <el-table-column prop="ean" label="EAN" width="100" />
                   <el-table-column prop="name" label="Nombre" width="180" />
                   <el-table-column prop="slug" label="Slug" width="180" />
                   <el-table-column label="Fecha de creación">
