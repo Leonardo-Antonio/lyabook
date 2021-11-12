@@ -621,7 +621,9 @@ export default {
           }
         } else {
         }
-      } catch (error) {}
+      } catch (error) {
+        console.log(error)
+      }
     },
     closeDialog() {
       try {
