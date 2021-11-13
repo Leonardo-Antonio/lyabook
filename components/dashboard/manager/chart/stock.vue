@@ -83,15 +83,25 @@ export default {
 
   methods: {
     exportData() {
+      const loading = this.$loading({
+        lock: true,
+        text: 'Cargando...',
+      })
       const workSheet = XLSX.utils.json_to_sheet(this.data)
       const workBook = XLSX.utils.book_new()
 
       XLSX.utils.book_append_sheet(workBook, workSheet, 'stock')
       XLSX.write(workBook, { bookType: 'xlsx', type: 'binary' })
       XLSX.writeFile(workBook, `stock.xlsx`)
+
+      loading.close()
     },
 
     async getDataBooksByStock() {
+      const loading = this.$loading({
+        lock: true,
+        text: 'Cargando...',
+      })
       try {
         const { status, data } = await this.$manager({
           url: 'reports/data/books/stock/10',
@@ -114,11 +124,22 @@ export default {
             delete book.details
             delete book.commentaries
           })
+          loading.close()
+        } else {
+          this.$message.info('No hay datos para exportar')
+          loading.close()
         }
-      } catch (error) {}
+      } catch (error) {
+        this.$message.error('Ops.. acaba de ocurrir un error')
+        loading.close()
+      }
     },
 
     async getReport() {
+      const loading = this.$loading({
+        lock: true,
+        text: 'Cargando...',
+      })
       try {
         const { status, data } = await this.$manager({
           url: '/reports/books/stock/10',
@@ -132,8 +153,15 @@ export default {
           link.setAttribute('download', 'stock.pdf')
           document.body.appendChild(link)
           link.click()
+          loading.close()
+        } else {
+          this.$message.info('No hay datos para exportar')
+          loading.close()
         }
-      } catch (error) {}
+      } catch (error) {
+        this.$message.error('Ops.. acaba de ocurrir un error')
+        loading.close()
+      }
     },
   },
 

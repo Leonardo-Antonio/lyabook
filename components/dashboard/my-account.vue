@@ -23,6 +23,11 @@
               </button>
             </div>
           </div>
+          <div class="pt-8 flex justify-center r-remove-desktop r-see">
+            <div class="w-full flex justify-center">
+              <a href="/cerrar-sesion" class="underline">Cerrar sesión</a>
+            </div>
+          </div>
         </div>
       </div>
 

@@ -81,9 +81,9 @@
                     >
                       <el-option
                         v-for="category in categories"
-                        :key="category._id"
+                        :key="category.ean"
                         :label="category.name"
-                        :value="category._id"
+                        :value="category.ean"
                       >
                       </el-option>
                     </el-select>
@@ -394,7 +394,17 @@
             </div>
 
             <div class="w-1/2 pl-2 mobile_remove">
-              <MapMarket />
+              <l-map
+                :zoom="13"
+                :center="[data.type.fisico.log, data.type.fisico.lat]"
+              >
+                <l-tile-layer
+                  url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
+                ></l-tile-layer>
+                <l-marker
+                  :lat-lng="[data.type.fisico.lat, data.type.fisico.log]"
+                ></l-marker>
+              </l-map>
             </div>
           </div>
         </div>
@@ -475,8 +485,7 @@ export default {
           method: 'post',
           data: this.data,
         })
-      } catch {
-      }
+      } catch {}
     },
     beforeUpload(file) {
       if (file.size / 1000 > 150) {

@@ -17,7 +17,8 @@ export default function ({ $axios, redirect }, inject) {
       response.config.url == '/users/roles/admin' ||
       response.config.url == '/reports/books/df' ||
       response.config.url == '/reports/books/stock/10' ||
-      response.config.url == '/reports/books/sold'
+      response.config.url == '/reports/books/sold' ||
+      response.config.url == '/reports/categories/sold'
     ) {
       return
     }

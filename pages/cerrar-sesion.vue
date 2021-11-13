@@ -5,7 +5,7 @@
 <script>
 export default {
   mounted() {
-    console.log(localStorage.getItem('user'))
+    this.$router.push('/login')
   },
 }
 </script>

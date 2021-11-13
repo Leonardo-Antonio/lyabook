@@ -188,7 +188,7 @@ export default {
         method: 'get',
       })
       if (status == 200) {
-        this.books = data.data
+        this.books = data.data.filter((data) => data.property == undefined)
         this.booksCopy = data.data
         this.loading = false
       }

@@ -76,28 +76,7 @@
                     </template>
                   </el-table-column>
 
-                  <el-table-column label="Tipo" width="180">
-                    <template slot-scope="scope">
-                      <div class="flex justify-center">
-                        <div
-                          v-if="
-                            scope.row.type.fisico.format != undefined &&
-                            scope.row.type.digital.format != undefined
-                          "
-                        >
-                          {{ scope.row.type.fisico.format }} y
-                          {{ scope.row.type.digital.format }}
-                        </div>
-                        <div v-else>
-                          <div v-if="scope.row.type.fisico.format != undefined">
-                            {{ scope.row.type.fisico.format }}
-                          </div>
-                          <div v-else>
-                            {{ scope.row.type.digital.format }}
-                          </div>
-                        </div>
-                      </div>
-                    </template>
+                  <el-table-column label="Tipo" prop="format" width="180">
                   </el-table-column>
 
                   <el-table-column label="Estado">
@@ -183,17 +162,21 @@ export default {
         method: 'get',
       })
       if (status == 200) {
-        this.books = data.data.filter((book) => book.active)
+        this.books = data.data.filter(
+          (book) => book.active & (book.price_current != 0)
+        )
         this.booksDataExport = data.data
         this.loading = true
       }
-    } catch (error) {
-      console.log('error', error)
-    }
+    } catch (error) {}
   },
 
   methods: {
     async addPromotion(row) {
+      const loading = this.$loading({
+        lock: true,
+        text: 'Cargando...',
+      })
       try {
         const response = await this.$admin({
           url: `/books/promotions/${row._id}`,
@@ -203,9 +186,12 @@ export default {
           },
         })
       } catch (error) {
+      } finally {
+        loading.close()
       }
     },
     exportData() {
+      console.log(this.booksDataExport)
       for (let book of this.booksDataExport) {
         delete book.type
         book.images_src = Array(book.images_src).join(';')

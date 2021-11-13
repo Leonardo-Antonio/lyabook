@@ -1,12 +1,12 @@
 <template>
   <div>
-    <div v-for="item of my_books" :key="item" class="pb-2">
+    <div v-for="item of my_books" :key="item._id" class="pb-2">
       <div class="flex">
         <div class="container-my-books p-6 m-4 w-full">
           <div class="flex container-colum-my-books">
             <div class="w-1/5 flex justify-center container-portada">
-            <img class="portada-book" :src="item.picture_url" />
-          </div>
+              <img class="portada-book" :src="item.picture_url" />
+            </div>
             <div class="container-star pl-4">
               <div class="h-1/2 pr-4">
                 <p class="title-primary">Autor: {{ item.id_payment }}</p>
@@ -87,7 +87,7 @@ export default {
       my_books: [],
     }
   },
-  async created() {
+  async mounted() {
     //--------------------------------GET USER---------------------------------
 
     var user = localStorage.getItem('user')
@@ -105,10 +105,7 @@ export default {
     ) {
       await this.$axios
         .get(
-          `${
-            'https://api.mercadopago.com/v1/payments/' +
-            this.$route.query.payment_id
-          }`,
+          `https://api.mercadopago.com/v1/payments/${this.$route.query.payment_id}`,
           {
             headers: {
               Authorization:
@@ -117,6 +114,9 @@ export default {
           }
         )
         .then((res) => {
+          console.log('#################')
+          console.log(res)
+          console.log('#################')
           res.data.additional_info.items.forEach(async (data) => {
             var product = {
               id_payment: data.id,
@@ -163,15 +163,17 @@ export default {
         active: true,
       }
 
-      const response = await this.$apidata({
-        url: '/payments/',
-        method: 'post',
-        data: body,
-      })
+      try {
+        const response = await this.$apidata({
+          url: '/payments',
+          method: 'post',
+          data: body,
+        })
 
-      if (response.data.error == false) {
-        this.$router.replace({ query: null })
-      }
+        if (response.data.error == false) {
+          this.$router.replace({ query: null })
+        }
+      } catch (error) {}
     }
 
     //--------------------------------GET PAYMENT BY CLIENT---------------------------------
@@ -182,6 +184,7 @@ export default {
 
     if (getPayCli.data.error == false) {
       getPayCli.data.data.forEach(async (data) => {
+        console.log(data)
         await this.$axios
           .get('https://api.mercadopago.com/v1/payments/' + data.payment_id, {
             headers: {
@@ -253,7 +256,7 @@ export default {
   }
   .container-column-book {
     width: 100%;
-    padding-top: .5rem;
+    padding-top: 0.5rem;
   }
   .btn_readBook {
     width: 100%;
@@ -261,13 +264,13 @@ export default {
   .fecha {
     text-align: center;
   }
-  .container-portada{
+  .container-portada {
     width: 100%;
   }
   /* .portada-book{
     height: 100%;
   } */
-  .container-space-book{
+  .container-space-book {
     display: none;
   }
 }

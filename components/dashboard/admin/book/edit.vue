@@ -48,9 +48,9 @@
           >
             <el-option
               v-for="category in categories"
-              :key="category._id"
+              :key="category.ean"
               :label="category.name"
-              :value="category._id"
+              :value="category.ean"
             >
             </el-option>
           </el-select>
