@@ -4,22 +4,20 @@
       <div v-for="item of dataBook" :key="item" class="pb-2">
         <div class="container-bookPublic flex p-6 m-4">
           <div class="w-1/5 flex justify-center container-portada">
-            <img class="portada-book" :src="item.images_src" />
+            <img class="portada-book h-full" :src="item.images_src" />
           </div>
           <div class="w-2/5 relative pl-4 container-detalle">
-            <div class="w-1/2 container-data">
+            <div class="container-data">
               <p class="title-primary">Autor: {{ item.author }}</p>
               <p class="title-book pt-4">{{ item.name }}</p>
             </div>
-            <div class="w-1/2 absolute -bottom-0 container-category">
-              <p class="title-primary">Categoria</p>
-              <div class="flex pt-4">
-                <p class="name-category w-1/2">Romance</p>
-                <p class="name-category w-1/2 ml-4">Comedia</p>
+            <div class="pt-8 container-category">
+              <p class="title-primary">Resumen</p>
+              <div class="pt-2">
+                <p class="name-category">{{ item.description }}</p>
               </div>
             </div>
           </div>
-          <div class="w-1/5"></div>
           <div
             class="
               w-2/5
@@ -287,9 +285,6 @@ export default {
   }
   .container-portada {
     width: 100%;
-  }
-  .portada-book {
-    height: auto;
   }
   .container-detalle {
     width: 100%;

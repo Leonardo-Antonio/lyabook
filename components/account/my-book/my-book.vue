@@ -264,9 +264,6 @@ export default {
   .container-portada{
     width: 100%;
   }
-  /* .portada-book{
-    height: 100%;
-  } */
   .container-space-book{
     display: none;
   }
