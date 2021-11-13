@@ -12,7 +12,7 @@
         class="absolute z-10 rotate"
         style="width: 7rem; left: -1rem; top: 8rem"
       />
-      <div class="" style="width: 57%">
+      <div class="container_slug" style="width: 57%">
         <!-- container product  -->
         <div class="flex flex-row pt-20 container-product-slug">
           <div class="w-2/4 flex items-center justify-center">
@@ -546,5 +546,21 @@ export default {
 }
 .seeLessButton:hover {
   background: #5e20e40f;
+}
+
+@media screen and (min-width: 1400px) and (max-width: 1700px) {
+  .container_slug{
+    width: 70% !important;
+  }
+}
+@media screen and (min-width: 1200px) and (max-width: 1400px) {
+  .container_slug{
+    width: 80% !important;
+  }
+}
+@media screen and (min-width: 1025px) and (max-width: 1200px) {
+  .container_slug{
+    width: 95% !important;
+  }
 }
 </style>
