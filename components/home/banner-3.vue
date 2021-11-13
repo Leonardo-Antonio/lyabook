@@ -240,12 +240,17 @@ export default {
     font-size: 25px !important;
     line-height: 30px !important;
   }
-  
+    
 }
 
 @media screen and (min-width: 1025px) and (max-width: 1300px) {
   .container-banner-3{
     width: 100%;
+  }
+}
+@media (max-width: 1550px) {
+  .author-product-home{
+    font-size: 20px !important;
   }
 }
 </style>
