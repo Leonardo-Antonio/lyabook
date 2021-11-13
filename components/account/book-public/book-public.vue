@@ -86,11 +86,9 @@
                         <div class="el-upload__text">
                           Suelta tu archivo aquí o <em>haz clic para cargar</em>
                         </div>
-                        
                       </el-upload>
                     </div>
                   </el-form-item>
-                  
                 </el-form>
                 <span slot="footer" class="dialog-footer">
                   <el-button
@@ -149,7 +147,7 @@ export default {
       dialog_publicBook_Edit: false,
       form: {
         name: '',
-        resumen: ''
+        resumen: '',
       },
       formLabelWidth: '120px',
       DialogVisible_publicBook_Delete: false,
@@ -157,27 +155,26 @@ export default {
       user: [],
       dataBook: [],
       idBook: '',
-      images:[],
-      pdf:''
+      images: [],
+      pdf: '',
     }
   },
   methods: {
-    eventDelete(id){
+    eventDelete(id) {
       console.log(id)
       this.idBook = id
       this.DialogVisible_publicBook_Delete = true
     },
-    async confirmDelete(){
+    async confirmDelete() {
       try {
         var deleteText = await this.$apidata({
-          url: '/books/'+ this.idBook,
-          method: 'delete'
+          url: '/books/' + this.idBook,
+          method: 'delete',
         })
 
         console.log(deleteText)
 
         this.DialogVisible_publicBook_Delete = false
-      
       } catch (error) {
         console.log(error)
       }
@@ -187,28 +184,42 @@ export default {
       this.dialog_publicBook_Edit = true
     },
     async confirmEdit() {
-      console.log('*********VALUE************')
-      console.log(this.idBook)
-      var data = {
-        name: this.form.name,
-        description: this.form.resumen,
-        images_src: this.images,
-        type: {
-          digital: {
-            src: this.pdf,
+      try {
+        var data = {
+          name: this.form.name,
+          description: this.form.resumen,
+          images_src: this.images,
+          type: {
+            digital: {
+              src: this.pdf,
+            },
           },
-        },
+        }
+
+        var updateText = await this.$apidata({
+          url: '/books/public/' + this.idBook,
+          method: 'put',
+          data: data,
+        })
+
+        if(updateText.data.type_message == "Advertencia"){
+          this.$message({
+            message: updateText.data.message,
+            type: 'warning'
+          });
+        }else if(updateText.data.type_message == "Mensaje"){
+          this.$message({
+            message: updateText.data.message,
+            type: 'success'
+          });
+        }else if(updateText.data.type_message == "Error"){
+          this.$message.error(updateText.data.message);
+        }
+
+        this.dialog_publicBook_Edit = false
+      } catch (error) {
+        console.log(error)
       }
-
-      var updateText = await this.$apidata({
-        url: '/books/public/'+ this.idBook,
-        method: 'put',
-        data: data
-      })
-
-      console.log(updateText)
-
-      this.dialog_publicBook_Edit = false
     },
     beforeUpload(file) {
       if (file.type != 'image/png') {
