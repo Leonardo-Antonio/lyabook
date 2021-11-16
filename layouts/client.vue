@@ -657,7 +657,8 @@ export default {
       }
     },
     handleSelect(item) {
-      console.log(item)
+      this.$router.push('/libros/'+item.slug)
+      this.state = ''
     },
     //-----------------------------------------------------------------------------------------------
   },
