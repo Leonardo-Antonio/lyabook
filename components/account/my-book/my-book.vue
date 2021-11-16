@@ -66,9 +66,16 @@
                 </div>
                 
                 <div class="h-1/3 btn-top" v-show="item.description == 'f'">
-                  <el-button class="btn_readBook" type="primary"
-                    >Ver ubicación</el-button
-                  >
+                  <nuxt-link
+                      :to="{
+                        name: 'libros-mapa',
+                        params: { position: item.category_id },
+                      }"
+                    >
+                    <el-button class="btn_readBook" type="primary"
+                      >Ver ubicación</el-button
+                    >
+                  </nuxt-link>
                 </div>
               </div>
             </div>

@@ -41,6 +41,7 @@ export default {
     }
   },
   created(){
+    console.log("*******************************************")
     console.log(this.$route)
     if(this.$route.params.pdf != null){
       this.pdf = this.$route.params.pdf
