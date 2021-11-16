@@ -110,7 +110,6 @@
               <div class="container-tabs-public-book">
                 <el-tabs
                   type="card"
-                  @tab-click="handleClick"
                   class="conatiner-tabs"
                 >
                   <el-tab-pane class="tab1" label="Terminos y Condiciones">
@@ -139,14 +138,8 @@
               </div>
               <BookPublic />
             </el-tab-pane>
-            <el-tab-pane
-              ><span slot="label"
-                ><box-icon
-                  type="solid"
-                  name="exit"
-                  color="#021639"
-                ></box-icon></span
-            ></el-tab-pane>
+
+            
           </el-tabs>
         </div>
       </div>
@@ -219,21 +212,22 @@ export default {
   methods: {
     //tabs publicar libro
     handleClick(tab, event) {
-      if (event.target.textContent == 'Perfil') {
+      if (tab.index == '0') {
         this.posicTab = '0'
-      } else if (event.target.textContent == 'Mis Ordenes') {
+      } else if (tab.index == '1') {
         this.posicTab = '1'
-      } else if (event.target.textContent == 'Mis Libros') {
+      } else if (tab.index == '2') {
         this.posicTab = '2'
-      } else if (event.target.textContent == 'Publcar Libros') {
+      } else if (tab.index == '3') {
         this.posicTab = '3'
-      } else if (event.target.textContent == 'Libros Publicados') {
+      } else if (tab.index == '4') {
         this.posicTab = '4'
       }
       this.editableTabsValue = this.posicTab
       localStorage.setItem('tab', JSON.stringify({ position: this.posicTab }))
       window.location.reload(true)
     },
+
   },
   created() {
     try {
