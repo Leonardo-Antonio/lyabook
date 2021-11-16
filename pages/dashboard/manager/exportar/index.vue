@@ -108,7 +108,7 @@ export default {
 
         book.categories = book.categories[0]
         book.images_src = book.images_src[0]
-        book.details = book.details[0]
+        book.details = book.details.length > 0 ? book.details[0] : "---"
         book.commentaries =
           book.commentaries[0] == undefined ? '' : book.commentaries[0]
       }

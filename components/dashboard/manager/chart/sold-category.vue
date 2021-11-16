@@ -92,7 +92,6 @@ export default {
         lock: true,
         text: 'Cargando...',
       })
-
       try {
         const { status, data } = await this.$payment({
           url: '/reports/books/sold/0',
@@ -109,6 +108,7 @@ export default {
           data.data.forEach((book) => {
             dataReport.push({
               nombre: book.data.name,
+              categoria: book.data.categories.join('; '),
               precio_actual: book.data.price_current,
               editorial: book.data.editorial,
               formato: book.data.format,
@@ -122,29 +122,17 @@ export default {
             })
           })
 
+          console.log(dataReport)
           const workSheet = XLSX.utils.json_to_sheet(dataReport)
           const workBook = XLSX.utils.book_new()
 
-          XLSX.utils.book_append_sheet(
-            workBook,
-            workSheet,
-            'categorias-mas-menos-populares'
-          )
+          XLSX.utils.book_append_sheet(workBook, workSheet, 'stock')
           XLSX.write(workBook, { bookType: 'xlsx', type: 'binary' })
-          XLSX.writeFile(workBook, `categorias-mas-menos-populares.xlsx`)
-          loading.close()
-        } else {
-          this.$message({
-            message: 'No hay datos para exportar',
-            type: 'info',
-          })
+          XLSX.writeFile(workBook, `categorias-mas-menos-vendidas.xlsx`)
+
           loading.close()
         }
       } catch (error) {
-        this.$message({
-          message: 'Error al exportar',
-          type: 'error',
-        })
         loading.close()
       }
     },
@@ -154,6 +142,7 @@ export default {
         lock: true,
         text: 'Cargando...',
       })
+
       try {
         const { status, data } = await this.$payment({
           url: '/reports/books/sold/15',
@@ -171,6 +160,7 @@ export default {
           this.data.forEach((book) => {
             dataReport.push({
               nombre: book.data.name,
+              categoria: book.data.categories.join('; '),
               precio_actual: book.data.price_current,
               editorial: book.data.editorial,
               formato: book.data.format,
@@ -185,10 +175,15 @@ export default {
           })
 
           this.data = dataReport
-
           const booksData = dataReport
           booksData.forEach((item) => {
-            this.config.data.labels.push(item.nombre)
+            if (item.nombre.length > 10) {
+              this.config.data.labels.push(
+                `${item.categoria} (${item.nombre.substring(0, 10) + '...'})`
+              )
+            } else {
+              this.config.data.labels.push(`${item.categoria} (${item.nombre})`)
+            }
           })
 
           let m1 = booksData.splice(0, booksData.length / 2)
@@ -200,20 +195,15 @@ export default {
           m2.forEach((item) => {
             this.config.data.datasets[1].data.push(item.libros_vendidos)
           })
-
           loading.close()
         } else {
           this.$message({
-            message: 'No hay datos para exportar',
+            message: 'no hay contenido que exportar',
             type: 'info',
           })
           loading.close()
         }
       } catch (error) {
-        this.$message({
-          message: 'Error al exportar',
-          type: 'info',
-        })
         loading.close()
       }
     },
@@ -225,7 +215,7 @@ export default {
       })
       try {
         const { status, data } = await this.$manager({
-          url: '/reports/books/sold',
+          url: '/reports/categories/sold',
           method: 'get',
           responseType: 'blob',
         })
@@ -237,8 +227,18 @@ export default {
           document.body.appendChild(link)
           link.click()
           loading.close()
+        } else {
+          this.$message({
+            message: 'no hay contenido que exportar',
+            type: 'info',
+          })
+          loading.close()
         }
       } catch (error) {
+        this.$message({
+          message: 'Error al exportar',
+          type: 'error',
+        })
         loading.close()
       }
     },

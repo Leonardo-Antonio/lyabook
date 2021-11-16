@@ -22,7 +22,10 @@
 
     <div class="flex flex-row w-full pt-4">
       <div class="w-full h-12">
-        <button @click="edit" class="w-full rounded-md h-full btn_primary h-full">
+        <button
+          @click="edit"
+          class="w-full rounded-md h-full btn_primary h-full"
+        >
           Actualizar
         </button>
       </div>
@@ -40,14 +43,15 @@ export default {
   },
   methods: {
     async edit() {
-      this.data.slug = String(this.data.name).split(" ").join('-')
+      this.data.slug = String(this.data.name).split(' ').join('-')
       try {
         const response = await this.$admin({
           url: `/categories/${this.data._id}`,
           method: 'put',
           data: {
             name: this.data.name,
-            active: this.data.active
+            ean: this.data.ean,
+            active: this.data.active,
           },
         })
         console.log(response)

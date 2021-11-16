@@ -2,7 +2,7 @@ import { Notification } from 'element-ui'
 
 export default function ({ $axios, redirect }, inject) {
   const data = $axios.create({ baseURL: 'http://localhost:8082/api/v1' })
-  
+
   data.onRequest((config) => {
     console.log('Making request to ' + config.url)
   })
@@ -10,6 +10,15 @@ export default function ({ $axios, redirect }, inject) {
   data.onError((error) => {
     const code = parseInt(error.response && error.response.status)
     console.log('Error http code: ' + code)
+
+    console.log(error.response)
+
+    if (
+      error.response.config.url == '/payments' &&
+      error.response.config.method == 'post'
+    ) {
+      return
+    }
 
     const response = error.response.data
     const message_type = response.message_type.toUpperCase()

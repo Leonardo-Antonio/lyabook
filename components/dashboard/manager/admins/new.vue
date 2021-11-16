@@ -7,10 +7,10 @@
         </div>
         <div>
           <div>
-            <button @click="save">
+            <button @click="save" :disabled="disabled">
               <div
+                :class="{ btn_disabled: disabled, bg_primary: !disabled }"
                 class="
-                  bg_primary
                   rounded-full
                   flex
                   justify-center
@@ -37,16 +37,35 @@
           <div class="w-11/12 mx-auto">
             <div class="input_semiroundend">
               <div class="w-full flex flex-row pb-4 mobile_vertical">
-                <div class="flex flex-col px-8 w-1/2 input mobile_w-full mobile_px-0 mobile_pb-1">
+                <div
+                  class="
+                    flex flex-col
+                    px-8
+                    w-1/2
+                    input
+                    mobile_w-full mobile_px-0 mobile_pb-1
+                  "
+                >
                   <span class="title_input">Dni*</span>
                   <el-input
                     v-model="dni"
+                    type="text"
+                    maxlength="8"
+                    show-word-limit
                     placeholder="Ingrese su dni"
                     clearable
                   />
                 </div>
 
-                <div class="flex flex-col px-8 w-1/2 input mobile_w-full mobile_px-0">
+                <div
+                  class="
+                    flex flex-col
+                    px-8
+                    w-1/2
+                    input
+                    mobile_w-full mobile_px-0
+                  "
+                >
                   <span class="title_input">Email*</span>
                   <el-input
                     v-model="email"
@@ -57,7 +76,15 @@
               </div>
 
               <div class="w-full flex flex-row input mobile_vertical">
-                <div class="flex flex-col px-8 w-1/2 input mobile_w-full mobile_px-0 mobile_pb-1">
+                <div
+                  class="
+                    flex flex-col
+                    px-8
+                    w-1/2
+                    input
+                    mobile_w-full mobile_px-0 mobile_pb-1
+                  "
+                >
                   <span class="title_input">Nombres y Apellos*</span>
                   <el-input
                     v-model="fullname"
@@ -66,7 +93,15 @@
                   />
                 </div>
 
-                <div class="flex flex-col px-8 w-1/2 input mobile_w-full mobile_px-0">
+                <div
+                  class="
+                    flex flex-col
+                    px-8
+                    w-1/2
+                    input
+                    mobile_w-full mobile_px-0
+                  "
+                >
                   <span class="title_input">Password*</span>
                   <el-input
                     v-model="password"
@@ -95,6 +130,9 @@ export default {
       email: '',
       dni: '',
       fullname: '',
+      disabled: true,
+      dniIsValid: false,
+      emailIsValid: false,
     }
   },
   watch: {
@@ -111,26 +149,64 @@ export default {
             this.name = data.data.name
             this.last_name = data.data.last_name
             this.password = value
+            this.dniIsValid = true
           }
-        } catch (error) {}
+        } catch (error) {
+          this.disabled = true
+          this.name = ''
+          this.last_name = ''
+          this.password = ''
+        }
+      } else {
+        this.disabled = true
+        this.name = ''
+        this.last_name = ''
+        this.password = ''
+        this.fullname = ''
+      }
+    },
+
+    email(value) {
+      if (String(value).includes('@')) {
+        this.emailIsValid = true
+        if (this.dniIsValid) {
+          this.disabled = false
+        } else {
+          this.disabled = true
+        }
+      } else {
+        this.disabled = true
       }
     },
   },
   methods: {
     async save() {
-      const { data } = await this.$admin({
-        url: '/users/sign-up/email',
-        method: 'post',
-        data: {
-          name: this.name,
-          last_name: this.last_name,
-          password: this.password,
-          rol: 'admin',
-          email: this.email,
-          dni: this.dni,
-        },
+      const loading = this.$loading({
+        lock: true,
+        text: 'Creando cuenta..',
       })
-      console.log(data)
+      try {
+        const { data, status } = await this.$admin({
+          url: '/users/sign-up/email',
+          method: 'post',
+          data: {
+            name: this.name,
+            last_name: this.last_name,
+            password: this.password,
+            rol: 'admin',
+            email: this.email,
+            dni: this.dni,
+          },
+        })
+
+        if (status == 201) loading.close()
+        else {
+          this.$message.info('no se puedo crear la cuenta')
+          loading.close()
+        }
+      } catch (error) {
+        loading.close()
+      }
     },
   },
 }
