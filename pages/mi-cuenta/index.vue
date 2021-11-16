@@ -22,7 +22,12 @@
           </div>
         </div>
         <div class="mt-4 container-desktop">
-          <el-tabs :tab-position="tabPosition" style="height: 200px" @tab-click="handleClick">
+          <el-tabs
+            v-model="editableTabsValue"
+            :tab-position="tabPosition"
+            style="height: 200px"
+            @tab-click="handleClick"
+          >
             <el-tab-pane label="Perfil" class="tabOption">
               <Profile />
             </el-tab-pane>
@@ -38,12 +43,12 @@
               <MyBook />
             </el-tab-pane>
 
-            <el-tab-pane label="Publcar Libros" class="tabOption" @click="publicBook('publicar-book')">
+            <el-tab-pane label="Publcar Libros" class="tabOption">
               <div class="ml-4">
                 <p class="title-account pb-2">Publcar Libros</p>
               </div>
               <div class="container-tabs-public-book">
-                <el-tabs type="card" @tab-click="handleClick">
+                <el-tabs type="card">
                   <el-tab-pane class="tab1" label="Terminos y Condiciones">
                     <div>
                       si acepta los terminos y condiciones se monetisara el
@@ -70,19 +75,25 @@
           </el-tabs>
         </div>
         <div class="mt-4 container-response">
-          <el-tabs tab-position="top" style="height: 200px">
+          <el-tabs v-model="editableTabsValue" tab-position="top" style="height: 200px" @tab-click="handleClick">
             <el-tab-pane>
-              <span slot="label"><box-icon name='user' color='#021639' ></box-icon></span>
+              <span slot="label"
+                ><box-icon name="user" color="#021639"></box-icon
+              ></span>
               <Profile />
             </el-tab-pane>
 
             <el-tab-pane>
-              <span slot="label"><box-icon name='purchase-tag-alt' color='#021639'></box-icon></span>
+              <span slot="label"
+                ><box-icon name="purchase-tag-alt" color="#021639"></box-icon
+              ></span>
               <MyOrder />
             </el-tab-pane>
 
             <el-tab-pane>
-              <span slot="label"><box-icon name='book-reader' color='#021639' ></box-icon></span>
+              <span slot="label"
+                ><box-icon name="book-reader" color="#021639"></box-icon
+              ></span>
               <div class="ml-4">
                 <p class="title-account pb-2">Mis Libros</p>
               </div>
@@ -90,12 +101,18 @@
             </el-tab-pane>
 
             <el-tab-pane>
-              <span slot="label"><box-icon name='book-add' color='#021639'></box-icon></span>
+              <span slot="label"
+                ><box-icon name="book-add" color="#021639"></box-icon
+              ></span>
               <div class="ml-4">
                 <p class="title-account pb-2">Publcar Libros</p>
               </div>
               <div class="container-tabs-public-book">
-                <el-tabs type="card" @tab-click="handleClick" class="conatiner-tabs">
+                <el-tabs
+                  type="card"
+                  @tab-click="handleClick"
+                  class="conatiner-tabs"
+                >
                   <el-tab-pane class="tab1" label="Terminos y Condiciones">
                     <div>
                       si acepta los terminos y condiciones se monetisara el
@@ -114,14 +131,22 @@
             </el-tab-pane>
 
             <el-tab-pane>
-              <span slot="label"><box-icon name='book' color='#021639' ></box-icon></span>
+              <span slot="label"
+                ><box-icon name="book" color="#021639"></box-icon
+              ></span>
               <div class="ml-4">
                 <p class="title-account pb-2">Libros Publicados</p>
               </div>
               <BookPublic />
             </el-tab-pane>
-            <el-tab-pane><span slot="label"><box-icon type='solid' name='exit' color='#021639'></box-icon></span></el-tab-pane
-            >
+            <el-tab-pane
+              ><span slot="label"
+                ><box-icon
+                  type="solid"
+                  name="exit"
+                  color="#021639"
+                ></box-icon></span
+            ></el-tab-pane>
           </el-tabs>
         </div>
       </div>
@@ -152,6 +177,7 @@ export default {
   },
   data() {
     return {
+      editableTabsValue: '0',
       // image perfile
       circleUrl: '/images/icon_user.png',
       // tabs main position
@@ -186,22 +212,41 @@ export default {
       value_categoria: '',
       //----------------------------------------------Variables
       user: [],
+      //---------------------------------------------Posición de tab
+      posicTab: '',
     }
   },
   methods: {
     //tabs publicar libro
     handleClick(tab, event) {
-      console.log(event.view)
-      // console.log(event.target.textContent)
+      if (event.target.textContent == 'Perfil') {
+        this.posicTab = '0'
+      } else if (event.target.textContent == 'Mis Ordenes') {
+        this.posicTab = '1'
+      } else if (event.target.textContent == 'Mis Libros') {
+        this.posicTab = '2'
+      } else if (event.target.textContent == 'Publcar Libros') {
+        this.posicTab = '3'
+      } else if (event.target.textContent == 'Libros Publicados') {
+        this.posicTab = '4'
+      }
+      this.editableTabsValue = this.posicTab
+      localStorage.setItem('tab', JSON.stringify({ position: this.posicTab }))
+      window.location.reload(true)
     },
-    publicBook(value){
-      console.log(value)
-    }
   },
   created() {
-    var user = localStorage.getItem('user')
-    if (user != null) {
-      this.user = JSON.parse(user).user
+    try {
+      var user = localStorage.getItem('user')
+      if (user != null) {
+        this.user = JSON.parse(user).user
+      }
+      var value = JSON.parse(localStorage.getItem('tab')).position
+      if(value != null || value != undefined){
+        this.editableTabsValue = value
+      }
+    } catch (error) {
+      console.log(error)
     }
   },
 }
@@ -219,14 +264,13 @@ export default {
   .doble-cuadrado-mi-cuenta {
     display: none;
   }
-  .container-desktop{
+  .container-desktop {
     display: none;
   }
   /* .container-response .el-tabs{
     display: flex;
     flex-direction: column-reverse;
   } */
-  
 }
 /* TABLET */
 @media screen and (min-width: 640px) and (max-width: 1025px) {
@@ -241,8 +285,8 @@ export default {
   .doble-cuadrado-mi-cuenta {
     display: none;
   }
-  
-  .container-desktop{
+
+  .container-desktop {
     display: none;
   }
 }
@@ -261,14 +305,14 @@ export default {
 }
 /* SUB DESKTOP */
 @media screen and (min-width: 1024px) and (max-width: 1399px) {
-  .container-desktop{
+  .container-desktop {
     display: none;
   }
 }
 
 /* DESKTOP */
 @media only screen and (min-width: 1400px) {
-  .container-response{
+  .container-response {
     display: none;
   }
 }
@@ -283,5 +327,4 @@ export default {
     display: none;
   }
 }
-
 </style>

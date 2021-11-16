@@ -173,6 +173,7 @@ export default {
         console.log(deleteText)
 
         this.DialogVisible_publicBook_Delete = false
+        window.location.reload(true)
       } catch (error) {
         console.log(error)
       }
@@ -215,6 +216,8 @@ export default {
         }
 
         this.dialog_publicBook_Edit = false
+        window.location.reload(true)
+
       } catch (error) {
         console.log(error)
       }
