@@ -57,7 +57,7 @@
                         <el-checkbox
                           class="checkbox-filter"
                           id="checkbox"
-                          @change="filter(index, category.active, category._id)"
+                          @change="filter(index, category.active, category.ean)"
                           >{{ category.name }}
                         </el-checkbox>
                       </el-menu-item>
@@ -163,7 +163,7 @@
                               class="checkbox-filter"
                               id="checkbox"
                               @change="
-                                filter(index, category.active, category._id)
+                                filter(index, category.active, category.ean)
                               "
                               >{{ category.name }}
                             </el-checkbox>
@@ -512,7 +512,7 @@ export default {
       }
 
       this.booksCard.push(Object.assign(books, cant))
-      var validate = this.booksCard.filter((book) => book._id == books._id)
+      var validate = this.booksCard.filter((book) => book.ean == books.ean)
 
       if (validate.length == 1) {
         localStorage.setItem('books', JSON.stringify(this.booksCard))
