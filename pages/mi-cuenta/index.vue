@@ -22,7 +22,7 @@
           </div>
         </div>
         <div class="mt-4 container-desktop">
-          <el-tabs :tab-position="tabPosition" style="height: 200px">
+          <el-tabs :tab-position="tabPosition" style="height: 200px" @tab-click="handleClick">
             <el-tab-pane label="Perfil" class="tabOption">
               <Profile />
             </el-tab-pane>
@@ -38,7 +38,7 @@
               <MyBook />
             </el-tab-pane>
 
-            <el-tab-pane label="Publcar Libros" class="tabOption">
+            <el-tab-pane label="Publcar Libros" class="tabOption" @click="publicBook('publicar-book')">
               <div class="ml-4">
                 <p class="title-account pb-2">Publcar Libros</p>
               </div>
@@ -67,9 +67,6 @@
               </div>
               <BookPublic />
             </el-tab-pane>
-            <el-tab-pane label="Cerrar Sesión" class="tabOption"
-              >Cerrar Sesión</el-tab-pane
-            >
           </el-tabs>
         </div>
         <div class="mt-4 container-response">
@@ -194,8 +191,12 @@ export default {
   methods: {
     //tabs publicar libro
     handleClick(tab, event) {
-      console.log(tab, event)
+      console.log(event.view)
+      // console.log(event.target.textContent)
     },
+    publicBook(value){
+      console.log(value)
+    }
   },
   created() {
     var user = localStorage.getItem('user')
