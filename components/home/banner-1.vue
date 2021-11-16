@@ -46,11 +46,14 @@
                 type="primary"
                 >Visitarnos</el-button
               >
-              <el-button
-                class="btn_secundary btn_home_banner"
-                type="primary"
-                >Publica tu libro</el-button
-              >
+              <nuxt-link :to="'/mi-cuenta'" class="w-full h-full ml-2">
+                <el-button
+                  class="btn_secundary btn_home_banner"
+                  type="primary"
+                  @click="publicBook"
+                  >Publica tu libro
+                </el-button>
+              </nuxt-link>
             </div>
           </div>
         </div>
@@ -66,6 +69,11 @@ export default {
   data() {
     return {}
   },
+  methods:{
+    publicBook(){
+      localStorage.setItem('tab', JSON.stringify({ position: "3" }))
+    }
+  }
 }
 </script>
 <style scoped>
