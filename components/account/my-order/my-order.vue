@@ -39,7 +39,11 @@
                   @click="showDetail(itemPayment)"
                   >Ver detalle</el-button
                 >
-                <el-button class="w-1/2 btn-ticket">Boleta de venta</el-button>
+                <el-button
+                  class="w-1/2 btn-ticket"
+                  @click="reporte(itemPayment._id)"
+                  >Boleta de venta</el-button
+                >
               </div>
             </div>
           </div>
@@ -188,6 +192,33 @@ export default {
       //   date: data.
       // }
     },
+    async reporte(id) {
+      const loading = this.$loading({
+        lock: true,
+        text: '  Generando reporte',
+       
+      })
+
+      try {
+        var res = await this.$axios({
+          url: `http://localhost:8000/api/v1/payments/boleta/${id}`,
+          method: 'get',
+          responseType: 'blob',
+        })
+        if (res.status == 200) {
+          const url = window.URL.createObjectURL(new Blob([res.data]))
+          const link = document.createElement('a')
+          link.href = url
+          link.setAttribute('download', 'reporte-boleta-de-venta.pdf')
+          document.body.appendChild(link)
+          link.click()
+        }
+      } catch (error) {
+        console.log(error)
+      } finally {
+        loading.close()
+      }
+    },
   },
   async created() {
     var user = localStorage.getItem('user')
@@ -311,7 +342,7 @@ export default {
   .container_boleta_botton {
     margin-top: 1rem;
   }
-  .header-boleta{
+  .header-boleta {
     height: 14rem;
   }
 }
@@ -320,12 +351,11 @@ export default {
   .container_boleta_top {
     font-size: 14px !important;
   }
-  .container_boleta_left{
+  .container_boleta_left {
     padding-left: 1rem;
   }
-  .header-boleta{
+  .header-boleta {
     height: 20rem;
   }
 }
-
 </style>
