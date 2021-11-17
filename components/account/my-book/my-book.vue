@@ -1,81 +1,70 @@
 <template>
   <div>
-    <div v-for="item of my_books" :key="item._id" class="pb-2">
-      <div class="flex">
-        <div class="container-my-books p-6 m-4 w-full">
-          <div class="flex container-colum-my-books">
-            <div class="w-1/5 flex justify-center container-portada">
-              <img class="portada-book" :src="item.picture_url" />
-            </div>
-            <div class="container-star pl-4">
-              <div class="h-1/2 pr-4">
-                <p class="title-primary">Autor: {{ item.id_payment }}</p>
-                <p class="title-book pt-2">{{ item.title }}</p>
+    <div class="list-my-book overflow-auto h-80">
+      <div v-for="item of my_books" :key="item._id" class="pb-2">
+        <div class="flex">
+          <div class="container-my-books p-6 m-4 w-full">
+            <div class="flex container-colum-my-books">
+              <div class="w-1/5 flex justify-center container-portada">
+                <img class="portada-book" :src="item.picture_url" />
               </div>
-              <div class="h-1/2 pt-6">
-                <p class="title-primary">Formato</p>
-                <div class="pt-2" v-show="item.description == 'd'">
-                  <p class="title-book w-1/2">Digital</p>
+              <div class="container-star pl-4">
+                <div class="h-1/2 pr-4">
+                  <p class="title-primary">Autor: {{ item.id_payment }}</p>
+                  <p class="title-book pt-2">{{ item.title }}</p>
                 </div>
-                <div class="pt-2" v-show="item.description == 'f'">
-                  <p class="title-book w-1/2">Físico</p>
-                </div>
-              </div>
-            </div>
-            <div class="w-1/4 container-space-book">
-              <!-- <div class="h-1/3">
-                <p class="title-primary">Precio Unitario:</p>
-                <p class="name-category pt-2">S/.{{item.unit_price}}</p>
-              </div>
-              <div class="h-1/3">
-                <p class="title-primary">Cantidad:</p>
-                <p class="name-category pt-2">{{item.quantity}}</p>
-              </div>
-              <div class="h-1/3">
-                <p class="title-primary">Total:</p>
-                <p class="name-category pt-2">S/.{{item.unit_price * item.quantity}}</p>
-              </div> -->
-            </div>
-            <div class="w-1/4 flex justify-end container-bottom">
-              <div class="h-full container-column-book">
-                <div class="h-1/3 btn-top">
-                  <p class="fecha p-2 px-6">
-                    {{ new Date(item.created_at).toLocaleString() }}
-                  </p>
-                </div>
-                <div class="h-1/3 btn-top">
-                  <div v-show="item.status == 'approved'">
-                    <p class="parrafo-status text-center">Aprobado</p>
+                <div class="h-1/2 pt-6">
+                  <p class="title-primary">Formato</p>
+                  <div class="pt-2" v-show="item.description == 'd'">
+                    <p class="title-book w-1/2">Digital</p>
                   </div>
-                  <div v-show="item.status == 'in_process'">
-                    <p class="parrafo-status text-center">En proceso</p>
+                  <div class="pt-2" v-show="item.description == 'f'">
+                    <p class="title-book w-1/2">Físico</p>
                   </div>
                 </div>
-                <div class="h-1/3 btn-top" v-show="item.description == 'd'">
-                  <!-- <nuxt-link :to="`/mi-cuenta/leer/${item.category_id}/`"> -->
-                  <nuxt-link
-                    :to="{
-                      name: 'mi-cuenta-leer',
-                      params: { pdf: item.category_id },
-                    }"
-                  >
-                    <el-button class="btn_readBook" type="primary"
-                      >Leer Libro</el-button
+              </div>
+              <div class="w-1/4 container-space-book"></div>
+              <div class="w-1/4 flex justify-end container-bottom">
+                <div class="h-full container-column-book">
+                  <div class="h-1/3 btn-top">
+                    <p class="fecha p-2 px-6">
+                      {{ new Date(item.created_at).toLocaleString() }}
+                    </p>
+                  </div>
+                  <div class="h-1/3 btn-top">
+                    <div v-show="item.status == 'approved'">
+                      <p class="parrafo-status text-center">Aprobado</p>
+                    </div>
+                    <div v-show="item.status == 'in_process'">
+                      <p class="parrafo-status text-center">En proceso</p>
+                    </div>
+                  </div>
+                  <div class="h-1/3 btn-top" v-show="item.description == 'd'">
+                    <!-- <nuxt-link :to="`/mi-cuenta/leer/${item.category_id}/`"> -->
+                    <nuxt-link
+                      :to="{
+                        name: 'mi-cuenta-leer',
+                        params: { pdf: item.category_id },
+                      }"
                     >
-                  </nuxt-link>
-                </div>
-                
-                <div class="h-1/3 btn-top" v-show="item.description == 'f'">
-                  <nuxt-link
+                      <el-button class="btn_readBook" type="primary"
+                        >Leer Libro</el-button
+                      >
+                    </nuxt-link>
+                  </div>
+
+                  <div class="h-1/3 btn-top" v-show="item.description == 'f'">
+                    <nuxt-link
                       :to="{
                         name: 'libros-mapa',
                         params: { position: item.category_id },
                       }"
                     >
-                    <el-button class="btn_readBook" type="primary"
-                      >Ver ubicación</el-button
-                    >
-                  </nuxt-link>
+                      <el-button class="btn_readBook" type="primary"
+                        >Ver ubicación</el-button
+                      >
+                    </nuxt-link>
+                  </div>
                 </div>
               </div>
             </div>
@@ -280,6 +269,12 @@ export default {
   } */
   .container-space-book {
     display: none;
+  }
+}
+@media only screen and (max-width: 1399px) {
+  .list-my-book{
+    overflow: hidden !important;
+    height: auto !important;
   }
 }
 </style>
