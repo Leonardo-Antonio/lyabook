@@ -22,61 +22,26 @@
         >
       </div>
 
-      <div
-        v-for="itemPayment of paymentList"
-        :key="itemPayment"
-        class="flex"
-        v-show="show"
-      >
-        <div class="container-perfile px-12 py-6 m-4 w-3/5">
-          <div class="flex">
-            <div class="w-full">
-              <p class="size-title mt-2">Boleta de venta</p>
-              <p>B-{{ itemPayment.payment_id }}</p>
-              <div class="mt-4 flex">
-                <el-button
-                  class="w-1/2 btn-detail"
-                  @click="showDetail(itemPayment)"
-                  >Ver detalle</el-button
-                >
-                <el-button
-                  class="w-1/2 btn-ticket"
-                  @click="reporte(itemPayment._id)"
-                  >Boleta de venta</el-button
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="flex" v-show="show">
-        <div class="container-perfile px-12 py-6 m-4 w-3/5">
-          <div class="flex">
-            <div class="w-full">
-              <div>
-                <div>
-                  <div v-show="this.user.name != null">
-                    <p class="mt-2 size-date">Fecha: 12/12/21</p>
-                  </div>
-                  <div v-show="this.user.name == null">
-                    <p class="mt-2 size-date">Fecha: -</p>
-                  </div>
-                </div>
-                <p class="size-title mt-2">Boleta de pago</p>
-                <div>
-                  <div v-show="this.user.name != null">
-                    <p class="mt-2 sub-size-title">Id Orden: 34324324324</p>
-                  </div>
-                  <div v-show="this.user.name == null">
-                    <p class="mt-2 sub-size-title">Id Orden: -</p>
-                  </div>
-                </div>
+      <div class="list-order overflow-auto h-80" v-show="show">
+        <div
+          v-for="itemPayment of paymentList"
+          :key="itemPayment"
+          class="flex"
+        >
+          <div class="container-perfile px-12 py-6 m-4 w-3/5">
+            <div class="flex">
+              <div class="w-full">
+                <p class="size-title mt-2">Boleta de venta</p>
+                <p>B-{{ itemPayment.payment_id }}</p>
                 <div class="mt-4 flex">
-                  <el-button class="w-1/2 btn-detail" @click="show = false"
+                  <el-button
+                    class="w-1/2 btn-detail"
+                    @click="showDetail(itemPayment)"
                     >Ver detalle</el-button
                   >
-                  <el-button class="w-1/2 btn-ticket"
+                  <el-button
+                    class="w-1/2 btn-ticket"
+                    @click="reporte(itemPayment._id)"
                     >Boleta de venta</el-button
                   >
                 </div>
@@ -85,6 +50,7 @@
           </div>
         </div>
       </div>
+
 
       <div v-show="!show" class="container-perfile px-4 py-6">
         <div class="flex h-48 header-boleta">
@@ -196,7 +162,6 @@ export default {
       const loading = this.$loading({
         lock: true,
         text: '  Generando reporte',
-       
       })
 
       try {
@@ -336,6 +301,12 @@ export default {
 @media only screen and (max-width: 1400px) {
   .container-perfile {
     width: 100%;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  .list-order{
+    overflow: hidden;
+    height: auto;
   }
 }
 @media only screen and (max-width: 688px) {
@@ -345,9 +316,9 @@ export default {
   .header-boleta {
     height: 14rem;
   }
+  
 }
-
-@media only screen and (max-width: 460px) {
+@media screen and (min-width: 350px) and (max-width: 460px) {
   .container_boleta_top {
     font-size: 14px !important;
   }
@@ -357,5 +328,11 @@ export default {
   .header-boleta {
     height: 20rem;
   }
+}
+
+@media only screen and (max-width: 380px) {
+.header-boleta{
+  height: auto !important;
+}
 }
 </style>
