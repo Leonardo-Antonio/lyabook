@@ -903,5 +903,5 @@ span.el-checkbox__label {
 }
 
 .el-footer{
-  height: 3rem !important;
+  height: 0rem !important;
 }

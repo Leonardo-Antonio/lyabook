@@ -94,7 +94,7 @@
         </div>
 
         <!-- container tabs -->
-        <div class="conatiner-tabs py-12">
+        <div class="conatiner-tabs pt-12">
           <el-tabs v-model="activeName" @tab-click="handleClick">
             <el-tab-pane label="Descripción" name="first">{{
               books.description
