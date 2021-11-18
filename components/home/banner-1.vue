@@ -83,11 +83,14 @@
                 Lya<span class="logo-2">Book</span>, la plataforma de libros muy
                 sencilla e intuituva de usar
               </p>
-              <p class="sub-parrafo pr-4 pt-8">
+              <p class="sub-parrafo pt-8">
                 La plataforma de venta de libros, además de un apartado para que
                 los usuarios pueden publicar sus novelas, poemas, textos
                 narrativos, entre otros tipo.
               </p>
+              <div class="flex justify-center pt-8">
+                <img src="/images/image-banner4.svg" />
+              </div>
               <div class="flex pt-8">
                 <el-button
                   class="btn_primary btn_home_banner btn-visitarnos"
@@ -103,6 +106,7 @@
                   </el-button>
                 </nuxt-link>
               </div>
+              
             </div>
           </div>
         </el-col>
@@ -267,7 +271,7 @@ export default {
   }
 }
 @media (max-width: 1025px) {
-  .container-bn1-desktop{
+  .container-bn1-desktop {
     display: none;
   }
   .title {
@@ -288,7 +292,7 @@ export default {
   }
 }
 @media (min-width: 1026px) {
-  .container-bn1-response{
+  .container-bn1-response {
     display: none;
   }
 }
