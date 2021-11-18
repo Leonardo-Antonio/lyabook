@@ -4,7 +4,7 @@
       <div class="flex justify-center">
         <Banner1 />
       </div>
-      <div class="">
+      <div>
         <Banner2 />
       </div>
       <div
@@ -15,6 +15,7 @@
           overflow-x-hidden overflow-y-hidden
           pt-32
           pb-36
+          bann3-cont
         "
       >
         <div class="w-4/6">
@@ -22,7 +23,7 @@
         </div>
         <img
           src="/shapes/doble-circle-grayBlue.svg"
-          class="absolute z-10"
+          class="absolute z-10 doble-circle-grayBlue"
           style="width: 3rem; left: 4rem; top: 3rem"
         />
         <img
@@ -46,7 +47,7 @@
           style="width: 8rem; left: -3rem; top: 33rem"
         />
       </div>
-      <div class="">
+      <div class="bann4-cont">
         <Banner4 />
       </div>
       <!-- <div>
@@ -127,6 +128,20 @@ export default {
     display: none;
   }
   .img-book{display: none;}
+}
+@media (max-width: 1025px) {
+  .double-cuadrado{
+    display: none;
+  }
+  .doble-circle-grayBlue{
+    display: none;
+  }
+  .bann3-cont{
+    display: none;
+  }
+  .bann4-cont{
+    display: none;
+  }
 }
 
 </style>

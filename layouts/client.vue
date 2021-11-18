@@ -897,6 +897,13 @@ export default {
   }
 }
 
+@media (max-width: 380px) {
+  .footer-author{
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
 @media (min-width: 1280px) {
   .img-portada {
     width: 40% !important;

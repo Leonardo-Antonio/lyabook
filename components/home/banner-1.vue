@@ -91,7 +91,7 @@
               <div class="flex justify-center pt-8">
                 <img src="/images/image-banner4.svg" />
               </div>
-              <div class="flex pt-8">
+              <div class="flex pt-8 justify-center">
                 <el-button
                   class="btn_primary btn_home_banner btn-visitarnos"
                   type="primary"
@@ -214,7 +214,7 @@ export default {
   }
   .btn_home_banner {
     font-size: 16px !important;
-    width: 40%;
+    width: 100%;
   }
   .cont-hom-resp {
     padding-bottom: 5rem !important;
@@ -288,7 +288,7 @@ export default {
   }
   .btn_home_banner {
     font-size: 16px !important;
-    width: 40%;
+    width: 100%;
   }
 }
 @media (min-width: 1026px) {
