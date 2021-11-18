@@ -121,108 +121,10 @@
           class="container-list-books pt-2 w-9/12"
           style="z-index: 20"
         >
-          <div class="w-full pb-8 r-remove-desktop r-see">
-            <el-button class="w-full" @click="drawerFilter = true"
+          <div class="w-full pb-8 filter-response flex justify-center">
+            <el-button class="w-full filter-button-response" @click="drawerFilter = true"
               >Filtrado</el-button
             >
-
-            <el-drawer
-              title="I am the title"
-              :visible.sync="drawerFilter"
-              :with-header="false"
-              size="85%"
-              direction="ltr"
-            >
-              <div class="container-filter">
-                <div class="header-filter px-6 py-4 rounded-t-2xl">
-                  <p class="header-title">Filtar por</p>
-                </div>
-                <div>
-                  <el-row class="tac">
-                    <el-col
-                      :span="12"
-                      class="column-menu rounded-b-2xl"
-                      style="background: #fff"
-                    >
-                      <el-menu
-                        default-active="2"
-                        class="el-menu-vertical-demo header-option-filter"
-                        @open="handleOpen"
-                        @close="handleClose"
-                      >
-                        <el-submenu index="1">
-                          <template slot="title">
-                            <!-- <i class="el-icon-location"></i> -->
-                            <span class="subtitle-filter">Categoria</span>
-                          </template>
-                          <el-menu-item
-                            v-for="(category, index) of value_category"
-                            :key="index"
-                          >
-                            <el-checkbox
-                              class="checkbox-filter"
-                              id="checkbox"
-                              @change="
-                                filter(index, category.active, category.ean)
-                              "
-                              >{{ category.name }}
-                            </el-checkbox>
-                          </el-menu-item>
-                        </el-submenu>
-                      </el-menu>
-                      <el-menu
-                        default-active="2"
-                        class="el-menu-vertical-demo header-option-filter"
-                        @open="handleOpen"
-                        @close="handleClose"
-                      >
-                        <el-submenu index="2">
-                          <template slot="title">
-                            <span class="subtitle-filter">Editorial</span>
-                          </template>
-                          <div
-                            v-for="(edi, indexE) of editorial"
-                            :key="edi"
-                            class="container-options-filter"
-                          >
-                            <el-menu-item
-                              index="1-1"
-                              class="menu-item"
-                              @click="
-                                filterEditorial(indexE, edi.status, edi.name)
-                              "
-                              >{{ edi.name }}</el-menu-item
-                            >
-                          </div>
-
-                          <!-- <el-menu-item
-                        v-for="(edi, indexE) of editorial"
-                        :key="edi"
-                      >
-                        <el-menu-item index="1-1">item one</el-menu-item>
-                      </el-menu-item> -->
-                        </el-submenu>
-                      </el-menu>
-                      <el-menu class="rounded-b-2xl">
-                        <div class="container-barra-price pt-4 pb-20">
-                          <div class="block">
-                            <span class="demonstration subtitle-filter"
-                              >Precio</span
-                            >
-                            <el-slider
-                              class="pt-2"
-                              v-model="value_barra"
-                              :max="max"
-                              :min="min"
-                            ></el-slider>
-                          </div>
-                        </div>
-                      </el-menu>
-                    </el-col>
-                  </el-row>
-                </div>
-              </div>
-            </el-drawer>
           </div>
           <el-header class="header-list-book">
             <div class="flex relative items-center">
@@ -231,7 +133,7 @@
               </div>
             </div>
           </el-header>
-          <el-main style="overflow:overlay;height: 40rem;">
+          <el-main style="overflow: overlay; height: 40rem">
             <div
               class="container-product flex justify-center"
               v-show="books.length != 0"
@@ -378,6 +280,98 @@
         <!-- fin de la barra 2 -->
       </div>
     </div>
+    <el-drawer
+      title="I am the title"
+      :visible.sync="drawerFilter"
+      :with-header="false"
+      size="85%"
+      direction="ltr"
+      class="drawer-filter"
+    >
+      <div class="container-filter">
+        <div class="header-filter px-6 py-4 rounded-t-2xl">
+          <p class="header-title">Filtar por</p>
+        </div>
+        <div>
+          <el-row class="tac">
+            <el-col
+              :span="12"
+              class="column-menu rounded-b-2xl"
+              style="background: #fff"
+            >
+              <el-menu
+                default-active="2"
+                class="el-menu-vertical-demo header-option-filter"
+                @open="handleOpen"
+                @close="handleClose"
+              >
+                <el-submenu index="1">
+                  <template slot="title">
+                    <!-- <i class="el-icon-location"></i> -->
+                    <span class="subtitle-filter">Categoria</span>
+                  </template>
+                  <el-menu-item
+                    v-for="(category, index) of value_category"
+                    :key="index"
+                  >
+                    <el-checkbox
+                      class="checkbox-filter"
+                      id="checkbox"
+                      @change="filter(index, category.active, category.ean)"
+                      >{{ category.name }}
+                    </el-checkbox>
+                  </el-menu-item>
+                </el-submenu>
+              </el-menu>
+              <el-menu
+                default-active="2"
+                class="el-menu-vertical-demo header-option-filter"
+                @open="handleOpen"
+                @close="handleClose"
+              >
+                <el-submenu index="2">
+                  <template slot="title">
+                    <span class="subtitle-filter">Editorial</span>
+                  </template>
+                  <div
+                    v-for="(edi, indexE) of editorial"
+                    :key="edi"
+                    class="container-options-filter"
+                  >
+                    <el-menu-item
+                      index="1-1"
+                      class="menu-item"
+                      @click="filterEditorial(indexE, edi.status, edi.name)"
+                      >{{ edi.name }}</el-menu-item
+                    >
+                  </div>
+
+                  <!-- <el-menu-item
+                        v-for="(edi, indexE) of editorial"
+                        :key="edi"
+                      >
+                        <el-menu-item index="1-1">item one</el-menu-item>
+                      </el-menu-item> -->
+                </el-submenu>
+              </el-menu>
+              <el-menu class="rounded-b-2xl">
+                <div class="container-barra-price pt-4 pb-20">
+                  <div class="block">
+                    <span class="demonstration subtitle-filter">Precio</span>
+                    <el-slider
+                      class="pt-2"
+                      v-model="value_barra"
+                      :max="max"
+                      :min="min"
+                    ></el-slider>
+                  </div>
+                </div>
+              </el-menu>
+            </el-col>
+          </el-row>
+        </div>
+      </div>
+    </el-drawer>
   </div>
 </template>
 
@@ -524,9 +518,9 @@ export default {
         })
       }
     },
-    readText(){
-      console.log("leer libro")
-    }
+    readText() {
+      console.log('leer libro')
+    },
   },
   watch: {
     value_barra: function (value) {
@@ -725,5 +719,46 @@ li.el-submenu {
 }
 .el-menu {
   border-right: unset;
+}
+@media (min-width: 1300px) {
+  .filter-response {
+    display: none;
+  }
+  
+}
+@media (max-width: 1299px) {
+  .container-filter-father {
+    display: none;
+  }
+  .container-filter {
+    box-shadow: none !important;
+    border-radius: 0px !important;
+  }
+  .header-filter{
+    border-top-left-radius: 0px !important;                                                     
+    border-top-right-radius: 0px !important;
+  }
+}
+.filter-button-response{
+  background: var(--secundary);
+  color: var(--primary);
+  border: solid 1px var(--primary);
+  width: 95%;
+}
+.filter-button-response:active{
+  background: var(--secundary) !important;
+  color: var(--primary) !important;
+  border: solid 1px var(--primary) !important;
+  width: 95% !important;
+}
+@media screen and (min-width: 800px) and (max-width: 1300px){
+  .drawer-filter{
+    width: 40% !important;
+  }
+}
+@media screen and (min-width: 640px) and (max-width: 800px){
+  .drawer-filter{
+    width: 50% !important;
+  }
 }
 </style>

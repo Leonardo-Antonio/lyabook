@@ -901,3 +901,7 @@ span.el-checkbox__label {
     width: 100% !important;
   }
 }
+
+.el-footer{
+  height: 3rem !important;
+}
