@@ -464,3 +464,8 @@
     border-color: #5e20e4;
     background-color: #f3edff;
 }
+@media (max-width: 640px) {
+  .container-select-format .el-select .el-input .el-input__inner{
+    width: 100%;
+  }
+}
