@@ -25,7 +25,7 @@
         style="width: 5rem; right: -1rem; top: 42rem"
       />
 
-      <div class="flex justify-center mx-auto pb-16" style="width: 70%">
+      <div class="flex justify-center mx-auto" style="width: 70%">
         <div class="container-filter-father w-1/4 r-remove" style="z-index: 20">
           <!-- filter -->
           <div class="container-filter">

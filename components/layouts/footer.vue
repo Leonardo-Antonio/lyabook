@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="r-remove r-remove-tablet">
+    <div class="r-remove r-remove-tablet mt-12">
       <div class="footer flex justify-center px-8">
         <div class="conatiner-footer flex flex-row justify-center py-8" style="width: 80%;">
           <div class="container-column-1 w-1/5 mx-4">
