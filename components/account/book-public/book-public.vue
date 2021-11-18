@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container-book-public">
+    <div class="container-book-public overflow-auto h-80">
       <div v-for="item of dataBook" :key="item" class="pb-2">
         <div class="container-bookPublic flex p-6 m-4">
           <div class="w-1/5 flex justify-center container-portada">
@@ -323,6 +323,12 @@ export default {
   .container-delete {
     width: 100%;
     padding-top: 1rem;
+  }
+}
+@media only screen and (max-width: 1399px) {
+  .container-book-public{
+    overflow: hidden;
+    height: auto;
   }
 }
 </style>
