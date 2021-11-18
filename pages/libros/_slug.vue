@@ -676,4 +676,17 @@ export default {
     display: none;
   }
 }
+@media (max-width: 1700px) {
+  .doble-cuadrado-button-right{
+    display: none;
+  }
+}
+@media (max-width: 1300px) {
+  .circle-double-aye{
+    display: none;
+  }
+  .doble-cuadrado-esquina-derecha{
+    display: none;
+  }
+}
 </style>
