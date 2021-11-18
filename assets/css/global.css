@@ -905,3 +905,8 @@ span.el-checkbox__label {
 .el-footer{
   height: 0rem !important;
 }
+@media screen and (min-width: 640px) and (max-width: 1025px) {
+  .container-select-format .el-select .el-input .el-input__inner{
+    width: 100%;
+  }
+}
