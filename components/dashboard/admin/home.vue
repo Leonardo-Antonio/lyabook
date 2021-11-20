@@ -40,9 +40,9 @@
             />
             <span class="mobile_spacer"></span>
             <CardLink
-              to="admin/reglamos"
-              src="/images/categories_admin.svg"
-              text="Ver reglamos"
+              to="admin/entrega-libros"
+              src="/images/entrega_mall.svg"
+              text="Entrega"
             />
           </div>
         </div>
