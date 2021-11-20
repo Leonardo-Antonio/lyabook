@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="r-remove r-remove-tablet">
+    <div class="r-remove r-remove-tablet mt-12">
       <div class="footer flex justify-center px-8">
         <div class="conatiner-footer flex flex-row justify-center py-8" style="width: 80%;">
           <div class="container-column-1 w-1/5 mx-4">
@@ -110,7 +110,7 @@
     </div>
 
     <div class="r-see r-remove-desktop container-footer-father">
-      <el-collapse accordion class="r-px-2">
+      <el-collapse accordion class="r-px-2 mt-12 footer-container-response">
         <el-collapse-item title="Contacto" name="1">
           <div>
             <ul>
@@ -476,6 +476,10 @@ export default {
   .conatiner-footer {
       width: 100%;
   }
+}
+
+.footer-container-response{
+  margin-top: 3rem !important;
 }
 
 

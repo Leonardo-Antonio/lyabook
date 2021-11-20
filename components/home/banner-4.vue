@@ -15,9 +15,11 @@
                 la opción de poder bonificar tu esfurzo.
               </p>
             </div>
-            <el-button class="btn_banner4 w-5/6 h-16" type="primary"
+            <nuxt-link :to="'/mi-cuenta'" class="w-full h-full ml-2">
+            <el-button class="btn_banner4 w-5/6 h-16" type="primary" @click="publicBook"
               >Sea parte del team</el-button
             >
+            </nuxt-link>
           </div>
         </div>
         <div class="w-1/2 flex justify-center items-center">
@@ -42,8 +44,15 @@
 <script>
 export default {
   data() {
-    return {}
+    return {
+
+    }
   },
+  methods:{
+    publicBook(){
+      localStorage.setItem('tab', JSON.stringify({ position: "3" }))
+    }
+  }
 }
 </script>
 <style scoped>

@@ -2,27 +2,27 @@
   <div>
     <img
       src="/shapes/doble-cuadrado-button-right.png"
-      class="absolute z-10"
+      class="absolute z-10 doble-cuadrado-button-right"
       style="width: 20rem; left: 0rem; bottom: 0rem"
     />
 
     <div class="flex justify-center">
       <img
         src="/shapes/circle-double-aye.svg"
-        class="absolute z-10 rotate"
+        class="absolute z-10 rotate circle-double-aye"
         style="width: 7rem; left: -1rem; top: 8rem"
       />
-      <div class="" style="width: 57%">
+      <div class="container_slug" style="width: 57%">
         <!-- container product  -->
         <div class="flex flex-row pt-20 container-product-slug">
-          <div class="w-2/4 flex items-center justify-center">
+          <div class="w-2/4 flex items-center justify-center con-img">
             <el-carousel indicator-position="outside">
               <el-carousel-item v-for="item in books.images_src" :key="item">
                 <img :src="item" />
               </el-carousel-item>
             </el-carousel>
           </div>
-          <div class="w-2/4 flex justify-center">
+          <div class="w-2/4 flex justify-center con-data">
             <div class="conatiner-detail-product mx-12">
               <p class="editorial">{{ books.editorial }}</p>
               <p class="title">{{ books.name }}</p>
@@ -94,7 +94,7 @@
         </div>
 
         <!-- container tabs -->
-        <div class="conatiner-tabs py-12">
+        <div class="conatiner-tabs pt-12">
           <el-tabs v-model="activeName" @tab-click="handleClick">
             <el-tab-pane label="Descripción" name="first">{{
               books.description
@@ -150,7 +150,10 @@
           </el-tabs>
         </div>
 
-        <ImageHeader src="/shapes/doble-cuadrado-esquina-derecha.png" />
+        <ImageHeader
+          src="/shapes/doble-cuadrado-esquina-derecha.png"
+          class="doble-cuadrado-esquina-derecha"
+        />
       </div>
     </div>
   </div>
@@ -546,5 +549,158 @@ export default {
 }
 .seeLessButton:hover {
   background: #5e20e40f;
+}
+
+@media screen and (min-width: 1400px) and (max-width: 1700px) {
+  .container_slug {
+    width: 70% !important;
+  }
+}
+@media screen and (min-width: 1200px) and (max-width: 1400px) {
+  .container_slug {
+    width: 80% !important;
+  }
+}
+@media screen and (min-width: 1025px) and (max-width: 1200px) {
+  .container_slug {
+    width: 95% !important;
+  }
+}
+@media screen and (min-width: 500px) and (max-width: 639px) {
+  .conatiner-tabs {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+@media (max-width: 1025px) {
+  .doble-cuadrado-button-right {
+    display: none;
+  }
+  .doble-cuadrado-esquina-derecha {
+    display: none;
+  }
+  .circle-double-aye {
+    display: none;
+  }
+}
+@media (max-width: 640px) {
+  .container-product-slug {
+    flex-direction: column;
+  }
+  .con-img {
+    width: 100%;
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+  .con-data {
+    width: 100%;
+  }
+  .container_slug {
+    width: 100% !important;
+  }
+  .container-price-before {
+    justify-content: center;
+  }
+  .container-price-current {
+    justify-content: center;
+  }
+  /* .conatiner-tabs {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  } */
+  .conatiner-detail-product {
+    width: 100% !important;
+  }
+  .button-to-by {
+    width: 100%;
+  }
+  .container-button-to-buy .el-row {
+    width: 100%;
+  }
+}
+@media (max-width: 500px) {
+  .con-data {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  .con-img {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  .conatiner-tabs {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  .conatiner-detail-product {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+  }
+  .container_slug {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  .conatiner-detail-product .title {
+    font-size: 30px;
+    line-height: 40px;
+    padding-top: 1rem;
+  }
+}
+
+@media screen and (min-width: 640px) and (max-width: 1025px) {
+  .container-product-slug {
+    flex-direction: column;
+  }
+  .container_slug {
+    width: 100% !important;
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+  .con-img {
+    width: 100%;
+  }
+  .con-data {
+    width: 100%;
+  }
+  .conatiner-detail-product {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  .container-button-to-buy .el-row {
+    width: 100%;
+  }
+  .button-to-by {
+    width: 100%;
+  }
+  .container-price-before {
+    justify-content: center;
+  }
+  .container-price-current {
+    justify-content: center;
+  }
+  .doble-cuadrado-button-right {
+    display: none;
+  }
+  .doble-cuadrado-esquina-derecha {
+    display: none;
+  }
+}
+@media (max-width: 1700px) {
+  .doble-cuadrado-button-right {
+    display: none;
+  }
+}
+@media (max-width: 1300px) {
+  .circle-double-aye {
+    display: none;
+  }
+  .doble-cuadrado-esquina-derecha {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 640px) and (max-width: 1025px) {
+  .conatiner-detail-product{
+    width: 100% !important;
+  }
 }
 </style>

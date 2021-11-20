@@ -181,7 +181,7 @@
                 <div class="upload_pdf">
                   <el-upload
                     drag
-                    action="http://192.168.1.7:8001/api/v1/pdfs?key=LyA1308_MORSAC25TQMor25_NNLiviN_SAkur4"
+                    action="http://localhost:8001/api/v1/pdfs?key=LyA1308_MORSAC25TQMor25_NNLiviN_SAkur4"
                     accept="application/pdf"
                     :before-upload="beforeUploadPdf"
                     :on-success="successPdf"

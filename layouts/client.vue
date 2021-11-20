@@ -621,7 +621,9 @@ export default {
           }
         } else {
         }
-      } catch (error) {}
+      } catch (error) {
+        console.log(error)
+      }
     },
     closeDialog() {
       try {
@@ -653,7 +655,8 @@ export default {
       }
     },
     handleSelect(item) {
-      console.log(item)
+      this.$router.push('/libros/'+item.slug)
+      this.state = ''
     },
     //-----------------------------------------------------------------------------------------------
   },
@@ -889,6 +892,13 @@ export default {
 @media (max-width: 640px) {
   .text-footer {
     font-size: 12px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .footer-author{
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 }
 

@@ -202,7 +202,6 @@
   width: 10rem;
 }
 .portada-book {
-  height: 10rem;
   border-radius: 10px;
 }
 .start-container .el-rate__icon {
@@ -464,4 +463,9 @@
     color: #5e20e4;
     border-color: #5e20e4;
     background-color: #f3edff;
+}
+@media (max-width: 640px) {
+  .container-select-format .el-select .el-input .el-input__inner{
+    width: 100%;
+  }
 }

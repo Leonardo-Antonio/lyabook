@@ -15,16 +15,26 @@
 <script>
 export default {
   data() {
-    return{
+    return {
       lat: 0,
-      lon: 0
+      lon: 0,
     }
   },
-  created(){
-    this.lat = Number(this.$route.params.position.fisico.lat)
-    this.lon = Number(this.$route.params.position.fisico.log)
-
-
-  }
+  created() {
+    try {
+      if (
+        (this.$route.params.position.fisico.lat != null &&
+          this.$route.params.position.fisico.log != null) ||
+        (this.$route.params.position.fisico.lat != undefined &&
+          this.$route.params.position.fisico.log != undefined)
+      ) {
+        this.lat = Number(this.$route.params.position.fisico.lat)
+        this.lon = Number(this.$route.params.position.fisico.log)
+      }
+    } catch (error) {
+      this.lon = this.$route.params.position.split(' ')[0]
+      this.lat = this.$route.params.position.split(' ')[1]
+    }
+  },
 }
 </script>
