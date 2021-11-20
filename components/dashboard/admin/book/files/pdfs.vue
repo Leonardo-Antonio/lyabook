@@ -61,7 +61,7 @@
                   <el-upload
                     class="upload-demo"
                     drag
-                    action="http://192.168.1.7:8001/api/v1/pdfs?key=LyA1308_MORSAC25TQMor25_NNLiviN_SAkur4"
+                    action="$config.API_PDFS"
                     :before-upload="beforeUpload"
                     :on-success="successImages"
                     :on-remove="handleRemove"

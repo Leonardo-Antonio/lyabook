@@ -189,8 +189,7 @@ export default {
   },
   methods: {
     signOut() {
-      localStorage.removeItem('user')
-      this.$router.push('/login')
+      this.$router.push('/cerrar-sesion')
     },
   },
   data() {

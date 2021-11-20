@@ -79,10 +79,11 @@ export default {
   build: {},
 
   router: {
-    middleware: ['redirect/redirect', 'redirect/auth'],
+    middleware: ['redirect/redirect' , 'redirect/auth'],
   },
 
   publicRuntimeConfig: {
     API_IMAGES: process.env.API_IMAGES,
+    API_PDFS: process.env.API_PDFS,
   },
 }

@@ -169,7 +169,7 @@ export default {
   },
   methods: {
     signOut() {
-      this.$router.push('/login')
+      this.$router.push('/cerrar-sesion')
     },
   },
   data() {

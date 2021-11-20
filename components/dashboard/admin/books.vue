@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="overflow-y-auto overflow-x-hidden r-pt-1" style="height: 83vh">
-      <div class="p-4 r-space-container ">
+      <div class="p-4 r-space-container">
         <div>
           <div class="flex flex-row justify-between mobile_vertical r-flex-col">
             <div class="flex items-end mobile_pb-1">
@@ -231,20 +231,30 @@ export default {
         })
     },
     exportData() {
-      for (let book of this.booksCopy) {
-        delete book.type
-        book.images_src = Array(book.images_src).join(';')
-        delete book.commentaries
-        book.details = book.details[0]
-        book.categories = Array(book.categories).join(';')
-      }
+      try {
+        const dataBook = []
+        for (let book of this.booksCopy) {
+          dataBook.push({
+            imgs: Array(book.images_src).join(';'),
+            detalles: (book.details = book.details[0]),
+            categorias: Array(book.categories).join(';'),
+            nombre: book.name,
+            precio_oferta: book.price_current,
+            precio_anterior: book.price_before,
+            formato: book.format,
+            slug: book.slug,
+            autor: book.author,
+            editorial: book.editorial
+          })
+        }
 
-      const workSheet = XLSX.utils.json_to_sheet(this.booksCopy)
-      const workBook = XLSX.utils.book_new()
+        const workSheet = XLSX.utils.json_to_sheet(dataBook)
+        const workBook = XLSX.utils.book_new()
 
-      XLSX.utils.book_append_sheet(workBook, workSheet, 'books')
-      XLSX.write(workBook, { bookType: 'xlsx', type: 'buffer' })
-      XLSX.writeFile(workBook, 'books.xlsx')
+        XLSX.utils.book_append_sheet(workBook, workSheet, 'books')
+        XLSX.write(workBook, { bookType: 'xlsx', type: 'buffer' })
+        XLSX.writeFile(workBook, 'books.xlsx')
+      } catch (error) {}
     },
   },
 }

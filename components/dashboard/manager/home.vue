@@ -22,21 +22,21 @@
       <div class="w-3/5 mx-auto pt-8 mobile_admin-home-container-cards mobile_w-full r-w-full">
         <div class="flex flex-row justify-between mobile_admin-home-container mobile_vertical">
           <CardLink
-            to="admin/promotions"
+            to="manager/categorias"
             src="/images/promotions_admin.svg"
-            text="Nueva promoción"
+            text="Categorias"
           />
           <span class="mobile_spacer"></span>
           <CardLink
-            to="admin/books/new"
+            to="manager/libros"
             src="/images/books_admin.svg"
-            text="Nuevo libro"
+            text="Libros"
           />
           <span class="mobile_spacer"></span>
           <CardLink
-            to="admin/reglamos"
+            to="manager/exportar"
             src="/images/categories_admin.svg"
-            text="Ver reglamos"
+            text="Exportar datos"
           />
           <span class="mobile_spacer"></span>
         </div>

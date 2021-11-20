@@ -19,7 +19,7 @@
         </div>
         <NuxtLink :to="to">
           <div class="flex justify-center w-full">
-            <div :href="href" class="pt-6 btn_add_size w-2/3">
+            <div class="pt-6 btn_add_size w-2/3">
               <div
                 class="
                   btn_rounded_primary

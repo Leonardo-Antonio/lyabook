@@ -139,7 +139,7 @@
                 >Mi cuenta</el-button
               >
             </nuxt-link>
-            <a href="/">
+            <a href="/cerrar-sesion">
               <el-button class="w-full button-log" @click="closeSeccion"
                 >Cerrar Sección</el-button
               ></a
@@ -284,7 +284,7 @@
               >Mi cuenta</el-button
             >
           </nuxt-link>
-          <a href="/">
+          <a href="/cerrar-sesion">
             <el-button class="w-full button-log" @click="closeSeccion"
               >Cerrar Sección</el-button
             ></a
@@ -634,9 +634,7 @@ export default {
     switchChange(value) {},
 
     closeSeccion() {
-      localStorage.removeItem('user')
-      this.showOpen = false
-      window.location.reload(true)
+      this.$router.push('/cerrar-sesion')
     },
     //-------------------------------------AUTOCOMPLETE----------------------------------------------
     querySearchAsync(queryString, cb) {

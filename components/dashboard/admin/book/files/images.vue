@@ -61,7 +61,7 @@
                   <el-upload
                     class="upload-demo"
                     drag
-                    action="http://localhost:8001/api/v1/images?key=LyA1308_MORSAC25TQMor25_NNLiviN_SAkur4"
+                    action="$config.API_IMAGES"
                     :on-success="successImages"
                     :on-remove="handleRemove"
                     accept="image/png"

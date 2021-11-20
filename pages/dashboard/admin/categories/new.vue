@@ -55,13 +55,23 @@
                 <div class="pt-4">
                   <div v-show="typeInsert">
                     <div>
-                      <div class="flex flex-col">
-                        <div class="w-1/2 pr-2 mobile_w-full">
+                      <div class="flex flex-row r-flex-col">
+                        <div class="w-1/2 pr-2 mobile_w-full  r-pt-2">
                           <span class="title_input">Nombre*</span>
                           <div class="input">
                             <el-input
                               v-model="dataOneCategory.name"
                               placeholder="Ingrese la nombre de la categoria"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="w-1/2 pr-2 mobile_w-full r-pt-2">
+                          <span class="title_input">Ean*</span>
+                          <div class="input">
+                            <el-input
+                              v-model="dataOneCategory.ean"
+                              placeholder="Ingrese codigo"
                             />
                           </div>
                         </div>
@@ -148,6 +158,7 @@ export default {
       categories: [],
       dataOneCategory: {
         name: '',
+        ean: '',
       },
     }
   },
@@ -191,8 +202,7 @@ export default {
             method: 'post',
             data: this.dataOneCategory,
           })
-        } catch (error) {
-        }
+        } catch (error) {}
       }
     },
   },

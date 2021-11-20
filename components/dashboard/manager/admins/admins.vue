@@ -189,7 +189,8 @@ export default {
       })
       if (response.status == 200) {
         console.log(response.data)
-        this.users = response.data.data == null || undefined ? [] :  response.data.data
+        this.users =
+          response.data.data == null || undefined ? [] : response.data.data
         this.loading = false
       }
     } catch (error) {
@@ -203,6 +204,10 @@ export default {
       this.data = row
     },
     async sendMessage() {
+      const loading = this.$loading({
+        lock: true,
+        text: 'Enviando',
+      })
       try {
         await this.$manager({
           url: '/managers/administrators/message',
@@ -214,7 +219,10 @@ export default {
             message: this.message,
           },
         })
-      } catch (error) {}
+      } catch (error) {
+      } finally {
+        loading.close()
+      }
     },
     async remove(row) {
       this.$confirm(
