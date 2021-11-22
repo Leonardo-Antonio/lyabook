@@ -43,11 +43,15 @@
                   height="500"
                   style="width: 100%"
                 >
-                  <el-table-column prop="id_order" label="Tipo" width="200" />
-                  <el-table-column prop="name" label="info" width="200" />
+                  <el-table-column
+                    prop="payment_id"
+                    label="ID Venta"
+                    width="200"
+                  />
+                  <el-table-column prop="status" label="Estado" width="200" />
                   <el-table-column label="Estado" width="200">
                     <template slot-scope="scope">
-                      {{ !scope.row.state ? 'Recojido' : 'A recojer' }}
+                      {{ !scope.row.active ? 'Recojido' : 'A recojer' }}
                     </template>
                   </el-table-column>
 
@@ -84,9 +88,19 @@
         <h1 class="text-xl font-bold">Libros a recojer</h1>
         <div class="h-3"></div>
         <ul v-for="(data, index) of dataSelected.products" :key="index">
-          <li>
-            <strong>{{ index + 1 }}.-</strong> {{ data }}
-          </li>
+          <div class="container-dataPayment p-4 mb-4">
+            <li><strong>Título: </strong> {{ data.title }}</li>
+            <li><strong>Autor: </strong> {{ data.id_payment }}</li>
+            <li><strong>Cantidad: </strong> {{ data.quantity }}</li>
+            <li>
+              <div v-if="data.description == 'f'">
+                <strong>Tipo: </strong> Físico
+              </div>
+              <div v-if="data.description == 'd'">
+                <strong>Tipo: </strong> Digital
+              </div>
+            </li>
+          </div>
         </ul>
         <div class="h-3"></div>
         <button class="color_white btn_primary rounded-2xl w-full h-12">
@@ -105,22 +119,7 @@ export default {
       search: '',
       dialogVisible: false,
       dataSelected: {},
-      dataExample: [
-        {
-          id_order: '10020058AD',
-          name: 'Mi amorcito',
-          last_name: 'Navarro Navarro',
-          products: ['libro1', 'libro1', 'libro1'],
-          state: true,
-        },
-        {
-          id_order: '10020058AD',
-          name: 'Mi amorcito',
-          last_name: 'Navarro Navarro',
-          products: ['libro1', 'libro1', 'libro1'],
-          state: true,
-        },
-      ],
+      dataExample: [],
     }
   },
 
@@ -130,5 +129,21 @@ export default {
       this.dialogVisible = true
     },
   },
+  async created() {
+    const payment = await this.$apidata({
+      url: '/payments/',
+      method: 'get',
+    })
+    if (payment.data.error != true) {
+      payment.data.data.forEach((pay) => {
+        this.dataExample.push(pay)
+      })
+    }
+  },
 }
 </script>
+<style scoped>
+.container-dataPayment {
+  background: var(--secundary);
+}
+</style>
