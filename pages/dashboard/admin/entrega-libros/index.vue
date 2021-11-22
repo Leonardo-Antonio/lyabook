@@ -32,11 +32,7 @@
                 <el-table
                   :data="
                     dataExample.filter(
-                      (data) =>
-                        !search ||
-                        data.id_order
-                          .toLowerCase()
-                          .includes(search.toLowerCase())
+                      (data) => !search || data.payment_id == search
                     )
                   "
                   class="center-loading"
@@ -103,9 +99,14 @@
           </div>
         </ul>
         <div class="h-3"></div>
-        <button class="color_white btn_primary rounded-2xl w-full h-12">
-          Recojido
-        </button>
+        <div v-show="active">
+          <button
+            class="color_white btn_primary rounded-2xl w-full h-12"
+            @click="recoger"
+          >
+            Recoger
+          </button>
+        </div>
       </el-dialog>
     </div>
   </div>
@@ -120,6 +121,8 @@ export default {
       dialogVisible: false,
       dataSelected: {},
       dataExample: [],
+      id_payment: '',
+      active:true
     }
   },
 
@@ -127,6 +130,21 @@ export default {
     showDetail(data) {
       this.dataSelected = data
       this.dialogVisible = true
+      this.id_payment = data._id
+      this.active = data.active 
+    },
+    async recoger() {
+      try {
+        const update = await this.$apidata({
+          url: '/payments/active/'+this.id_payment,
+          method: 'put',
+        })
+        if(update.data.error != true){
+          window.location.reload(true)
+        }
+
+      } catch (error) {
+      }
     },
   },
   async created() {
