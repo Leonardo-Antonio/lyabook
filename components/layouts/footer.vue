@@ -251,7 +251,7 @@ export default {
           },
           {
             text: 'Libro de reclamaciones',
-            src: 'https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1',
+            src: '/atencion-al-cliente/libro-reclamaciones',
           },
           {
             text: 'Términos y condiciones',

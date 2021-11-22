@@ -41,7 +41,7 @@
             <span class="mobile_spacer"></span>
             <CardLink
               to="admin/entrega-libros"
-              src="/images/entrega_mall.svg"
+              src="/images/entrega_.svg"
               text="Entrega"
             />
           </div>
