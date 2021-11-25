@@ -23,7 +23,7 @@
               </div>
             </div>
 
-            <div class="container-follow-us pt-16">
+            <!-- <div class="container-follow-us pt-16">
               <p class="title-footer title-follow-us">Síguenos</p>
               <div class="footer-data flex flex-row">
                 <div class="">
@@ -51,7 +51,7 @@
                   ></box-icon>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
           <div class="container-column-2 w-1/5 mx-4">
             <p class="title-footer title-my-account">Información</p>
@@ -68,16 +68,17 @@
             </div>
           </div>
           <div class="container-column-3 w-1/5 mx-4">
-            <p class="title-footer title-category">Categorías</p>
+            <p class="title-footer title-category">Publicación</p>
 
             <div
               class="footer-data adventure flex flex-row"
               v-for="item of menu.categories"
               :key="item.text"
+              @click="info(item.position)"
             >
               <box-icon name="right-arrow" color="#ffffff"></box-icon>
               <a :href="item.src"
-                ><p class="subtitle-footer adventure">{{ item.text }}</p></a
+                ><p class="subtitle-footer profile">{{ item.text }}</p></a
               >
             </div>
           </div>
@@ -99,7 +100,7 @@
             </div>
             <div class="container-payment-methods pt-8">
               <p class="title-footer title-payment-methods">Métodos de pago</p>
-              <div class="footer-data flex flex-row">
+              <div class="footer-data flex flex-row items-center">
                 <img
                   v-for="method of paymentsMethods"
                   :key="method"
@@ -145,13 +146,15 @@
           </div>
         </el-collapse-item>
 
-        <el-collapse-item title="Categorías" name="3">
+        <el-collapse-item title="Publicación" name="3">
           <div>
             <ul>
               <li class="pt-4" v-for="item of menu.categories" :key="item.text">
-                <div class="flex items-center">
-                  <box-icon name="right-arrow" color="#F9F9FF"></box-icon>
-                  <span class="pl-2">{{ item.text }}</span>
+                <div class="flex items-center" @click="info(item.position)">
+                    <box-icon name="right-arrow" color="#F9F9FF"></box-icon>
+                    <a :href="item.src">
+                      <p class="pl-2">{{ item.text }}</p>
+                    </a>
                 </div>
               </li>
             </ul>
@@ -181,10 +184,9 @@ export default {
   data() {
     return {
       paymentsMethods: [
-        '/images/metodo-de-pago-express.png',
-        '/images/metodo-de-pago-express.png',
-        '/images/metodo-de-pago-express.png',
-        '/images/metodo-de-pago-express.png',
+        '/images/american_express_logo.png',
+        '/images/MasterCard_Logo.png',
+        '/images/Visa_Inc._logo.png',
       ],
       menu: {
         contact: [
@@ -220,6 +222,9 @@ export default {
             src: '/mi-cuenta',
             position: '2',
           },
+          
+        ],
+        categories: [
           {
             text: 'Publicar Texto',
             src: '/mi-cuenta',
@@ -229,32 +234,6 @@ export default {
             text: 'Texto Publicados',
             src: '/mi-cuenta',
             position: '4',
-          },
-        ],
-        categories: [
-          {
-            text: 'Romance',
-            src: 'https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1',
-          },
-          {
-            text: 'Comedia',
-            src: 'https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1',
-          },
-          {
-            text: 'Misterio',
-            src: 'https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1',
-          },
-          {
-            text: 'Romance',
-            src: 'https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1',
-          },
-          {
-            text: 'Terror',
-            src: 'https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1',
-          },
-          {
-            text: 'Aventura',
-            src: 'https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1',
           },
         ],
         support: [
@@ -480,6 +459,10 @@ export default {
   color: #5e20e3a1;
   height: 3rem;
   font-family: Roboto;
+}
+.payment-card {
+    width: 20%;
+    height: 50%;
 }
 
 @media (min-width: 1025px) {
