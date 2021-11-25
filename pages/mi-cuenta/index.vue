@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="flex justify-center">
-      <img
+      <!-- <img
         src="/shapes/doble-cuadrado-left.svg"
         class="absolute z-10 doble-cuadrado-left"
         style="width: 20rem; left: 0rem; bottom: 0rem"
-      />
+      /> -->
       <div class="container-account w-3/5 flex justify-center flex-col mt-16">
         <div class="flex items-center">
           <div class="demo-basic--circle mr-2">
@@ -21,7 +21,7 @@
             <p class="nameUser">{{ this.user.name }}</p>
           </div>
         </div>
-        <div class="mt-4 container-desktop">
+        <div class="mt-4 container-desktop mb-12">
           <el-tabs
             v-model="editableTabsValue"
             :tab-position="tabPosition"
@@ -51,11 +51,56 @@
                 <el-tabs type="card">
                   <el-tab-pane class="tab1" label="Terminos y Condiciones">
                     <div>
-                      si acepta los terminos y condiciones se monetisara el
-                      libro registrado, pero el 50% de la ganancia lo ganara la
-                      empresa y el 50% el usuario. si no acepta los terminos y
-                      condiciones, no tendra la opción el usuario de agregar un
-                      precio y será gratis el libro.
+                      <p class="par-ter">
+                        Algunos de los servicios permiten que usted nos
+                        proporcione información directamente. Por ejemplo:
+                      </p>
+                      <p class="par-ter par-ter-lis">
+                        - Al momento en que usted cree su cuenta y cuando acceda
+                        a dicha cuenta una vez creada, podremos necesitar su
+                        nombre de usuario, dirección de correo electrónico.
+                      </p>
+                      <p class="par-ter par-ter-lis">
+                        - Cuando usted se comunique con nuestro personal,
+                        incluyendo el libro de reclamaciones, sus comunicaciones
+                        serán transmitidas a través de nuestros sistemas a
+                        través de su dirección de correo electrónico.
+                      </p>
+                      <p class="par-ter par-ter-etiqueta py-2">
+                        [Para Creadores]
+                      </p>
+                      <p class="par-ter par-ter-lis">
+                        - Se debe tomar en cuenta que este medio es para poder
+                        dar a conocer su talento, por lo tanto tendrá la opción
+                        de publicar novelas, poemas, textos narrativos, etc. Sin
+                        embargo, no será monetizado.
+                      </p>
+                    </div>
+                    <div>
+                      <el-row class="par-ter mt-4">
+                        <div class="flex items-center" v-show="value_accept">
+                          <el-button class="btn_dis_ter" @click="accept"
+                            ><box-icon
+                              name="shield-alt-2"
+                              type="solid"
+                              color="#5e20e4"
+                              class="mr-2"
+                            ></box-icon
+                          ></el-button>
+                          Acepto los términos y condiciones de LyaBook
+                        </div>
+                        <div class="flex items-center" v-show="!value_accept">
+                          <el-button class="btn_dis_ter" disabled
+                            ><box-icon
+                              name="shield-alt-2"
+                              type="solid"
+                              color="#5e20e4"
+                              class="mr-2"
+                            ></box-icon
+                          ></el-button>
+                          Se aceptaron los términos y condiciones de LyaBook
+                        </div>
+                      </el-row>
                     </div>
                   </el-tab-pane>
 
@@ -75,7 +120,12 @@
           </el-tabs>
         </div>
         <div class="mt-4 container-response">
-          <el-tabs v-model="editableTabsValue" tab-position="top" style="height: 200px" @tab-click="handleClick">
+          <el-tabs
+            v-model="editableTabsValue"
+            tab-position="top"
+            style="height: 200px"
+            @tab-click="handleClick"
+          >
             <el-tab-pane>
               <span slot="label"
                 ><box-icon name="user" color="#021639"></box-icon
@@ -108,10 +158,7 @@
                 <p class="title-account pb-2">Publcar Libros</p>
               </div>
               <div class="container-tabs-public-book">
-                <el-tabs
-                  type="card"
-                  class="conatiner-tabs"
-                >
+                <el-tabs type="card" class="conatiner-tabs">
                   <el-tab-pane class="tab1" label="Terminos y Condiciones">
                     <div>
                       si acepta los terminos y condiciones se monetisara el
@@ -138,8 +185,6 @@
               </div>
               <BookPublic />
             </el-tab-pane>
-
-            
           </el-tabs>
         </div>
       </div>
@@ -207,9 +252,21 @@ export default {
       user: [],
       //---------------------------------------------Posición de tab
       posicTab: '',
+      value_accept: true,
     }
   },
   methods: {
+    accept() {
+      try {
+        localStorage.setItem('condicion', JSON.stringify({ condicion: false }))
+        window.location.reload(true)
+      } catch (error) {
+        this.$message({
+          message: 'No se pudo aceptar correctamente los términos y condiciones.',
+          type: 'error',
+        })
+      }
+    },
     //tabs publicar libro
     handleClick(tab, event) {
       if (tab.index == '0') {
@@ -227,7 +284,6 @@ export default {
       localStorage.setItem('tab', JSON.stringify({ position: this.posicTab }))
       window.location.reload(true)
     },
-
   },
   created() {
     try {
@@ -236,12 +292,21 @@ export default {
         this.user = JSON.parse(user).user
       }
       var value = JSON.parse(localStorage.getItem('tab')).position
-      if(value != null || value != undefined){
+      if (value != null || value != undefined) {
         this.editableTabsValue = value
       }
     } catch (error) {
       console.log(error)
     }
+    try {
+      var condicion = localStorage.getItem('condicion')
+      if (condicion != null) {
+        var termino = JSON.parse(condicion).condicion
+        if (!termino) {
+          this.value_accept = false
+        }
+      }
+    } catch (error) {}
   },
 }
 </script>
@@ -320,5 +385,20 @@ export default {
   .doble-cuadrado-mi-cuenta {
     display: none;
   }
+}
+.par-ter {
+  font-family: Roboto;
+  font-style: normal;
+  font-size: 16px;
+}
+.par-ter-lis {
+  color: var(--resaltado);
+}
+.btn_dis_ter {
+  padding: 0;
+  border: unset;
+}
+.btn_dis_ter:hover {
+  background: unset;
 }
 </style>
