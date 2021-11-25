@@ -2,7 +2,10 @@
   <div>
     <div class="r-remove r-remove-tablet">
       <div class="footer flex justify-center px-8">
-        <div class="conatiner-footer flex flex-row justify-center py-8" style="width: 80%;">
+        <div
+          class="conatiner-footer flex flex-row justify-center py-8"
+          style="width: 80%"
+        >
           <div class="container-column-1 w-1/5 mx-4">
             <div class="container-contact-us">
               <p class="title-footer title-contact-us">Contacto</p>
@@ -56,6 +59,7 @@
               class="footer-data my-profile flex flex-row"
               v-for="item of menu.info"
               :key="item.text"
+              @click="info(item.position)"
             >
               <box-icon name="right-arrow" color="#ffffff"></box-icon>
               <a :href="item.src"
@@ -130,9 +134,11 @@
           <div>
             <ul>
               <li class="pt-4" v-for="item of menu.info" :key="item.text">
-                <div class="flex items-center">
-                  <box-icon name="right-arrow" color="#F9F9FF"></box-icon>
-                  <span class="pl-2">{{ item.text }}</span>
+                <div class="flex items-center" @click="info(item.position)">
+                    <box-icon name="right-arrow" color="#F9F9FF"></box-icon>
+                    <a :href="item.src">
+                      <p class="pl-2">{{ item.text }}</p>
+                    </a>
                 </div>
               </li>
             </ul>
@@ -158,7 +164,9 @@
               <li class="pt-4" v-for="item of menu.support" :key="item.text">
                 <div class="flex items-center">
                   <box-icon name="right-arrow" color="#F9F9FF"></box-icon>
-                  <span class="pl-2">{{ item.text }}</span>
+                  <a :href="item.src">
+                    <span class="pl-2">{{ item.text }}</span>
+                  </a>
                 </div>
               </li>
             </ul>
@@ -183,39 +191,44 @@ export default {
           {
             text: '+51 993 583 805',
             src: 'tel:+51 993 583 805',
-            icon:'phone'
+            icon: 'phone',
           },
           {
             text: 'atenciónalcliente@lyabook.com',
             src: 'mailto:atenciónalcliente@lyabook.com',
-            icon:'mail-send'
+            icon: 'mail-send',
           },
           {
             text: 'Paseo de la República 5613- Miraflores. Lima, Perú',
             src: '',
-            icon:'map'
+            icon: 'map',
           },
         ],
         info: [
           {
             text: 'Mi Perfil',
-            src: 'https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1',
+            src: '/mi-cuenta',
+            position: '0',
           },
           {
             text: 'Mis Ordenes',
-            src: 'https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1',
+            src: '/mi-cuenta',
+            position: '1',
           },
           {
             text: 'Mis Libros',
-            src: 'https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1',
+            src: '/mi-cuenta',
+            position: '2',
           },
           {
-            text: 'Publicar Texto/Libro',
-            src: 'https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1',
+            text: 'Publicar Texto',
+            src: '/mi-cuenta',
+            position: '3',
           },
           {
-            text: 'Texto/Libro Publicados',
-            src: 'https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1',
+            text: 'Texto Publicados',
+            src: '/mi-cuenta',
+            position: '4',
           },
         ],
         categories: [
@@ -264,6 +277,11 @@ export default {
         ],
       },
     }
+  },
+  methods: {
+    info(position_value) {
+      localStorage.setItem('tab', JSON.stringify({ position: position_value }))
+    },
   },
 }
 </script>
@@ -474,11 +492,7 @@ export default {
 
 @media (min-width: 1025px) {
   .conatiner-footer {
-      width: 100%;
+    width: 100%;
   }
 }
-
-
-
-
 </style>
