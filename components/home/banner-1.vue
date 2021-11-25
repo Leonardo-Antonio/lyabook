@@ -55,7 +55,8 @@
                 <el-button
                   class="btn_primary btn_home_banner btn-visitarnos"
                   type="primary"
-                  >Visitarnos</el-button
+                  @click="about"
+                  >Conócenos</el-button
                 >
                 <nuxt-link :to="'/mi-cuenta'" class="w-full h-full ml-2">
                   <el-button
@@ -84,7 +85,7 @@
                 sencilla e intuituva de usar
               </p>
               <p class="sub-parrafo pt-8">
-                La plataforma de venta de libros, además de contener un apartado para que
+                La plataforma de venta de libros, además de un apartado para que
                 los usuarios pueden publicar sus novelas, poemas, textos
                 narrativos, entre otros tipo.
               </p>
@@ -95,7 +96,8 @@
                 <el-button
                   class="btn_primary btn_home_banner btn-visitarnos"
                   type="primary"
-                  >Visitarnos</el-button
+                  @click="about"
+                  >Conócenos</el-button
                 >
                 <nuxt-link :to="'/mi-cuenta'" class="w-full h-full ml-2">
                   <el-button
@@ -123,6 +125,9 @@ export default {
     publicBook() {
       localStorage.setItem('tab', JSON.stringify({ position: '3' }))
     },
+    about(){
+      this.$router.push('/nosotros')
+    }
   },
 }
 </script>
