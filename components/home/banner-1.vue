@@ -47,7 +47,7 @@
               </div>
               <p class="title title-2">muy sencilla e intuituva de usar</p>
               <p class="sub-parrafo pr-4 pt-8">
-                La plataforma de venta de libros, además de un apartado para que
+                La plataforma de venta de libros, además de contener un apartado para que
                 los usuarios pueden publicar sus novelas, poemas, textos
                 narrativos, entre otros tipo.
               </p>
@@ -84,7 +84,7 @@
                 sencilla e intuituva de usar
               </p>
               <p class="sub-parrafo pt-8">
-                La plataforma de venta de libros, además de un apartado para que
+                La plataforma de venta de libros, además de contener un apartado para que
                 los usuarios pueden publicar sus novelas, poemas, textos
                 narrativos, entre otros tipo.
               </p>

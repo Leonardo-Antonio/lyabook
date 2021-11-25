@@ -11,8 +11,7 @@
             <div class="">
               <p class="parrafos-banner4 mb-8">
                 Sube tu libro, historia, etc en nuestro apartado que tenemos
-                para ti, para que puedas dar a concer tu talento además de tener
-                la opción de poder bonificar tu esfurzo.
+                para ti, para que puedas dar a concer tu talento.
               </p>
             </div>
             <nuxt-link :to="'/mi-cuenta'" class="w-full h-full ml-2">
