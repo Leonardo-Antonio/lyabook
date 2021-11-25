@@ -48,7 +48,7 @@
                 <p class="title-account pb-2">Publcar Libros</p>
               </div>
               <div class="container-tabs-public-book">
-                <el-tabs type="card">
+                <el-tabs type="card" v-model="tabsPublic" @tab-click="handleClickPublic">
                   <el-tab-pane class="tab1" label="Terminos y Condiciones">
                     <div>
                       <p class="par-ter">
@@ -161,11 +161,30 @@
                 <el-tabs type="card" class="conatiner-tabs">
                   <el-tab-pane class="tab1" label="Terminos y Condiciones">
                     <div>
-                      si acepta los terminos y condiciones se monetisara el
-                      libro registrado, pero el 50% de la ganancia lo ganara la
-                      empresa y el 50% el usuario. si no acepta los terminos y
-                      condiciones, no tendra la opción el usuario de agregar un
-                      precio y será gratis el libro.
+                      <p class="par-ter">
+                        Algunos de los servicios permiten que usted nos
+                        proporcione información directamente. Por ejemplo:
+                      </p>
+                      <p class="par-ter par-ter-lis">
+                        - Al momento en que usted cree su cuenta y cuando acceda
+                        a dicha cuenta una vez creada, podremos necesitar su
+                        nombre de usuario, dirección de correo electrónico.
+                      </p>
+                      <p class="par-ter par-ter-lis">
+                        - Cuando usted se comunique con nuestro personal,
+                        incluyendo el libro de reclamaciones, sus comunicaciones
+                        serán transmitidas a través de nuestros sistemas a
+                        través de su dirección de correo electrónico.
+                      </p>
+                      <p class="par-ter par-ter-etiqueta py-2">
+                        [Para Creadores]
+                      </p>
+                      <p class="par-ter par-ter-lis">
+                        - Se debe tomar en cuenta que este medio es para poder
+                        dar a conocer su talento, por lo tanto tendrá la opción
+                        de publicar novelas, poemas, textos narrativos, etc. Sin
+                        embargo, no será monetizado.
+                      </p>
                     </div>
                   </el-tab-pane>
 
@@ -215,6 +234,7 @@ export default {
   },
   data() {
     return {
+      tabsPublic:'0',
       editableTabsValue: '0',
       // image perfile
       circleUrl: '/images/icon_user.png',
@@ -262,11 +282,19 @@ export default {
         window.location.reload(true)
       } catch (error) {
         this.$message({
-          message: 'No se pudo aceptar correctamente los términos y condiciones.',
+          message:
+            'No se pudo aceptar correctamente los términos y condiciones.',
           type: 'error',
         })
       }
     },
+    // handleClickPublic(tab, event){
+    //   if(tab.index == 1){
+    //     console.log(tab.index)
+    //     this.tabsPublic = '0'
+
+    //   }
+    // },
     //tabs publicar libro
     handleClick(tab, event) {
       if (tab.index == '0') {
@@ -282,7 +310,9 @@ export default {
       }
       this.editableTabsValue = this.posicTab
       localStorage.setItem('tab', JSON.stringify({ position: this.posicTab }))
-      window.location.reload(true)
+      if (this.posicTab == 4) {
+        window.location.reload(true)
+      }
     },
   },
   created() {

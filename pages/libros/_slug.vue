@@ -1,10 +1,10 @@
 <template>
   <div>
-    <img
+    <!-- <img
       src="/shapes/doble-cuadrado-button-right.png"
       class="absolute z-10 doble-cuadrado-button-right"
       style="width: 20rem; left: 0rem; bottom: 0rem"
-    />
+    /> -->
 
     <div class="flex justify-center">
       <img
@@ -12,7 +12,7 @@
         class="absolute z-10 rotate circle-double-aye"
         style="width: 7rem; left: -1rem; top: 8rem"
       />
-      <div class="container_slug" style="width: 57%">
+      <div class="container_slug mb-12" style="width: 57%">
         <!-- container product  -->
         <div class="flex flex-row pt-20 container-product-slug">
           <div class="w-2/4 flex items-center justify-center con-img">

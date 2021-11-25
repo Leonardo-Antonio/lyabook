@@ -21,7 +21,7 @@
               v-model="category"
               multiple
               collapse-tags
-              placeholder="Select"
+              placeholder="Seleccionar Categorías"
               class="input mt-2"
             >
               <el-option
