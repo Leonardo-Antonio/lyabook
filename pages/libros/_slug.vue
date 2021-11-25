@@ -79,13 +79,22 @@
                 </div>
               </div>
               <div class="container-button-to-buy pt-8 flex justify-center">
-                <el-row>
+                <el-row v-show="books.property == null">
                   <el-button
                     class="btn_add_size button-to-by"
                     type="primary"
                     round
                     @click="addCart"
                     >Agregar al carrito</el-button
+                  >
+                </el-row>
+                <el-row v-show="books.property != null">
+                  <el-button
+                    class="btn_add_size button-to-by"
+                    type="primary"
+                    round
+                    @click="readText(books.type.digital.src)"
+                    >Leer texto o libro</el-button
                   >
                 </el-row>
               </div>
@@ -233,6 +242,13 @@ export default {
     handleSelect(item) {
       console.log(item)
     },
+    readText(direction) {
+      console.log(direction)
+      this.$router.push({
+        name: 'mi-cuenta-leer',
+        params: { pdf: direction },
+      })
+    },
 
     //   tabs
     handleClick(tab, event) {
@@ -343,6 +359,7 @@ export default {
       })
       if (response.status == 200) {
         this.books = response.data.data
+        console.log(this.books)
         this.seeMoreButton = response.data.data.commentaries
         this.seeLessButton = this.books.commentaries.reverse().slice(0, 5)
         this.books.commentaries = this.seeLessButton
@@ -699,7 +716,7 @@ export default {
 }
 
 @media screen and (min-width: 640px) and (max-width: 1025px) {
-  .conatiner-detail-product{
+  .conatiner-detail-product {
     width: 100% !important;
   }
 }

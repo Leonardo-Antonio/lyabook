@@ -7,7 +7,7 @@
           <div class="flex items-center justify-center" style="width: 78%;">
             <div class="image-logo">
               <nuxt-link :to="`/`">
-                <img src="/images/LyaBook2.svg" width="8%" />
+                <img src="/images/LyaBook2Logo.svg" width="8%" />
               </nuxt-link>
             </div>
             <div class="enlaces-header flex justify-end">
