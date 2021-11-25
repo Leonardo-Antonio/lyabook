@@ -242,7 +242,7 @@
                                 type="primary"
                                 round
                                 @click="readText()"
-                                >Leer texto o libro</el-button
+                                >Leer texto</el-button
                               >
                             </nuxt-link>
                           </el-row>

@@ -43,9 +43,9 @@
               <MyBook />
             </el-tab-pane>
 
-            <el-tab-pane label="Publcar Libros" class="tabOption">
+            <el-tab-pane label="Publcar Textos" class="tabOption">
               <div class="ml-4">
-                <p class="title-account pb-2">Publcar Libros</p>
+                <p class="title-account pb-2">Publcar Textos</p>
               </div>
               <div class="container-tabs-public-book">
                 <el-tabs type="card" v-model="tabsPublic" @tab-click="handleClickPublic">
@@ -104,16 +104,16 @@
                     </div>
                   </el-tab-pane>
 
-                  <el-tab-pane class="tab2" label="Nuevo Libro">
+                  <el-tab-pane class="tab2" label="Nuevo Texto">
                     <NewBook />
                   </el-tab-pane>
                 </el-tabs>
               </div>
             </el-tab-pane>
 
-            <el-tab-pane label="Libros Publicados" class="tabOption">
+            <el-tab-pane label="Textos Publicados" class="tabOption">
               <div class="ml-4">
-                <p class="title-account pb-2">Libros Publicados</p>
+                <p class="title-account pb-2">Textos Publicados</p>
               </div>
               <BookPublic />
             </el-tab-pane>

@@ -94,7 +94,7 @@
                     type="primary"
                     round
                     @click="readText(books.type.digital.src)"
-                    >Leer texto o libro</el-button
+                    >Leer texto</el-button
                   >
                 </el-row>
               </div>

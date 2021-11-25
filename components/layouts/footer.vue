@@ -202,19 +202,19 @@ export default {
             src: 'https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1',
           },
           {
-            text: 'Mis favoritos',
+            text: 'Mis Ordenes',
             src: 'https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1',
           },
           {
-            text: 'Mis órdenes',
+            text: 'Mis Libros',
             src: 'https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1',
           },
           {
-            text: 'Nosotros',
+            text: 'Publicar Texto/Libro',
             src: 'https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1',
           },
           {
-            text: 'Contáctanos',
+            text: 'Texto/Libro Publicados',
             src: 'https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1',
           },
         ],

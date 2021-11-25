@@ -135,7 +135,7 @@
           </div>
           <div v-show="!showOpen">
             <nuxt-link :to="`/mi-cuenta`">
-              <el-button class="w-full button-log" @click="showLogin = false"
+              <el-button class="w-full button-log" @click="myAccount"
                 >Mi cuenta</el-button
               >
             </nuxt-link>
@@ -280,7 +280,7 @@
         </div>
         <div v-show="!showOpen">
           <nuxt-link :to="`/mi-cuenta`">
-            <el-button class="w-full button-log" @click="showDrawerLogin = false"
+            <el-button class="w-full button-log" @click="myAccountResponse"
               >Mi cuenta</el-button
             >
           </nuxt-link>
@@ -539,9 +539,14 @@ export default {
     }
   },
   methods: {
-    // openDialogLogin(){
-
-    // },
+    myAccount(){
+      this.showLogin = false
+      localStorage.setItem('tab', JSON.stringify({ position: "0" }))
+    },
+    myAccountResponse(){
+      this.showDrawerLogin = false
+      localStorage.setItem('tab', JSON.stringify({ position: "0" }))
+    },
     openDrawer() {
       try {
         var local = localStorage.getItem('books')
