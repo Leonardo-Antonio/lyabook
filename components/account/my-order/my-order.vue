@@ -56,7 +56,7 @@
         <div class="flex h-48 header-boleta">
           <div class="container_boleta_right w-1/2">
             <div class="flex justify-center h-1/2">
-              <img src="/images/LyaBook.svg" width="60%" />
+              <img src="/images/LyaBookLogo.svg" width="60%" />
             </div>
             <div
               class="
@@ -84,7 +84,7 @@
                 h-1/2
               "
             >
-              <p>RUC N° 999999999</p>
+              <p>RUC N° 10710622341</p>
               <p>BOLETA DE VENTA</p>
               <p>B-{{ id_payment }}</p>
             </div>

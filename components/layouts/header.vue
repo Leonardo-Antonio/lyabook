@@ -11,7 +11,7 @@
           <div class="flex items-center justify-center px-2">
             <div class="image-logo">
               <nuxt-link :to="`/`">
-                <img src="/images/LyaBook.svg" width="" />
+                <img src="/images/LyaBookLogo.svg" width="" />
               </nuxt-link>
             </div>
             <div class="search-autocomplete">

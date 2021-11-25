@@ -13,7 +13,7 @@
               <nuxt-link :to="`/`">
                 <img
                   class="img-portada"
-                  src="/images/LyaBook.svg"
+                  src="/images/LyaBookLogo.svg"
                   width="40%"
                 />
               </nuxt-link>
@@ -60,7 +60,7 @@
                 <nuxt-link :to="`/`">
                   <img
                     class="img-portada-mobile"
-                    src="/images/LyaBook.svg"
+                    src="/images/LyaBookLogo.svg"
                     width="40%"
                   />
                 </nuxt-link>
