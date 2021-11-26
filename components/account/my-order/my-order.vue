@@ -52,7 +52,7 @@
       </div>
 
 
-      <div v-show="!show" class="container-perfile px-4 py-6">
+      <div v-show="!show" class="container-perfile px-4 py-6 mb-12">
         <div class="flex h-48 header-boleta">
           <div class="container_boleta_right w-1/2">
             <div class="flex justify-center h-1/2">

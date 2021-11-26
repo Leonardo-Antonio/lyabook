@@ -49,7 +49,7 @@
               </div>
               <div class="container-tabs-public-book">
                 <el-tabs type="card" v-model="tabsPublic" @tab-click="handleClickPublic">
-                  <el-tab-pane class="tab1" label="Terminos y Condiciones">
+                  <el-tab-pane class="tab1" label="Términos y Condiciones">
                     <div>
                       <p class="par-ter">
                         Algunos de los servicios permiten que usted nos
@@ -159,8 +159,8 @@
               </div>
               <div class="container-tabs-public-book">
                 <el-tabs type="card" class="conatiner-tabs">
-                  <el-tab-pane class="tab1" label="Terminos y Condiciones">
-                    <div>
+                  <el-tab-pane class="tab1" label="Términos y Condiciones">
+                    <div class="mb-4">
                       <p class="par-ter">
                         Algunos de los servicios permiten que usted nos
                         proporcione información directamente. Por ejemplo:
