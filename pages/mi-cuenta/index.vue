@@ -48,7 +48,11 @@
                 <p class="title-account pb-2">Publcar Textos</p>
               </div>
               <div class="container-tabs-public-book">
-                <el-tabs type="card" v-model="tabsPublic" @tab-click="handleClickPublic">
+                <el-tabs
+                  type="card"
+                  v-model="tabsPublic"
+                  @tab-click="handleClickPublic"
+                >
                   <el-tab-pane class="tab1" label="Términos y Condiciones">
                     <div>
                       <p class="par-ter">
@@ -186,6 +190,32 @@
                         embargo, no será monetizado.
                       </p>
                     </div>
+                    <div>
+                      <el-row class="par-ter mt-4">
+                        <div class="flex items-center" v-show="value_accept">
+                          <el-button class="btn_dis_ter" @click="accept"
+                            ><box-icon
+                              name="shield-alt-2"
+                              type="solid"
+                              color="#5e20e4"
+                              class="mr-2"
+                            ></box-icon
+                          ></el-button>
+                          Acepto los términos y condiciones de LyaBook
+                        </div>
+                        <div class="flex items-center" v-show="!value_accept">
+                          <el-button class="btn_dis_ter" disabled
+                            ><box-icon
+                              name="shield-alt-2"
+                              type="solid"
+                              color="#5e20e4"
+                              class="mr-2"
+                            ></box-icon
+                          ></el-button>
+                          Se aceptaron los términos y condiciones de LyaBook
+                        </div>
+                      </el-row>
+                    </div>
                   </el-tab-pane>
 
                   <el-tab-pane class="tab2" label="Nuevo Libro">
@@ -234,7 +264,7 @@ export default {
   },
   data() {
     return {
-      tabsPublic:'0',
+      tabsPublic: '0',
       editableTabsValue: '0',
       // image perfile
       circleUrl: '/images/icon_user.png',
@@ -320,23 +350,25 @@ export default {
       var user = localStorage.getItem('user')
       if (user != null) {
         this.user = JSON.parse(user).user
-      }
-      var value = JSON.parse(localStorage.getItem('tab')).position
-      if (value != null || value != undefined) {
-        this.editableTabsValue = value
+        //----------------------------------------
+        var value = JSON.parse(localStorage.getItem('tab')).position
+        if (value != null || value != undefined) {
+          this.editableTabsValue = value
+        }
+        //----------------------------------------
+        var condicion = localStorage.getItem('condicion')
+        if (condicion != null) {
+          var termino = JSON.parse(condicion).condicion
+          if (!termino) {
+            this.value_accept = false
+          }
+        }
+      }else{
+        this.$router.push('/login')
       }
     } catch (error) {
       console.log(error)
     }
-    try {
-      var condicion = localStorage.getItem('condicion')
-      if (condicion != null) {
-        var termino = JSON.parse(condicion).condicion
-        if (!termino) {
-          this.value_accept = false
-        }
-      }
-    } catch (error) {}
   },
 }
 </script>
