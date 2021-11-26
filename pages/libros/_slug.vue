@@ -283,41 +283,44 @@ export default {
         var user = localStorage.getItem('user')
         if (user != null) {
           this.user = JSON.parse(user).user
+
+          this.books.commentaries = {
+            name: this.user.name + ' ' + this.user.last_name,
+            comentary: this.addcomentary,
+            star: this.star,
+          }
+
+          await this.$apidata({
+            url: '/books/' + this.books._id,
+            method: 'put',
+            data: this.books,
+          })
+
+          var response = await this.$apidata({
+            url: '/books/' + this.books.slug,
+            method: 'get',
+            data: this.books,
+          })
+
+          // this.books = response.data.data
+          this.seeMoreButton = []
+          this.seeLessButton = []
+          this.books.commentaries = []
+
+          this.seeMoreButton = response.data.data.commentaries
+          this.seeLessButton = response.data.data.commentaries
+            .reverse()
+            .slice(0, 5)
+          this.books.commentaries = this.seeLessButton
+
+          this.cant_category = this.seeMoreButton.length
+          this.addcomentary = ''
+        }else{
+          this.$router.push('/login')
         }
 
-        this.books.commentaries = {
-          name: this.user.name + ' ' + this.user.last_name,
-          comentary: this.addcomentary,
-          star: this.star,
-        }
-
-        await this.$apidata({
-          url: '/books/' + this.books._id,
-          method: 'put',
-          data: this.books,
-        })
-
-        var response = await this.$apidata({
-          url: '/books/' + this.books.slug,
-          method: 'get',
-          data: this.books,
-        })
-
-        // this.books = response.data.data
-        this.seeMoreButton = []
-        this.seeLessButton = []
-        this.books.commentaries = []
-
-        this.seeMoreButton = response.data.data.commentaries
-        this.seeLessButton = response.data.data.commentaries
-          .reverse()
-          .slice(0, 5)
-        this.books.commentaries = this.seeLessButton
-
-        this.cant_category = this.seeMoreButton.length
-        this.addcomentary = ''
+        
       } catch (error) {
-        console.log('error al agregar un comentario')
       }
     },
     seeMore() {
