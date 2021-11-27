@@ -25,7 +25,7 @@
         style="width: 5rem; right: -1rem; top: 42rem"
       />
 
-      <div class="flex justify-center mx-auto" style="width: 70%">
+      <div class="flex justify-center mx-auto  mb-12" style="width: 70%">
         <div class="container-filter-father w-1/4 r-remove" style="z-index: 20">
           <!-- filter -->
           <div class="container-filter">
@@ -242,7 +242,7 @@
                                 type="primary"
                                 round
                                 @click="readText()"
-                                >Leer texto o libro</el-button
+                                >Leer texto</el-button
                               >
                             </nuxt-link>
                           </el-row>
@@ -506,7 +506,7 @@ export default {
       }
 
       this.booksCard.push(Object.assign(books, cant))
-      var validate = this.booksCard.filter((book) => book.ean == books.ean)
+      var validate = this.booksCard.filter((book) => book._id == books._id)
 
       if (validate.length == 1) {
         localStorage.setItem('books', JSON.stringify(this.booksCard))

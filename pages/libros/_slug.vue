@@ -1,10 +1,10 @@
 <template>
   <div>
-    <img
+    <!-- <img
       src="/shapes/doble-cuadrado-button-right.png"
       class="absolute z-10 doble-cuadrado-button-right"
       style="width: 20rem; left: 0rem; bottom: 0rem"
-    />
+    /> -->
 
     <div class="flex justify-center">
       <img
@@ -12,7 +12,7 @@
         class="absolute z-10 rotate circle-double-aye"
         style="width: 7rem; left: -1rem; top: 8rem"
       />
-      <div class="container_slug" style="width: 57%">
+      <div class="container_slug mb-12" style="width: 57%">
         <!-- container product  -->
         <div class="flex flex-row pt-20 container-product-slug">
           <div class="w-2/4 flex items-center justify-center con-img">
@@ -79,13 +79,22 @@
                 </div>
               </div>
               <div class="container-button-to-buy pt-8 flex justify-center">
-                <el-row>
+                <el-row v-show="books.property == null">
                   <el-button
                     class="btn_add_size button-to-by"
                     type="primary"
                     round
                     @click="addCart"
                     >Agregar al carrito</el-button
+                  >
+                </el-row>
+                <el-row v-show="books.property != null">
+                  <el-button
+                    class="btn_add_size button-to-by"
+                    type="primary"
+                    round
+                    @click="readText(books.type.digital.src)"
+                    >Leer texto</el-button
                   >
                 </el-row>
               </div>
@@ -233,6 +242,13 @@ export default {
     handleSelect(item) {
       console.log(item)
     },
+    readText(direction) {
+      console.log(direction)
+      this.$router.push({
+        name: 'mi-cuenta-leer',
+        params: { pdf: direction },
+      })
+    },
 
     //   tabs
     handleClick(tab, event) {
@@ -267,41 +283,44 @@ export default {
         var user = localStorage.getItem('user')
         if (user != null) {
           this.user = JSON.parse(user).user
+
+          this.books.commentaries = {
+            name: this.user.name + ' ' + this.user.last_name,
+            comentary: this.addcomentary,
+            star: this.star,
+          }
+
+          await this.$apidata({
+            url: '/books/' + this.books._id,
+            method: 'put',
+            data: this.books,
+          })
+
+          var response = await this.$apidata({
+            url: '/books/' + this.books.slug,
+            method: 'get',
+            data: this.books,
+          })
+
+          // this.books = response.data.data
+          this.seeMoreButton = []
+          this.seeLessButton = []
+          this.books.commentaries = []
+
+          this.seeMoreButton = response.data.data.commentaries
+          this.seeLessButton = response.data.data.commentaries
+            .reverse()
+            .slice(0, 5)
+          this.books.commentaries = this.seeLessButton
+
+          this.cant_category = this.seeMoreButton.length
+          this.addcomentary = ''
+        }else{
+          this.$router.push('/login')
         }
 
-        this.books.commentaries = {
-          name: this.user.name + ' ' + this.user.last_name,
-          comentary: this.addcomentary,
-          star: this.star,
-        }
-
-        await this.$apidata({
-          url: '/books/' + this.books._id,
-          method: 'put',
-          data: this.books,
-        })
-
-        var response = await this.$apidata({
-          url: '/books/' + this.books.slug,
-          method: 'get',
-          data: this.books,
-        })
-
-        // this.books = response.data.data
-        this.seeMoreButton = []
-        this.seeLessButton = []
-        this.books.commentaries = []
-
-        this.seeMoreButton = response.data.data.commentaries
-        this.seeLessButton = response.data.data.commentaries
-          .reverse()
-          .slice(0, 5)
-        this.books.commentaries = this.seeLessButton
-
-        this.cant_category = this.seeMoreButton.length
-        this.addcomentary = ''
+        
       } catch (error) {
-        console.log('error al agregar un comentario')
       }
     },
     seeMore() {
@@ -343,6 +362,7 @@ export default {
       })
       if (response.status == 200) {
         this.books = response.data.data
+        console.log(this.books)
         this.seeMoreButton = response.data.data.commentaries
         this.seeLessButton = this.books.commentaries.reverse().slice(0, 5)
         this.books.commentaries = this.seeLessButton
@@ -699,7 +719,7 @@ export default {
 }
 
 @media screen and (min-width: 640px) and (max-width: 1025px) {
-  .conatiner-detail-product{
+  .conatiner-detail-product {
     width: 100% !important;
   }
 }

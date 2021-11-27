@@ -31,9 +31,9 @@
                 La venta de los libros son digitales y en el caso de los
               </p>
               <p class="parrafos-banner2 prrf-2">
-                libros físicos son con recojo en tiendas o librerias
+                libros físicos son con recojo en tiendas/librerias
               </p>
-              <p class="parrafos-banner2">para la meyor experiencia.</p>
+              <p class="parrafos-banner2">para una mejor experiencia.</p>
             </div>
           </div>
         </div>
@@ -47,9 +47,9 @@
             La venta de los libros son digitales y en el caso de los <span
               class="parrafos-banner2 prrf-2"
             >
-              libros físicos son con recojo en tiendas o librerias
+              libros físicos son con recojo en tiendas/librerias
             </span>
-            para la meyor experiencia.
+            para una mejor experiencia.
           </p>
         </div>
         <div class="flex justify-center">

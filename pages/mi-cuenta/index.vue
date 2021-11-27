@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="flex justify-center">
-      <img
+      <!-- <img
         src="/shapes/doble-cuadrado-left.svg"
         class="absolute z-10 doble-cuadrado-left"
         style="width: 20rem; left: 0rem; bottom: 0rem"
-      />
+      /> -->
       <div class="container-account w-3/5 flex justify-center flex-col mt-16">
         <div class="flex items-center">
           <div class="demo-basic--circle mr-2">
@@ -21,7 +21,7 @@
             <p class="nameUser">{{ this.user.name }}</p>
           </div>
         </div>
-        <div class="mt-4 container-desktop">
+        <div class="mt-4 container-desktop mb-12">
           <el-tabs
             v-model="editableTabsValue"
             :tab-position="tabPosition"
@@ -43,39 +43,93 @@
               <MyBook />
             </el-tab-pane>
 
-            <el-tab-pane label="Publcar Libros" class="tabOption">
+            <el-tab-pane label="Publcar Textos" class="tabOption">
               <div class="ml-4">
-                <p class="title-account pb-2">Publcar Libros</p>
+                <p class="title-account pb-2">Publcar Textos</p>
               </div>
               <div class="container-tabs-public-book">
-                <el-tabs type="card">
-                  <el-tab-pane class="tab1" label="Terminos y Condiciones">
+                <el-tabs
+                  type="card"
+                  v-model="tabsPublic"
+                  @tab-click="handleClickPublic"
+                >
+                  <el-tab-pane class="tab1" label="Términos y Condiciones">
                     <div>
-                      si acepta los terminos y condiciones se monetisara el
-                      libro registrado, pero el 50% de la ganancia lo ganara la
-                      empresa y el 50% el usuario. si no acepta los terminos y
-                      condiciones, no tendra la opción el usuario de agregar un
-                      precio y será gratis el libro.
+                      <p class="par-ter">
+                        Algunos de los servicios permiten que usted nos
+                        proporcione información directamente. Por ejemplo:
+                      </p>
+                      <p class="par-ter par-ter-lis">
+                        - Al momento en que usted cree su cuenta y cuando acceda
+                        a dicha cuenta una vez creada, podremos necesitar su
+                        nombre de usuario, dirección de correo electrónico.
+                      </p>
+                      <p class="par-ter par-ter-lis">
+                        - Cuando usted se comunique con nuestro personal,
+                        incluyendo el libro de reclamaciones, sus comunicaciones
+                        serán transmitidas a través de nuestros sistemas a
+                        través de su dirección de correo electrónico.
+                      </p>
+                      <p class="par-ter par-ter-etiqueta py-2">
+                        [Para Creadores]
+                      </p>
+                      <p class="par-ter par-ter-lis">
+                        - Se debe tomar en cuenta que este medio es para poder
+                        dar a conocer su talento, por lo tanto tendrá la opción
+                        de publicar novelas, poemas, textos narrativos, etc. Sin
+                        embargo, no será monetizado.
+                      </p>
+                    </div>
+                    <div>
+                      <el-row class="par-ter mt-4">
+                        <div class="flex items-center" v-show="value_accept">
+                          <el-button class="btn_dis_ter" @click="accept"
+                            ><box-icon
+                              name="shield-alt-2"
+                              type="solid"
+                              color="#5e20e4"
+                              class="mr-2"
+                            ></box-icon
+                          ></el-button>
+                          Acepto los términos y condiciones de LyaBook
+                        </div>
+                        <div class="flex items-center" v-show="!value_accept">
+                          <el-button class="btn_dis_ter" disabled
+                            ><box-icon
+                              name="shield-alt-2"
+                              type="solid"
+                              color="#5e20e4"
+                              class="mr-2"
+                            ></box-icon
+                          ></el-button>
+                          Se aceptaron los términos y condiciones de LyaBook
+                        </div>
+                      </el-row>
                     </div>
                   </el-tab-pane>
 
-                  <el-tab-pane class="tab2" label="Nuevo Libro">
+                  <el-tab-pane class="tab2" label="Nuevo Texto">
                     <NewBook />
                   </el-tab-pane>
                 </el-tabs>
               </div>
             </el-tab-pane>
 
-            <el-tab-pane label="Libros Publicados" class="tabOption">
+            <el-tab-pane label="Textos Publicados" class="tabOption">
               <div class="ml-4">
-                <p class="title-account pb-2">Libros Publicados</p>
+                <p class="title-account pb-2">Textos Publicados</p>
               </div>
               <BookPublic />
             </el-tab-pane>
           </el-tabs>
         </div>
         <div class="mt-4 container-response">
-          <el-tabs v-model="editableTabsValue" tab-position="top" style="height: 200px" @tab-click="handleClick">
+          <el-tabs
+            v-model="editableTabsValue"
+            tab-position="top"
+            style="height: 200px"
+            @tab-click="handleClick"
+          >
             <el-tab-pane>
               <span slot="label"
                 ><box-icon name="user" color="#021639"></box-icon
@@ -108,17 +162,59 @@
                 <p class="title-account pb-2">Publcar Libros</p>
               </div>
               <div class="container-tabs-public-book">
-                <el-tabs
-                  type="card"
-                  class="conatiner-tabs"
-                >
-                  <el-tab-pane class="tab1" label="Terminos y Condiciones">
+                <el-tabs type="card" class="conatiner-tabs">
+                  <el-tab-pane class="tab1" label="Términos y Condiciones">
+                    <div class="mb-4">
+                      <p class="par-ter">
+                        Algunos de los servicios permiten que usted nos
+                        proporcione información directamente. Por ejemplo:
+                      </p>
+                      <p class="par-ter par-ter-lis">
+                        - Al momento en que usted cree su cuenta y cuando acceda
+                        a dicha cuenta una vez creada, podremos necesitar su
+                        nombre de usuario, dirección de correo electrónico.
+                      </p>
+                      <p class="par-ter par-ter-lis">
+                        - Cuando usted se comunique con nuestro personal,
+                        incluyendo el libro de reclamaciones, sus comunicaciones
+                        serán transmitidas a través de nuestros sistemas a
+                        través de su dirección de correo electrónico.
+                      </p>
+                      <p class="par-ter par-ter-etiqueta py-2">
+                        [Para Creadores]
+                      </p>
+                      <p class="par-ter par-ter-lis">
+                        - Se debe tomar en cuenta que este medio es para poder
+                        dar a conocer su talento, por lo tanto tendrá la opción
+                        de publicar novelas, poemas, textos narrativos, etc. Sin
+                        embargo, no será monetizado.
+                      </p>
+                    </div>
                     <div>
-                      si acepta los terminos y condiciones se monetisara el
-                      libro registrado, pero el 50% de la ganancia lo ganara la
-                      empresa y el 50% el usuario. si no acepta los terminos y
-                      condiciones, no tendra la opción el usuario de agregar un
-                      precio y será gratis el libro.
+                      <el-row class="par-ter mt-4">
+                        <div class="flex items-center" v-show="value_accept">
+                          <el-button class="btn_dis_ter" @click="accept"
+                            ><box-icon
+                              name="shield-alt-2"
+                              type="solid"
+                              color="#5e20e4"
+                              class="mr-2"
+                            ></box-icon
+                          ></el-button>
+                          Acepto los términos y condiciones de LyaBook
+                        </div>
+                        <div class="flex items-center" v-show="!value_accept">
+                          <el-button class="btn_dis_ter" disabled
+                            ><box-icon
+                              name="shield-alt-2"
+                              type="solid"
+                              color="#5e20e4"
+                              class="mr-2"
+                            ></box-icon
+                          ></el-button>
+                          Se aceptaron los términos y condiciones de LyaBook
+                        </div>
+                      </el-row>
                     </div>
                   </el-tab-pane>
 
@@ -138,8 +234,6 @@
               </div>
               <BookPublic />
             </el-tab-pane>
-
-            
           </el-tabs>
         </div>
       </div>
@@ -170,6 +264,7 @@ export default {
   },
   data() {
     return {
+      tabsPublic: '0',
       editableTabsValue: '0',
       // image perfile
       circleUrl: '/images/icon_user.png',
@@ -207,9 +302,29 @@ export default {
       user: [],
       //---------------------------------------------Posición de tab
       posicTab: '',
+      value_accept: true,
     }
   },
   methods: {
+    accept() {
+      try {
+        localStorage.setItem('condicion', JSON.stringify({ condicion: false }))
+        window.location.reload(true)
+      } catch (error) {
+        this.$message({
+          message:
+            'No se pudo aceptar correctamente los términos y condiciones.',
+          type: 'error',
+        })
+      }
+    },
+    // handleClickPublic(tab, event){
+    //   if(tab.index == 1){
+    //     console.log(tab.index)
+    //     this.tabsPublic = '0'
+
+    //   }
+    // },
     //tabs publicar libro
     handleClick(tab, event) {
       if (tab.index == '0') {
@@ -225,19 +340,31 @@ export default {
       }
       this.editableTabsValue = this.posicTab
       localStorage.setItem('tab', JSON.stringify({ position: this.posicTab }))
-      window.location.reload(true)
+      if (this.posicTab == 4) {
+        window.location.reload(true)
+      }
     },
-
   },
   created() {
     try {
       var user = localStorage.getItem('user')
       if (user != null) {
         this.user = JSON.parse(user).user
-      }
-      var value = JSON.parse(localStorage.getItem('tab')).position
-      if(value != null || value != undefined){
-        this.editableTabsValue = value
+        //----------------------------------------
+        var value = JSON.parse(localStorage.getItem('tab')).position
+        if (value != null || value != undefined) {
+          this.editableTabsValue = value
+        }
+        //----------------------------------------
+        var condicion = localStorage.getItem('condicion')
+        if (condicion != null) {
+          var termino = JSON.parse(condicion).condicion
+          if (!termino) {
+            this.value_accept = false
+          }
+        }
+      }else{
+        this.$router.push('/login')
       }
     } catch (error) {
       console.log(error)
@@ -320,5 +447,20 @@ export default {
   .doble-cuadrado-mi-cuenta {
     display: none;
   }
+}
+.par-ter {
+  font-family: Roboto;
+  font-style: normal;
+  font-size: 16px;
+}
+.par-ter-lis {
+  color: var(--resaltado);
+}
+.btn_dis_ter {
+  padding: 0;
+  border: unset;
+}
+.btn_dis_ter:hover {
+  background: unset;
 }
 </style>

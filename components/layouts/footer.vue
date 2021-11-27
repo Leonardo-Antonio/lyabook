@@ -1,8 +1,11 @@
 <template>
   <div>
-    <div class="r-remove r-remove-tablet mt-12">
+    <div class="r-remove r-remove-tablet">
       <div class="footer flex justify-center px-8">
-        <div class="conatiner-footer flex flex-row justify-center py-8" style="width: 80%;">
+        <div
+          class="conatiner-footer flex flex-row justify-center py-8"
+          style="width: 80%"
+        >
           <div class="container-column-1 w-1/5 mx-4">
             <div class="container-contact-us">
               <p class="title-footer title-contact-us">Contacto</p>
@@ -20,7 +23,7 @@
               </div>
             </div>
 
-            <div class="container-follow-us pt-16">
+            <!-- <div class="container-follow-us pt-16">
               <p class="title-footer title-follow-us">Síguenos</p>
               <div class="footer-data flex flex-row">
                 <div class="">
@@ -48,7 +51,7 @@
                   ></box-icon>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
           <div class="container-column-2 w-1/5 mx-4">
             <p class="title-footer title-my-account">Información</p>
@@ -56,6 +59,7 @@
               class="footer-data my-profile flex flex-row"
               v-for="item of menu.info"
               :key="item.text"
+              @click="info(item.position)"
             >
               <box-icon name="right-arrow" color="#ffffff"></box-icon>
               <a :href="item.src"
@@ -64,16 +68,17 @@
             </div>
           </div>
           <div class="container-column-3 w-1/5 mx-4">
-            <p class="title-footer title-category">Categorías</p>
+            <p class="title-footer title-category">Publicación</p>
 
             <div
               class="footer-data adventure flex flex-row"
               v-for="item of menu.categories"
               :key="item.text"
+              @click="info(item.position)"
             >
               <box-icon name="right-arrow" color="#ffffff"></box-icon>
               <a :href="item.src"
-                ><p class="subtitle-footer adventure">{{ item.text }}</p></a
+                ><p class="subtitle-footer profile">{{ item.text }}</p></a
               >
             </div>
           </div>
@@ -95,7 +100,7 @@
             </div>
             <div class="container-payment-methods pt-8">
               <p class="title-footer title-payment-methods">Métodos de pago</p>
-              <div class="footer-data flex flex-row">
+              <div class="footer-data flex flex-row items-center">
                 <img
                   v-for="method of paymentsMethods"
                   :key="method"
@@ -110,7 +115,7 @@
     </div>
 
     <div class="r-see r-remove-desktop container-footer-father">
-      <el-collapse accordion class="r-px-2 mt-12 footer-container-response">
+      <el-collapse accordion class="r-px-2 footer-container-response">
         <el-collapse-item title="Contacto" name="1">
           <div>
             <ul>
@@ -130,22 +135,26 @@
           <div>
             <ul>
               <li class="pt-4" v-for="item of menu.info" :key="item.text">
-                <div class="flex items-center">
-                  <box-icon name="right-arrow" color="#F9F9FF"></box-icon>
-                  <span class="pl-2">{{ item.text }}</span>
+                <div class="flex items-center" @click="info(item.position)">
+                    <box-icon name="right-arrow" color="#F9F9FF"></box-icon>
+                    <a :href="item.src">
+                      <p class="pl-2">{{ item.text }}</p>
+                    </a>
                 </div>
               </li>
             </ul>
           </div>
         </el-collapse-item>
 
-        <el-collapse-item title="Categorías" name="3">
+        <el-collapse-item title="Publicación" name="3">
           <div>
             <ul>
               <li class="pt-4" v-for="item of menu.categories" :key="item.text">
-                <div class="flex items-center">
-                  <box-icon name="right-arrow" color="#F9F9FF"></box-icon>
-                  <span class="pl-2">{{ item.text }}</span>
+                <div class="flex items-center" @click="info(item.position)">
+                    <box-icon name="right-arrow" color="#F9F9FF"></box-icon>
+                    <a :href="item.src">
+                      <p class="pl-2">{{ item.text }}</p>
+                    </a>
                 </div>
               </li>
             </ul>
@@ -158,7 +167,9 @@
               <li class="pt-4" v-for="item of menu.support" :key="item.text">
                 <div class="flex items-center">
                   <box-icon name="right-arrow" color="#F9F9FF"></box-icon>
-                  <span class="pl-2">{{ item.text }}</span>
+                  <a :href="item.src">
+                    <span class="pl-2">{{ item.text }}</span>
+                  </a>
                 </div>
               </li>
             </ul>
@@ -173,97 +184,75 @@ export default {
   data() {
     return {
       paymentsMethods: [
-        '/images/metodo-de-pago-express.png',
-        '/images/metodo-de-pago-express.png',
-        '/images/metodo-de-pago-express.png',
-        '/images/metodo-de-pago-express.png',
+        '/images/american_express_logo.png',
+        '/images/MasterCard_Logo.png',
+        '/images/Visa_Inc._logo.png',
       ],
       menu: {
         contact: [
           {
             text: '+51 993 583 805',
             src: 'tel:+51 993 583 805',
-            icon:'phone'
+            icon: 'phone',
           },
           {
             text: 'atenciónalcliente@lyabook.com',
             src: 'mailto:atenciónalcliente@lyabook.com',
-            icon:'mail-send'
+            icon: 'mail-send',
           },
           {
             text: 'Paseo de la República 5613- Miraflores. Lima, Perú',
             src: '',
-            icon:'map'
+            icon: 'map',
           },
         ],
         info: [
           {
             text: 'Mi Perfil',
-            src: 'https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1',
+            src: '/mi-cuenta',
+            position: '0',
           },
           {
-            text: 'Mis favoritos',
-            src: 'https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1',
+            text: 'Mis Ordenes',
+            src: '/mi-cuenta',
+            position: '1',
           },
           {
-            text: 'Mis órdenes',
-            src: 'https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1',
+            text: 'Mis Libros',
+            src: '/mi-cuenta',
+            position: '2',
           },
-          {
-            text: 'Nosotros',
-            src: 'https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1',
-          },
-          {
-            text: 'Contáctanos',
-            src: 'https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1',
-          },
+          
         ],
         categories: [
           {
-            text: 'Romance',
-            src: 'https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1',
+            text: 'Publicar Texto',
+            src: '/mi-cuenta',
+            position: '3',
           },
           {
-            text: 'Comedia',
-            src: 'https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1',
-          },
-          {
-            text: 'Misterio',
-            src: 'https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1',
-          },
-          {
-            text: 'Romance',
-            src: 'https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1',
-          },
-          {
-            text: 'Terror',
-            src: 'https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1',
-          },
-          {
-            text: 'Aventura',
-            src: 'https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1',
+            text: 'Texto Publicados',
+            src: '/mi-cuenta',
+            position: '4',
           },
         ],
         support: [
           {
-            text: 'Preguntas frecuentes',
-            src: 'https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1',
+            text: 'Nosotros',
+            src: '/nosotros',
           },
           {
             text: 'Libro de reclamaciones',
             src: '/atencion-al-cliente/libro-reclamaciones',
-          },
-          {
-            text: 'Términos y condiciones',
-            src: 'https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1',
-          },
-          {
-            text: 'Políticas de privacidad',
-            src: 'https://www.figma.com/file/lUOxdnP8A7T3zXvxAJVSWp/LyaBook?node-id=0%3A1',
-          },
+          }
         ],
       },
     }
+  },
+  methods: {
+    info(position_value) {
+      localStorage.setItem('tab', JSON.stringify({ position: position_value }))
+    },
   },
 }
 </script>
@@ -471,16 +460,14 @@ export default {
   height: 3rem;
   font-family: Roboto;
 }
+.payment-card {
+    width: 20%;
+    height: 50%;
+}
 
 @media (min-width: 1025px) {
   .conatiner-footer {
-      width: 100%;
+    width: 100%;
   }
 }
-
-.footer-container-response{
-  margin-top: 3rem !important;
-}
-
-
 </style>

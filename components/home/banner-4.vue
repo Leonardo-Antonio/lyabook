@@ -7,12 +7,11 @@
       <div class="w-4/6 flex">
         <div class="w-1/2 flex items-center container-img">
           <div>
-            <p class="title-banner4 pb-4">Publica tu libro</p>
+            <p class="title-banner4 pb-4">Publica tu Historia</p>
             <div class="">
               <p class="parrafos-banner4 mb-8">
-                Sube tu libro, historia, etc en nuestro apartado que tenemos
-                para ti, para que puedas dar a concer tu talento además de tener
-                la opción de poder bonificar tu esfurzo.
+                Sube tu novelas, poemas o textos narrativos en nuestro apartado que tenemos
+                para ti, para que puedas dar a concer tu talento.
               </p>
             </div>
             <nuxt-link :to="'/mi-cuenta'" class="w-full h-full ml-2">

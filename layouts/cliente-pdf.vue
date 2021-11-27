@@ -7,7 +7,7 @@
           <div class="flex items-center justify-center" style="width: 78%;">
             <div class="image-logo">
               <nuxt-link :to="`/`">
-                <img src="/images/LyaBook2.svg" width="8%" />
+                <img src="/images/LyaBook2Logo.svg" width="8%" />
               </nuxt-link>
             </div>
             <div class="enlaces-header flex justify-end">
@@ -51,7 +51,7 @@
           </div>
           <div v-show="!showOpen">
             <nuxt-link :to="`/mi-cuenta`">
-              <el-button class="w-full button-log">Mi cuenta</el-button>
+              <el-button class="w-full button-log" @click="myAccount">Mi cuenta</el-button>
             </nuxt-link>
             <el-button class="w-full button-log" @click="closeSeccion">Cerrar Sección</el-button>
           </div>
@@ -108,6 +108,9 @@ export default {
       localStorage.removeItem('user')
       this.showOpen = false
     },
+    myAccount(){
+      localStorage.setItem('tab', JSON.stringify({ position: "0" }))
+    }
   },
   created(){
       var user = localStorage.getItem('user')
