@@ -59,7 +59,7 @@
                     <div>
                       <el-upload
                         class="mt-2"
-                        action="http://localhost:8001/api/v1/images?key=LyA1308_MORSAC25TQMor25_NNLiviN_SAkur4"
+                        :action="$config.API_IMAGES"
                         list-type="picture-card"
                         accept="image/png"
                         :before-upload="beforeUpload"
@@ -74,7 +74,7 @@
                     <div class="upload_pdf mt-4">
                       <el-upload
                         drag
-                        action="http://localhost:8001/api/v1/pdfs?key=LyA1308_MORSAC25TQMor25_NNLiviN_SAkur4"
+                        :action="$config.API_PDFS"
                         accept="application/pdf"
                         :before-upload="beforeUploadPdf"
                         :on-success="successPdf"
@@ -201,23 +201,22 @@ export default {
           data: data,
         })
 
-        if(updateText.data.type_message == "Advertencia"){
+        if (updateText.data.type_message == 'Advertencia') {
           this.$message({
             message: updateText.data.message,
-            type: 'warning'
-          });
-        }else if(updateText.data.type_message == "Mensaje"){
+            type: 'warning',
+          })
+        } else if (updateText.data.type_message == 'Mensaje') {
           this.$message({
             message: updateText.data.message,
-            type: 'success'
-          });
-        }else if(updateText.data.type_message == "Error"){
-          this.$message.error(updateText.data.message);
+            type: 'success',
+          })
+        } else if (updateText.data.type_message == 'Error') {
+          this.$message.error(updateText.data.message)
         }
 
         this.dialog_publicBook_Edit = false
         window.location.reload(true)
-
       } catch (error) {
         console.log(error)
       }
@@ -326,7 +325,7 @@ export default {
   }
 }
 @media only screen and (max-width: 1399px) {
-  .container-book-public{
+  .container-book-public {
     overflow: hidden;
     height: auto;
   }

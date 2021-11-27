@@ -2,7 +2,7 @@ import { Notification } from 'element-ui'
 
 export default function ({ $axios, redirect }, inject) {
   const payment = $axios.create({
-    baseURL: 'http://localhost:8000/api/v1/payments',
+    baseURL: 'https://api-lyabook.duckdns.org/api/v1/payments',
   })
   try {
     payment.setToken(JSON.parse(localStorage.getItem('user')).token)

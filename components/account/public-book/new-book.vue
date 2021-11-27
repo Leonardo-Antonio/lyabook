@@ -54,7 +54,7 @@
       <div>
         <el-upload
           class="mt-2"
-          action="http://localhost:8001/api/v1/images?key=LyA1308_MORSAC25TQMor25_NNLiviN_SAkur4"
+          :action="$config.API_IMAGES"
           list-type="picture-card"
           accept="image/png"
           :before-upload="beforeUpload"
@@ -74,7 +74,7 @@
       <div class="upload_pdf mt-4">
         <el-upload
           drag
-          action="http://localhost:8001/api/v1/pdfs?key=LyA1308_MORSAC25TQMor25_NNLiviN_SAkur4"
+          :action="$config.API_PDFS"
           accept="application/pdf"
           :before-upload="beforeUploadPdf"
           :on-success="successPdf"
@@ -142,20 +142,17 @@ export default {
           method: 'post',
           data: data,
         })
-        if(response.status == 201){
+        if (response.status == 201) {
           this.$message({
             message: 'Se registro exitosamente el texto.',
-            type: 'success'
+            type: 'success',
           })
-          this.name=''
-          this.resumen=''
-          this.pdf =[],
-          this.category= [],
-          this.images = []
-
+          this.name = ''
+          this.resumen = ''
+          ;(this.pdf = []), (this.category = []), (this.images = [])
         }
       } catch (error) {
-          this.$message.error('Oops, no se pudo publicar el texto.')
+        this.$message.error('Oops, no se pudo publicar el texto.')
       }
     },
     beforeUpload(file) {

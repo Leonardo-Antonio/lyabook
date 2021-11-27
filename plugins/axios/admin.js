@@ -1,7 +1,9 @@
 import { Notification } from 'element-ui'
 
 export default function ({ $axios, redirect }, inject) {
-  const admin = $axios.create({ baseURL: 'http://localhost:8000/api/v1' })
+  const admin = $axios.create({
+    baseURL: 'https://api-lyabook.duckdns.org/api/v1',
+  })
   try {
     admin.setToken(JSON.parse(localStorage.getItem('user')).token)
   } catch {

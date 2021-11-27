@@ -61,7 +61,7 @@
                   <el-upload
                     class="upload-demo"
                     drag
-                    action="$config.API_PDFS"
+                    :action="$config.API_PDFS"
                     :before-upload="beforeUpload"
                     :on-success="successImages"
                     :on-remove="handleRemove"

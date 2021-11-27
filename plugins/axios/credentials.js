@@ -1,7 +1,9 @@
 import { Notification } from 'element-ui'
 
 export default function ({ $axios, redirect }, inject) {
-  const credentials = $axios.create({ baseURL: 'http://localhost:8000/api/v1' })
+  const credentials = $axios.create({
+    baseURL: 'https://api-lyabook.duckdns.org/api/v1',
+  })
   let urlRequest
   credentials.onRequest((config) => {
     urlRequest = config.url

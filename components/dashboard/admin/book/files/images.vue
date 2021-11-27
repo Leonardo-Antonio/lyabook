@@ -61,7 +61,7 @@
                   <el-upload
                     class="upload-demo"
                     drag
-                    action="$config.API_IMAGES"
+                    :action="$config.API_IMAGES"
                     :on-success="successImages"
                     :on-remove="handleRemove"
                     accept="image/png"
