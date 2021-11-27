@@ -21,19 +21,24 @@ export default function ({ $axios, redirect }, inject) {
     }
 
     const response = error.response.data
-    const message_type = response.message_type.toUpperCase()
-
-    switch (code) {
-      case 400:
-        Notification.warning({
-          title: `${message_type} - ${code}`,
-          message: `${response.message}`,
-        })
-        break
-      case 500:
-        redirect('/errors/500')
-        break
+    try {
+      const message_type = response.message_type.toUpperCase()
+      switch (code) {
+        case 400:
+          Notification.warning({
+            title: `${message_type} - ${code}`,
+            message: `${response.message}`,
+          })
+          break
+        case 500:
+          redirect('/errors/500')
+          break
+      }
+    } catch (error) {
+      redirect('/login')
     }
+
+    
   })
   inject('apidata', data)
 }

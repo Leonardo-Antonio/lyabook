@@ -186,20 +186,26 @@ export default {
     },
   },
   async created() {
-    var user = localStorage.getItem('user')
-    if (user != null) {
-      this.user = JSON.parse(user).user
+    try {
+      var user = localStorage.getItem('user')
+      if (user != null) {
+        this.user = JSON.parse(user).user
 
-      const getPayCli = await this.$apidata({
-        url: '/payments/' + this.user._id,
-        method: 'get',
-      })
-
-      if (getPayCli.data.error == false) {
-        getPayCli.data.data.forEach((payment) => {
-          this.paymentList.push(payment)
+        const getPayCli = await this.$apidata({
+          url: '/payments/' + this.user._id,
+          method: 'get',
         })
+
+        if (getPayCli.data.error == false) {
+          getPayCli.data.data.forEach((payment) => {
+            this.paymentList.push(payment)
+          })
+        }
+      }else{
+        this.$router.push('/login')
       }
+    } catch (error) {
+      this.$router.push('/login')
     }
   },
 }
