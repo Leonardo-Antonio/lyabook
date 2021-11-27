@@ -506,7 +506,7 @@ export default {
       }
 
       this.booksCard.push(Object.assign(books, cant))
-      var validate = this.booksCard.filter((book) => book.ean == books.ean)
+      var validate = this.booksCard.filter((book) => book._id == books._id)
 
       if (validate.length == 1) {
         localStorage.setItem('books', JSON.stringify(this.booksCard))

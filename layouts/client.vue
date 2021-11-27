@@ -171,75 +171,78 @@
       class="relative drawer-product"
     >
       <p class="text-center title-drawer">Carrito</p>
-      <div v-show="getbook.length != 0">
-        <div
-          class="productDrawer pb-4 px-8"
-          v-for="(gb, index) of getbook"
-          :key="gb"
-        >
-          <div class="flex">
-            <div class="" style="width: 30%">
-              <img class="" :src="gb.images_src[0]" />
-            </div>
-            <div class="pl-4" style="width: 65%">
-              <div class="pb-2">
-                <p class="name-drawer">{{ gb.name }}</p>
-                <div class="flex items-center pt-2">
-                  <p class="price price_before">S/.{{ gb.price_before }}</p>
-                  <p class="price price_current pl-4">
-                    S/.{{ gb.price_current }}
-                  </p>
+      <div>
+        <div v-show="getbook.length != 0">
+          <div
+            class="productDrawer pb-4 px-8"
+            v-for="(gb, index) of getbook"
+            :key="gb"
+          >
+            <div class="flex">
+              <div class="" style="width: 30%">
+                <img class="" :src="gb.images_src[0]" />
+              </div>
+              <div class="pl-4" style="width: 65%">
+                <div class="pb-2">
+                  <p class="name-drawer">{{ gb.name }}</p>
+                  <div class="flex items-center pt-2">
+                    <p class="price price_before">S/.{{ gb.price_before }}</p>
+                    <p class="price price_current pl-4">
+                      S/.{{ gb.price_current }}
+                    </p>
+                  </div>
+                </div>
+                <div v-show="gb.format == 'df'">
+                  <el-switch
+                    v-model="gb.valueFormat"
+                    active-color="#5E20E4"
+                    inactive-color="#021639"
+                    active-text="Físico"
+                    inactive-text="Digital"
+                  >
+                  </el-switch>
+                </div>
+                <div
+                  v-show="gb.format == 'f' || gb.valueFormat == true"
+                  class="mt-2"
+                >
+                  <el-input-number
+                    class="input input_number input-number-drawer"
+                    v-model="gb.cant"
+                    controls-position="right"
+                    :min="1"
+                    :max="10"
+                  ></el-input-number>
                 </div>
               </div>
-              <div v-show="gb.format == 'df'">
-                <el-switch
-                  v-model="gb.valueFormat"
-                  active-color="#5E20E4"
-                  inactive-color="#021639"
-                  active-text="Físico"
-                  inactive-text="Digital"
-                >
-                </el-switch>
+              <div style="width: 5%">
+                <box-icon
+                  name="trash"
+                  type="solid"
+                  color="#5e20e4"
+                  @click="DeleteElement(index)"
+                ></box-icon>
               </div>
-              <div
-                v-show="gb.format == 'f' || gb.valueFormat == true"
-                class="mt-2"
-              >
-                <el-input-number
-                  class="input input_number input-number-drawer"
-                  v-model="gb.cant"
-                  controls-position="right"
-                  :min="1"
-                  :max="10"
-                ></el-input-number>
-              </div>
-            </div>
-            <div style="width: 5%">
-              <box-icon
-                name="trash"
-                type="solid"
-                color="#5e20e4"
-                @click="DeleteElement(index)"
-              ></box-icon>
             </div>
           </div>
-        </div>
 
-        <button
-          id="btn_mercadoPago"
-          @click="tobuy"
-          class="
-            absolute
-            bottom-0
-            w-full
-            flex
-            justify-center
-            container-tobuy-drawer
-          "
-        >
-          Comprar
-        </button>
+          <button
+            id="btn_mercadoPago"
+            @click="tobuy"
+            class="
+              absolute
+              bottom-0
+              w-full
+              flex
+              justify-center
+              container-tobuy-drawer
+            "
+          >
+            Comprar
+          </button>
+        </div>
       </div>
+
       <div
         v-show="getbook.length == 0"
         class="
@@ -539,13 +542,13 @@ export default {
     }
   },
   methods: {
-    myAccount(){
+    myAccount() {
       this.showLogin = false
-      localStorage.setItem('tab', JSON.stringify({ position: "0" }))
+      localStorage.setItem('tab', JSON.stringify({ position: '0' }))
     },
-    myAccountResponse(){
+    myAccountResponse() {
       this.showDrawerLogin = false
-      localStorage.setItem('tab', JSON.stringify({ position: "0" }))
+      localStorage.setItem('tab', JSON.stringify({ position: '0' }))
     },
     openDrawer() {
       try {
@@ -660,7 +663,7 @@ export default {
       }
     },
     handleSelect(item) {
-      this.$router.push('/libros/'+item.slug)
+      this.$router.push('/libros/' + item.slug)
       this.state = ''
     },
     //-----------------------------------------------------------------------------------------------
@@ -901,7 +904,7 @@ export default {
 }
 
 @media (max-width: 380px) {
-  .footer-author{
+  .footer-author {
     padding-left: 1rem;
     padding-right: 1rem;
   }
@@ -1053,5 +1056,4 @@ export default {
     display: none;
   }
 }
-
 </style>
