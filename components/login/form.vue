@@ -16,11 +16,14 @@
           <div>
             <div>
               <div class="flex justify-center">
-                <img
-                  class="mb-8 scale"
-                  src="/logos/main.svg"
-                  alt="logo_morsac"
-                />
+                <nuxt-link to="/">
+                  <img
+                    class="mb-8 scale"
+                    src="/images/LyaBookLogo.svg"
+                    alt="logo_morsac"
+                    style="width: 9rem"
+                  />
+                </nuxt-link>
               </div>
             </div>
 
@@ -103,8 +106,7 @@ export default {
               method: 'post',
               data: data,
             })
-          } catch (error) {
-          }
+          } catch (error) {}
         } else {
           this.$message.error('Ingrese un email o dni valido')
         }

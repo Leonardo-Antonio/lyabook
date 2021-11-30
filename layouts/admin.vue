@@ -50,7 +50,7 @@
         <div>
           <div>
             <div class="flex justify-center mobile_admin-logo">
-              <img src="/logos/main.svg" alt="logo" class="px-8" />
+              <img src="/images/LyaBookLogo.svg" alt="logo" class="px-8" style="width: 13rem;"/>
             </div>
 
             <div class="pt-8 px-8 mobile_container_admin-dashboard">

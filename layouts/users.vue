@@ -28,7 +28,11 @@
               color_white
             "
           >
-            <span class="color_white" style="color: #fff !important; font-weight: bold">Dni</span>
+            <span
+              class="color_white"
+              style="color: #fff !important; font-weight: bold"
+              >Dni</span
+            >
           </nuxt-link>
         </div>
         <span class="mobile_spacer-sm"></span>
@@ -47,7 +51,11 @@
               color_white
             "
           >
-            <span class="color_white" style="color: #fff !important; font-weight: bold">Email</span>
+            <span
+              class="color_white"
+              style="color: #fff !important; font-weight: bold"
+              >Email</span
+            >
           </nuxt-link>
         </div>
       </div>
@@ -70,7 +78,13 @@
           />
           <div>
             <div class="flex justify-center mt-28 mb-20">
-              <img src="/logos/main.svg" alt="" style="width: 12rem" />
+              <nuxt-link to="/">
+                <img
+                  src="/images/LyaBookLogo.svg"
+                  alt=""
+                  style="width: 10rem"
+                />
+              </nuxt-link>
             </div>
 
             <div class="z-20 absolute left-0 right-0 mx-auto">

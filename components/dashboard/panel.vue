@@ -3,7 +3,7 @@
     <div>
       <div>
         <div class="flex justify-center">
-          <img src="/logos/main.svg" alt="logo" class="px-8" />
+          <img src="/images/LyaBookLogo.svg" alt="logo" class="px-8" />
         </div>
 
         <div class="pt-8 px-8">
