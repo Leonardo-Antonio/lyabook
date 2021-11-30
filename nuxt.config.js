@@ -1,4 +1,11 @@
+require('dotenv').config()
 export default {
+  env:{
+    API_IMAGES: process.env.API_IMAGES,
+    API_PDFS: process.env.API_PDFS,
+    API_MANAGER_ADMIN: process.env.API_MANAGER_ADMIN,
+    API_CLIENT: process.env.API_CLIENT,
+  },
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
@@ -53,6 +60,7 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
+    '@nuxtjs/dotenv',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -85,5 +93,7 @@ export default {
   publicRuntimeConfig: {
     API_IMAGES: process.env.API_IMAGES,
     API_PDFS: process.env.API_PDFS,
+    API_MANAGER_ADMIN: process.env.API_MANAGER_ADMIN,
+    API_CLIENT: process.env.API_CLIENT,
   },
 }

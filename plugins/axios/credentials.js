@@ -1,8 +1,7 @@
 import { Notification } from 'element-ui'
-
 export default function ({ $axios, redirect }, inject) {
   const credentials = $axios.create({
-    baseURL: 'https://api-lyabook.duckdns.org/api/v1',
+    baseURL: `${process.env.API_MANAGER_ADMIN}/api/v1`,
   })
   let urlRequest
   credentials.onRequest((config) => {
@@ -33,7 +32,6 @@ export default function ({ $axios, redirect }, inject) {
           })
           break
       }
-      console.log()
     }
 
     const data = response.data

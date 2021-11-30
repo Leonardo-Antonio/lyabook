@@ -1,7 +1,7 @@
 import { Notification } from 'element-ui'
 
 export default function ({ $axios, redirect }, inject) {
-  const data = $axios.create({ baseURL: 'https://api-lyabook2.duckdns.org/api/v1' })
+  const data = $axios.create({ baseURL: `${process.env.API_CLIENT}/api/v1` })
 
   data.onRequest((config) => {
     console.log('Making request to ' + config.url)

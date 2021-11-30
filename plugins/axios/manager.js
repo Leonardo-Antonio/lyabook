@@ -2,7 +2,7 @@ import { Notification } from 'element-ui'
 
 export default function ({ $axios, redirect }, inject) {
   const manager = $axios.create({
-    baseURL: 'https://api-lyabook.duckdns.org/api/v1',
+    baseURL: `${process.env.API_MANAGER_ADMIN}/api/v1`,
   })
   try {
     manager.setToken(JSON.parse(localStorage.getItem('user')).token)

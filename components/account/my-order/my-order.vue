@@ -166,7 +166,7 @@ export default {
 
       try {
         var res = await this.$axios({
-          url: `https://api-lyabook.duckdns.org/api/v1/payments/boleta/${id}`,
+          url: `${this.$config.API_MANAGER_ADMIN}/api/v1/payments/boleta/${id}`,
           method: 'get',
           responseType: 'blob',
         })
