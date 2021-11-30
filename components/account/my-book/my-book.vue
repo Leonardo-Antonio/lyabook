@@ -87,138 +87,146 @@ export default {
   async mounted() {
     //--------------------------------GET USER---------------------------------
 
-    var user = localStorage.getItem('user')
-    if (user != null) {
-      this.user = JSON.parse(user).user
+    try {
+      var user = localStorage.getItem('user')
+      if (user != null) {
+        this.user = JSON.parse(user).user
+        if (
+          (this.$route.query.status != null &&
+            this.$route.query.status == 'approved') ||
+          (this.$route.query.status != null &&
+            this.$route.query.status == 'in_process')
+        ) {
+          await this.$axios
+            .get(
+              `https://api.mercadopago.com/v1/payments/${this.$route.query.payment_id}`,
+              {
+                headers: {
+                  Authorization:
+                    'Bearer TEST-6706525738118846-082101-03ee4a59346a45ff4f27a6f2eb905cf4-775792906',
+                },
+              }
+            )
+            .then((res) => {
+              console.log('#################')
+              console.log(res)
+              console.log('#################')
+              res.data.additional_info.items.forEach(async (data) => {
+                var product = {
+                  id_payment: data.id,
+                  title: data.title,
+                  unit_price: parseFloat(data.unit_price),
+                  quantity: parseInt(data.quantity),
+                  description: data.description,
+                  picture_url: data.picture_url,
+                  category_id: data.category_id,
+                }
+                this.products.push(product)
+
+                if (data.description == 'f' || data.description == 'df') {
+                  const getBook = await this.$apidata({
+                    url: '/books/name/' + data.title,
+                    method: 'get',
+                  })
+
+                  if (getBook.data.error == false) {
+                    var dataBodyUpdate = {
+                      stock:
+                        getBook.data.data.type.fisico.stock -
+                        parseInt(data.quantity),
+                    }
+
+                    const updateByNameBook = await this.$apidata({
+                      url: '/books/name/' + data.title,
+                      method: 'put',
+                      data: dataBodyUpdate,
+                    })
+                  }
+                }
+              })
+            })
+            .catch((error) => {
+              console.error(error)
+            })
+
+          var body = {
+            id_client: this.user._id,
+            payment_id: this.$route.query.payment_id,
+            status: this.$route.query.status,
+            products: this.products,
+            active: true,
+          }
+
+          try {
+            const response = await this.$apidata({
+              url: '/payments',
+              method: 'post',
+              data: body,
+            })
+
+            if (response.data.error == false) {
+              this.$router.replace({ query: null })
+            }
+          } catch (error) {}
+        }
+
+        //--------------------------------GET PAYMENT BY CLIENT---------------------------------
+        const getPayCli = await this.$apidata({
+          url: '/payments/' + this.user._id,
+          method: 'get',
+        })
+
+        if (getPayCli.data.error == false) {
+          getPayCli.data.data.forEach(async (data) => {
+            console.log(data)
+            await this.$axios
+              .get(
+                'https://api.mercadopago.com/v1/payments/' + data.payment_id,
+                {
+                  headers: {
+                    Authorization:
+                      'Bearer TEST-6706525738118846-082101-03ee4a59346a45ff4f27a6f2eb905cf4-775792906',
+                  },
+                }
+              )
+              .then(async (res) => {
+                //--------------------------------VALIDATE STATUS---------------------------------
+
+                if (res.data.status != data.status && data.status != null) {
+                  var status = {
+                    status: res.data.status,
+                  }
+                  const validate_status = await this.$apidata({
+                    url: '/payments/' + data._id,
+                    method: 'put',
+                    data: status,
+                  })
+                }
+              })
+              .catch((error) => {
+                console.error(error)
+              })
+
+            //--------------------------------ADD ARRAY LIST---------------------------------
+            data.products.forEach((product) => {
+              data = {
+                created_at: data.created_at,
+                status: data.status,
+              }
+
+              Object.assign(product, data)
+              this.my_books.push(product)
+            })
+          })
+        }
+      } else {
+        this.$router.push('/login')
+      }
+    } catch (error) {
+      this.$router.push('/login')
     }
 
     //--------------------------------PAYMENT-----------------------------------------------
-
-    if (
-      (this.$route.query.status != null &&
-        this.$route.query.status == 'approved') ||
-      (this.$route.query.status != null &&
-        this.$route.query.status == 'in_process')
-    ) {
-      await this.$axios
-        .get(
-          `https://api.mercadopago.com/v1/payments/${this.$route.query.payment_id}`,
-          {
-            headers: {
-              Authorization:
-                'Bearer TEST-6706525738118846-082101-03ee4a59346a45ff4f27a6f2eb905cf4-775792906',
-            },
-          }
-        )
-        .then((res) => {
-          console.log('#################')
-          console.log(res)
-          console.log('#################')
-          res.data.additional_info.items.forEach(async (data) => {
-            var product = {
-              id_payment: data.id,
-              title: data.title,
-              unit_price: parseFloat(data.unit_price),
-              quantity: parseInt(data.quantity),
-              description: data.description,
-              picture_url: data.picture_url,
-              category_id: data.category_id,
-            }
-            this.products.push(product)
-
-            if (data.description == 'f' || data.description == 'df') {
-              const getBook = await this.$apidata({
-                url: '/books/name/' + data.title,
-                method: 'get',
-              })
-
-              if (getBook.data.error == false) {
-                var dataBodyUpdate = {
-                  stock:
-                    getBook.data.data.type.fisico.stock -
-                    parseInt(data.quantity),
-                }
-
-                const updateByNameBook = await this.$apidata({
-                  url: '/books/name/' + data.title,
-                  method: 'put',
-                  data: dataBodyUpdate,
-                })
-              }
-            }
-          })
-        })
-        .catch((error) => {
-          console.error(error)
-        })
-
-      var body = {
-        id_client: this.user._id,
-        payment_id: this.$route.query.payment_id,
-        status: this.$route.query.status,
-        products: this.products,
-        active: true,
-      }
-
-      try {
-        const response = await this.$apidata({
-          url: '/payments',
-          method: 'post',
-          data: body,
-        })
-
-        if (response.data.error == false) {
-          this.$router.replace({ query: null })
-        }
-      } catch (error) {}
-    }
-
-    //--------------------------------GET PAYMENT BY CLIENT---------------------------------
-    const getPayCli = await this.$apidata({
-      url: '/payments/' + this.user._id,
-      method: 'get',
-    })
-
-    if (getPayCli.data.error == false) {
-      getPayCli.data.data.forEach(async (data) => {
-        console.log(data)
-        await this.$axios
-          .get('https://api.mercadopago.com/v1/payments/' + data.payment_id, {
-            headers: {
-              Authorization:
-                'Bearer TEST-6706525738118846-082101-03ee4a59346a45ff4f27a6f2eb905cf4-775792906',
-            },
-          })
-          .then(async (res) => {
-            //--------------------------------VALIDATE STATUS---------------------------------
-
-            if (res.data.status != data.status && data.status != null) {
-              var status = {
-                status: res.data.status,
-              }
-              const validate_status = await this.$apidata({
-                url: '/payments/' + data._id,
-                method: 'put',
-                data: status,
-              })
-            }
-          })
-          .catch((error) => {
-            console.error(error)
-          })
-
-        //--------------------------------ADD ARRAY LIST---------------------------------
-        data.products.forEach((product) => {
-          data = {
-            created_at: data.created_at,
-            status: data.status,
-          }
-
-          Object.assign(product, data)
-          this.my_books.push(product)
-        })
-      })
-    }
 
     //--------------------------------CONSULT PAYMENT---------------------------------
   },
@@ -272,7 +280,7 @@ export default {
   }
 }
 @media only screen and (max-width: 1399px) {
-  .list-my-book{
+  .list-my-book {
     overflow: hidden !important;
     height: auto !important;
   }

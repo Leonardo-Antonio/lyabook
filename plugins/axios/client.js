@@ -15,39 +15,47 @@ export default function ({ $axios, redirect }, inject) {
   })
 
   client.onResponse((response) => {
-    const data = response.data
-    const message_type = data.message_type.toUpperCase()
-    Notification.success({
-      title: `${message_type} - ${response.status}`,
-      message: `${data.message}`,
-    })
+    try {
+      const data = response.data
+      const message_type = data.message_type.toUpperCase()
+      Notification.success({
+        title: `${message_type} - ${response.status}`,
+        message: `${data.message}`,
+      })
+    } catch (error) {
+      redirect('/login')
+    }
   })
 
   client.onError((error) => {
-    const code = parseInt(error.response && error.response.status)
-    console.log('Error http code: ' + code)
+    try {
+      const code = parseInt(error.response && error.response.status)
+      console.log('Error http code: ' + code)
 
-    const response = error.response.data
-    const message_type = response.message_type.toUpperCase()
+      const response = error.response.data
+      const message_type = response.message_type.toUpperCase()
 
-    switch (code) {
-      case 400:
-        Notification.warning({
-          title: `${message_type} - ${code}`,
-          message: `${response.message}`,
-        })
-        break
-      case 403:
-        redirect('/errors/403')
-        break
+      switch (code) {
+        case 400:
+          Notification.warning({
+            title: `${message_type} - ${code}`,
+            message: `${response.message}`,
+          })
+          break
+        case 403:
+          redirect('/errors/403')
+          break
 
-      case 404:
-        redirect('/errors/404')
-        break
+        case 404:
+          redirect('/errors/404')
+          break
 
-      case 401:
-        redirect('/errors/401')
-        break
+        case 401:
+          redirect('/errors/401')
+          break
+      }
+    } catch (error) {
+      redirect('/errors/404')
     }
   })
   inject('client', client)
