@@ -34,7 +34,7 @@
 
 @media (max-width: 550px) {
   .container-drawer-login .el-drawer.ltr {
-    width: 50% !important;
+    width: 80% !important;
   }
 }
 
@@ -910,3 +910,4 @@ span.el-checkbox__label {
     width: 100%;
   }
 }
+
