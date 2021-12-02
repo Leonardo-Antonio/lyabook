@@ -59,26 +59,21 @@
           style="width: 20rem; right: 17rem; top: 146rem"
         /> -->
 
-        <!-- <img
+      <!-- <img
           src="/images/book-white.svg"
           class="absolute z-10"
           style="width: 18rem; right: 44rem; top: 124rem"
         /> -->
-        <img
-          src="/images/book-open.svg"
-          class="absolute z-10 img-book"
-          style="width: 20rem; right: 22rem; top: 118rem"
-        />
-        <img
+      <img
+        src="/images/book-open.svg"
+        class="absolute z-10 img-book"
+        style="width: 20rem; right: 22rem; top: 118rem"
+      />
+      <img
         src="/images/doble-cuadrado.transparent.svg"
         class="absolute z-10 double-cuadrado"
-        style="
-          width: 16rem;
-          right: 0rem;
-          top: 65rem;
-        "
+        style="width: 16rem; right: 0rem; top: 65rem"
       />
-      
     </div>
   </div>
 </template>
@@ -103,45 +98,49 @@ export default {
       input: '',
     }
   },
-  methods: {
+  created() {
+    var user = JSON.parse(localStorage.getItem('user')).user
+    if(user.rol != "Client"){
+      this.$router.push('/errors/403')
+    }
   },
 }
 </script>
 <style scoped>
 @media screen and (min-width: 1300px) and (max-width: 1500px) {
-  .double-cuadrado{
+  .double-cuadrado {
     display: none;
   }
-  .img-degrad{
+  .img-degrad {
     display: none;
   }
-  .img-book{
+  .img-book {
     display: none;
   }
-  
 }
 @media screen and (min-width: 1025px) and (max-width: 1300px) {
-  .double-cuadrado{
+  .double-cuadrado {
     display: none;
   }
-  .img-degrad{
+  .img-degrad {
     display: none;
   }
-  .img-book{display: none;}
+  .img-book {
+    display: none;
+  }
 }
 @media (max-width: 1025px) {
-  .double-cuadrado{
+  .double-cuadrado {
     display: none;
   }
-  .doble-circle-grayBlue{
+  .doble-circle-grayBlue {
     display: none;
   }
-  .bann3-cont{
+  .bann3-cont {
     display: none;
   }
-  .bann4-cont{
+  .bann4-cont {
     display: none;
   }
 }
-
 </style>

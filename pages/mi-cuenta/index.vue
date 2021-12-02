@@ -350,6 +350,9 @@ export default {
       var user = localStorage.getItem('user')
       if (user != null) {
         this.user = JSON.parse(user).user
+        if (this.user.rol != 'Client') {
+          this.$router.push('/errors/403')
+        }
         //----------------------------------------
         var value = JSON.parse(localStorage.getItem('tab')).position
         if (value != null || value != undefined) {
@@ -363,7 +366,7 @@ export default {
             this.value_accept = false
           }
         }
-      }else{
+      } else {
         this.$router.push('/login')
       }
     } catch (error) {

@@ -537,6 +537,12 @@ export default {
     },
   },
   async created() {
+    // -------------------------------------------User
+    var user = JSON.parse(localStorage.getItem('user')).user
+    if(user.rol != "Client"){
+      this.$router.push('/errors/403')
+    }
+
     // -------------------------------------------Filtro Libro
     try {
       const list_book = await this.$apidata({

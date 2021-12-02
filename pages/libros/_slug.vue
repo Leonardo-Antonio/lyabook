@@ -383,6 +383,12 @@ export default {
     }
   },
   async created() {
+    
+    var user = JSON.parse(localStorage.getItem('user')).user
+    if(user.rol != "Client"){
+      this.$router.push('/errors/403')
+    }
+
     var res = await this.$axios.get(
       'https://api.mymappi.com/v2/places/search?apikey=5a6f0cf3-af52-4aaf-bb06-2c5ed3dd0da7&lat=-12.1692&lon=-77.0244&radius=10&limit=25'
     )
