@@ -7,7 +7,7 @@ import ErrNotFount from '../../components/error'
 
 export default {
   components: {
-    ErrNotFount
-  }
+    ErrNotFount,
+  },
 }
 </script>

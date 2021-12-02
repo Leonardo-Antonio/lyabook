@@ -76,6 +76,7 @@ export default {
     return {
       email_dni: '',
       password: '',
+      status: {},
     }
   },
   methods: {
@@ -88,7 +89,7 @@ export default {
           password: this.password,
         }
         try {
-          const { status } = await this.$credentials({
+          this.status = await this.$credentials({
             url: '/users/log-in/email',
             method: 'post',
             data: data,
@@ -101,7 +102,7 @@ export default {
             password: this.password,
           }
           try {
-            const { status } = await this.$credentials({
+            this.status = await this.$credentials({
               url: '/users/log-in/dni',
               method: 'post',
               data: data,
@@ -111,9 +112,17 @@ export default {
           this.$message.error('Ingrese un email o dni valido')
         }
       }
+      // ADD ROL
+      if (this.status.data.data.user.rol == 'Admin') {
+        localStorage.setItem(
+          'rol',
+          JSON.stringify({ rol: this.status.data.data.user.rol })
+        )
+      }
+      
+      
     },
   },
-  
 }
 </script>
 

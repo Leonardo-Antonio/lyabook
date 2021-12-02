@@ -7,7 +7,7 @@ import ErrForbidden from '../../components/error'
 
 export default {
   components: {
-    ErrForbidden
-  }
+    ErrForbidden,
+  },
 }
 </script>
