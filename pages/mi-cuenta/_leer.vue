@@ -28,13 +28,15 @@ export default {
     }
   },
   created() {
-    console.log('*******************************************')
-    console.log(this.$route.params.pdf)
     try {
       if (this.$route.params.pdf != null) {
         this.pdf = this.$route.params.pdf
+      }else{
+        this.$router.push('/errors/404')
       }
-    } catch (error) {}
+    } catch (error) {
+      this.$router.push('/errors/404')
+    }
   },
   watch: {
     currentPage(value) {
