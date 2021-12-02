@@ -3,7 +3,7 @@
     <div class="flex justify-center flex-col p-4 w-full">
       <div class="h-screen">
         <iframe
-          src="https://drive.google.com/viewerng/viewer?embedded=true&url=http://infolab.stanford.edu/pub/papers/google.pdf#toolbar=0&scrollbar=0"
+          :src= "pdf"
           frameBorder="0"
           scrolling="auto"
           height="100%"
