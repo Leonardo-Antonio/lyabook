@@ -1,27 +1,14 @@
 <template>
-  <div class="flex justify-center">
-    <div class="flex justify-center flex-col w-4/5 p-4">
-      <div class="flex">
-        <div class="w-1/2">
-          <button @click="currentPage--">
-            <box-icon name="left-arrow-alt"></box-icon>
-          </button>
-          <button @click="currentPage++">
-            <box-icon name="right-arrow-alt"></box-icon>
-          </button>
-        </div>
-        <div class="w-1/2 flex justify-end">
-          <span class="mr-2 span-text-read-book">Página:</span>
-          <span>{{ currentPage }} / {{ pageCount }}</span>
-        </div>
-      </div>
-      <div>
-        <pdf
-          :src="pdf"
-          @num-pages="pageCount = $event"
-          @page-loaded="currentPage = $event"
-          :page="currentPage"
-        ></pdf>
+  <div class="flex justify-center cont-leer" style="height: 90vh">
+    <div class="flex justify-center flex-col p-4 w-full">
+      <div class="h-screen">
+        <iframe
+          src="https://drive.google.com/viewerng/viewer?embedded=true&url=http://infolab.stanford.edu/pub/papers/google.pdf#toolbar=0&scrollbar=0"
+          frameBorder="0"
+          scrolling="auto"
+          height="100%"
+          width="100%"
+        ></iframe>
       </div>
     </div>
   </div>
@@ -40,12 +27,14 @@ export default {
       pageCount: 0,
     }
   },
-  created(){
-    console.log("*******************************************")
-    console.log(this.$route)
-    if(this.$route.params.pdf != null){
-      this.pdf = this.$route.params.pdf
-    }
+  created() {
+    console.log('*******************************************')
+    console.log(this.$route.params.pdf)
+    try {
+      if (this.$route.params.pdf != null) {
+        this.pdf = this.$route.params.pdf
+      }
+    } catch (error) {}
   },
   watch: {
     currentPage(value) {
@@ -69,5 +58,20 @@ export default {
   font-size: 18px;
   line-height: 26px;
   color: var(--primary);
+}
+@media (max-width: 1050px) {
+  .cont-leer {
+    padding-bottom: 2.5rem;
+  }
+}
+@media screen and (min-width: 1050px) and (max-width: 1800px) {
+  .cont-leer {
+    padding-bottom: 2rem;
+  }
+}
+@media (min-width: 1800px) {
+  .cont-leer {
+    padding-bottom: 2.5rem;
+  }
 }
 </style>

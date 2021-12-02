@@ -243,7 +243,6 @@ export default {
       console.log(item)
     },
     readText(direction) {
-      console.log(direction)
       this.$router.push({
         name: 'mi-cuenta-leer',
         params: { pdf: direction },
