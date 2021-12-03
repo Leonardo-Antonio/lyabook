@@ -3,7 +3,7 @@
     <div class="flex justify-center flex-col p-4 w-full">
       <div class="h-screen">
         <iframe
-          :src= "pdf"
+          :src= "`http://docs.google.com/gview?url=${pdf}${'&embedded=true'}`"
           frameBorder="0"
           scrolling="auto"
           height="100%"
