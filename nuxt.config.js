@@ -1,6 +1,6 @@
 require('dotenv').config()
 export default {
-  env:{
+  env: {
     API_IMAGES: process.env.API_IMAGES,
     API_PDFS: process.env.API_PDFS,
     API_MANAGER_ADMIN: process.env.API_MANAGER_ADMIN,
@@ -11,11 +11,16 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'LyaBook',
+    title: 'LyaBook - Libreria digital y fisica',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      {
+        hid: 'description',
+        name: 'description',
+        content:
+          'Empresa peruana fundada el 25 de octubre del 2010 en Lima, Perú con experiencia en la venta y compra de libros fisicos y digitales, adémas de tener un apartado para que puedas publicar tus texto!.',
+      },
       { name: 'format-detection', content: 'telephone=no' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
