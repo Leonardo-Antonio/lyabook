@@ -36,6 +36,7 @@ export default {
       { name: 'format-detection', content: 'telephone=no' },
       { property: 'og:title', content: 'LyaBook - Libreria digital y fisica' },
       { property: 'title', content: 'LyaBook - Libreria digital y fisica' },
+      { hid: 'og:title' ,name: 'og:title', property: 'og:title', content: 'LyaBook - Libreria digital y fisica' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     script: [
