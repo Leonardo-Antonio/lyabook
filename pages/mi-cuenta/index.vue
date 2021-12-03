@@ -350,8 +350,13 @@ export default {
       var user = localStorage.getItem('user')
       if (user != null) {
         this.user = JSON.parse(user).user
+
         if (this.user.rol != 'Client') {
-          this.$router.push('/errors/403')
+          if (this.user.rol == 'Admin') {
+            this.$router.push('/dashboard/admin')
+          } else if (this.user.rol == 'Manager') {
+            this.$router.push('/dashboard/manager')
+          }
         }
         //----------------------------------------
         var value = JSON.parse(localStorage.getItem('tab')).position

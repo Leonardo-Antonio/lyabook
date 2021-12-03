@@ -386,7 +386,11 @@ export default {
     
     var user = JSON.parse(localStorage.getItem('user')).user
     if(user.rol != "Client"){
-      this.$router.push('/errors/403')
+      if(user.rol == 'Admin'){
+        this.$router.push('/dashboard/admin')
+      }else if(user.rol == 'Manager'){
+        this.$router.push('/dashboard/manager')
+      }
     }
 
     var res = await this.$axios.get(
