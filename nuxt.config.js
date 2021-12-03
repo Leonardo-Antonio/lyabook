@@ -21,6 +21,12 @@ export default {
         content:
           'Empresa peruana fundada el 25 de octubre del 2010 en Lima, Perú con experiencia en la venta y compra de libros fisicos y digitales, adémas de tener un apartado para que puedas publicar tus texto!.',
       },
+      {
+        hid: 'keywords',
+        name: 'keywords',
+        content:
+          'lyabook, Lyabook, libros, Libros, libros digitales, libros fisicos, Libro digital, Libro fisico, librería, Librería, biblioteca',
+      },
       { name: 'format-detection', content: 'telephone=no' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
