@@ -127,32 +127,52 @@ export default {
   },
   methods: {
     async addBook() {
-      var data = {
-        title: this.name,
-        author: this.user.name + ' ' + this.user.last_name,
-        resumen: this.resumen,
-        pdf: this.pdf,
-        categories: this.category,
-        image_src: this.images,
-        property: this.user._id,
-      }
-      try {
-        const response = await this.$apidata({
-          url: '/books',
-          method: 'post',
-          data: data,
-        })
-        if (response.status == 201) {
-          this.$message({
-            message: 'Se registro exitosamente el texto.',
-            type: 'success',
-          })
-          this.name = ''
-          this.resumen = ''
-          ;(this.pdf = []), (this.category = []), (this.images = [])
+      if (this.$store.state.validate) {
+        var data = {
+          title: this.name,
+          author: this.user.name + ' ' + this.user.last_name,
+          resumen: this.resumen,
+          pdf: this.pdf,
+          categories: this.category,
+          image_src: this.images,
+          property: this.user._id,
         }
-      } catch (error) {
-        this.$message.error('Oops, no se pudo publicar el texto.')
+        try {
+          if (
+            this.name != null &&
+            this.resumen != null &&
+            this.pdf != null &&
+            this.category.length != 0 &&
+            this.images.length != 0
+          ) {
+            const response = await this.$apidata({
+              url: '/books',
+              method: 'post',
+              data: data,
+            })
+            if (response.status == 201) {
+              this.$message({
+                message: 'Se registro exitosamente el texto.',
+                type: 'success',
+              })
+              this.name = ''
+              this.resumen = ''
+              ;(this.pdf = []), (this.category = []), (this.images = [])
+            }
+          } else {
+            this.$message({
+              message: 'Debe completar los campos',
+              type: 'warning',
+            })
+          }
+        } catch (error) {
+          this.$message.error('Oops, no se pudo publicar el texto.')
+        }
+      } else {
+        this.$message({
+          message: 'Debe aceptar los términos y condiciones',
+          type: 'warning',
+        })
       }
     },
     beforeUpload(file) {

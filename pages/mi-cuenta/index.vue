@@ -82,8 +82,11 @@
                     </div>
                     <div>
                       <el-row class="par-ter mt-4">
-                        <div class="flex items-center" v-show="value_accept">
-                          <el-button class="btn_dis_ter" @click="accept"
+                        <div class="flex items-center">
+                          <el-button
+                            class="btn_dis_ter"
+                            :disabled="disabled"
+                            @click="accept"
                             ><box-icon
                               name="shield-alt-2"
                               type="solid"
@@ -91,18 +94,7 @@
                               class="mr-2"
                             ></box-icon
                           ></el-button>
-                          Acepto los términos y condiciones de LyaBook
-                        </div>
-                        <div class="flex items-center" v-show="!value_accept">
-                          <el-button class="btn_dis_ter" disabled
-                            ><box-icon
-                              name="shield-alt-2"
-                              type="solid"
-                              color="#5e20e4"
-                              class="mr-2"
-                            ></box-icon
-                          ></el-button>
-                          Se aceptaron los términos y condiciones de LyaBook
+                          {{ message_accept }}
                         </div>
                       </el-row>
                     </div>
@@ -192,27 +184,21 @@
                     </div>
                     <div>
                       <el-row class="par-ter mt-4">
-                        <div class="flex items-center" v-show="value_accept">
-                          <el-button class="btn_dis_ter" @click="accept"
-                            ><box-icon
-                              name="shield-alt-2"
-                              type="solid"
-                              color="#5e20e4"
-                              class="mr-2"
-                            ></box-icon
-                          ></el-button>
-                          Acepto los términos y condiciones de LyaBook
-                        </div>
-                        <div class="flex items-center" v-show="!value_accept">
-                          <el-button class="btn_dis_ter" disabled
-                            ><box-icon
-                              name="shield-alt-2"
-                              type="solid"
-                              color="#5e20e4"
-                              class="mr-2"
-                            ></box-icon
-                          ></el-button>
-                          Se aceptaron los términos y condiciones de LyaBook
+                        <div class="flex items-center">
+                          <div class="flex items-center">
+                            <el-button
+                              class="btn_dis_ter"
+                              :disabled="disabled"
+                              @click="accept"
+                              ><box-icon
+                                name="shield-alt-2"
+                                type="solid"
+                                color="#5e20e4"
+                                class="mr-2"
+                              ></box-icon
+                            ></el-button>
+                            {{ message_accept }}
+                          </div>
                         </div>
                       </el-row>
                     </div>
@@ -251,7 +237,7 @@ import NewBook from '../../components/account/public-book/new-book'
 import MyBook from '../../components/account/my-book/my-book'
 import BookPublic from '../../components/account/book-public/book-public'
 import MyOrder from '../../components/account/my-order/my-order'
-
+import { mapMutations } from 'vuex'
 export default {
   layout: 'client',
   components: {
@@ -302,14 +288,17 @@ export default {
       user: [],
       //---------------------------------------------Posición de tab
       posicTab: '',
-      value_accept: true,
+      message_accept: 'Acepto los términos y condiciones',
+      disabled: false,
     }
   },
   methods: {
+    ...mapMutations(['validateTC']),
     accept() {
       try {
-        localStorage.setItem('condicion', JSON.stringify({ condicion: false }))
-        window.location.reload(true)
+        this.message_accept = 'Se aceptarón los términos y condiciones'
+        this.disabled = true
+        this.validateTC(true)
       } catch (error) {
         this.$message({
           message:
@@ -318,13 +307,6 @@ export default {
         })
       }
     },
-    // handleClickPublic(tab, event){
-    //   if(tab.index == 1){
-    //     console.log(tab.index)
-    //     this.tabsPublic = '0'
-
-    //   }
-    // },
     //tabs publicar libro
     handleClick(tab, event) {
       if (tab.index == '0') {
@@ -364,13 +346,6 @@ export default {
           this.editableTabsValue = value
         }
         //----------------------------------------
-        var condicion = localStorage.getItem('condicion')
-        if (condicion != null) {
-          var termino = JSON.parse(condicion).condicion
-          if (!termino) {
-            this.value_accept = false
-          }
-        }
       } else {
         this.$router.push('/login')
       }
