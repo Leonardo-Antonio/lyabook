@@ -299,6 +299,20 @@ export default {
       }
     },
   },
+  created() {
+    try {
+      var user = JSON.parse(localStorage.getItem('user')).user
+      if (user.rol != 'Client') {
+        if (user.rol == 'Admin') {
+          this.$router.push('/dashboard/admin')
+        } else if (user.rol == 'Manager') {
+          this.$router.push('/dashboard/manager')
+        }
+      }
+    } catch (error) {
+      this.$router.push('/login')
+    }
+  }
 }
 </script>
 

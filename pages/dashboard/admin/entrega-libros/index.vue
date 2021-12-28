@@ -47,7 +47,14 @@
                   <el-table-column prop="status" label="Estado" width="200" />
                   <el-table-column label="Estado" width="200">
                     <template slot-scope="scope">
-                      {{ !scope.row.active ? 'Recojido' : 'A recojer' }}
+                      <div class="flex justify-center">
+                        <div
+                          :class="{
+                            active: scope.row.active,
+                            inactive: !scope.row.active,
+                          }"
+                        ></div>
+                      </div>
                     </template>
                   </el-table-column>
 
@@ -99,10 +106,10 @@
           </div>
         </ul>
         <div class="h-3"></div>
-        <div v-show="active">
+        <div v-show="active && view">
           <button
             class="color_white btn_primary rounded-2xl w-full h-12"
-            @click="recoger"
+            @click="recoger()"
           >
             Recoger
           </button>
@@ -122,7 +129,9 @@ export default {
       dataSelected: {},
       dataExample: [],
       id_payment: '',
-      active:true
+      active: true,
+      details:{},
+      view: false
     }
   },
 
@@ -131,20 +140,28 @@ export default {
       this.dataSelected = data
       this.dialogVisible = true
       this.id_payment = data._id
-      this.active = data.active 
+      this.details = data
+      this.view = data.active
+      console.log("-----------------------------------------DETALLES------------------")
+      console.log(data.products)
+      data.products.forEach((product)=>{
+        if(product.description == 'f'){
+          this.active = true
+        }else{
+          this.active = false
+        }
+      })
     },
     async recoger() {
       try {
-        const update = await this.$apidata({
-          url: '/payments/active/'+this.id_payment,
+        const {status} = await this.$apidata({
+          url: '/payments/active/' + this.id_payment,
           method: 'put',
         })
-        if(update.data.error != true){
-          window.location.reload(true)
+        if(status==200){
+          this.details.active = false
         }
-
-      } catch (error) {
-      }
+      } catch (error) {}
     },
   },
   async created() {
@@ -163,5 +180,17 @@ export default {
 <style scoped>
 .container-dataPayment {
   background: var(--secundary);
+}
+.active {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50px;
+  background: rgb(41, 160, 20);
+}
+.inactive {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50px;
+  background: rgb(180, 12, 12);
 }
 </style>

@@ -25,7 +25,7 @@
         style="width: 5rem; right: -1rem; top: 42rem"
       />
 
-      <div class="flex justify-center mx-auto  mb-12" style="width: 70%">
+      <div class="flex justify-center mx-auto mb-12" style="width: 70%">
         <div class="container-filter-father w-1/4 r-remove" style="z-index: 20">
           <!-- filter -->
           <div class="container-filter">
@@ -122,7 +122,9 @@
           style="z-index: 20"
         >
           <div class="w-full pb-8 filter-response flex justify-center">
-            <el-button class="w-full filter-button-response" @click="drawerFilter = true"
+            <el-button
+              class="w-full filter-button-response"
+              @click="drawerFilter = true"
               >Filtrado</el-button
             >
           </div>
@@ -538,14 +540,16 @@ export default {
   },
   async created() {
     // -------------------------------------------User
-    var user = JSON.parse(localStorage.getItem('user')).user
-    if(user.rol != "Client"){
-      if(user.rol == 'Admin'){
-        this.$router.push('/dashboard/admin')
-      }else if(user.rol == 'Manager'){
-        this.$router.push('/dashboard/manager')
+    try {
+      var user = JSON.parse(localStorage.getItem('user')).user
+      if (user.rol != 'Client') {
+        if (user.rol == 'Admin') {
+          this.$router.push('/dashboard/admin')
+        } else if (user.rol == 'Manager') {
+          this.$router.push('/dashboard/manager')
+        }
       }
-    }
+    } catch (error) {}
 
     // -------------------------------------------Filtro Libro
     try {
@@ -734,7 +738,6 @@ li.el-submenu {
   .filter-response {
     display: none;
   }
-  
 }
 @media (max-width: 1299px) {
   .container-filter-father {
@@ -744,30 +747,30 @@ li.el-submenu {
     box-shadow: none !important;
     border-radius: 0px !important;
   }
-  .header-filter{
-    border-top-left-radius: 0px !important;                                                     
+  .header-filter {
+    border-top-left-radius: 0px !important;
     border-top-right-radius: 0px !important;
   }
 }
-.filter-button-response{
+.filter-button-response {
   background: var(--secundary);
   color: var(--primary);
   border: solid 1px var(--primary);
   width: 95%;
 }
-.filter-button-response:active{
+.filter-button-response:active {
   background: var(--secundary) !important;
   color: var(--primary) !important;
   border: solid 1px var(--primary) !important;
   width: 95% !important;
 }
-@media screen and (min-width: 800px) and (max-width: 1300px){
-  .drawer-filter{
+@media screen and (min-width: 800px) and (max-width: 1300px) {
+  .drawer-filter {
     width: 40% !important;
   }
 }
-@media screen and (min-width: 640px) and (max-width: 800px){
-  .drawer-filter{
+@media screen and (min-width: 640px) and (max-width: 800px) {
+  .drawer-filter {
     width: 50% !important;
   }
 }
