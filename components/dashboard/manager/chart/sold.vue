@@ -95,7 +95,7 @@ export default {
 
       try {
         const { status, data } = await this.$payment({
-          url: '/reports/books/sold/0',
+          url: '/payments/reports/books/sold/0',
           method: 'get',
         })
         if (status == 200) {
@@ -156,7 +156,7 @@ export default {
       })
       try {
         const { status, data } = await this.$payment({
-          url: '/reports/books/sold/15',
+          url: '/payments/reports/books/sold/15',
           method: 'get',
         })
         if (status == 200) {
